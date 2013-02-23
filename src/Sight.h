@@ -82,6 +82,10 @@ public:
     double      m_EyeHeight; // Height above sea in meters
     double      m_Temperature; // Temperature in degrees celcius
     double      m_Pressure; // Pressure in millibars
+
+    double      m_ShiftNm;               // direction to move points
+    double      m_ShiftBearing;          // direction to move points
+    bool        m_bMagneticShiftBearing; // use magnetic or true for shift
       
     wxColour   m_Colour;     // Color of the sight
 
@@ -108,7 +112,7 @@ protected:
     std::list<wxRealPointList*> polygons;
 
 private:
-    wxRealPoint DistancePoint( double altitude, double trace, double lat, double lon, double ra);
+    wxRealPoint DistancePoint( double altitude, double trace, double lat, double lon);
     void BuildAltitudeLineOfPosition(double altitudemin, double altitudemax, double altitudestep,
                                      double tracestep, double timemin, double timemax, double timestep);
     bool BearingPoint(double altitude, double trace,

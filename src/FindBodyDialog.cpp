@@ -85,6 +85,7 @@ void FindBodyDialog::OnDone( wxCommandEvent& event )
 
 void FindBodyDialog::Update()
 {
+    /* NOTE: we do not peform any altitude corrections here */
     double lat1, lon1, lat2, lon2, bearing, dist, ra;
     m_tLatitude->GetValue().ToDouble(&lat1);
     m_tLongitude->GetValue().ToDouble(&lon1);

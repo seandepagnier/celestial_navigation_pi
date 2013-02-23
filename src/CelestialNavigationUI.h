@@ -108,6 +108,14 @@ class SightDialogBase : public wxDialog
 		wxSlider* m_sTransparency;
 		wxStaticText* m_staticText18;
 		wxColourPickerCtrl* m_ColourPicker;
+		wxStaticText* m_staticText211;
+		wxTextCtrl* m_tShiftNm;
+		wxStaticText* m_staticText23;
+		wxStaticText* m_staticText24;
+		wxTextCtrl* m_tShiftBearing;
+		wxStaticText* m_staticText25;
+		wxStaticText* m_staticText26;
+		wxCheckBox* m_cbMagneticShiftBearing;
 		wxPanel* m_panel8;
 		wxStaticText* m_staticText15;
 		wxSpinCtrl* m_sEyeHeight;

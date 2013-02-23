@@ -113,7 +113,8 @@ bool celestial_navigation_pi::DeInit(void)
     if(m_pCelestialNavigationDialog)
     {
         m_pCelestialNavigationDialog->Close();
-        m_pCelestialNavigationDialog->Destroy();
+        delete m_pCelestialNavigationDialog;
+        m_pCelestialNavigationDialog = NULL;
     }
     return true;
 }

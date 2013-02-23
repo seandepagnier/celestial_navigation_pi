@@ -53,6 +53,22 @@
 WX_DEFINE_LIST ( SightList );
 WX_DEFINE_LIST ( wxRealPointList );
 
+void resolve_heading(double &heading)
+{
+   while(heading < -180)
+      heading += 360;
+   while(heading >= 180)
+      heading -= 360;   
+}
+
+void resolve_heading_positive(double &heading)
+{
+   while(heading < 0)
+      heading += 360;
+   while(heading >= 360)
+      heading -= 360;   
+}
+
 //-----------------------------------------------------------------------------
 //          Sight Implementation
 //-----------------------------------------------------------------------------
@@ -71,6 +87,7 @@ Sight::Sight(Type type, wxString body, BodyLimb bodylimb, wxDateTime datetime,
       m_EyeHeight(default_eye_height),
       m_Temperature(default_temperature),
       m_Pressure(default_pressure),
+      m_ShiftNm(0), m_ShiftBearing(0), m_bMagneticShiftBearing(0),
       m_bMagneticNorth(false)
 {
     const wxColour sightcolors[] = {
@@ -93,7 +110,7 @@ Sight::Sight(Type type, wxString body, BodyLimb bodylimb, wxDateTime datetime,
 
     m_Colour = sightcolors[s_lastsightcolor];
 
-    m_Colour.Set(m_Colour.Red(), m_Colour.Green(), m_Colour.Blue(), 50);
+    m_Colour.Set(m_Colour.Red(), m_Colour.Green(), m_Colour.Blue(), 150);
 
     if(++s_lastsightcolor == (sizeof sightcolors) / (sizeof *sightcolors))
        s_lastsightcolor=0;
@@ -386,19 +403,14 @@ void Sight::DrawPolygon(PlugIn_ViewPort &VP, wxRealPointList &area)
 
       /* don't draw areas crossing opposite from center longitude */
       double lon = (*it)->y - VP.clon;
-      while(lon < 0)
-         lon += 360;
-      while(lon >= 360)
-         lon -= 360;
+      resolve_heading_positive(lon);
+
       if(lon > 90 && lon <= 180)
          rear1 = true;
       if(lon > 180 && lon < 270)
          rear2 = true;
 
-      while((*it)->y - VP.clon < -180)
-         (*it)->y += 360;
-      while((*it)->y - VP.clon > 180)
-         (*it)->y -= 360;
+      resolve_heading((*it)->y);
 
       minx = wxMin(minx, (*it)->x);
       miny = wxMin(miny, (*it)->y);
@@ -410,9 +422,8 @@ void Sight::DrawPolygon(PlugIn_ViewPort &VP, wxRealPointList &area)
       ppoints[i] = r;
    }
 
-   if(!(rear1 && rear2)
-      &&      Intersect(&VP, minx, maxx,
-                        miny, maxy, 0) != _OUT) {
+   if(!(rear1 && rear2) &&
+      Intersect(&VP, minx, maxx, miny, maxy, 0) != _OUT) {
      if(m_dc)
        m_dc->DrawPolygon(n, ppoints);
      else {
@@ -473,6 +484,27 @@ void Sight::RebuildPolygons()
     switch(m_Type) {
     case ALTITUDE: RebuildPolygonsAltitude(); break;
     case AZIMUTH: RebuildPolygonsAzimuth(); break;
+    }
+
+    /* now shift the vertices as needed */
+    for(std::list<wxRealPointList*>::iterator it = polygons.begin(); it != polygons.end(); it++) {
+        wxRealPointList *area = *it;
+        for(wxRealPointList::iterator it2 = area->begin(); it2 != area->end(); it2++) {
+            wxRealPoint *p = *it2;
+            double lat = p->x, lon = p->y;
+
+            double localbearing = m_ShiftBearing;
+            if(m_bMagneticShiftBearing) {
+                double results[14];
+                resolve_heading(lon);
+                geomag_calc(lat, lon, m_EyeHeight,
+                            m_DateTime.GetDay(), m_DateTime.GetMonth(), m_DateTime.GetYear(),
+                            results);
+                localbearing += results[0];
+            }
+            double localaltitude = 90-m_ShiftNm/60;
+            *p = DistancePoint(localaltitude, localbearing, lat, lon);
+        }
     }
 }
 
@@ -588,13 +620,8 @@ CorrectedAltitude = %.5f\n"), ObservedAltitude, ParallaxCorrection,
 
 void Sight::RecomputeAzimuth()
 {      
-
     m_CalcStr.clear();
-
-   while(m_Measurement < 0)
-      m_Measurement += 360;
-   while(m_Measurement >= 360)
-      m_Measurement -= 360;   
+    resolve_heading_positive(m_Measurement);
 }
 
 void Sight::RebuildPolygonsAltitude()
@@ -618,7 +645,7 @@ void Sight::RebuildPolygonsAltitude()
 
 /* Calculate latitude and longitude position for a sight taken with time, altitude,
     and trace angle */
-wxRealPoint Sight::DistancePoint( double altitude, double trace, double lat, double lon, double ra)
+wxRealPoint Sight::DistancePoint( double altitude, double trace, double lat, double lon)
 {
     double rlat, rlon, y, x; 
   
@@ -654,7 +681,7 @@ void Sight::BuildAltitudeLineOfPosition(double tracestep,
       for(double altitude=altitudemin; altitude<=altitudemax
               && fabs(altitude) <= 90; altitude+=altitudestep) {
 //         for(double time=timemin; time<=timemax; time+=timestep)
-            p->Append(new wxRealPoint(DistancePoint( altitude, trace, lat, lon, ra)));
+            p->Append(new wxRealPoint(DistancePoint( altitude, trace, lat, lon)));
             if(altitudestep == 0)
                 break;
       }
@@ -697,10 +724,7 @@ bool Sight::BearingPoint( double altitude, double bearing,
 {
     double localbearing = bearing;
 
-    while(localbearing < -180)
-       localbearing += 360;
-    while(localbearing > 180)
-       localbearing -= 360;
+    resolve_heading(localbearing);
 	
     double rangle;
     double mdb = 1000;
@@ -714,7 +738,6 @@ bool Sight::BearingPoint( double altitude, double bearing,
         /* apply magnetic correction to bearing */
         if(m_bMagneticNorth) {
             double results[14];
-                
             geomag_calc(lat, lon, m_EyeHeight,
                         m_DateTime.GetDay(), m_DateTime.GetMonth(), m_DateTime.GetYear(),
                         results);
@@ -723,10 +746,7 @@ bool Sight::BearingPoint( double altitude, double bearing,
         trace = localbearing + 180;
     }
 
-    while(trace > 180)
-        trace -=360;
-    while(trace < -180)
-        trace +=360;
+    resolve_heading(trace);
 
     while((fabs(mdb)<fabs(mdl))&&(fabs(mdb)>.001)) {
 //       ll_gc_ll(lat, lon, trace, 60*(90-altitude), &rlat, &rlon);
@@ -755,10 +775,7 @@ bool Sight::BearingPoint( double altitude, double bearing,
 	rlat = r_to_d(rlat_r);
 	rlon = r_to_d(rlon_r);
 
-        while(rlon > 180)
-            rlon -= 360;
-        while(rlon < -180)
-            rlon += 360;
+        resolve_heading(rlon);
 
 	b = r_to_d(backbearing_r);
 
@@ -768,7 +785,6 @@ bool Sight::BearingPoint( double altitude, double bearing,
         /* apply magnetic correction to bearing */
         if(m_bMagneticNorth) {
             double results[14];
-
             geomag_calc(rlat, rlon, m_EyeHeight,
                         m_DateTime.GetDay(), m_DateTime.GetMonth(), m_DateTime.GetYear(),
                         results);
@@ -776,17 +792,11 @@ bool Sight::BearingPoint( double altitude, double bearing,
         }
 
         mdb = bearing - b;
-        while(mdb > 180)
-            mdb -= 360;
-        while(mdb < -180)
-            mdb += 360;
+        resolve_heading(mdb);
 
         trace+=mdb;
 
-        while(trace > 180)
-            trace -= 360;
-        while(trace < -180)
-            trace += 360;
+        resolve_heading(trace);
     }	
     return ((fabs(mdb)<.1)&&(fabs(rangle)<90.0));
  }
@@ -808,10 +818,7 @@ void Sight::BuildBearingLineOfPosition(double altitudestep,
     
     BodyLocation(m_DateTime, blat, blon, ra);	
 
-    while(blon > 180)
-        blon -= 360;
-    while(blon < -180)
-        blon += 360;
+    resolve_heading(blon);
 
     wxRealPointList *p, *l = new wxRealPointList;
     l->Append(new wxRealPoint(blat, blon));

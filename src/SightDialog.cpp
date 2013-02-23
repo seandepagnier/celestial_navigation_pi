@@ -152,12 +152,16 @@ SightDialog::SightDialog( wxWindow* parent, Sight &s)
    m_sTemperature->SetValue(m_Sight.m_Temperature);
    m_sPressure->SetValue(m_Sight.m_Pressure);
 
+   m_tShiftNm->SetValue(wxString::Format(_T("%.2f"), m_Sight.m_ShiftNm));
+   m_tShiftBearing->SetValue(wxString::Format(_T("%.2f"), m_Sight.m_ShiftBearing));
+   m_cbMagneticShiftBearing->SetValue(m_Sight.m_bMagneticShiftBearing);
+
    double measurement = trunc(m_Sight.m_Measurement);
    double measurementminutes = 60*(m_Sight.m_Measurement - measurement);
    m_tMeasurement->SetValue(wxString::Format(_T("%.0f"), measurement));
    m_tMeasurementMinutes->SetValue(wxString::Format(_T("%.2f"), measurementminutes));
 
-   m_tMeasurementCertainty->SetValue(wxString::Format(_T("%f"), m_Sight.m_MeasurementCertainty));
+   m_tMeasurementCertainty->SetValue(wxString::Format(_T("%.2f"), m_Sight.m_MeasurementCertainty));
 
    m_cbMagneticAzimuth->SetValue(m_Sight.m_bMagneticNorth);
 
@@ -299,6 +303,13 @@ void SightDialog::RecomputeSight()
    m_Sight.m_Colour = wxColour(fc.Red(), fc.Green(), fc.Blue(), m_sTransparency->GetValue());
 
    m_Sight.m_bMagneticNorth = m_cbMagneticAzimuth->GetValue();
+
+   double shiftnm, shiftbearing;
+   m_tShiftNm->GetValue().ToDouble(&shiftnm);
+   m_Sight.m_ShiftNm = shiftnm;
+   m_tShiftBearing->GetValue().ToDouble(&shiftbearing);
+   m_Sight.m_ShiftBearing = shiftbearing;
+   m_Sight.m_bMagneticShiftBearing = m_cbMagneticShiftBearing->GetValue();
 
    m_Sight.Recompute();
    m_tCalculations->SetValue(m_Sight.m_CalcStr);

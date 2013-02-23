@@ -252,7 +252,7 @@ SightDialogBase::SightDialogBase( wxWindow* parent, wxWindowID id, const wxStrin
 	m_notebook1->AddPage( m_panel2, wxT("Time"), false );
 	m_panel3 = new wxPanel( m_notebook1, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxFlexGridSizer* fgSizer14;
-	fgSizer14 = new wxFlexGridSizer( 0, 2, 0, 0 );
+	fgSizer14 = new wxFlexGridSizer( 0, 3, 0, 0 );
 	fgSizer14->SetFlexibleDirection( wxBOTH );
 	fgSizer14->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
@@ -263,12 +263,47 @@ SightDialogBase::SightDialogBase( wxWindow* parent, wxWindowID id, const wxStrin
 	m_sTransparency = new wxSlider( m_panel3, wxID_ANY, 50, 0, 255, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL|wxSL_INVERSE );
 	fgSizer14->Add( m_sTransparency, 0, wxALL|wxEXPAND, 5 );
 	
+	
+	fgSizer14->Add( 0, 0, 1, wxEXPAND, 5 );
+	
 	m_staticText18 = new wxStaticText( m_panel3, wxID_ANY, wxT("Color"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText18->Wrap( -1 );
 	fgSizer14->Add( m_staticText18, 0, wxALL, 5 );
 	
 	m_ColourPicker = new wxColourPickerCtrl( m_panel3, wxID_ANY, *wxBLACK, wxDefaultPosition, wxDefaultSize, wxCLRP_DEFAULT_STYLE );
 	fgSizer14->Add( m_ColourPicker, 0, wxALL, 5 );
+	
+	
+	fgSizer14->Add( 0, 0, 1, wxEXPAND, 5 );
+	
+	m_staticText211 = new wxStaticText( m_panel3, wxID_ANY, wxT("Shift Sights"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText211->Wrap( -1 );
+	fgSizer14->Add( m_staticText211, 0, wxALL, 5 );
+	
+	m_tShiftNm = new wxTextCtrl( m_panel3, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	fgSizer14->Add( m_tShiftNm, 0, wxALL, 5 );
+	
+	m_staticText23 = new wxStaticText( m_panel3, wxID_ANY, wxT("Nm"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText23->Wrap( -1 );
+	fgSizer14->Add( m_staticText23, 0, wxALL, 5 );
+	
+	m_staticText24 = new wxStaticText( m_panel3, wxID_ANY, wxT("On Bearing"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText24->Wrap( -1 );
+	fgSizer14->Add( m_staticText24, 0, wxALL, 5 );
+	
+	m_tShiftBearing = new wxTextCtrl( m_panel3, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	fgSizer14->Add( m_tShiftBearing, 0, wxALL, 5 );
+	
+	m_staticText25 = new wxStaticText( m_panel3, wxID_ANY, wxT("Degrees"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText25->Wrap( -1 );
+	fgSizer14->Add( m_staticText25, 0, wxALL, 5 );
+	
+	m_staticText26 = new wxStaticText( m_panel3, wxID_ANY, wxT("Bearing is"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText26->Wrap( -1 );
+	fgSizer14->Add( m_staticText26, 0, wxALL, 5 );
+	
+	m_cbMagneticShiftBearing = new wxCheckBox( m_panel3, wxID_ANY, wxT("Magnetic"), wxDefaultPosition, wxDefaultSize, 0 );
+	fgSizer14->Add( m_cbMagneticShiftBearing, 0, wxALL, 5 );
 	
 	
 	m_panel3->SetSizer( fgSizer14 );
@@ -389,6 +424,9 @@ SightDialogBase::SightDialogBase( wxWindow* parent, wxWindowID id, const wxStrin
 	m_sTransparency->Connect( wxEVT_SCROLL_THUMBRELEASE, wxScrollEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_sTransparency->Connect( wxEVT_SCROLL_CHANGED, wxScrollEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_ColourPicker->Connect( wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler( SightDialogBase::Recompute ), NULL, this );
+	m_tShiftNm->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
+	m_tShiftBearing->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
+	m_cbMagneticShiftBearing->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_sEyeHeight->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_sTemperature->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_sPressure->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::Recompute ), NULL, this );
@@ -421,6 +459,9 @@ SightDialogBase::~SightDialogBase()
 	m_sTransparency->Disconnect( wxEVT_SCROLL_THUMBRELEASE, wxScrollEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_sTransparency->Disconnect( wxEVT_SCROLL_CHANGED, wxScrollEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_ColourPicker->Disconnect( wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler( SightDialogBase::Recompute ), NULL, this );
+	m_tShiftNm->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
+	m_tShiftBearing->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
+	m_cbMagneticShiftBearing->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_sEyeHeight->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_sTemperature->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_sPressure->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::Recompute ), NULL, this );

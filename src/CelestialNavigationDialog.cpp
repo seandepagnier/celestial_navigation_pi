@@ -104,22 +104,21 @@ int wxCALLBACK SortSights(long item1, long item2, long list)
 CelestialNavigationDialog::CelestialNavigationDialog(wxWindow *parent)
     : CelestialNavigationDialogBase(parent)
 {
+    // create a image list for the list with just the eye icon
+    wxImageList *imglist = new wxImageList(20, 20, true, 1);
+    imglist->Add(wxBitmap(eye));
+    m_lSights->AssignImageList(imglist, wxIMAGE_LIST_SMALL);
 
-      // create a image list for the list with just the eye icon
-      wxImageList *imglist = new wxImageList(20, 20, true, 1);
-      imglist->Add(wxBitmap(eye));
-      m_lSights->AssignImageList(imglist, wxIMAGE_LIST_SMALL);
+    m_lSights->InsertColumn(rmVISIBLE, wxT(""));
+    m_lSights->SetColumnWidth(0, 28);
 
-      m_lSights->InsertColumn(rmVISIBLE, wxT(""));
-      m_lSights->SetColumnWidth(0, 28);
-
-      m_lSights->InsertColumn(rmTYPE, _("Type"));
-      m_lSights->InsertColumn(rmBODY, _("Body"));
-      m_lSights->InsertColumn(rmTIME, _("Time"));
-      m_lSights->InsertColumn(rmMEASUREMENT, _("Measurement"));
-      m_lSights->InsertColumn(rmCOLOR, _("Color"));
-
-      UpdateSights();
+    m_lSights->InsertColumn(rmTYPE, _("Type"));
+    m_lSights->InsertColumn(rmBODY, _("Body"));
+    m_lSights->InsertColumn(rmTIME, _("Time"));
+    m_lSights->InsertColumn(rmMEASUREMENT, _("Measurement"));
+    m_lSights->InsertColumn(rmCOLOR, _("Color"));
+    
+    UpdateSights();
 }
 
 CelestialNavigationDialog::~CelestialNavigationDialog()
@@ -215,7 +214,7 @@ void CelestialNavigationDialog::OnNew(wxCommandEvent &event)
     wxDateTime now = wxDateTime::Now();
     now.MakeUTC();
 
-    Sight s(Sight::ALTITUDE, _("Sun"), Sight::LOWER, now, 1, 0, 1);
+    Sight s(Sight::ALTITUDE, _("Sun"), Sight::LOWER, now, 1, 0, .25);
     SightDialog dialog(GetParent(), s);
       
     if( dialog.ShowModal() == wxID_OK ) {
