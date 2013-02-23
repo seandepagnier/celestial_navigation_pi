@@ -35,7 +35,7 @@
 #endif //precompiled headers
 
 #define     PLUGIN_VERSION_MAJOR    1
-#define     PLUGIN_VERSION_MINOR    2
+#define     PLUGIN_VERSION_MINOR    4
 
 #define     MY_API_VERSION_MAJOR    1
 #define     MY_API_VERSION_MINOR    8
@@ -43,12 +43,13 @@
 
 #include "../../../include/ocpn_plugin.h"
 
-#include "celestialnavigationdialog.h"
+#include "CelestialNavigationDialog.h"
 
 //----------------------------------------------------------------------------------------------------------
 //    The PlugIn Class Definition
 //----------------------------------------------------------------------------------------------------------
 
+#define CELESTIAL_NAVIGATION_TOOL_POSITION    -1  // Request default positioning of toolbar tool
 
 class celestial_navigation_pi : public wxEvtHandler, opencpn_plugin_18
 {
@@ -64,27 +65,28 @@ public:
       int GetAPIVersionMinor();
       int GetPlugInVersionMajor();
       int GetPlugInVersionMinor();
-
+      wxBitmap *GetPlugInBitmap();
       wxString GetCommonName();
       wxString GetShortDescription();
       wxString GetLongDescription();
 
-//    The optional method overrides
 
-      void OnContextMenuItemCallback(int id);
+      void OnToolbarToolCallback(int id);
+
+      int GetToolbarToolCount(void);
+      void SetColorScheme(PI_ColorScheme cs);
 
       bool RenderOverlay( wxDC &dc, PlugIn_ViewPort *vp );
       bool RenderGLOverlay( wxGLContext *pcontext, PlugIn_ViewPort *vp );
-      bool RenderOverlayAll(wxDC *dc, wxGLContext *pcontext, PlugIn_ViewPort *vp);
+      bool RenderOverlayAll(wxDC *dc, PlugIn_ViewPort *vp);
 
       void SetCursorLatLon(double lat, double lon);
 
 private:
       wxWindow         *m_parent_window;
+      int               m_leftclick_tool_id;
 
-      CelestialNavigationDialog       *m_pcelestial_navigation_dialog;
-      int               m_show_id;
-      int               m_hide_id;
+      CelestialNavigationDialog       *m_pCelestialNavigationDialog;
 };
 
 extern double celestial_navigation_pi_CursorLat();
