@@ -52,6 +52,10 @@
 
 #include "Sight.h"
 
+#if defined (__WIN32__)
+	double trunc(double d){ return (d>0) ? floor(d) : ceil(d) ; }
+#endif
+
 SightDialog::SightDialog( wxWindow* parent, Sight &s)
     : SightDialogBase(parent), m_Sight(s), m_breadytorecompute(false)
 {
