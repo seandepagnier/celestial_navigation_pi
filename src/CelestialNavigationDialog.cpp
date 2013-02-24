@@ -85,21 +85,20 @@ int wxCALLBACK SortSights(long item1, long item2, wxIntPtr list)
 int wxCALLBACK SortSights(long item1, long item2, long list)
 #endif            
 {
-      wxListCtrl *lc = (wxListCtrl*)list;
+    wxListCtrl *lc = (wxListCtrl*)list;
 
-      wxListItem it1, it2;
-      it1.SetId(lc->FindItem(-1, item1));
-      it1.SetColumn(1);
-
-      it2.SetId(lc->FindItem(-1, item2));
-      it2.SetColumn(1);
-
-      lc->GetItem(it1);
-      lc->GetItem(it2);
-
-      return it1.GetText().Cmp(it2.GetText());
+    wxListItem it1, it2;
+    it1.SetId(lc->FindItem(-1, item1));
+    it1.SetColumn(1);
+    
+    it2.SetId(lc->FindItem(-1, item2));
+    it2.SetColumn(1);
+    
+    lc->GetItem(it1);
+    lc->GetItem(it2);
+    
+    return it1.GetText().Cmp(it2.GetText());
 }
-
 
 CelestialNavigationDialog::CelestialNavigationDialog(wxWindow *parent)
     : CelestialNavigationDialogBase(parent)
@@ -186,27 +185,27 @@ void CelestialNavigationDialog::UpdateSights()
 
 void CelestialNavigationDialog::UpdateButtons()
 {
-      // enable/disable buttons
-      long selected_index_index = m_lSights->GetNextItem(-1, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
-      bool enable = !(selected_index_index < 0);
-
-      m_bWarpSight->Enable(enable);
-      m_bEditSight->Enable(enable);
-      m_bDeleteSight->Enable(enable);
-      m_bDeleteAllSights->Enable(m_SightList.GetCount() > 0);
+    // enable/disable buttons
+    long selected_index_index = m_lSights->GetNextItem(-1, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
+    bool enable = !(selected_index_index < 0);
+    
+    m_bWarpSight->Enable(enable);
+    m_bEditSight->Enable(enable);
+    m_bDeleteSight->Enable(enable);
+    m_bDeleteAllSights->Enable(m_SightList.GetCount() > 0);
 }
 
 void CelestialNavigationDialog::MakeAllSightsInvisible()
 {
-      SightList::iterator it;
-      long index = 0;
-      for (it = m_SightList.begin(); it != m_SightList.end(); ++it, ++index)
-      {
-            if ((*it)->IsVisible()) { // avoid config updating as much as possible!
-                  (*it)->SetVisible(false);
-                  m_lSights->SetItemImage(m_lSights->FindItem(-1, index), -1);
-            }
-      }
+    SightList::iterator it;
+    long index = 0;
+    for (it = m_SightList.begin(); it != m_SightList.end(); ++it, ++index)
+    {
+        if ((*it)->IsVisible()) { // avoid config updating as much as possible!
+            (*it)->SetVisible(false);
+            m_lSights->SetItemImage(m_lSights->FindItem(-1, index), -1);
+        }
+    }
 }
 
 void CelestialNavigationDialog::OnNew(wxCommandEvent &event)
@@ -224,18 +223,19 @@ void CelestialNavigationDialog::OnNew(wxCommandEvent &event)
         ns->RebuildPolygons();
         m_SightList.Append(ns);
         UpdateSights();
+        RequestRefresh( GetParent() );
     }
 }
 
 void CelestialNavigationDialog::OnWarp(wxCommandEvent &event)
 {
-      long selected_index = m_lSights->GetNextItem(-1, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
-      if (selected_index < 0) return;
-
-      Sight *psight = m_SightList.Item(m_lSights->GetItemData(selected_index))->GetData();
-      double lat, lon, rad;
-      psight->BodyLocation(psight->m_DateTime, lat, lon, rad);
-      /* not fully implemented */
+    long selected_index = m_lSights->GetNextItem(-1, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
+    if (selected_index < 0) return;
+    
+    Sight *psight = m_SightList.Item(m_lSights->GetItemData(selected_index))->GetData();
+    double lat, lon;
+    psight->BodyLocation(psight->m_DateTime, &lat, &lon, 0, 0);
+    /* not fully implemented */
 }
 
 void CelestialNavigationDialog::OnEdit(wxCommandEvent &event)
@@ -254,63 +254,59 @@ void CelestialNavigationDialog::OnEdit(wxCommandEvent &event)
         UpdateSights();
     } else
         *psight = originalsight;
+    RequestRefresh( GetParent() );
 }
 
 void CelestialNavigationDialog::OnDelete(wxCommandEvent &event)
 {
-      // Delete selected_index sight/track
-      long selected_index = m_lSights->GetNextItem(-1, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
-      if (selected_index < 0) return;
-
-      Sight *psight_to_delete = m_SightList.Item(m_lSights->GetItemData(selected_index))->GetData();
-      m_SightList.DeleteObject(psight_to_delete);
-
-      UpdateSights();
-      Refresh();
+    // Delete selected_index sight/track
+    long selected_index = m_lSights->GetNextItem(-1, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
+    if (selected_index < 0) return;
+    
+    Sight *psight_to_delete = m_SightList.Item(m_lSights->GetItemData(selected_index))->GetData();
+    m_SightList.DeleteObject(psight_to_delete);
+    
+    UpdateSights();
+    RequestRefresh( GetParent() );
 }
- 
+
 void CelestialNavigationDialog::OnDeleteAllSights(wxCommandEvent &event)
 {
-     wxMessageDialog mdlg(this, _("Are you sure you want to delete <ALL> sights?"),
-                          wxString(_("OpenCPN Alert"), wxYES_NO));
-
-      m_SightList.Clear();
-
-      UpdateSights();
-      Refresh();
+    wxMessageDialog mdlg(this, _("Are you sure you want to delete <ALL> sights?"),
+                         wxString(_("OpenCPN Alert"), wxYES_NO));
+    
+    m_SightList.Clear();
+    
+    UpdateSights();
+    RequestRefresh( GetParent() );
 }
 
 void CelestialNavigationDialog::OnSightListLeftDown(wxMouseEvent &event)
 {
-      wxPoint pos = event.GetPosition();
-      int flags = 0;
-      long clicked_index = m_lSights->HitTest(pos, flags);
-
-      //    Clicking Visibility column?
-      if (clicked_index > -1 && event.GetX() < m_lSights->GetColumnWidth(0))
-      {
-            // Process the clicked item
-            Sight *sight = m_SightList.Item(m_lSights->GetItemData(clicked_index))->GetData();
-            sight->SetVisible(!sight->IsVisible());
-            m_lSights->SetItemImage(clicked_index, sight->IsVisible() ? 0 : -1);
-
-            Refresh();
-      }
-
-      // Allow wx to process...
-      event.Skip();
+    wxPoint pos = event.GetPosition();
+    int flags = 0;
+    long clicked_index = m_lSights->HitTest(pos, flags);
+    
+    //    Clicking Visibility column?
+    if (clicked_index > -1 && event.GetX() < m_lSights->GetColumnWidth(0))
+    {
+        // Process the clicked item
+        Sight *sight = m_SightList.Item(m_lSights->GetItemData(clicked_index))->GetData();
+        sight->SetVisible(!sight->IsVisible());
+        m_lSights->SetItemImage(clicked_index, sight->IsVisible() ? 0 : -1);
+        
+        RequestRefresh( GetParent() );
+    }
+    
+    // Allow wx to process...
+    event.Skip();
 }
 
 void CelestialNavigationDialog::OnSightSelected(wxListEvent &event)
 {
-    long clicked_index = event.m_itemIndex;
-    // Process the clicked item
-    Sight *sight = m_SightList.Item(m_lSights->GetItemData(clicked_index))->GetData();
-    m_lSights->SetItemImage(clicked_index, sight->IsVisible() ? 0 : -1);
-    Refresh();
-
     UpdateButtons();
 }
+
 /*
 void CelestialNavigationDialog::OnUpdateAllSightsTimeOffset(wxSpinEvent &event)
 {

@@ -32,6 +32,7 @@
 #include <wx/spinctrl.h>
 #include <wx/slider.h>
 #include <wx/clrpicker.h>
+#include <wx/html/htmlwin.h>
 #include <wx/notebook.h>
 
 ///////////////////////////////////////////////////////////////////////////
@@ -129,6 +130,8 @@ class SightDialogBase : public wxDialog
 		wxButton* m_bSetDefaults;
 		wxPanel* m_panel81;
 		wxTextCtrl* m_tCalculations;
+		wxPanel* m_panel811;
+		wxHtmlWindow* m_htmlInformation;
 		wxStdDialogButtonSizer* m_sdbSizer1;
 		wxButton* m_sdbSizer1OK;
 		wxButton* m_sdbSizer1Cancel;
@@ -145,7 +148,7 @@ class SightDialogBase : public wxDialog
 	
 	public:
 		
-		SightDialogBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("SightProperties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE ); 
+		SightDialogBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("SightProperties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~SightDialogBase();
 	
 };

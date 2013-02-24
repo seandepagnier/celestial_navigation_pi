@@ -28,8 +28,6 @@
 
 #include <list>
 
-enum OVERLAP {_IN,_ON,_OUT};
-
 #ifdef __WXMSW__
 #include <float.h>
 #include <iostream>
@@ -49,7 +47,6 @@ public:
     enum Type {ALTITUDE, AZIMUTH};
     enum BodyLimb {LOWER, CENTER, UPPER};
 
-//    Sight(Sight &s) { *this = s; }
     Sight(Type type, wxString body, BodyLimb bodylimb, wxDateTime datetime,
           double timecertainty, double measurement, double measurementcertainty);
 
@@ -91,7 +88,7 @@ public:
 
     virtual void Render(wxDC *dc, PlugIn_ViewPort &pVP);
 
-    void BodyLocation(wxDateTime time, double &lat, double &lon, double &rad);
+    void BodyLocation(wxDateTime time, double *lat, double *lon, double *ghaash, double *rad);
 
     wxString m_CalcStr;
 

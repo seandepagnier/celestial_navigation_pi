@@ -381,6 +381,22 @@ SightDialogBase::SightDialogBase( wxWindow* parent, wxWindowID id, const wxStrin
 	m_panel81->Layout();
 	fgSizer211->Fit( m_panel81 );
 	m_notebook1->AddPage( m_panel81, wxT("Calculations"), false );
+	m_panel811 = new wxPanel( m_notebook1, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	wxFlexGridSizer* fgSizer2111;
+	fgSizer2111 = new wxFlexGridSizer( 0, 1, 0, 0 );
+	fgSizer2111->AddGrowableCol( 0 );
+	fgSizer2111->AddGrowableRow( 0 );
+	fgSizer2111->SetFlexibleDirection( wxBOTH );
+	fgSizer2111->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+	
+	m_htmlInformation = new wxHtmlWindow( m_panel811, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHW_SCROLLBAR_AUTO );
+	fgSizer2111->Add( m_htmlInformation, 0, wxALL|wxEXPAND, 5 );
+	
+	
+	m_panel811->SetSizer( fgSizer2111 );
+	m_panel811->Layout();
+	fgSizer2111->Fit( m_panel811 );
+	m_notebook1->AddPage( m_panel811, wxT("Information"), false );
 	
 	fgSizer1->Add( m_notebook1, 1, wxEXPAND | wxALL, 5 );
 	

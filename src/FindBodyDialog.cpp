@@ -86,11 +86,11 @@ void FindBodyDialog::OnDone( wxCommandEvent& event )
 void FindBodyDialog::Update()
 {
     /* NOTE: we do not peform any altitude corrections here */
-    double lat1, lon1, lat2, lon2, bearing, dist, ra;
+    double lat1, lon1, lat2, lon2, bearing, dist;
     m_tLatitude->GetValue().ToDouble(&lat1);
     m_tLongitude->GetValue().ToDouble(&lon1);
     
-    m_Sight.BodyLocation(m_Sight.m_DateTime, lat2, lon2, ra);
+    m_Sight.BodyLocation(m_Sight.m_DateTime, &lat2, &lon2, 0, 0);
 
     ll_gc_ll_reverse(lat1, lon1, lat2, lon2, &bearing, &dist);
 

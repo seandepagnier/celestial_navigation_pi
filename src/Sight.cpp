@@ -139,7 +139,7 @@ using namespace astrolabe::util;
 using namespace astrolabe::vsop87d;
 
 /* calculate what position the body for this sight is directly over at a given time */ 
-void Sight::BodyLocation(wxDateTime time, double &lat, double &lon, double &rad)
+void Sight::BodyLocation(wxDateTime time, double *lat, double *lon, double *ghaast, double *rad)
 {
     astrolabe::globals::vsop87d_text_path = (const char *)GetpSharedDataLocation()->mb_str();
     astrolabe::globals::vsop87d_text_path.append("plugins/celestial_navigation/data/");
@@ -274,9 +274,14 @@ void Sight::BodyLocation(wxDateTime time, double &lat, double &lon, double &rad)
     double gast = gmst + eoe;
     ra = ra - gast;
 	 
-    lat = r_to_d(dec);
-    lon = r_to_d(ra);
-    rad = r;
+    if(lat)
+        *lat = r_to_d(dec);
+    if(lon)
+        *lon = r_to_d(ra);
+    if(ghaast)
+        *ghaast = r_to_d(gast);
+    if(rad)
+        *rad = r;
  }
 
 extern "C" int geomag_calc(double latitude, double longitude, double alt,
@@ -358,15 +363,25 @@ wxRealPointList *Sight::ReduceToConvexPolygon(wxRealPointList *points)
    return polygon;
 }
 
-
+#if 0
 // Calculates if two boxes intersect. If so, the function returns _ON.
 // If they do not intersect, two scenario's are possible:
 // other is outside this -> return _OUT
 // other is inside this -> return _IN
+enum OVERLAP {_IN,_ON,_OUT};
 
 static OVERLAP Intersect(PlugIn_ViewPort *vp,
        double lat_min, double lat_max, double lon_min, double lon_max, double Marge)
 {
+
+    while(lon_min < vp->lon_min)
+        lon_min += 360;
+    while(lon_min > vp->lon_max)
+        lon_min -= 360;
+    while(lon_max < vp->lon_min)
+        lon_max += 360;
+    while(lon_max > vp->lon_max)
+        lon_max -= 360;
 
     if (((vp->lon_min - Marge) > (lon_max + Marge)) ||
          ((vp->lon_max + Marge) < (lon_min - Marge)) ||
@@ -384,6 +399,7 @@ static OVERLAP Intersect(PlugIn_ViewPort *vp,
     // Boundingboxes intersect
     return _ON;
 }
+#endif
 
 /* Draw a polygon (specified in lat/lon coords) to dc given a list of points */
 void Sight::DrawPolygon(PlugIn_ViewPort &VP, wxRealPointList &area)
@@ -422,26 +438,19 @@ void Sight::DrawPolygon(PlugIn_ViewPort &VP, wxRealPointList &area)
       ppoints[i] = r;
    }
 
-   if(!(rear1 && rear2) &&
-      Intersect(&VP, minx, maxx, miny, maxy, 0) != _OUT) {
-     if(m_dc)
-       m_dc->DrawPolygon(n, ppoints);
-     else {
-         glPushAttrib(GL_COLOR_BUFFER_BIT | GL_POLYGON_BIT);      //Save state
-
-         glEnable(GL_POLYGON_SMOOTH);
-         glEnable(GL_BLEND);
-         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+   if(!(rear1 && rear2)) {
+       if(m_dc) {
+//           if(Intersect(&VP, minx, maxx, miny, maxy, 2) != _OUT)
+               m_dc->DrawPolygon(n, ppoints);
+       } else {
          glBegin(GL_POLYGON);
          for(int i=n-1; i>=0; i--)
              glVertex2i(ppoints[i].x, ppoints[i].y);
          glEnd();
-
-         glPopAttrib();            // restore state
-     }
+       }
    }
 
-   delete[] ppoints;
+   delete [] ppoints;
 }
 
 /* Compute trace areas for one dimension, given center certainty, and constant */
@@ -453,22 +462,31 @@ double Sight::ComputeStepSize(double certainty, double stepsize, double min, dou
 /* render the area of position for this sight */
 void Sight::Render( wxDC *dc, PlugIn_ViewPort &VP )
 {
-      if ( !m_bVisible )
-            return;
+    if ( !m_bVisible )
+        return;
 
-      m_dc = dc;
-      
-      if(dc) {
-          dc->SetPen ( wxPen(m_Colour, 1) );
-          dc->SetBrush ( wxBrush(m_Colour) );
-      } else
-          glColor4ub(m_Colour.Red(), m_Colour.Green(), m_Colour.Blue(), m_Colour.Alpha());
-
-      std::list<wxRealPointList*>::iterator it = polygons.begin();
-      while(it != polygons.end()) {
-            DrawPolygon(VP, **it);
-            ++it;
-      }
+    m_dc = dc;
+    
+    if(dc) {
+        dc->SetPen ( wxPen(m_Colour, 1) );
+        dc->SetBrush ( wxBrush(m_Colour) );
+    } else {
+        glColor4ub(m_Colour.Red(), m_Colour.Green(), m_Colour.Blue(), m_Colour.Alpha());
+        glPushAttrib(GL_COLOR_BUFFER_BIT | GL_POLYGON_BIT);      //Save state
+        
+        glEnable(GL_POLYGON_SMOOTH);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    }
+    
+    std::list<wxRealPointList*>::iterator it = polygons.begin();
+    while(it != polygons.end()) {
+        DrawPolygon(VP, **it);
+        ++it;
+    }
+    
+    if(!m_dc)
+        glPopAttrib();            // restore state
 }
 
 void Sight::Recompute()
@@ -542,20 +560,29 @@ RefractionCorrection = .267 * %.3f / (x*(%.3f + 273.15)) / 60.0\n\
 RefractionCorrection = %.5f\n"), m_Pressure, m_Temperature, RefractionCorrection);
 #endif
 
+    double SD = 0;
     double lc = 0;
 
     if( !m_Body.Cmp(_T("Sun"))) {
-        double lat, lon, ra;
-        BodyLocation(m_DateTime, lat, lon, ra);		 
-        lc = 0.266564/ra; 
+        double rad;
+        BodyLocation(m_DateTime, 0, 0, 0, &rad);
+        lc = 0.266564/rad;
+        SD = r_to_d(sin(d_to_r(lc)));
+
         m_CalcStr+=wxString::Format(_("\nSun selected, Limb Correction\n\
-ra = %.3f, lc = 0.266564/ra\n"), ra, lc);
+ra = %.3f, lc = 0.266564/ra\n"), rad, lc);
     }
 
+    /* moon radius: 1738 km
+       distance to moon: 384400 km
+    NOTE: could replace with a routine that finds the distance based on time */
     if(!m_Body.Cmp(_T("Moon"))){
-        lc = r_to_d(asin(1738/384400.0));
+        SD = r_to_d(1738/384400.0);
+        lc = r_to_d(asin(d_to_r(SD)));
         m_CalcStr+=wxString::Format(_("\nMoon selected, Limb Correction\n\
-lc = 180/Pi * asin(1738/3844000.0)\n"));
+SD = %.3f\n\
+lc = 180/Pi * asin(Pi/180*SD)\n\
+lc = %.3f\n"), SD, lc);
     }
 
     double LimbCorrection = 0;
@@ -573,7 +600,7 @@ lc = 180/Pi * asin(1738/3844000.0)\n"));
 
 
     double ObservedAltitude = m_Measurement - EyeHeightCorrection - RefractionCorrection - LimbCorrection;
-    m_CalcStr+=wxString::Format(_("\nCorrected Measurement\n\
+    m_CalcStr+=wxString::Format(_("\nObserved Altitude\n\
 ObservedAltitude = Measurement - EyeHeightCorrection - RefractionCorrection - LimbCorrection\n\
 ObservedAltitude = %.3f - %.3f - %.3f - %.3f\n\
 ObservedAltitude = %.5f\n"), m_Measurement, EyeHeightCorrection,
@@ -581,41 +608,77 @@ ObservedAltitude = %.5f\n"), m_Measurement, EyeHeightCorrection,
 
     /* correct for limb shot */
     double ParallaxCorrection = 0;
-
+    double HP = 0;
     if( !m_Body.Cmp(_T("Sun"))) {
-
-        double lat, lon, ra;
-        BodyLocation(m_DateTime, lat, lon, ra);		 
-        double hp = 0.002442/ra;
+        double rad;
+        BodyLocation(m_DateTime, 0, 0, 0, &rad);
+        HP = 0.002442/rad;
 
         m_CalcStr+=wxString::Format(_("\nSun selected, parallax correction\n\
-ra = %.3f, hp = 0.002442/ra\n"), ra, hp);
-
-    ParallaxCorrection = -r_to_d(asin(sin(d_to_r(hp))*cos(d_to_r(ObservedAltitude))));
-
-    m_CalcStr+=wxString::Format(_("\
-ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * hp ) * cos(Pi/180 * ObservedAltitude))\n\
-ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * %.3f ) * cos(Pi/180 * %.3f))\n\
-ParallaxCorrection = %.5f\n"), hp, ObservedAltitude, ParallaxCorrection);
+rad = %.3f, HP = 0.002442/rad = %.3f\n"), rad, HP);
     }
       
     /* earth radius: 6357 km
-       distance to moon: 384400 km */
+       distance to moon: 384400 km
+       NOTE: could replace with a routine that finds the distance based on time */
     if(!m_Body.Cmp(_T("Moon"))){
-
-        ParallaxCorrection = - r_to_d(asin(6357/384400.0) * cos(d_to_r(ObservedAltitude)));
-        m_CalcStr+=wxString::Format(_("\nMoon selected, Parallax Correction\n\
-ParallaxCorrection = - 180/Pi*(asin(6357/384400.0) * cos(Pi/180*(ObservedAltitude)))\n\
-ParallaxCorrection = %.5f\n"), ParallaxCorrection);
+        HP = r_to_d(6357/384400.0);
+        m_CalcStr+=wxString::Format(_("\nMoon selected, parallax correction\n\
+HP = %.3f\n"), HP);
     }
 
+    if(HP) {
+        ParallaxCorrection = -r_to_d(asin(sin(d_to_r(HP))*cos(d_to_r(ObservedAltitude))));
+        m_CalcStr+=wxString::Format(_("\
+ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * ObservedAltitude))\n\
+ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * %.3f ) * cos(Pi/180 * %.3f))\n\
+ParallaxCorrection = %.5f\n"), HP, ObservedAltitude, ParallaxCorrection);
+    }
 
     m_CorrectedAltitude = ObservedAltitude - ParallaxCorrection;
-    m_CalcStr+=wxString::Format(_("\nCorrected Altitude\
+    m_CalcStr+=wxString::Format(_("\nCorrected Altitude\n\
 CorrectedAltitude = ObservedAltitude - ParallaxCorrection\n\
 CorrectedAltitude = %.3f - %.3f\n\
 CorrectedAltitude = %.5f\n"), ObservedAltitude, ParallaxCorrection,
                                 m_CorrectedAltitude);
+
+
+   double lat, lon, ghaast, rad;
+   BodyLocation(m_DateTime, &lat, &lon, &ghaast, &rad);
+
+   double sha = 360 - lon - ghaast;
+   resolve_heading_positive(sha);
+   double sha_minutes = (sha - floor(sha))*60;
+   sha = floor(sha);
+
+   double ghaast_minutes = (ghaast - floor(ghaast))*60;
+   ghaast = floor(ghaast);
+
+   double gha = -lon;
+   resolve_heading_positive(gha);
+   double gha_minutes = (gha - floor(gha))*60;
+   gha = floor(gha);
+
+   double dec = lat;
+   char dec_sign = dec > 0 ? 'N' : 'S';
+   dec = fabs(dec);
+   double dec_minutes = (dec - floor(dec))*60;
+   dec = floor(dec);
+
+   wxString almstr = _("Almanac Data For ") + m_Body +
+wxString::Format(_("\n\
+Geographical Position (lat, lon) = %.3f %.3f\n\
+GHAAST = %.0f %.3f'\n\
+SHA = %.0f %.3f'\n\
+GHA = %.0f %.3f'\n\
+Dec = %c %.0f %.3f'\n\
+SD = %.3f'\n\
+HP = %.3f'\n\n"), lat, lon,
+                 ghaast, ghaast_minutes, sha, sha_minutes,
+                 gha, gha_minutes, dec_sign, dec, dec_minutes,
+                 SD*60, HP*60);
+
+   m_CalcStr = almstr + m_CalcStr;
 }
 
 void Sight::RecomputeAzimuth()
@@ -673,8 +736,8 @@ void Sight::BuildAltitudeLineOfPosition(double tracestep,
                                         double altitudemin, double altitudemax, double altitudestep,
                                         double timemin, double timemax, double timestep)
 {
-   double lat, lon, ra;
-   BodyLocation(m_DateTime, lat, lon, ra);
+   double lat, lon;
+   BodyLocation(m_DateTime, &lat, &lon, 0, 0);
    wxRealPointList *p, *l = new wxRealPointList;
    for(double trace=-180; trace<=180; trace+=tracestep) {
       p = new wxRealPointList;
@@ -814,9 +877,9 @@ void Sight::BuildBearingLineOfPosition(double altitudestep,
     double lastlon[100];
     double trace;
     
-    double blat, blon, ra;
+    double blat, blon;
     
-    BodyLocation(m_DateTime, blat, blon, ra);	
+    BodyLocation(m_DateTime, &blat, &blon, 0, 0);
 
     resolve_heading(blon);
 
