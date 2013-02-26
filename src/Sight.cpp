@@ -158,8 +158,24 @@ void Sight::BodyLocation(wxDateTime time, double *lat, double *lon, double *ghaa
     // apparent obliquity
     const double eps = obliquity(jdd) + nut_in_obl(jdd);
 
-    Sun sun;
-    sun.dimension3(jdd, l, b, r);
+    try {
+        Sun sun;
+        sun.dimension3(jdd, l, b, r);
+    } catch (Error e) {
+        static bool showonce = false;
+        if(!showonce) {
+            wxString err;
+            const char *what = e.what();
+            while(*what) err += *what++;
+            wxMessageDialog mdlg(NULL, _("Astrolab failed, data unavailable:\n")
+                                 + err + _("\nDid you forget to install vsop87d.txt?\n")
+                                 +_("The plugin will not work correctly"),
+                                 wxString(_("Failure Alert"), wxOK | wxICON_ERROR));
+            mdlg.ShowModal();
+            showonce = true;
+        }
+        return;
+    }
 
     // correct vsop coordinates    
     vsop_to_fk5(jdd, l, b);

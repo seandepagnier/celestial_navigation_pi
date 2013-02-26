@@ -171,11 +171,6 @@ SightDialog::SightDialog( wxWindow* parent, Sight &s)
 
    m_ColourPicker->SetColour(m_Sight.m_Colour);
 
-   wxString infolocation = *GetpSharedDataLocation()
-       + _("plugins/celestial_navigation/data/Celestial Navigation Basics.html");
-   /* this takes a split second to execute... */
-   m_htmlInformation->LoadFile(infolocation);
-
    m_breadytorecompute = true;
    RecomputeSight();
 }

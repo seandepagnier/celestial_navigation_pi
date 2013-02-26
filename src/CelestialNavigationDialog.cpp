@@ -274,13 +274,27 @@ void CelestialNavigationDialog::OnDeleteAllSights(wxCommandEvent &event)
 {
     wxMessageDialog mdlg(this, _("Are you sure you want to delete <ALL> sights?"),
                          wxString(_("OpenCPN Alert"), wxYES_NO));
+    if(mdlg.ShowModal() == wxID_YES) {
+        m_SightList.Clear();
     
-    m_SightList.Clear();
-    
-    UpdateSights();
-    RequestRefresh( GetParent() );
+        UpdateSights();
+        RequestRefresh( GetParent() );
+    }
 }
 
+void CelestialNavigationDialog::OnInformation( wxCommandEvent& event )
+{
+    InformationDialog dlg(this);
+    wxString infolocation = *GetpSharedDataLocation()
+        + _("plugins/celestial_navigation/data/Celestial Navigation Basics.html");
+    if(dlg.m_htmlInformation->LoadFile(infolocation))
+        dlg.ShowModal();
+    else {
+        wxMessageDialog mdlg(this, _("Failed to load file:\n") + infolocation,
+                             wxString(_("OpenCPN Alert"), wxOK | wxICON_ERROR));
+        mdlg.ShowModal();
+    }
+}
 void CelestialNavigationDialog::OnSightListLeftDown(wxMouseEvent &event)
 {
     wxPoint pos = event.GetPosition();

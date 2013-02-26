@@ -49,9 +49,11 @@ class CelestialNavigationDialog : public CelestialNavigationDialogBase {
             void OnWarp(wxCommandEvent &event);
             void OnEdit(wxCommandEvent &event);
             void OnDelete(wxCommandEvent &event);
+            void OnDeleteAllSights(wxCommandEvent &event);
+            void OnInformation( wxCommandEvent& event );
+
             void OnSightListLeftDown(wxMouseEvent &event);
             void OnBtnLeftDown(wxMouseEvent &event); // record control key state for some action buttons
-            void OnDeleteAllSights(wxCommandEvent &event);
 
             void OnSightSelected(wxListEvent &event);
 

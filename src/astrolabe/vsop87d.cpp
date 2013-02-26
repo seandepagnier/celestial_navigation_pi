@@ -100,7 +100,7 @@ astrolabe::vsop87d::VSOP87d::VSOP87d() {
     */
     if (!_first_time)
         return;
-    cout << "loading text db..." << endl;
+//    cout << "loading text db..." << endl;
     load_vsop87d_text_db();
     _first_time = false;
     }        

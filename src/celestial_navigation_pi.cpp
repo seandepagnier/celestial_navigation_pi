@@ -88,7 +88,12 @@ int celestial_navigation_pi::Init(void)
     /* load the geographical magnetic table */
     wxString geomag_text_path = *GetpSharedDataLocation();
     geomag_text_path.Append(_T("plugins/celestial_navigation/data/IGRF11.COF"));
-    geomag_load(geomag_text_path.mb_str());
+    if(geomag_load(geomag_text_path.mb_str()) == -1) {
+        wxMessageDialog mdlg(m_parent_window, _("Failed to load file:\n") + geomag_text_path
+                             + _("\nMagnetic data will not be available for the celestial navigation plugin."),
+                             wxString(_("OpenCPN Alert"), wxOK | wxICON_ERROR));
+        mdlg.ShowModal();
+    }
 
     //    This PlugIn needs a toolbar icon, so request its insertion
     m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_celestial_navigation,

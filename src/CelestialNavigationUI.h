@@ -32,8 +32,8 @@
 #include <wx/spinctrl.h>
 #include <wx/slider.h>
 #include <wx/clrpicker.h>
-#include <wx/html/htmlwin.h>
 #include <wx/notebook.h>
+#include <wx/html/htmlwin.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -52,6 +52,7 @@ class CelestialNavigationDialogBase : public wxDialog
 		wxButton* m_bEditSight;
 		wxButton* m_bDeleteSight;
 		wxButton* m_bDeleteAllSights;
+		wxButton* m_bInformation;
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void OnSightListLeftDown( wxMouseEvent& event ) { event.Skip(); }
@@ -61,6 +62,7 @@ class CelestialNavigationDialogBase : public wxDialog
 		virtual void OnEdit( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnDelete( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnDeleteAllSights( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnInformation( wxCommandEvent& event ) { event.Skip(); }
 		
 	
 	public:
@@ -130,8 +132,6 @@ class SightDialogBase : public wxDialog
 		wxButton* m_bSetDefaults;
 		wxPanel* m_panel81;
 		wxTextCtrl* m_tCalculations;
-		wxPanel* m_panel811;
-		wxHtmlWindow* m_htmlInformation;
 		wxStdDialogButtonSizer* m_sdbSizer1;
 		wxButton* m_sdbSizer1OK;
 		wxButton* m_sdbSizer1Cancel;
@@ -177,6 +177,25 @@ class FindBodyDialogBase : public wxDialog
 		
 		FindBodyDialogBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Find Celestial Body"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE ); 
 		~FindBodyDialogBase();
+	
+};
+
+///////////////////////////////////////////////////////////////////////////////
+/// Class InformationDialog
+///////////////////////////////////////////////////////////////////////////////
+class InformationDialog : public wxDialog 
+{
+	private:
+	
+	protected:
+		wxStdDialogButtonSizer* m_sdbSizer2;
+		wxButton* m_sdbSizer2OK;
+	
+	public:
+		wxHtmlWindow* m_htmlInformation;
+		
+		InformationDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 560,400 ), long style = wxDEFAULT_DIALOG_STYLE ); 
+		~InformationDialog();
 	
 };
 

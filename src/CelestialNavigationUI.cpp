@@ -41,6 +41,9 @@ CelestialNavigationDialogBase::CelestialNavigationDialogBase( wxWindow* parent, 
 	m_bDeleteAllSights = new wxButton( this, wxID_ANY, wxT("Delete All Sights"), wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer1->Add( m_bDeleteAllSights, 0, wxALL|wxEXPAND, 5 );
 	
+	m_bInformation = new wxButton( this, wxID_ANY, wxT("Information"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer1->Add( m_bInformation, 0, wxALL|wxEXPAND, 5 );
+	
 	
 	fgSizer25->Add( bSizer1, 1, wxEXPAND, 5 );
 	
@@ -59,6 +62,7 @@ CelestialNavigationDialogBase::CelestialNavigationDialogBase( wxWindow* parent, 
 	m_bEditSight->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnEdit ), NULL, this );
 	m_bDeleteSight->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnDelete ), NULL, this );
 	m_bDeleteAllSights->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnDeleteAllSights ), NULL, this );
+	m_bInformation->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnInformation ), NULL, this );
 }
 
 CelestialNavigationDialogBase::~CelestialNavigationDialogBase()
@@ -71,6 +75,7 @@ CelestialNavigationDialogBase::~CelestialNavigationDialogBase()
 	m_bEditSight->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnEdit ), NULL, this );
 	m_bDeleteSight->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnDelete ), NULL, this );
 	m_bDeleteAllSights->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnDeleteAllSights ), NULL, this );
+	m_bInformation->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnInformation ), NULL, this );
 	
 }
 
@@ -177,7 +182,7 @@ SightDialogBase::SightDialogBase( wxWindow* parent, wxWindowID id, const wxStrin
 	m_panel1->SetSizer( fgSizer5 );
 	m_panel1->Layout();
 	fgSizer5->Fit( m_panel1 );
-	m_notebook1->AddPage( m_panel1, wxT("Sight"), true );
+	m_notebook1->AddPage( m_panel1, wxT("Sight"), false );
 	m_panel2 = new wxPanel( m_notebook1, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxFlexGridSizer* fgSizer8;
 	fgSizer8 = new wxFlexGridSizer( 0, 2, 0, 0 );
@@ -381,22 +386,6 @@ SightDialogBase::SightDialogBase( wxWindow* parent, wxWindowID id, const wxStrin
 	m_panel81->Layout();
 	fgSizer211->Fit( m_panel81 );
 	m_notebook1->AddPage( m_panel81, wxT("Calculations"), false );
-	m_panel811 = new wxPanel( m_notebook1, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
-	wxFlexGridSizer* fgSizer2111;
-	fgSizer2111 = new wxFlexGridSizer( 0, 1, 0, 0 );
-	fgSizer2111->AddGrowableCol( 0 );
-	fgSizer2111->AddGrowableRow( 0 );
-	fgSizer2111->SetFlexibleDirection( wxBOTH );
-	fgSizer2111->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
-	
-	m_htmlInformation = new wxHtmlWindow( m_panel811, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHW_SCROLLBAR_AUTO );
-	fgSizer2111->Add( m_htmlInformation, 0, wxALL|wxEXPAND, 5 );
-	
-	
-	m_panel811->SetSizer( fgSizer2111 );
-	m_panel811->Layout();
-	fgSizer2111->Fit( m_panel811 );
-	m_notebook1->AddPage( m_panel811, wxT("Information"), false );
 	
 	fgSizer1->Add( m_notebook1, 1, wxEXPAND | wxALL, 5 );
 	
@@ -560,4 +549,36 @@ FindBodyDialogBase::~FindBodyDialogBase()
 	m_bDone->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( FindBodyDialogBase::OnDone ), NULL, this );
 	m_cbMagneticAzimuth->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( FindBodyDialogBase::OnUpdate ), NULL, this );
 	
+}
+
+InformationDialog::InformationDialog( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
+{
+	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
+	
+	wxFlexGridSizer* fgSizer2111;
+	fgSizer2111 = new wxFlexGridSizer( 0, 1, 0, 0 );
+	fgSizer2111->AddGrowableCol( 0 );
+	fgSizer2111->AddGrowableRow( 0 );
+	fgSizer2111->SetFlexibleDirection( wxBOTH );
+	fgSizer2111->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+	
+	m_htmlInformation = new wxHtmlWindow( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHW_SCROLLBAR_AUTO );
+	fgSizer2111->Add( m_htmlInformation, 0, wxALL|wxEXPAND, 5 );
+	
+	m_sdbSizer2 = new wxStdDialogButtonSizer();
+	m_sdbSizer2OK = new wxButton( this, wxID_OK );
+	m_sdbSizer2->AddButton( m_sdbSizer2OK );
+	m_sdbSizer2->Realize();
+	
+	fgSizer2111->Add( m_sdbSizer2, 1, wxEXPAND, 5 );
+	
+	
+	this->SetSizer( fgSizer2111 );
+	this->Layout();
+	
+	this->Centre( wxBOTH );
+}
+
+InformationDialog::~InformationDialog()
+{
 }
