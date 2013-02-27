@@ -172,7 +172,7 @@ void celestial_navigation_pi::OnToolbarToolCallback(int id)
     if(NULL == m_pCelestialNavigationDialog)
         m_pCelestialNavigationDialog = new CelestialNavigationDialog(m_parent_window);
 
-    m_pCelestialNavigationDialog->Show();
+    m_pCelestialNavigationDialog->Show(!m_pCelestialNavigationDialog->IsShown());
 }
 
 int celestial_navigation_pi::GetToolbarToolCount(void)
