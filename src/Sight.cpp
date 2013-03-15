@@ -25,22 +25,17 @@
  *
  */
 
+#include <stdlib.h>
+#include <math.h>
+#include <time.h>
+
 #include "wx/wxprec.h"
 
 #ifndef  WX_PRECOMP
 #include "wx/wx.h"
 #endif //precompiled headers
 
-#include <wx/tokenzr.h>
-#include <wx/sstream.h>
-#include <wx/image.h>
-#include <wx/filename.h>
-#include <wx/graphics.h>
-
-
-#include <stdlib.h>
-#include <math.h>
-#include <time.h>
+#include <wx/progdlg.h>
 
 #include <wx/listimpl.cpp>
 
@@ -53,20 +48,22 @@
 WX_DEFINE_LIST ( SightList );
 WX_DEFINE_LIST ( wxRealPointList );
 
-void resolve_heading(double &heading)
+double resolve_heading(double heading)
 {
    while(heading < -180)
       heading += 360;
    while(heading >= 180)
-      heading -= 360;   
+      heading -= 360;
+   return heading;
 }
 
-void resolve_heading_positive(double &heading)
+double resolve_heading_positive(double heading)
 {
    while(heading < 0)
       heading += 360;
    while(heading >= 360)
-      heading -= 360;   
+      heading -= 360;
+   return heading;
 }
 
 //-----------------------------------------------------------------------------
@@ -76,6 +73,7 @@ void resolve_heading_positive(double &heading)
 double Sight::default_eye_height=2;
 double Sight::default_temperature=25;
 double Sight::default_pressure=1000;
+double Sight::default_index_error=0;
 
 int Sight::s_lastsightcolor = 0;
 
@@ -86,27 +84,25 @@ Sight::Sight(Type type, wxString body, BodyLimb bodylimb, wxDateTime datetime,
      m_Measurement(measurement), m_MeasurementCertainty(measurementcertainty),
       m_EyeHeight(default_eye_height),
       m_Temperature(default_temperature),
-      m_Pressure(default_pressure),
+      m_Pressure(default_pressure), m_IndexError(default_index_error),
       m_ShiftNm(0), m_ShiftBearing(0), m_bMagneticShiftBearing(0),
       m_bMagneticNorth(false)
 {
     const wxColour sightcolors[] = {
-        wxColour(_("MEDIUM VIOLET RED")), wxColour(_("MIDNIGHT BLUE")), wxColour(_("ORANGE")),
-        wxColour(_("TAN")), wxColour(_("THISTLE")), wxColour(_("TURQUOISE")), wxColour(_("VIOLET")),
-        wxColour(_("ORANGE RED")), wxColour(_("ORCHID")), wxColour(_("PALE GREEN")), wxColour(_("PINK")),
-        wxColour(_("PLUM")), wxColour(_("PURPLE")), wxColour(_("RED")), wxColour(_("SALMON")),
-        wxColour(_("SEA GREEN")), wxColour(_("SIENNA")), wxColour(_("SKY BLUE")),
-        wxColour(_("SLATE BLUE")), wxColour(_("SPRING GREEN")), wxColour(_("STEEL BLUE")),
-        wxColour(_("BROWN")), wxColour(_("BLUE")), wxColour(_("BLUE VIOLET")),
-        wxColour(_("AQUAMARINE")), wxColour(_("CADET BLUE")), wxColour(_("CORAL")),
-        wxColour(_("CORNFLOWER BLUE")), wxColour(_("FOREST GREEN")), wxColour(_("GOLD")),
-        wxColour(_("GOLDENROD")), wxColour(_("GREY")), wxColour(_("GREEN YELLOW")),
-        wxColour(_("INDIAN RED")), wxColour(_("LIGHT BLUE")), wxColour(_("LIGHT STEEL BLUE")),
-        wxColour(_("LIME GREEN")), wxColour(_("MAGENTA")), wxColour(_("MAROON")),
-        wxColour(_("MEDIUM AQUAMARINE")), wxColour(_("MEDIUM BLUE")), wxColour(_("MEDIUM FOREST GREEN")),
-        wxColour(_("MEDIUM GOLDENROD")), wxColour(_("MEDIUM ORCHID")), wxColour(_("MEDIUM SEA GREEN")),
-        wxColour(_("MEDIUM SLATE BLUE")), wxColour(_("MEDIUM SPRING GREEN")), wxColour(_("MEDIUM TURQUOISE")),
-        wxColour(_("VIOLET RED")), wxColour(_("WHEAT")), wxColour(_("YELLOW")), wxColour(_("YELLOW GREEN"))};
+        wxColour(_T("MEDIUM VIOLET RED")), wxColour(_T("MIDNIGHT BLUE")), wxColour(_T("ORANGE")),
+        wxColour(_T("PLUM")), wxColour(_T("PURPLE")), wxColour(_T("RED")), wxColour(_T("SALMON")),
+        wxColour(_T("SLATE BLUE")), wxColour(_T("SPRING GREEN")),
+        wxColour(_T("ORANGE RED")), wxColour(_T("ORCHID")), wxColour(_T("PALE GREEN")), wxColour(_T("PINK")),
+        wxColour(_T("BROWN")), wxColour(_T("BLUE")), wxColour(_T("GREEN YELLOW")),
+        wxColour(_T("GOLDENROD")), wxColour(_T("BLUE VIOLET")),
+        wxColour(_T("AQUAMARINE")), wxColour(_T("CADET BLUE")), wxColour(_T("CORAL")),
+        wxColour(_T("CORNFLOWER BLUE")), wxColour(_T("FOREST GREEN")), wxColour(_T("GOLD")),
+        wxColour(_T("THISTLE")), wxColour(_T("TURQUOISE")), wxColour(_T("VIOLET")),
+        wxColour(_T("SEA GREEN")), wxColour(_T("SKY BLUE")), wxColour(_T("YELLOW GREEN")),
+        wxColour(_T("INDIAN RED")), wxColour(_T("LIGHT BLUE")),
+        wxColour(_T("LIME GREEN")), wxColour(_T("MAGENTA")), wxColour(_T("MAROON")),
+        wxColour(_T("MEDIUM GOLDENROD")), wxColour(_T("MEDIUM ORCHID")), wxColour(_T("MEDIUM SEA GREEN")),
+        wxColour(_T("VIOLET RED")), wxColour(_T("YELLOW"))};
 
     m_Colour = sightcolors[s_lastsightcolor];
 
@@ -298,7 +294,17 @@ void Sight::BodyLocation(wxDateTime time, double *lat, double *lon, double *ghaa
         *ghaast = r_to_d(gast);
     if(rad)
         *rad = r;
- }
+}
+
+std::list<wxRealPoint> Sight::GetPoints()
+{
+    std::list<wxRealPoint> points;
+    for(std::list<wxRealPointList*>::iterator it = polygons.begin();
+        it != polygons.end(); it++)
+        for(wxRealPointList::iterator it2 = (*it)->begin(); it2 != (*it)->end(); it2++)
+            points.push_back(**it2);
+    return points;
+}
 
 extern "C" int geomag_calc(double latitude, double longitude, double alt,
                            int day, int month, double year,
@@ -379,44 +385,6 @@ wxRealPointList *Sight::ReduceToConvexPolygon(wxRealPointList *points)
    return polygon;
 }
 
-#if 0
-// Calculates if two boxes intersect. If so, the function returns _ON.
-// If they do not intersect, two scenario's are possible:
-// other is outside this -> return _OUT
-// other is inside this -> return _IN
-enum OVERLAP {_IN,_ON,_OUT};
-
-static OVERLAP Intersect(PlugIn_ViewPort *vp,
-       double lat_min, double lat_max, double lon_min, double lon_max, double Marge)
-{
-
-    while(lon_min < vp->lon_min)
-        lon_min += 360;
-    while(lon_min > vp->lon_max)
-        lon_min -= 360;
-    while(lon_max < vp->lon_min)
-        lon_max += 360;
-    while(lon_max > vp->lon_max)
-        lon_max -= 360;
-
-    if (((vp->lon_min - Marge) > (lon_max + Marge)) ||
-         ((vp->lon_max + Marge) < (lon_min - Marge)) ||
-         ((vp->lat_max + Marge) < (lat_min - Marge)) ||
-         ((vp->lat_min - Marge) > (lat_max + Marge)))
-        return _OUT;
-
-    // Check if other.bbox is inside this bbox
-    if ((vp->lon_min <= lon_min) &&
-         (vp->lon_max >= lon_max) &&
-         (vp->lat_max >= lat_max) &&
-         (vp->lat_min <= lat_min))
-        return _IN;
-
-    // Boundingboxes intersect
-    return _ON;
-}
-#endif
-
 /* Draw a polygon (specified in lat/lon coords) to dc given a list of points */
 void Sight::DrawPolygon(PlugIn_ViewPort &VP, wxRealPointList &area)
 {
@@ -435,14 +403,14 @@ void Sight::DrawPolygon(PlugIn_ViewPort &VP, wxRealPointList &area)
 
       /* don't draw areas crossing opposite from center longitude */
       double lon = (*it)->y - VP.clon;
-      resolve_heading_positive(lon);
+      lon = resolve_heading_positive(lon);
 
       if(lon > 90 && lon <= 180)
          rear1 = true;
       if(lon > 180 && lon < 270)
          rear2 = true;
 
-      resolve_heading((*it)->y);
+      (*it)->y = resolve_heading((*it)->y);
 
       minx = wxMin(minx, (*it)->x);
       miny = wxMin(miny, (*it)->y);
@@ -455,10 +423,9 @@ void Sight::DrawPolygon(PlugIn_ViewPort &VP, wxRealPointList &area)
    }
 
    if(!(rear1 && rear2)) {
-       if(m_dc) {
-//           if(Intersect(&VP, minx, maxx, miny, maxy, 2) != _OUT)
-               m_dc->DrawPolygon(n, ppoints);
-       } else {
+       if(m_dc)
+           m_dc->DrawPolygon(n, ppoints);
+       else {
          glBegin(GL_POLYGON);
          for(int i=n-1; i>=0; i--)
              glVertex2i(ppoints[i].x, ppoints[i].y);
@@ -530,7 +497,7 @@ void Sight::RebuildPolygons()
             double localbearing = m_ShiftBearing;
             if(m_bMagneticShiftBearing) {
                 double results[14];
-                resolve_heading(lon);
+                lon = resolve_heading(lon);
                 geomag_calc(lat, lon, m_EyeHeight,
                             m_DateTime.GetDay(), m_DateTime.GetMonth(), m_DateTime.GetYear(),
                             results);
@@ -547,6 +514,10 @@ void Sight::RecomputeAltitude()
     m_CalcStr.clear();
     m_CalcStr+=_("Formulas used to calculate sight\n\n");
 
+    /* correct for index error */
+    double IndexCorrection = m_IndexError;
+    m_CalcStr+=wxString::Format(_("Index Error is %.4f degrees\n\n"), m_IndexError);
+
    /* correct for height of observer
       The dip of the sea horizon in minutes = 1.753*sqrt(height) */
     double EyeHeightCorrection = 1.753*sqrt(m_EyeHeight) / 60.0;
@@ -554,7 +525,7 @@ void Sight::RecomputeAltitude()
 Height Correction Degrees = 1.753*sqrt(%.3f) / 60.0\n\
 Height Correction Degrees = %.3f\n"),
                                 m_EyeHeight, m_EyeHeight, EyeHeightCorrection);
-      
+
     /* compensate for refraction */
     double RefractionCorrection;
 #if 0
@@ -615,11 +586,12 @@ lc = %.3f\n"), SD, lc);
     }
 
 
-    double ObservedAltitude = m_Measurement - EyeHeightCorrection - RefractionCorrection - LimbCorrection;
+    double ObservedAltitude = m_Measurement - IndexCorrection - EyeHeightCorrection - RefractionCorrection - LimbCorrection;
     m_CalcStr+=wxString::Format(_("\nObserved Altitude\n\
-ObservedAltitude = Measurement - EyeHeightCorrection - RefractionCorrection - LimbCorrection\n\
-ObservedAltitude = %.3f - %.3f - %.3f - %.3f\n\
-ObservedAltitude = %.5f\n"), m_Measurement, EyeHeightCorrection,
+ObservedAltitude = Measurement - IndexCorrection - EyeHeightCorrection - \
+RefractionCorrection - LimbCorrection\n\
+ObservedAltitude = %.3f - %.3f - %.3f - %.3f - %.3f\n\
+ObservedAltitude = %.5f\n"), m_Measurement, IndexCorrection, EyeHeightCorrection,
                                 RefractionCorrection, LimbCorrection, ObservedAltitude);
 
     /* correct for limb shot */
@@ -663,7 +635,7 @@ CorrectedAltitude = %.5f\n"), ObservedAltitude, ParallaxCorrection,
    BodyLocation(m_DateTime, &lat, &lon, &ghaast, &rad);
 
    double sha = 360 - lon - ghaast;
-   resolve_heading_positive(sha);
+   sha = resolve_heading_positive(sha);
    double sha_minutes = (sha - floor(sha))*60;
    sha = floor(sha);
 
@@ -671,7 +643,7 @@ CorrectedAltitude = %.5f\n"), ObservedAltitude, ParallaxCorrection,
    ghaast = floor(ghaast);
 
    double gha = -lon;
-   resolve_heading_positive(gha);
+   gha = resolve_heading_positive(gha);
    double gha_minutes = (gha - floor(gha))*60;
    gha = floor(gha);
 
@@ -700,7 +672,7 @@ HP = %.3f'\n\n"), lat, lon,
 void Sight::RecomputeAzimuth()
 {      
     m_CalcStr.clear();
-    resolve_heading_positive(m_Measurement);
+    m_Measurement = resolve_heading_positive(m_Measurement);
 }
 
 void Sight::RebuildPolygonsAltitude()
@@ -803,7 +775,7 @@ bool Sight::BearingPoint( double altitude, double bearing,
 {
     double localbearing = bearing;
 
-    resolve_heading(localbearing);
+    localbearing = resolve_heading(localbearing);
 	
     double rangle;
     double mdb = 1000;
@@ -825,7 +797,7 @@ bool Sight::BearingPoint( double altitude, double bearing,
         trace = localbearing + 180;
     }
 
-    resolve_heading(trace);
+    trace = resolve_heading(trace);
 
     while((fabs(mdb)<fabs(mdl))&&(fabs(mdb)>.001)) {
 //       ll_gc_ll(lat, lon, trace, 60*(90-altitude), &rlat, &rlon);
@@ -854,7 +826,7 @@ bool Sight::BearingPoint( double altitude, double bearing,
 	rlat = r_to_d(rlat_r);
 	rlon = r_to_d(rlon_r);
 
-        resolve_heading(rlon);
+        rlon = resolve_heading(rlon);
 
 	b = r_to_d(backbearing_r);
 
@@ -871,11 +843,11 @@ bool Sight::BearingPoint( double altitude, double bearing,
         }
 
         mdb = bearing - b;
-        resolve_heading(mdb);
+        mdb = resolve_heading(mdb);
 
         trace+=mdb;
 
-        resolve_heading(trace);
+        trace = resolve_heading(trace);
     }	
     return ((fabs(mdb)<.1)&&(fabs(rangle)<90.0));
  }
@@ -897,12 +869,20 @@ void Sight::BuildBearingLineOfPosition(double altitudestep,
     
     BodyLocation(m_DateTime, &blat, &blon, 0, 0);
 
-    resolve_heading(blon);
+    blon = resolve_heading(blon);
+
+    /* sometimes it takes a long time to build magnetic azimuth sights */
+    wxProgressDialog progressdialog(
+        _("Celestial Navigation"), _("Building bearing Sight Positions"), 200, NULL,
+        wxPD_SMOOTH | wxPD_ELAPSED_TIME | wxPD_REMAINING_TIME);
 
     wxRealPointList *p, *l = new wxRealPointList;
     l->Append(new wxRealPoint(blat, blon));
     for(double altitude=200; altitude>=0; altitude-=1) 
     {
+        if(m_bMagneticNorth)
+            progressdialog.Update(200-altitude);
+
         int index = 0;
         p = new wxRealPointList;
         double lat, lon, llat, llon;

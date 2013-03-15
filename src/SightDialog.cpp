@@ -52,10 +52,6 @@
 
 #include "Sight.h"
 
-#if defined (__WIN32__)
-	double trunc(double d){ return (d>0) ? floor(d) : ceil(d) ; }
-#endif
-
 SightDialog::SightDialog( wxWindow* parent, Sight &s)
     : SightDialogBase(parent), m_Sight(s), m_breadytorecompute(false)
 {
@@ -136,6 +132,7 @@ SightDialog::SightDialog( wxWindow* parent, Sight &s)
     m_cType->SetSelection(m_Sight.m_Type);
 
     m_cbMagneticAzimuth->Enable(m_cType->GetSelection() == AZIMUTH);
+    m_cLimb->Enable(m_cType->GetSelection() == ALTITUDE);
 
     int index = m_cBody->FindString(m_Sight.m_Body);
     if(index != wxNOT_FOUND)
@@ -155,6 +152,7 @@ SightDialog::SightDialog( wxWindow* parent, Sight &s)
    m_sEyeHeight->SetValue(m_Sight.m_EyeHeight);
    m_sTemperature->SetValue(m_Sight.m_Temperature);
    m_sPressure->SetValue(m_Sight.m_Pressure);
+   m_tIndexError->SetValue(wxString::Format(_T("%.5f"), m_Sight.m_IndexError));
 
    m_tShiftNm->SetValue(wxString::Format(_T("%.2f"), m_Sight.m_ShiftNm));
    m_tShiftBearing->SetValue(wxString::Format(_T("%.2f"), m_Sight.m_ShiftBearing));
@@ -246,6 +244,7 @@ void SightDialog::OnSetDefaults( wxCommandEvent& event )
     Sight::default_eye_height = m_Sight.m_EyeHeight = m_sEyeHeight->GetValue();
     Sight::default_temperature = m_Sight.m_Temperature;
     Sight::default_pressure = m_Sight.m_Pressure;
+    Sight::default_index_error = m_Sight.m_IndexError;
 }
 
 void SightDialog::Recompute( wxCommandEvent& event )
@@ -291,6 +290,7 @@ void SightDialog::RecomputeSight()
    m_Sight.m_EyeHeight = m_sEyeHeight->GetValue();
    m_Sight.m_Temperature = m_sTemperature->GetValue();
    m_Sight.m_Pressure = m_sPressure->GetValue();
+   m_tIndexError->GetValue().ToDouble(&m_Sight.m_IndexError);
 
    double measurement, measurementminutes;
    m_tMeasurement->GetValue().ToDouble(&measurement);

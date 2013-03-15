@@ -33,6 +33,8 @@
 #include <iostream>
 #include <limits>
 #define NAN std::numeric_limits<double>::quiet_NaN ()
+
+double trunc(double d){ return (d>0) ? floor(d) : ceil(d) ; }
 #endif
 
 
@@ -70,7 +72,7 @@ public:
     wxString   m_Body;
     BodyLimb   m_BodyLimb;
 
-    wxDateTime m_DateTime;      // Time for the sight
+    wxDateTime  m_DateTime;      // Time for the sight
     double      m_TimeCertainty;
 
     double      m_Measurement; // Measurement angle in degrees (NaN is valid for all)
@@ -79,6 +81,7 @@ public:
     double      m_EyeHeight; // Height above sea in meters
     double      m_Temperature; // Temperature in degrees celcius
     double      m_Pressure; // Pressure in millibars
+    double      m_IndexError; // Error of measurement in degrees
 
     double      m_ShiftNm;               // direction to move points
     double      m_ShiftBearing;          // direction to move points
@@ -89,6 +92,7 @@ public:
     virtual void Render(wxDC *dc, PlugIn_ViewPort &pVP);
 
     void BodyLocation(wxDateTime time, double *lat, double *lon, double *ghaash, double *rad);
+    std::list<wxRealPoint> GetPoints();
 
     wxString m_CalcStr;
 
@@ -97,7 +101,7 @@ public:
 /* for azimuth */
     bool       m_bMagneticNorth; // if azimuth angle is in magnetic coordinates
 
-    static double default_eye_height, default_temperature, default_pressure;
+    static double default_eye_height, default_temperature, default_pressure, default_index_error;
 
 protected:
     double CalcAngle(wxRealPoint p1, wxRealPoint p2);
@@ -127,3 +131,7 @@ private:
 };
 
 WX_DECLARE_LIST(Sight, SightList);                    // establish class Sight as list member
+
+double resolve_heading(double heading);
+double resolve_heading_positive(double heading);
+

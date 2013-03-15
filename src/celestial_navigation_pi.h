@@ -1,5 +1,4 @@
 /******************************************************************************
- * $Id: celestial_navigation_pi.h,v 1.8 2010/06/21 01:54:37 bdbcat Exp $
  *
  * Project:  OpenCPN
  * Purpose:  Celestial Navigation Plugin
@@ -35,7 +34,7 @@
 #endif //precompiled headers
 
 #define     PLUGIN_VERSION_MAJOR    1
-#define     PLUGIN_VERSION_MINOR    4
+#define     PLUGIN_VERSION_MINOR    5
 
 #define     MY_API_VERSION_MAJOR    1
 #define     MY_API_VERSION_MINOR    8

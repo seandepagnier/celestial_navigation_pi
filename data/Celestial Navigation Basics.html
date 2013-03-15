@@ -3,6 +3,31 @@
     <title>Celestial Navigation Basics</title>
   </head>
   <body alink="#ff0000" bgcolor="#efe0ac" link="#0000e2" text="#000000" vlink="#bb0000">
+    <center><h1><u>Celestial Navigation Plugin for OpenCPN</u></h1></center>
+    <hr>
+    <h3><u>Introduction</u></h3>
+<p> The plugin is designed to make celestial navigation possible and to provide a visual way to use and verify celestial measurements.  The plugin expands the line of position to area of position to show all possible locations based on measurement error.  The plugin also displays the true positions (generally a circle, not a line).  Also added is the ability to take sights based on bearing instead of altitude.
+<h3><u>Taking a Sight</u></h3>
+<p>A sight is an angular measurement taken of an astronomical body using (typically) a sextant.
+<ul>
+<li><p><b>Type</b> The type of sight (altitude or azimuth) determines if you are measuring the angle above the horizon (typical) or the angle to north.  Azimuth sights are non-standard because it is typically difficult to measure more accurately than 1 degree which normally results in errors above 100 nautical miles.
+<li><p><b>Celestial Body</b> This is the body to sight.  It is best to choose bodies that produce perpendicular positions at the fix point.  For example, in the northern hemisphere, polaris gives excellent latitude, and either the sun or moon typically give good longitude results.  These two bodies can complement each other to give a good fix.  In cases where the bodies move in the same plane (using only sun or planets for example) the error in latitude may be great especially near the equator.  If two sights are taken which result in nearly parallel positions where they cross, the accuracy of the fix is much less.
+<li><p><b>Limb</b> Relevant only for altitude shots of the sun and moon.  It determines which edge you are aiming for.  Typically the lower limb is best unless obscured for some reason then the upper limb must be used.
+<li><p><b>Measurement</b> Taken as degrees (may be decimal, leave minutes 0) or entered as an integer and the minutes field used.  The degrees of certainty determines how wide of an area the plotted line of position will cover.
+<li><p><b>Date and Time</b> for the sight must be the same as the exact moment the measurement is taken.  If the sight was taken a while ago, and we have moved since then, do not modify the date and time values.  Instead, enter course dead reckoning for distance traveled and bearing to shift it into position to use along with current sights.  Once a sight is shifted, it is no longer be used for a position fix (it is very complicated to implement this math) but a fix can still be visually determined.
+<li><p><b>Config</b> These values do not affect the result and are appearence based only.
+<li><p><b>Parameters</b> These values slightly affect the accuracy, but are normally the same for all sights.
+<li><p><b>Calculations</b> This table shows the calculations taken for an altitude sight so the user can verify and work along with the program in determining the readings.
+</ul>
+
+<h3><u>Computing a Fix</u></h3>
+<p>Once there are two or more sights taken, it is possible to compute a fix for location.  When there are only two sights, or in some cases with more, it is possible that the program will converge on the wrong location (local minima) so in this case it is advisable to enter the closest dead reckoning latitude and longitude.  The regression is least squares to find a position on earth at sea level.  It would be technically easy to make this work at various altitudes, but I didn't bother to implement this.  For sights which are shifted it is extremely complicated and difficult to implement the math required to perform a fix operation.  It is possible to make a comprimise (only accurate for small shifts near the specified starting latitude and longitude) but instead in the interest of always displaying correct fixes or none at all, in the case there are shifted sights, you will need to visually determine the location of the fix.  It is currently possible to compute a fix only from altitude shots.  Azimuth would be easy in the case of true north, but ridiculously complicated in the case of magnetic north,  For this case, it also makes more sense to visually determine the fix.
+
+<h3><u>Future Improvements</u></h3>
+<p>In the future I plan to implement lunar angle sights to determine time, show night/day areas, support for moon phases, and both solar and lunar eclipses.
+
+<p>
+Continue reading for more information about celestial navigation.
     <center><h1><u>Celestial Navigation Basics</u></h1></center>
     <hr>
     <h3><u>Introduction</u></h3>
@@ -242,12 +267,5 @@
 	    call this the SUN RUN SUN method.
       </li></ol>
 <p> The above information was edited from <a href="www.erikdeman.de">www.erikdeman.de</a>
-<p> The celestial navigation plugin expands the line of position to area of position to
-show all possible locations based on measurement error.  The plugin also displays
-the true area of position, or circle, not a line.. and in the case of the circle
-shifting by a specific bearing, it is no longer a circle as a result, especially
-in the case of using magnetic bearings, but this is ok because the computer doesn't
-mind doing lots of calculations.
-<p> The celestial navigation plugin for opencpn was written by Sean D'Epagnier
-
+<p>The celestial navigation plugin for opencpn was written by Sean D'Epagnier
 </body></html>

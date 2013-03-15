@@ -59,8 +59,8 @@ FindBodyDialog::FindBodyDialog( wxWindow* parent, Sight &sight )
         lon = celestial_navigation_pi_CursorLon();
     }
 
-    m_tLatitude->SetValue(wxString::Format(_T("%f"), lat));
-    m_tLongitude->SetValue(wxString::Format(_T("%f"), lon));
+    m_tLatitude->SetValue(wxString::Format(_T("%.4f"), lat));
+    m_tLongitude->SetValue(wxString::Format(_T("%.4f"), lon));
 
     Centre();
     Update();

@@ -202,6 +202,7 @@ bool celestial_navigation_pi::RenderOverlayAll(wxDC *dc, PlugIn_ViewPort *vp)
    if(!m_pCelestialNavigationDialog)
       return false;
 
+   /* draw sights */
    wxSightListNode *node = m_pCelestialNavigationDialog->m_SightList.GetFirst();
    while ( node )
    {
@@ -211,6 +212,32 @@ bool celestial_navigation_pi::RenderOverlayAll(wxDC *dc, PlugIn_ViewPort *vp)
       
       node = node->GetNext();
    }
+
+   /* now render fix */
+   double lat = m_pCelestialNavigationDialog->m_fixlat;
+   double lon = m_pCelestialNavigationDialog->m_fixlon;
+   double err = m_pCelestialNavigationDialog->m_fixerror;
+   wxPoint r1, r2;
+   GetCanvasPixLL(vp, &r1, lat-1, lon-1);
+   GetCanvasPixLL(vp, &r2, lat+1, lon+1);
+
+   if(!isnan(err)) {
+       if(dc) {
+           dc->SetPen ( wxPen(wxColor(255, 0, 0), 1) );
+           dc->SetBrush( *wxTRANSPARENT_BRUSH);
+           dc->DrawLine( r1.x, r1.y, r2.x, r2.y );
+           dc->DrawLine( r1.x, r2.y, r2.x, r1.y );
+       } else {
+           glColor3d(1, 0, 0);
+           glBegin(GL_LINES);
+           glVertex2i(r1.x, r1.y);
+           glVertex2i(r2.x, r2.y);
+           glVertex2i(r1.x, r2.y);
+           glVertex2i(r2.x, r1.y);
+           glEnd();
+       }
+   }
+
    return true;
 }
 

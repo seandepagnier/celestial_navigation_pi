@@ -10,26 +10,27 @@
 
 #include <wx/artprov.h>
 #include <wx/xrc/xmlres.h>
-#include <wx/listctrl.h>
+#include <wx/string.h>
+#include <wx/stattext.h>
 #include <wx/gdicmn.h>
 #include <wx/font.h>
 #include <wx/colour.h>
 #include <wx/settings.h>
-#include <wx/string.h>
-#include <wx/button.h>
+#include <wx/spinctrl.h>
+#include <wx/combobox.h>
 #include <wx/sizer.h>
+#include <wx/statbox.h>
+#include <wx/listctrl.h>
+#include <wx/button.h>
 #include <wx/dialog.h>
-#include <wx/stattext.h>
 #include <wx/choice.h>
 #include <wx/checkbox.h>
 #include <wx/textctrl.h>
-#include <wx/statbox.h>
 #include <wx/panel.h>
 #include <wx/bitmap.h>
 #include <wx/image.h>
 #include <wx/icon.h>
 #include <wx/calctrl.h>
-#include <wx/spinctrl.h>
 #include <wx/slider.h>
 #include <wx/clrpicker.h>
 #include <wx/notebook.h>
@@ -46,28 +47,40 @@ class CelestialNavigationDialogBase : public wxDialog
 	private:
 	
 	protected:
+		wxStaticText* m_staticText26;
+		wxStaticText* m_stLatitude;
+		wxStaticText* m_staticText28;
+		wxStaticText* m_stLongitude;
+		wxStaticText* m_staticText32;
+		wxStaticText* m_stFixError;
+		wxStaticText* m_staticText34;
+		wxSpinCtrl* m_sInitialLatitude;
+		wxStaticText* m_staticText35;
+		wxSpinCtrl* m_sInitialLongitude;
+		wxStaticText* m_staticText36;
+		wxComboBox* m_cbFixAlgorithm;
 		wxListCtrl* m_lSights;
 		wxButton* m_bNewSight;
-		wxButton* m_bWarpSight;
 		wxButton* m_bEditSight;
 		wxButton* m_bDeleteSight;
 		wxButton* m_bDeleteAllSights;
 		wxButton* m_bInformation;
 		
 		// Virtual event handlers, overide them in your derived class
+		virtual void OnUpdateFix( wxSpinEvent& event ) { event.Skip(); }
+		virtual void OnUpdateFix( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnSightListLeftDown( wxMouseEvent& event ) { event.Skip(); }
 		virtual void OnSightSelected( wxListEvent& event ) { event.Skip(); }
 		virtual void OnNew( wxCommandEvent& event ) { event.Skip(); }
-		virtual void OnWarp( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnEdit( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnDelete( wxCommandEvent& event ) { event.Skip(); }
-		virtual void OnDeleteAllSights( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnDeleteAll( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnInformation( wxCommandEvent& event ) { event.Skip(); }
 		
 	
 	public:
 		
-		CelestialNavigationDialogBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Celestial Navigation"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
+		CelestialNavigationDialogBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Celestial Navigation Sights"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~CelestialNavigationDialogBase();
 	
 };
@@ -106,19 +119,18 @@ class SightDialogBase : public wxDialog
 		wxStaticText* m_staticText11;
 		wxSpinCtrl* m_sCertaintySeconds;
 		wxStaticText* m_staticText13;
-		wxPanel* m_panel3;
-		wxStaticText* m_staticText14;
-		wxSlider* m_sTransparency;
-		wxStaticText* m_staticText18;
-		wxColourPickerCtrl* m_ColourPicker;
 		wxStaticText* m_staticText211;
 		wxTextCtrl* m_tShiftNm;
 		wxStaticText* m_staticText23;
 		wxStaticText* m_staticText24;
 		wxTextCtrl* m_tShiftBearing;
 		wxStaticText* m_staticText25;
-		wxStaticText* m_staticText26;
 		wxCheckBox* m_cbMagneticShiftBearing;
+		wxPanel* m_panel3;
+		wxStaticText* m_staticText14;
+		wxSlider* m_sTransparency;
+		wxStaticText* m_staticText18;
+		wxColourPickerCtrl* m_ColourPicker;
 		wxPanel* m_panel8;
 		wxStaticText* m_staticText15;
 		wxSpinCtrl* m_sEyeHeight;
@@ -129,6 +141,9 @@ class SightDialogBase : public wxDialog
 		wxStaticText* m_staticText20;
 		wxSpinCtrl* m_sPressure;
 		wxStaticText* m_staticText21;
+		wxStaticText* m_staticText30;
+		wxTextCtrl* m_tIndexError;
+		wxStaticText* m_staticText31;
 		wxButton* m_bSetDefaults;
 		wxPanel* m_panel81;
 		wxTextCtrl* m_tCalculations;
@@ -148,7 +163,7 @@ class SightDialogBase : public wxDialog
 	
 	public:
 		
-		SightDialogBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("SightProperties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
+		SightDialogBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Sight Properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~SightDialogBase();
 	
 };

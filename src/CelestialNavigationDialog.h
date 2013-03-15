@@ -28,38 +28,37 @@
 #ifndef _CelestialNavigationDialog_h_
 #define _CelestialNavigationDialog_h_
 
+#include "geodesic.h"
 #include "CelestialNavigationUI.h"
 
-class CelestialNavigationDialog : public CelestialNavigationDialogBase {
+class CelestialNavigationDialog : public CelestialNavigationDialogBase
+{
+public:
+    CelestialNavigationDialog(wxWindow *parent);
+    ~CelestialNavigationDialog();
 
-      public:
-            CelestialNavigationDialog(wxWindow *parent);
-            ~CelestialNavigationDialog();
+    SightList m_SightList;
 
-            SightList m_SightList;
+    double m_fixlat, m_fixlon, m_fixerror;
 
-      private:
-            void UpdateSights();     // Rebuild sight list
-            void MakeAllSightsInvisible();
-            void UpdateButtons();           // Correct button state
-            void MakeAllGreatCirclesInvisible();  // Mark all sights as invisible. Does not flush settings.
+private:
+    void UpdateSights();     // Rebuild sight list
+    void UpdateButtons();           // Correct button state
+    void UpdateFix();
 
-            // event handlers
-            void OnNew(wxCommandEvent &event);
-            void OnWarp(wxCommandEvent &event);
-            void OnEdit(wxCommandEvent &event);
-            void OnDelete(wxCommandEvent &event);
-            void OnDeleteAllSights(wxCommandEvent &event);
-            void OnInformation( wxCommandEvent& event );
-
-            void OnSightListLeftDown(wxMouseEvent &event);
-            void OnBtnLeftDown(wxMouseEvent &event); // record control key state for some action buttons
-
-            void OnSightSelected(wxListEvent &event);
-
-//            void OnUpdateAllSightsTimeOffset(wxSpinEvent &event);
-
+    // event handlers
+    void OnNew(wxCommandEvent &event);
+    void OnEdit(wxCommandEvent &event);
+    void OnDelete(wxCommandEvent &event);
+    void OnDeleteAll(wxCommandEvent &event);
+    void OnInformation( wxCommandEvent& event );
+    void OnUpdateFix( wxSpinEvent& event ) { UpdateFix(); }
+    void OnUpdateFix( wxCommandEvent& event ) { UpdateFix(); }
+    
+    void OnSightListLeftDown(wxMouseEvent &event);
+    void OnBtnLeftDown(wxMouseEvent &event); // record control key state for some action buttons
+    
+    void OnSightSelected(wxListEvent &event);
 };
 
 #endif // _CelestialNavigationDialog_h_
-
