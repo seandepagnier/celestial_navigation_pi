@@ -213,7 +213,7 @@ double dist(wxRealPoint a, wxRealPoint b)
 double MinCircle(double &x, double &y, std::vector<wxRealPoint> points)
 {
     if(points.size() < 2)
-        return 0.0/0.0;
+        return NAN;
 
     double maxdist = 0;
     /* find farthest points */

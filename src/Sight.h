@@ -34,6 +34,9 @@
 #include <limits>
 #define NAN std::numeric_limits<double>::quiet_NaN ()
 
+#define isnan _isnan
+#define isinf(x) (!_finite(x))
+
 double trunc(double d){ return (d>0) ? floor(d) : ceil(d) ; }
 #endif
 
