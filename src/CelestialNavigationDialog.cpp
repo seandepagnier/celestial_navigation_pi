@@ -263,7 +263,7 @@ double MinCirclePoints(double &mincx, double &mincy,
     all_points.push_front(cpoints);
 
     if(isinf(mind))
-        return 0.0/0.0;
+        return NAN;
     return mind;
 }
 
@@ -482,7 +482,7 @@ determine fix visually instead.\n"), wxString(_("Fix Position"), wxID_OK | wxICO
         m_stFixError->SetLabel(wxString::Format(_T("%.3g"), m_fixerror));
     } else {
     fail:
-        m_fixerror = 0.0/0.0;
+        m_fixerror = NAN;
         m_stLatitude->SetLabel(_("   N/A   "));
         m_stLongitude->SetLabel(_("   N/A   "));
         m_stFixError->SetLabel(_("   N/A   "));
