@@ -33,13 +33,13 @@
 #include <iostream>
 #include <limits>
 #define NAN std::numeric_limits<double>::quiet_NaN ()
+#define INFINITY std::numeric_limits<double>::infinity ()
 
 #define isnan _isnan
 #define isinf(x) (!_finite(x) && !_isnan(x))
 
 double trunc(double d){ return (d>0) ? floor(d) : ceil(d) ; }
 #endif
-
 
 WX_DECLARE_LIST(wxRealPoint, wxRealPointList);
 

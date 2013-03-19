@@ -246,7 +246,7 @@ double MinCirclePoints(double &mincx, double &mincy,
 
     int s =  points.size();
     points.push_back(wxRealPoint());
-    double mind = 1.0/0.0;
+    double mind = INFINITY;
     for(std::list<wxRealPoint>::iterator it = cpoints.begin();
         it != cpoints.end(); it++) {
         points[s] = *it;
