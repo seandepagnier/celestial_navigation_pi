@@ -228,21 +228,21 @@ SightDialogBase::SightDialogBase( wxWindow* parent, wxWindowID id, const wxStrin
 	fgSizer4->SetFlexibleDirection( wxBOTH );
 	fgSizer4->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
-	m_tMeasurement = new wxTextCtrl( m_panel1, wxID_ANY, wxT("0"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_tMeasurement = new wxTextCtrl( m_panel1, wxID_ANY, wxT("0"), wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER );
 	fgSizer4->Add( m_tMeasurement, 0, wxALL, 5 );
 	
 	m_staticText6 = new wxStaticText( m_panel1, wxID_ANY, wxT("Degrees"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText6->Wrap( -1 );
 	fgSizer4->Add( m_staticText6, 0, wxALL, 5 );
 	
-	m_tMeasurementMinutes = new wxTextCtrl( m_panel1, wxID_ANY, wxT("0"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_tMeasurementMinutes = new wxTextCtrl( m_panel1, wxID_ANY, wxT("0"), wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER );
 	fgSizer4->Add( m_tMeasurementMinutes, 0, wxALL, 5 );
 	
 	m_staticText7 = new wxStaticText( m_panel1, wxID_ANY, wxT("Minutes"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText7->Wrap( -1 );
 	fgSizer4->Add( m_staticText7, 0, wxALL, 5 );
 	
-	m_tMeasurementCertainty = new wxTextCtrl( m_panel1, wxID_ANY, wxT(".5"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_tMeasurementCertainty = new wxTextCtrl( m_panel1, wxID_ANY, wxT(".5"), wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER );
 	fgSizer4->Add( m_tMeasurementCertainty, 0, wxALL, 5 );
 	
 	m_staticText8 = new wxStaticText( m_panel1, wxID_ANY, wxT("Degrees Certainty"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -515,7 +515,9 @@ SightDialogBase::SightDialogBase( wxWindow* parent, wxWindowID id, const wxStrin
 	m_bFindBody->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( SightDialogBase::OnFindBody ), NULL, this );
 	m_cLimb->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_tMeasurement->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
+	m_tMeasurement->Connect( wxEVT_COMMAND_TEXT_ENTER, wxCommandEventHandler( SightDialogBase::MeasurementEntered ), NULL, this );
 	m_tMeasurementMinutes->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
+	m_tMeasurementMinutes->Connect( wxEVT_COMMAND_TEXT_ENTER, wxCommandEventHandler( SightDialogBase::MeasurementEntered ), NULL, this );
 	m_tMeasurementCertainty->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_Calendar->Connect( wxEVT_CALENDAR_DOUBLECLICKED, wxCalendarEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_sHours->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::Recompute ), NULL, this );
@@ -538,6 +540,7 @@ SightDialogBase::SightDialogBase( wxWindow* parent, wxWindowID id, const wxStrin
 	m_sEyeHeight->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_sTemperature->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_sPressure->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::Recompute ), NULL, this );
+	m_tIndexError->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_bSetDefaults->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( SightDialogBase::OnSetDefaults ), NULL, this );
 }
 
@@ -550,7 +553,9 @@ SightDialogBase::~SightDialogBase()
 	m_bFindBody->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( SightDialogBase::OnFindBody ), NULL, this );
 	m_cLimb->Disconnect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_tMeasurement->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
+	m_tMeasurement->Disconnect( wxEVT_COMMAND_TEXT_ENTER, wxCommandEventHandler( SightDialogBase::MeasurementEntered ), NULL, this );
 	m_tMeasurementMinutes->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
+	m_tMeasurementMinutes->Disconnect( wxEVT_COMMAND_TEXT_ENTER, wxCommandEventHandler( SightDialogBase::MeasurementEntered ), NULL, this );
 	m_tMeasurementCertainty->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_Calendar->Disconnect( wxEVT_CALENDAR_DOUBLECLICKED, wxCalendarEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_sHours->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::Recompute ), NULL, this );
@@ -573,6 +578,7 @@ SightDialogBase::~SightDialogBase()
 	m_sEyeHeight->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_sTemperature->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_sPressure->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::Recompute ), NULL, this );
+	m_tIndexError->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_bSetDefaults->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( SightDialogBase::OnSetDefaults ), NULL, this );
 	
 }

@@ -557,7 +557,7 @@ RefractionCorrection = %.5f\n"), m_Pressure, m_Temperature, RefractionCorrection
         SD = r_to_d(sin(d_to_r(lc)));
 
         m_CalcStr+=wxString::Format(_("\nSun selected, Limb Correction\n\
-ra = %.3f, lc = 0.266564/ra\n"), rad, lc);
+ra = %.3f, lc = 0.266564/ra = %.3f\n"), rad, lc);
     }
 
     /* moon radius: 1738 km

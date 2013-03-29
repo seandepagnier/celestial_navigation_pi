@@ -48,6 +48,7 @@ public:
 //    void SetColorScheme(ColorScheme cs);
 
     void OnSetDefaults( wxCommandEvent& event );
+    void MeasurementEntered( wxCommandEvent& event ) { EndModal(wxID_OK); }
     void Recompute( wxCommandEvent& event );
     void Recompute( wxCalendarEvent& event );
     void Recompute( wxSpinEvent& event );

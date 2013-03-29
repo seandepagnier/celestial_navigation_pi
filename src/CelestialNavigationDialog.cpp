@@ -536,7 +536,7 @@ void CelestialNavigationDialog::OnDelete(wxCommandEvent &event)
     
     Sight *psight_to_delete = m_SightList.Item(m_lSights->GetItemData(selected_index))->GetData();
     m_SightList.DeleteObject(psight_to_delete);
-    
+
     UpdateSights();
     RequestRefresh( GetParent() );
 }

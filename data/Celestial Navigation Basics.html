@@ -23,8 +23,16 @@
 <h3><u>Computing a Fix</u></h3>
 <p>Once there are two or more sights taken, it is possible to compute a fix for location.  When there are only two sights, or in some cases with more, it is possible that the program will converge on the wrong location (local minima) so in this case it is advisable to enter the closest dead reckoning latitude and longitude.  The regression is least squares to find a position on earth at sea level.  It would be technically easy to make this work at various altitudes, but I didn't bother to implement this.  For sights which are shifted it is extremely complicated and difficult to implement the math required to perform a fix operation.  It is possible to make a comprimise (only accurate for small shifts near the specified starting latitude and longitude) but instead in the interest of always displaying correct fixes or none at all, in the case there are shifted sights, you will need to visually determine the location of the fix.  It is currently possible to compute a fix only from altitude shots.  Azimuth would be easy in the case of true north, but ridiculously complicated in the case of magnetic north,  For this case, it also makes more sense to visually determine the fix.
 
+<h3><u>Pitfalls</u>
+  <ul>
+    <li><p><b>Sight not appearing</b> It is easy to have large errors in position with celestial navigation, accuracy is difficult.  If you do not see a sight on the chart, ensure the visible (eye) icon appears in the list, then zoom out and pan the whole earth to determine it's location.  Altitude shots close to 90 degrees cover a very small area and may be difficult to find.
+        </li>
+<li><p><b>Time</b> The time is syncronized with the system clock when a new sight is selected.  Be sure to manually adjust the time to make sure it corresponds to the exact moment the sight was taken.
+    </li>
+</ul>
+
 <h3><u>Future Improvements</u></h3>
-<p>In the future I plan to implement lunar angle sights to determine time, show night/day areas, support for moon phases, and both solar and lunar eclipses.
+<p>In the future I plan to implement lunar angle sights to determine time, show night/day areas, support for moon phases, and both solar and lunar eclipses, and the ability to generate almanacs.
 
 <p>
 Continue reading for more information about celestial navigation.
