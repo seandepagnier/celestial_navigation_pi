@@ -1,0 +1,12 @@
+src/FindBodyDialog.cpp
+src/CelestialNavigationDialog.cpp
+src/Sight.h
+src/SightDialog.cpp
+src/CelestialNavigationUI.h
+src/Sight.cpp
+src/CelestialNavigationUI.cpp
+src/celestial_navigation_pi.cpp
+src/CelestialNavigationDialog.h
+src/celestial_navigation_pi.h
+src/SightDialog.h
+src/FindBodyDialog.h
