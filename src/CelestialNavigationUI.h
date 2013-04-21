@@ -10,6 +10,7 @@
 
 #include <wx/artprov.h>
 #include <wx/xrc/xmlres.h>
+#include <wx/intl.h>
 #include <wx/string.h>
 #include <wx/stattext.h>
 #include <wx/gdicmn.h>
@@ -80,7 +81,7 @@ class CelestialNavigationDialogBase : public wxDialog
 	
 	public:
 		
-		CelestialNavigationDialogBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Celestial Navigation Sights"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
+		CelestialNavigationDialogBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("Celestial Navigation Sights"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~CelestialNavigationDialogBase();
 	
 };
@@ -164,7 +165,7 @@ class SightDialogBase : public wxDialog
 	
 	public:
 		
-		SightDialogBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Sight Properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
+		SightDialogBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("Sight Properties"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~SightDialogBase();
 	
 };
@@ -191,7 +192,7 @@ class FindBodyDialogBase : public wxDialog
 	
 	public:
 		
-		FindBodyDialogBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Find Celestial Body"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE ); 
+		FindBodyDialogBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("Find Celestial Body"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE ); 
 		~FindBodyDialogBase();
 	
 };

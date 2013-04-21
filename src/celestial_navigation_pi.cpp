@@ -75,6 +75,8 @@ extern "C" int geomag_load(const char *mdfile);
 
 int celestial_navigation_pi::Init(void)
 {
+    AddLocaleCatalog( _T("opencpn-celestial_navigation_pi") );
+
     // Get a pointer to the opencpn display canvas, to use as a parent for windows created
     m_parent_window = GetOCPNCanvasWindow();
 
