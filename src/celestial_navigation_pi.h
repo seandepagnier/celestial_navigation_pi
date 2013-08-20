@@ -40,7 +40,7 @@
 #define     MY_API_VERSION_MINOR    8
 
 
-#include "../../../include/ocpn_plugin.h"
+#include <opencpn/ocpn_plugin.h>
 
 #include "CelestialNavigationDialog.h"
 
