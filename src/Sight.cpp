@@ -40,7 +40,7 @@
 #include <wx/listimpl.cpp>
 
 
-#include "../../../include/ocpn_plugin.h"
+#include <opencpn/ocpn_plugin.h>
 
 #include "Sight.h"
 
@@ -134,7 +134,7 @@ using namespace astrolabe::sun;
 using namespace astrolabe::util;
 using namespace astrolabe::vsop87d;
 
-/* calculate what position the body for this sight is directly over at a given time */ 
+/* calculate what position the body for this sight is directly over at a given time */
 void Sight::BodyLocation(wxDateTime time, double *lat, double *lon, double *ghaast, double *rad)
 {
     astrolabe::globals::vsop87d_text_path = (const char *)GetpSharedDataLocation()->mb_str();
@@ -144,13 +144,13 @@ void Sight::BodyLocation(wxDateTime time, double *lat, double *lon, double *ghaa
     time.MakeFromUTC();
     double jdu = time.GetJulianDayNumber();
     // julian day dynamic
-    double jdd = ut_to_dt(jdu);              
-   
+    double jdd = ut_to_dt(jdu);
+
     double l, b, r;
     double ra, dec;
     // nutation in longitude
     const double deltaPsi = nut_in_lon(jdd);
-    
+
     // apparent obliquity
     const double eps = obliquity(jdd) + nut_in_obl(jdd);
 
@@ -173,12 +173,12 @@ void Sight::BodyLocation(wxDateTime time, double *lat, double *lon, double *ghaa
         return;
     }
 
-    // correct vsop coordinates    
+    // correct vsop coordinates
     vsop_to_fk5(jdd, l, b);
-    
+
     // nutation in longitude
     l += deltaPsi;
-    
+
     // aberration
     l += aberration_low(r);
 
@@ -285,7 +285,7 @@ void Sight::BodyLocation(wxDateTime time, double *lat, double *lon, double *ghaa
     double eoe = deltaPsi * cos(eps);
     double gast = gmst + eoe;
     ra = ra - gast;
-	 
+
     if(lat)
         *lat = r_to_d(dec);
     if(lon)
@@ -449,25 +449,25 @@ void Sight::Render( wxDC *dc, PlugIn_ViewPort &VP )
         return;
 
     m_dc = dc;
-    
+
     if(dc) {
         dc->SetPen ( wxPen(m_Colour, 1) );
         dc->SetBrush ( wxBrush(m_Colour) );
     } else {
         glColor4ub(m_Colour.Red(), m_Colour.Green(), m_Colour.Blue(), m_Colour.Alpha());
         glPushAttrib(GL_COLOR_BUFFER_BIT | GL_POLYGON_BIT);      //Save state
-        
+
         glEnable(GL_POLYGON_SMOOTH);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
-    
+
     std::list<wxRealPointList*>::iterator it = polygons.begin();
     while(it != polygons.end()) {
         DrawPolygon(VP, **it);
         ++it;
     }
-    
+
     if(!m_dc)
         glPopAttrib();            // restore state
 }
@@ -510,7 +510,7 @@ void Sight::RebuildPolygons()
 }
 
 void Sight::RecomputeAltitude()
-{      
+{
     m_CalcStr.clear();
     m_CalcStr+=_("Formulas used to calculate sight\n\n");
 
@@ -605,7 +605,7 @@ ObservedAltitude = %.5f\n"), m_Measurement, IndexCorrection, EyeHeightCorrection
         m_CalcStr+=wxString::Format(_("\nSun selected, parallax correction\n\
 rad = %.3f, HP = 0.002442/rad = %.3f\n"), rad, HP);
     }
-      
+
     /* earth radius: 6357 km
        distance to moon: 384400 km
        NOTE: could replace with a routine that finds the distance based on time */
@@ -670,7 +670,7 @@ HP = %.3f'\n\n"), lat, lon,
 }
 
 void Sight::RecomputeAzimuth()
-{      
+{
     m_CalcStr.clear();
     m_Measurement = resolve_heading_positive(m_Measurement);
 }
@@ -698,8 +698,8 @@ void Sight::RebuildPolygonsAltitude()
     and trace angle */
 wxRealPoint Sight::DistancePoint( double altitude, double trace, double lat, double lon)
 {
-    double rlat, rlon, y, x; 
-  
+    double rlat, rlon, y, x;
+
     double dang_r = d_to_r(90-altitude);
     double trace_r = d_to_r(trace);
     double lat_r = d_to_r(lat);
@@ -710,13 +710,13 @@ wxRealPoint Sight::DistancePoint( double altitude, double trace, double lat, dou
     y = sin(trace_r)*sin(dang_r)*cos(lat_r);
     x = cos(dang_r)-sin(lat_r)*sin(rlat_r);
     rlon_r = lon_r + atan2(y,x);
-    
+
     rlat = r_to_d(rlat_r);
     rlon = r_to_d(rlon_r);
-    
+
 //    ll_gc_ll(lat, lon, trace, 60*(90-altitude),
 //             &rlat, &rlon);
-    
+
     return wxRealPoint(rlat, rlon);
  }
 
@@ -757,12 +757,12 @@ void Sight::RebuildPolygonsAzimuth()
     azimuthmin = m_Measurement - m_MeasurementCertainty;
     azimuthmax = m_Measurement + m_MeasurementCertainty;
     azimuthstep = ComputeStepSize(m_MeasurementCertainty, 1, azimuthmin, azimuthmax);
-    
+
     double timemin, timemax, timestep;
     timemin = - m_TimeCertainty;
     timemax = + m_TimeCertainty;
     timestep = ComputeStepSize(m_TimeCertainty, 1, timemin, timemax);
-    
+
     BuildBearingLineOfPosition(1, azimuthmin, azimuthmax, azimuthstep,
                                timemin, timemax, timestep);
 }
@@ -776,7 +776,7 @@ bool Sight::BearingPoint( double altitude, double bearing,
     double localbearing = bearing;
 
     localbearing = resolve_heading(localbearing);
-	
+
     double rangle;
     double mdb = 1000;
     double mdl = 1001;
@@ -785,7 +785,7 @@ bool Sight::BearingPoint( double altitude, double bearing,
     {
         lastlat = lat;
         lastlon = lon;
-            
+
         /* apply magnetic correction to bearing */
         if(m_bMagneticNorth) {
             double results[14];
@@ -803,7 +803,7 @@ bool Sight::BearingPoint( double altitude, double bearing,
 //       ll_gc_ll(lat, lon, trace, 60*(90-altitude), &rlat, &rlon);
 //       ll_gc_ll_reverse(rlat, rlon, lat, lon, &b, 0);
         mdl = mdb;
-		
+
         double y, x, yy, xx;
 	double dang_r = d_to_r(1.0);
 	double trace_r = d_to_r(trace);
@@ -822,7 +822,7 @@ bool Sight::BearingPoint( double altitude, double bearing,
 	yy = sin(lon_r - rlon_r)*cos(lat_r);
 	xx = cos(rlat_r)*sin(lat_r) - sin(rlat_r)*cos(lat_r)*cos(lon_r - rlon_r);
 	backbearing_r = atan2(yy,xx);
-	
+
 	rlat = r_to_d(rlat_r);
 	rlon = r_to_d(rlon_r);
 
@@ -832,7 +832,7 @@ bool Sight::BearingPoint( double altitude, double bearing,
 
         rangle_r =  acos(sin(lat_r)*sin(rlat_r)+cos(lat_r)*cos(rlat_r)*cos(rlon_r - lon_r));
         rangle = r_to_d(rangle_r);
-	
+
         /* apply magnetic correction to bearing */
         if(m_bMagneticNorth) {
             double results[14];
@@ -848,7 +848,7 @@ bool Sight::BearingPoint( double altitude, double bearing,
         trace+=mdb;
 
         trace = resolve_heading(trace);
-    }	
+    }
     return ((fabs(mdb)<.1)&&(fabs(rangle)<90.0));
  }
 
@@ -856,17 +856,17 @@ bool Sight::BearingPoint( double altitude, double bearing,
 void Sight::BuildBearingLineOfPosition(double altitudestep,
                                        double azimuthmin, double azimuthmax, double azimuthstep,
                                        double timemin, double timemax, double timestep)
-{ 
+{
     double lasttrace[100];
     for (int i = 0; i < 100; i++)
         lasttrace[i]= 1000.0;
-    
+
     double lastlat[100];
     double lastlon[100];
     double trace;
-    
+
     double blat, blon;
-    
+
     BodyLocation(m_DateTime, &blat, &blon, 0, 0);
 
     blon = resolve_heading(blon);
@@ -878,7 +878,7 @@ void Sight::BuildBearingLineOfPosition(double altitudestep,
 
     wxRealPointList *p, *l = new wxRealPointList;
     l->Append(new wxRealPoint(blat, blon));
-    for(double altitude=200; altitude>=0; altitude-=1) 
+    for(double altitude=200; altitude>=0; altitude-=1)
     {
         if(m_bMagneticNorth)
             progressdialog.Update(200-altitude);
@@ -899,7 +899,7 @@ void Sight::BuildBearingLineOfPosition(double altitudestep,
                     lat = -90.0;
 
                 {
-                    p->Append(new wxRealPoint(lat, lon)); 
+                    p->Append(new wxRealPoint(lat, lon));
                     lasttrace[index] = trace;
 
                     lastlat[index] = lat;
@@ -910,7 +910,7 @@ void Sight::BuildBearingLineOfPosition(double altitudestep,
         }
         wxRealPointList *m = MergePoints(l, p);
         wxRealPointList *n = ReduceToConvexPolygon(m);
-        polygons.push_back(n);      
+        polygons.push_back(n);
         m->DeleteContents(true);
         delete m;
         l->DeleteContents(true);

@@ -31,7 +31,7 @@
   #include "wx/wx.h"
 #endif //precompiled headers
 
-#include "../../../include/ocpn_plugin.h"
+#include <opencpn/ocpn_plugin.h>
 
 #include "Sight.h"
 #include "celestial_navigation_pi.h"
@@ -197,7 +197,7 @@ bool celestial_navigation_pi::RenderOverlay(wxDC &dc, PlugIn_ViewPort *vp)
 bool celestial_navigation_pi::RenderGLOverlay(wxGLContext *pcontext, PlugIn_ViewPort *vp)
 {
     return RenderOverlayAll(NULL, vp);
-} 
+}
 
 bool celestial_navigation_pi::RenderOverlayAll(wxDC *dc, PlugIn_ViewPort *vp)
 {
@@ -211,7 +211,7 @@ bool celestial_navigation_pi::RenderOverlayAll(wxDC *dc, PlugIn_ViewPort *vp)
       Sight *pSightRender = node->GetData();
       if ( pSightRender )
         pSightRender->Render ( dc, *vp );
-      
+
       node = node->GetNext();
    }
 

@@ -45,7 +45,7 @@
 #include "wx/datetime.h"
 #include "wx/colordlg.h"
 
-#include "../../../include/ocpn_plugin.h"
+#include <opencpn/ocpn_plugin.h>
 
 #include "SightDialog.h"
 #include "FindBodyDialog.h"
@@ -121,7 +121,7 @@ SightDialog::SightDialog( wxWindow* parent, Sight &s)
     m_cBody->Append(_T("Shaula"));
     m_cBody->Append(_T("Vega"));
     m_cBody->Append(_T("Zubenelgenubi"));
-    
+
     m_cBody->SetSelection(0);
 
 //    SetColorScheme((ColorScheme)0);
@@ -145,7 +145,7 @@ SightDialog::SightDialog( wxWindow* parent, Sight &s)
    m_sHours->SetValue(m_Sight.m_DateTime.Format(_T("%H")));
    m_sMinutes->SetValue(m_Sight.m_DateTime.Format(_T("%M")));
    m_sSeconds->SetValue(m_Sight.m_DateTime.Format(_T("%S")));
-   
+
    m_sCertaintySeconds->SetValue(m_Sight.m_TimeCertainty);
 
    m_sTransparency->SetValue(m_Sight.m_Colour.Alpha());

@@ -43,7 +43,7 @@
 
 #include "FindBodyDialog.h"
 
-#include "../../../include/ocpn_plugin.h"
+#include <opencpn/ocpn_plugin.h>
 
 #include "Sight.h"
 #include "celestial_navigation_pi.h"
@@ -89,7 +89,7 @@ void FindBodyDialog::Update()
     double lat1, lon1, lat2, lon2, bearing, dist;
     m_tLatitude->GetValue().ToDouble(&lat1);
     m_tLongitude->GetValue().ToDouble(&lon1);
-    
+
     m_Sight.BodyLocation(m_Sight.m_DateTime, &lat2, &lon2, 0, 0);
 
     ll_gc_ll_reverse(lat1, lon1, lat2, lon2, &bearing, &dist);
@@ -98,13 +98,13 @@ void FindBodyDialog::Update()
 
     if(m_cbMagneticAzimuth->GetValue()) {
         double results[14];
-          
+
         geomag_calc(lat1, lon1, m_Sight.m_EyeHeight,
                     m_Sight.m_DateTime.GetDay(), m_Sight.m_DateTime.GetMonth(),
                     m_Sight.m_DateTime.GetYear(), results);
         bearing -= results[0];
     }
-    
+
     m_stAltitude->SetLabel(wxString::Format(_T("%f"), dist));
     m_stAzimuth->SetLabel(wxString::Format(_T("%f"), bearing));
 }
