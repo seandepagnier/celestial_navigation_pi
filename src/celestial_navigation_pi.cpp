@@ -148,7 +148,7 @@ int celestial_navigation_pi::GetPlugInVersionMinor()
 
 wxBitmap *celestial_navigation_pi::GetPlugInBitmap()
 {
-      return _img_celestial_navigation;
+    return new wxBitmap(_img_celestial_navigation->ConvertToImage().Copy());
 }
 
 wxString celestial_navigation_pi::GetCommonName()
