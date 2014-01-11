@@ -19,10 +19,10 @@
 #include <wx/settings.h>
 #include <wx/spinctrl.h>
 #include <wx/combobox.h>
+#include <wx/button.h>
 #include <wx/sizer.h>
 #include <wx/statbox.h>
 #include <wx/listctrl.h>
-#include <wx/button.h>
 #include <wx/dialog.h>
 #include <wx/choice.h>
 #include <wx/checkbox.h>
@@ -60,6 +60,7 @@ class CelestialNavigationDialogBase : public wxDialog
 		wxSpinCtrl* m_sInitialLongitude;
 		wxStaticText* m_staticText36;
 		wxComboBox* m_cbFixAlgorithm;
+		wxButton* m_bGo;
 		wxListCtrl* m_lSights;
 		wxButton* m_bNewSight;
 		wxButton* m_bEditSight;
@@ -70,6 +71,7 @@ class CelestialNavigationDialogBase : public wxDialog
 		// Virtual event handlers, overide them in your derived class
 		virtual void OnUpdateFix( wxSpinEvent& event ) { event.Skip(); }
 		virtual void OnUpdateFix( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnGoFix( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnSightListLeftDown( wxMouseEvent& event ) { event.Skip(); }
 		virtual void OnSightSelected( wxListEvent& event ) { event.Skip(); }
 		virtual void OnNew( wxCommandEvent& event ) { event.Skip(); }

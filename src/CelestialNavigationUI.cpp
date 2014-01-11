@@ -31,7 +31,7 @@ CelestialNavigationDialogBase::CelestialNavigationDialogBase( wxWindow* parent, 
 	sbSizer7 = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, _("Fix From Visible Sights") ), wxVERTICAL );
 	
 	wxFlexGridSizer* fgSizer16;
-	fgSizer16 = new wxFlexGridSizer( 0, 6, 0, 0 );
+	fgSizer16 = new wxFlexGridSizer( 0, 7, 0, 0 );
 	fgSizer16->SetFlexibleDirection( wxBOTH );
 	fgSizer16->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
@@ -59,6 +59,9 @@ CelestialNavigationDialogBase::CelestialNavigationDialogBase( wxWindow* parent, 
 	m_stFixError->Wrap( -1 );
 	fgSizer16->Add( m_stFixError, 0, wxALL, 5 );
 	
+	
+	fgSizer16->Add( 0, 0, 1, wxEXPAND, 5 );
+	
 	m_staticText34 = new wxStaticText( this, wxID_ANY, _("Initial"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText34->Wrap( -1 );
 	fgSizer16->Add( m_staticText34, 0, wxALIGN_CENTER|wxALL, 5 );
@@ -84,6 +87,11 @@ CelestialNavigationDialogBase::CelestialNavigationDialogBase( wxWindow* parent, 
 	m_cbFixAlgorithm->Append( _("Cone 2") );
 	m_cbFixAlgorithm->SetSelection( 1 );
 	fgSizer16->Add( m_cbFixAlgorithm, 0, wxALL, 5 );
+	
+	m_bGo = new wxButton( this, wxID_ANY, _("Go"), wxDefaultPosition, wxSize( -1,-1 ), wxBU_EXACTFIT );
+	m_bGo->Enable( false );
+	
+	fgSizer16->Add( m_bGo, 0, wxALL, 5 );
 	
 	
 	sbSizer7->Add( fgSizer16, 1, wxEXPAND, 5 );
@@ -129,6 +137,7 @@ CelestialNavigationDialogBase::CelestialNavigationDialogBase( wxWindow* parent, 
 	m_sInitialLatitude->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( CelestialNavigationDialogBase::OnUpdateFix ), NULL, this );
 	m_sInitialLongitude->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( CelestialNavigationDialogBase::OnUpdateFix ), NULL, this );
 	m_cbFixAlgorithm->Connect( wxEVT_COMMAND_COMBOBOX_SELECTED, wxCommandEventHandler( CelestialNavigationDialogBase::OnUpdateFix ), NULL, this );
+	m_bGo->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnGoFix ), NULL, this );
 	m_lSights->Connect( wxEVT_LEFT_DOWN, wxMouseEventHandler( CelestialNavigationDialogBase::OnSightListLeftDown ), NULL, this );
 	m_lSights->Connect( wxEVT_COMMAND_LIST_ITEM_DESELECTED, wxListEventHandler( CelestialNavigationDialogBase::OnSightSelected ), NULL, this );
 	m_lSights->Connect( wxEVT_COMMAND_LIST_ITEM_SELECTED, wxListEventHandler( CelestialNavigationDialogBase::OnSightSelected ), NULL, this );
@@ -145,6 +154,7 @@ CelestialNavigationDialogBase::~CelestialNavigationDialogBase()
 	m_sInitialLatitude->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( CelestialNavigationDialogBase::OnUpdateFix ), NULL, this );
 	m_sInitialLongitude->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( CelestialNavigationDialogBase::OnUpdateFix ), NULL, this );
 	m_cbFixAlgorithm->Disconnect( wxEVT_COMMAND_COMBOBOX_SELECTED, wxCommandEventHandler( CelestialNavigationDialogBase::OnUpdateFix ), NULL, this );
+	m_bGo->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnGoFix ), NULL, this );
 	m_lSights->Disconnect( wxEVT_LEFT_DOWN, wxMouseEventHandler( CelestialNavigationDialogBase::OnSightListLeftDown ), NULL, this );
 	m_lSights->Disconnect( wxEVT_COMMAND_LIST_ITEM_DESELECTED, wxListEventHandler( CelestialNavigationDialogBase::OnSightSelected ), NULL, this );
 	m_lSights->Disconnect( wxEVT_COMMAND_LIST_ITEM_SELECTED, wxListEventHandler( CelestialNavigationDialogBase::OnSightSelected ), NULL, this );
@@ -242,7 +252,7 @@ SightDialogBase::SightDialogBase( wxWindow* parent, wxWindowID id, const wxStrin
 	m_staticText7->Wrap( -1 );
 	fgSizer4->Add( m_staticText7, 0, wxALL, 5 );
 	
-	m_tMeasurementCertainty = new wxTextCtrl( m_panel1, wxID_ANY, _(".5"), wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER );
+	m_tMeasurementCertainty = new wxTextCtrl( m_panel1, wxID_ANY, _(".25"), wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER );
 	fgSizer4->Add( m_tMeasurementCertainty, 0, wxALL, 5 );
 	
 	m_staticText8 = new wxStaticText( m_panel1, wxID_ANY, _("Degrees Certainty"), wxDefaultPosition, wxDefaultSize, 0 );

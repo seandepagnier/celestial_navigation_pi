@@ -88,27 +88,28 @@ Sight::Sight(Type type, wxString body, BodyLimb bodylimb, wxDateTime datetime,
       m_ShiftNm(0), m_ShiftBearing(0), m_bMagneticShiftBearing(0),
       m_bMagneticNorth(false)
 {
-    const wxColour sightcolors[] = {
-        wxColour(_T("MEDIUM VIOLET RED")), wxColour(_T("MIDNIGHT BLUE")), wxColour(_T("ORANGE")),
-        wxColour(_T("PLUM")), wxColour(_T("PURPLE")), wxColour(_T("RED")), wxColour(_T("SALMON")),
-        wxColour(_T("SLATE BLUE")), wxColour(_T("SPRING GREEN")),
-        wxColour(_T("ORANGE RED")), wxColour(_T("ORCHID")), wxColour(_T("PALE GREEN")), wxColour(_T("PINK")),
-        wxColour(_T("BROWN")), wxColour(_T("BLUE")), wxColour(_T("GREEN YELLOW")),
-        wxColour(_T("GOLDENROD")), wxColour(_T("BLUE VIOLET")),
-        wxColour(_T("AQUAMARINE")), wxColour(_T("CADET BLUE")), wxColour(_T("CORAL")),
-        wxColour(_T("CORNFLOWER BLUE")), wxColour(_T("FOREST GREEN")), wxColour(_T("GOLD")),
-        wxColour(_T("THISTLE")), wxColour(_T("TURQUOISE")), wxColour(_T("VIOLET")),
-        wxColour(_T("SEA GREEN")), wxColour(_T("SKY BLUE")), wxColour(_T("YELLOW GREEN")),
-        wxColour(_T("INDIAN RED")), wxColour(_T("LIGHT BLUE")),
-        wxColour(_T("LIME GREEN")), wxColour(_T("MAGENTA")), wxColour(_T("MAROON")),
-        wxColour(_T("MEDIUM GOLDENROD")), wxColour(_T("MEDIUM ORCHID")), wxColour(_T("MEDIUM SEA GREEN")),
-        wxColour(_T("VIOLET RED")), wxColour(_T("YELLOW"))};
+    const wxString sightcolornames[] = {
+        _T("MEDIUM VIOLET RED"), _T("MIDNIGHT BLUE"), _T("ORANGE"),
+        _T("PLUM"), _T("PURPLE"), _T("RED"), _T("SALMON"),
+        _T("SLATE BLUE"), _T("SPRING GREEN"),
+        _T("ORANGE RED"), _T("ORCHID"), _T("PALE GREEN"), _T("PINK"),
+        _T("BROWN"), _T("BLUE"), _T("GREEN YELLOW"),
+        _T("GOLDENROD"), _T("BLUE VIOLET"),
+        _T("AQUAMARINE"), _T("CADET BLUE"), _T("CORAL"),
+        _T("CORNFLOWER BLUE"), _T("FOREST GREEN"), _T("GOLD"),
+        _T("THISTLE"), _T("TURQUOISE"), _T("VIOLET"),
+        _T("SEA GREEN"), _T("SKY BLUE"), _T("YELLOW GREEN"),
+        _T("INDIAN RED"), _T("LIGHT BLUE"),
+        _T("LIME GREEN"), _T("MAGENTA"), _T("MAROON"),
+        _T("MEDIUM GOLDENROD"), _T("MEDIUM ORCHID"), _T("MEDIUM SEA GREEN"),
+        _T("VIOLET RED"), _T("YELLOW")};
 
-    m_Colour = sightcolors[s_lastsightcolor];
+    m_ColourName = sightcolornames[s_lastsightcolor];
+    m_Colour = wxColour(m_ColourName);
 
     m_Colour.Set(m_Colour.Red(), m_Colour.Green(), m_Colour.Blue(), 150);
 
-    if(++s_lastsightcolor == (sizeof sightcolors) / (sizeof *sightcolors))
+    if(++s_lastsightcolor == (sizeof sightcolornames) / (sizeof *sightcolornames))
        s_lastsightcolor=0;
 }
 

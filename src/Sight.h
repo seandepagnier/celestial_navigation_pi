@@ -90,6 +90,7 @@ public:
     double      m_ShiftBearing;          // direction to move points
     bool        m_bMagneticShiftBearing; // use magnetic or true for shift
       
+    wxString   m_ColourName;
     wxColour   m_Colour;     // Color of the sight
 
     virtual void Render(wxDC *dc, PlugIn_ViewPort &pVP);

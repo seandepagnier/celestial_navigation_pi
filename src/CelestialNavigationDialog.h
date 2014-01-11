@@ -54,7 +54,7 @@ private:
     void OnInformation( wxCommandEvent& event );
     void OnUpdateFix( wxSpinEvent& event ) { UpdateFix(); }
     void OnUpdateFix( wxCommandEvent& event ) { UpdateFix(); }
-    
+    void OnGoFix( wxCommandEvent& event );
     void OnSightListLeftDown(wxMouseEvent &event);
     void OnBtnLeftDown(wxMouseEvent &event); // record control key state for some action buttons
     

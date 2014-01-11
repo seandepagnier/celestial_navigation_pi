@@ -207,20 +207,6 @@ void SightDialog::OnFindBody( wxCommandEvent& event )
    findbody_dialog.ShowModal();
 }
 
-/*
-void SightDialog::OnSightDialogColorSetClick( wxCommandEvent& event )
-{
-   // Create the Colour Dialog.
-   wxColourDialog *colour_dialog = new wxColourDialog(GetParent());
-   colour_dialog->GetColourData().SetColour(m_Color->GetForegroundColour());
-   colour_dialog->ShowModal();
-   // After closing the Colour dialog, colour_data will contain
-   // data about selected colour, and any custom colours.
-   // Colour selected for use from the Colour Dialog.
-   m_Color->SetForegroundColour ( colour_dialog->GetColourData().GetColour() );
-}
-*/
-
 wxDateTime SightDialog::DateTime()
 {
    wxDateTime datetime =  m_Calendar->GetDate();

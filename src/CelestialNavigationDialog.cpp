@@ -113,7 +113,7 @@ CelestialNavigationDialog::CelestialNavigationDialog(wxWindow *parent)
 
     m_lSights->InsertColumn(rmTYPE, _("Type"));
     m_lSights->InsertColumn(rmBODY, _("Body"));
-    m_lSights->InsertColumn(rmTIME, _("Time"));
+    m_lSights->InsertColumn(rmTIME, _("Time (UTC)"));
     m_lSights->InsertColumn(rmMEASUREMENT, _("Measurement"));
     m_lSights->InsertColumn(rmCOLOR, _("Color"));
     
@@ -150,18 +150,16 @@ void CelestialNavigationDialog::UpdateSights()
         m_lSights->SetItemImage(index, (*it)->IsVisible() ? 0 : -1);
         m_lSights->SetItem(idx, rmTYPE, (*it)->m_Type ? _("Azimuth") : _("Altitude"));
         m_lSights->SetItem(idx, rmBODY, (*it)->m_Body);
-        m_lSights->SetItem(idx, rmTIME, (*it)->m_DateTime.Format());
+        wxDateTime dt = (*it)->m_DateTime.ToUTC();
+        m_lSights->SetItem(idx, rmTIME, dt.FormatISODate() + _T(" ") + dt.FormatISOTime());
         m_lSights->SetItem(idx, rmMEASUREMENT, wxString::Format(_T("%.4f"), (*it)->m_Measurement));
-        
-        m_lSights->SetItem(idx, rmCOLOR,
-                           wxString::Format(_T("0x%hhx%hhx%hhx"),
-                                            (*it)->m_Colour.Red(),
-                                            (*it)->m_Colour.Green(),
-                                            (*it)->m_Colour.Blue()));
+        m_lSights->SetItem(idx, rmCOLOR, (*it)->m_ColourName);
     }
     
-    m_lSights->SetColumnWidth(1, wxLIST_AUTOSIZE);
-    m_lSights->SetColumnWidth(2, wxLIST_AUTOSIZE);
+    m_lSights->SetColumnWidth(rmTYPE, wxLIST_AUTOSIZE);
+    m_lSights->SetColumnWidth(rmBODY, wxLIST_AUTOSIZE);
+    m_lSights->SetColumnWidth(rmTIME, wxLIST_AUTOSIZE);
+    m_lSights->SetColumnWidth(rmCOLOR, wxLIST_AUTOSIZE);
     
     if(m_lSights->GetColumnWidth(1) < 20)
         m_lSights->SetColumnWidth(1, 50);
@@ -441,52 +439,57 @@ determine fix visually instead.\n"), wxString(_("Fix Position"), wxID_OK | wxICO
     }
 
     /* invert S */
-    if(matrix_invert3(S)) {
-        for(int i = 0; i<3; i++)
-            for(int j = 0; j<3; j++)
-                X[i] += S[i][j]*N[j];
+    double d, err;
+    if(!matrix_invert3(S))
+        goto fail;
 
-        double d = sqrt(X[0]*X[0] + X[1]*X[1] + X[2]*X[2]);
-        double err = fabs(d-1);
-
-        /* 20 is overkill to converge. there are better ways to determine the number
-           of iterations, but this routine runs so fast it doesn't matter */
-        if(iterations++ < 20) {
-            if(err > 100) /* we are diverging */
-                goto fail;
-            J.clear();
-            R.clear();
-            goto again;
-        }
-
-        /* normalize */
-        X[0] /= d, X[1] /= d, X[2] /= d;
-        
-        m_fixlat = rad2deg(asin(X[2]));
-        m_fixlon = rad2deg(atan2(X[1], X[0]));
-
-        if(err > .1)
+    for(int i = 0; i<3; i++)
+        for(int j = 0; j<3; j++)
+            X[i] += S[i][j]*N[j];
+    
+    d = sqrt(X[0]*X[0] + X[1]*X[1] + X[2]*X[2]);
+    err = fabs(d-1);
+    
+    /* 20 is overkill to converge. there are better ways to determine the number
+       of iterations, but this routine runs so fast it doesn't matter */
+    if(iterations++ < 20) {
+        if(err > 100) /* we are diverging */
             goto fail;
-
+        J.clear();
+        R.clear();
+        goto again;
+    }
+    
+    /* normalize */
+    X[0] /= d, X[1] /= d, X[2] /= d;
+    
+    m_fixlat = rad2deg(asin(X[2]));
+    m_fixlon = rad2deg(atan2(X[1], X[0]));
+    
+    if(err <= .1) {   
         m_fixerror = 0;
         for (it2 = R.begin(); it2 != R.end(); it2++)
             m_fixerror += (*it2)*(*it2);
-
+        m_fixerror = sqrt(m_fixerror);
+    
         double lat = trunc(m_fixlat);
         double latmin = 60*(m_fixlat - lat);
         double lon = trunc(m_fixlon);
         double lonmin = 60*(m_fixlon - lon);
-
+    
         m_stLatitude->SetLabel(wxString::Format(_T("%.0f %.1f'"), lat, latmin));
         m_stLongitude->SetLabel(wxString::Format(_T("%.0f %.1f'"), lon, lonmin));
         m_stFixError->SetLabel(wxString::Format(_T("%.3g"), m_fixerror));
+        m_bGo->Enable();
     } else {
-    fail:
+fail:
         m_fixerror = NAN;
         m_stLatitude->SetLabel(_("   N/A   "));
         m_stLongitude->SetLabel(_("   N/A   "));
         m_stFixError->SetLabel(_("   N/A   "));
+        m_bGo->Disable();
     }
+
     RequestRefresh( GetParent() );
 }
 
@@ -555,9 +558,10 @@ void CelestialNavigationDialog::OnDeleteAll(wxCommandEvent &event)
 
 void CelestialNavigationDialog::OnInformation( wxCommandEvent& event )
 {
-    InformationDialog dlg(this);
     wxString infolocation = *GetpSharedDataLocation()
-        + _T("plugins/celestial_navigation/data/Celestial Navigation Basics.html");
+        + _T("plugins/celestial_navigation/data/Celestial_Navigation_Information.html");
+#if 0
+    InformationDialog dlg(this);
     if(dlg.m_htmlInformation->LoadFile(infolocation))
         dlg.ShowModal();
     else {
@@ -565,7 +569,22 @@ void CelestialNavigationDialog::OnInformation( wxCommandEvent& event )
                              wxString(_("Celestial Navigation"), wxOK | wxICON_ERROR));
         mdlg.ShowModal();
     }
+#endif
+    wxLaunchDefaultBrowser(_T("file://") + infolocation);
 }
+
+void CelestialNavigationDialog::OnGoFix( wxCommandEvent& event )
+{
+    double scale = 1e-5/m_fixerror;
+    if(scale < 1e-4)
+        scale = 1e-4;
+
+    if(scale > 1e-3)
+        scale = 1e-3;
+
+    JumpToPosition(m_fixlat, m_fixlon, scale);
+}
+
 void CelestialNavigationDialog::OnSightListLeftDown(wxMouseEvent &event)
 {
     wxPoint pos = event.GetPosition();
