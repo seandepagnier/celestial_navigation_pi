@@ -39,6 +39,7 @@
 #define     MY_API_VERSION_MAJOR    1
 #define     MY_API_VERSION_MINOR    8
 
+#define ABOUT_AUTHOR_URL "http://seandepagnier.users.sourceforge.net"
 
 #include "../../../include/ocpn_plugin.h"
 
