@@ -5,7 +5,7 @@
  * Author:   Sean D'Epagnier
  *
  ***************************************************************************
- *   Copyright (C) 2013 by Sean D'Epagnier                                 *
+ *   Copyright (C) 2014 by Sean D'Epagnier                                 *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -29,21 +29,14 @@
 #include <math.h>
 #include <time.h>
 
-#include "wx/wxprec.h"
-
-#ifndef  WX_PRECOMP
-#include "wx/wx.h"
-#endif //precompiled headers
-
+#include <wx/wx.h>
 #include <wx/progdlg.h>
-
 #include <wx/listimpl.cpp>
-
+#include <wx/fileconf.h>
 
 #include "../../../include/ocpn_plugin.h"
 
 #include "Sight.h"
-
 
 WX_DEFINE_LIST ( SightList );
 WX_DEFINE_LIST ( wxRealPointList );
@@ -70,11 +63,6 @@ double resolve_heading_positive(double heading)
 //          Sight Implementation
 //-----------------------------------------------------------------------------
 
-double Sight::default_eye_height=2;
-double Sight::default_temperature=25;
-double Sight::default_pressure=1000;
-double Sight::default_index_error=0;
-
 int Sight::s_lastsightcolor = 0;
 
 Sight::Sight(Type type, wxString body, BodyLimb bodylimb, wxDateTime datetime,
@@ -82,12 +70,17 @@ Sight::Sight(Type type, wxString body, BodyLimb bodylimb, wxDateTime datetime,
     : m_bVisible(true), m_Type(type), m_Body(body), m_BodyLimb(bodylimb),
      m_DateTime(datetime), m_TimeCertainty(timecertainty),
      m_Measurement(measurement), m_MeasurementCertainty(measurementcertainty),
-      m_EyeHeight(default_eye_height),
-      m_Temperature(default_temperature),
-      m_Pressure(default_pressure), m_IndexError(default_index_error),
       m_ShiftNm(0), m_ShiftBearing(0), m_bMagneticShiftBearing(0),
       m_bMagneticNorth(false)
 {
+    wxFileConfig *pConf = GetOCPNConfigObject();
+    pConf->SetPath( _T("/PlugIns/CelestialNavigation") );
+
+    pConf->Read( _T("DefaultEyeHeight"), &m_EyeHeight, 2 ); 
+    pConf->Read( _T("DefaultTemperature"), &m_Temperature, 25 );
+    pConf->Read( _T("DefaultPressure"), &m_Pressure, 1000 );
+    pConf->Read( _T("DefaultIndexError"), &m_IndexError, 0 );
+
     const wxString sightcolornames[] = {
         _T("MEDIUM VIOLET RED"), _T("MIDNIGHT BLUE"), _T("ORANGE"),
         _T("PLUM"), _T("PURPLE"), _T("RED"), _T("SALMON"),

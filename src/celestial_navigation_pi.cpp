@@ -185,6 +185,7 @@ void celestial_navigation_pi::SetColorScheme(PI_ColorScheme cs)
 {
     if (NULL == m_pCelestialNavigationDialog)
         return;
+
     DimeWindow(m_pCelestialNavigationDialog);
 }
 

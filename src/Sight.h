@@ -100,12 +100,11 @@ public:
 
     wxString m_CalcStr;
 
-/* for altitude */
+    /* for altitude */
     double      m_CorrectedAltitude; /* after observer height, edge, refraction and parallax */
-/* for azimuth */
-    bool       m_bMagneticNorth; // if azimuth angle is in magnetic coordinates
 
-    static double default_eye_height, default_temperature, default_pressure, default_index_error;
+    /* for azimuth */
+    bool       m_bMagneticNorth; // if azimuth angle is in magnetic coordinates
 
 protected:
     double CalcAngle(wxRealPoint p1, wxRealPoint p2);

@@ -227,10 +227,15 @@ wxDateTime SightDialog::DateTime()
 
 void SightDialog::OnSetDefaults( wxCommandEvent& event )
 {
-    Sight::default_eye_height = m_Sight.m_EyeHeight = m_sEyeHeight->GetValue();
-    Sight::default_temperature = m_Sight.m_Temperature;
-    Sight::default_pressure = m_Sight.m_Pressure;
-    Sight::default_index_error = m_Sight.m_IndexError;
+    wxFileConfig *pConf = GetOCPNConfigObject();
+    pConf->SetPath( _T("/PlugIns/CelestialNavigation") );
+
+    pConf->Write( _T("DefaultEyeHeight"), m_sEyeHeight->GetValue() ); 
+    pConf->Write( _T("DefaultTemperature"), m_sTemperature->GetValue() );
+    pConf->Write( _T("DefaultPressure"), m_sPressure->GetValue() );
+    double indexerror;
+    m_tIndexError->GetValue().ToDouble(&indexerror);
+    pConf->Write( _T("DefaultIndexError"), indexerror );
 }
 
 void SightDialog::Recompute( wxCommandEvent& event )
