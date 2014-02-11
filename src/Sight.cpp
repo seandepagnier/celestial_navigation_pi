@@ -509,31 +509,41 @@ void Sight::RecomputeAltitude()
     m_CalcStr+=_("Formulas used to calculate sight\n\n");
 
     /* correct for index error */
-    double IndexCorrection = m_IndexError;
-    m_CalcStr+=wxString::Format(_("Index Error is %.4f degrees\n\n"), m_IndexError);
+    double IndexCorrection = m_IndexError / 60.0;
+    m_CalcStr+=wxString::Format(_("Index Error is %.4f degrees\n\n"), IndexCorrection);
 
-   /* correct for height of observer
-      The dip of the sea horizon in minutes = 1.753*sqrt(height) */
+    /* correct for height of observer
+       The dip of the sea horizon in minutes = 1.753*sqrt(height) */
     double EyeHeightCorrection = 1.753*sqrt(m_EyeHeight) / 60.0;
     m_CalcStr+=wxString::Format(_("Eye Height is %.3f meters\n\
 Height Correction Degrees = 1.753*sqrt(%.3f) / 60.0\n\
 Height Correction Degrees = %.3f\n"),
                                 m_EyeHeight, m_EyeHeight, EyeHeightCorrection);
 
+    /* Apparent Altitude Ha */
+    double ApparentAltitude = m_Measurement - IndexCorrection - EyeHeightCorrection;
+    m_CalcStr+=wxString::Format(_("\nApparent Altitude (Ha)\n\
+ApparentAltitude = Measurement - IndexCorrection - EyeHeightCorrection\n\
+ApparentAltitude = %.3f - %.3f - %.3f\n\
+ApparentAltitude = %.5f\n"), m_Measurement, IndexCorrection,
+                                EyeHeightCorrection, ApparentAltitude);
+
     /* compensate for refraction */
     double RefractionCorrection;
 #if 0
+    /* old correction not used */
     double Ha = m_Measurement - m_EyeHeightCorrection;
     double Ref = 1/tan(d_to_r(Ha + (7.31/(Ha + 4.4))));
     double RefImp = Ref - .06 * sin(d_to_r(14.7*Ref + 13));
 
     RefractionCorrection = RefImp * .00467 * m_Pressure / (273.15 + m_Temperature);
 #else
-    double x = tan(M_PI/180 * m_Measurement + 4.848e-2*(M_PI/180) / (tan(M_PI/180 * m_Measurement) + .028));
+    double x = tan(M_PI/180 * ApparentAltitude + 4.848e-2*(M_PI/180)
+                   / (tan(M_PI/180 * ApparentAltitude) + .028));
     m_CalcStr+=wxString::Format(_("\nRefraction Correction\n\
-x = tan(Pi/180*Measurement + 4.848e-2*(Pi/180) / (tan(Pi/180*Measurement) + .028))\n\
+x = tan(Pi/180*ApparentAltitude + 4.848e-2*(Pi/180) / (tan(Pi/180*ApparentAltitude) + .028))\n\
 x = tan(Pi/180*%.3f + 4.848e-2*(Pi/180) / (tan(Pi/180*%.3f) + .028))\n\
-x = %.3f\n"), m_Measurement, m_Measurement, x);
+x = %.3f\n"), ApparentAltitude, ApparentAltitude, x);
     RefractionCorrection = .267 * m_Pressure / (x*(m_Temperature + 273.15)) / 60.0;
     m_CalcStr+=wxString::Format(_("\
 RefractionCorrection = .267 * Pressure / (x*(Temperature + 273.15)) / 60.0\n\
@@ -580,13 +590,12 @@ lc = %.3f\n"), SD, lc);
     }
 
 
-    double ObservedAltitude = m_Measurement - IndexCorrection - EyeHeightCorrection - RefractionCorrection - LimbCorrection;
-    m_CalcStr+=wxString::Format(_("\nObserved Altitude\n\
-ObservedAltitude = Measurement - IndexCorrection - EyeHeightCorrection - \
-RefractionCorrection - LimbCorrection\n\
-ObservedAltitude = %.3f - %.3f - %.3f - %.3f - %.3f\n\
-ObservedAltitude = %.5f\n"), m_Measurement, IndexCorrection, EyeHeightCorrection,
-                                RefractionCorrection, LimbCorrection, ObservedAltitude);
+    double CorrectedAltitude = ApparentAltitude - RefractionCorrection - LimbCorrection;
+    m_CalcStr+=wxString::Format(_("\nCorrected Altitude\n\
+CorrectedAltitude = ApparentAltitude - RefractionCorrection - LimbCorrection\n\
+CorrectedAltitude = %.3f - %.3f - %.3f\n\
+CorrectedAltitude = %.5f\n"), ApparentAltitude,
+                                RefractionCorrection, LimbCorrection, CorrectedAltitude);
 
     /* correct for limb shot */
     double ParallaxCorrection = 0;
@@ -610,20 +619,18 @@ HP = %.3f\n"), HP);
     }
 
     if(HP) {
-        ParallaxCorrection = -r_to_d(asin(sin(d_to_r(HP))*cos(d_to_r(ObservedAltitude))));
+        ParallaxCorrection = -r_to_d(asin(sin(d_to_r(HP))*cos(d_to_r(CorrectedAltitude))));
         m_CalcStr+=wxString::Format(_("\
-ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * ObservedAltitude))\n\
+ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * CorrectedAltitude))\n\
 ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * %.3f ) * cos(Pi/180 * %.3f))\n\
-ParallaxCorrection = %.5f\n"), HP, ObservedAltitude, ParallaxCorrection);
+ParallaxCorrection = %.5f\n"), HP, CorrectedAltitude, ParallaxCorrection);
     }
 
-    m_CorrectedAltitude = ObservedAltitude - ParallaxCorrection;
-    m_CalcStr+=wxString::Format(_("\nCorrected Altitude\n\
-CorrectedAltitude = ObservedAltitude - ParallaxCorrection\n\
-CorrectedAltitude = %.3f - %.3f\n\
-CorrectedAltitude = %.5f\n"), ObservedAltitude, ParallaxCorrection,
-                                m_CorrectedAltitude);
-
+    m_ObservedAltitude = CorrectedAltitude - ParallaxCorrection;
+    m_CalcStr+=wxString::Format(_("\nObserved Altitude (Ho)\n\
+ObservedAltitude = CorrectedAltitude - ParallaxCorrection\n\
+ObservedAltitude = %.3f - %.3f\n\
+ObservedAltitude = %.5f\n"), CorrectedAltitude, ParallaxCorrection, m_ObservedAltitude);
 
    double lat, lon, ghaast, rad;
    BodyLocation(m_DateTime, &lat, &lon, &ghaast, &rad);
@@ -674,8 +681,8 @@ void Sight::RebuildPolygonsAltitude()
       polygons.clear();
 
       double altitudemin, altitudemax, altitudestep;
-      altitudemin = m_CorrectedAltitude - m_MeasurementCertainty;
-      altitudemax = m_CorrectedAltitude + m_MeasurementCertainty;
+      altitudemin = m_ObservedAltitude - m_MeasurementCertainty;
+      altitudemax = m_ObservedAltitude + m_MeasurementCertainty;
       altitudestep = ComputeStepSize(m_MeasurementCertainty, 1, altitudemin, altitudemax);
 
       double timemin, timemax, timestep;

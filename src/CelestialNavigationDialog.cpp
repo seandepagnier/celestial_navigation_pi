@@ -358,8 +358,8 @@ determine fix visually instead.\n"), wxString(_("Fix Position"), wxID_OK | wxICO
         double y = cos(deg2rad(lat))*sin(deg2rad(lon));
         double z = sin(deg2rad(lat));
 
-        double sm = sin(deg2rad(s->m_CorrectedAltitude));
-        double cm = cos(deg2rad(s->m_CorrectedAltitude));
+        double sm = sin(deg2rad(s->m_ObservedAltitude));
+        double cm = cos(deg2rad(s->m_ObservedAltitude));
 
         double d;
 

@@ -80,7 +80,7 @@ CelestialNavigationDialogBase::CelestialNavigationDialogBase( wxWindow* parent, 
 	m_staticText36->Wrap( -1 );
 	fgSizer16->Add( m_staticText36, 0, wxALIGN_CENTER|wxALL, 5 );
 	
-	m_cbFixAlgorithm = new wxComboBox( this, wxID_ANY, _("Combo!"), wxDefaultPosition, wxSize( 90,-1 ), 0, NULL, 0 );
+	m_cbFixAlgorithm = new wxComboBox( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 90,-1 ), 0, NULL, 0 );
 	m_cbFixAlgorithm->Append( _("Plane") );
 	m_cbFixAlgorithm->Append( _("Sphere") );
 	m_cbFixAlgorithm->Append( _("Cone") );
@@ -468,7 +468,7 @@ SightDialogBase::SightDialogBase( wxWindow* parent, wxWindowID id, const wxStrin
 	m_tIndexError = new wxTextCtrl( m_panel8, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	fgSizer13->Add( m_tIndexError, 0, wxALL, 5 );
 	
-	m_staticText31 = new wxStaticText( m_panel8, wxID_ANY, _("Degrees"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText31 = new wxStaticText( m_panel8, wxID_ANY, _("Minutes"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText31->Wrap( -1 );
 	fgSizer13->Add( m_staticText31, 0, wxALL, 5 );
 	
