@@ -25,25 +25,13 @@
  *
  */
 
-// For compilers that support precompilation, includes "wx/wx.h".
-#include "wx/wxprec.h"
-
-#ifndef WX_PRECOMP
-#include "wx/wx.h"
-#endif
-
-#include <wx/listimpl.cpp>    // toh, 2009.02.22
-
-#include "wx/wxprec.h"
-
-
-#ifndef WX_PRECOMP
 #include <wx/wx.h>
-#endif
+#include <wx/listimpl.cpp>    // toh, 2009.02.22
 
 #include "wx/notebook.h"
 #include "wx/datetime.h"
 #include "wx/colordlg.h"
+#include "wx/fileconf.h"
 
 #include "../../../include/ocpn_plugin.h"
 
