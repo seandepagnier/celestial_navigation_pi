@@ -136,7 +136,7 @@ class SightDialogBase : public wxDialog
 		wxColourPickerCtrl* m_ColourPicker;
 		wxPanel* m_panel8;
 		wxStaticText* m_staticText15;
-		wxSpinCtrl* m_sEyeHeight;
+		wxTextCtrl* m_tEyeHeight;
 		wxStaticText* m_staticText16;
 		wxStaticText* m_staticText17;
 		wxSpinCtrl* m_sTemperature;

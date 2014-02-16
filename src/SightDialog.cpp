@@ -137,7 +137,7 @@ SightDialog::SightDialog( wxWindow* parent, Sight &s)
    m_sCertaintySeconds->SetValue(m_Sight.m_TimeCertainty);
 
    m_sTransparency->SetValue(m_Sight.m_Colour.Alpha());
-   m_sEyeHeight->SetValue(m_Sight.m_EyeHeight);
+   m_tEyeHeight->SetValue(wxString::Format(_T("%.1f"), m_Sight.m_EyeHeight));
    m_sTemperature->SetValue(m_Sight.m_Temperature);
    m_sPressure->SetValue(m_Sight.m_Pressure);
    m_tIndexError->SetValue(wxString::Format(_T("%.5f"), m_Sight.m_IndexError));
@@ -218,7 +218,9 @@ void SightDialog::OnSetDefaults( wxCommandEvent& event )
     wxFileConfig *pConf = GetOCPNConfigObject();
     pConf->SetPath( _T("/PlugIns/CelestialNavigation") );
 
-    pConf->Write( _T("DefaultEyeHeight"), m_sEyeHeight->GetValue() ); 
+    double eyeheight;
+    m_tEyeHeight->GetValue().ToDouble(&eyeheight);
+    pConf->Write( _T("DefaultEyeHeight"), eyeheight ); 
     pConf->Write( _T("DefaultTemperature"), m_sTemperature->GetValue() );
     pConf->Write( _T("DefaultPressure"), m_sPressure->GetValue() );
     double indexerror;
@@ -266,7 +268,7 @@ void SightDialog::RecomputeSight()
    m_Sight.m_BodyLimb = (Sight::BodyLimb)m_cLimb->GetSelection();
    m_Sight.m_DateTime = DateTime();
    m_Sight.m_TimeCertainty = m_sCertaintySeconds->GetValue();
-   m_Sight.m_EyeHeight = m_sEyeHeight->GetValue();
+   m_tEyeHeight->GetValue().ToDouble(&m_Sight.m_EyeHeight);
    m_Sight.m_Temperature = m_sTemperature->GetValue();
    m_Sight.m_Pressure = m_sPressure->GetValue();
    m_tIndexError->GetValue().ToDouble(&m_Sight.m_IndexError);
