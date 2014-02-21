@@ -26,12 +26,7 @@
  */
 
 
-// For compilers that support precompilation, includes "wx/wx.h".
-#include <wx/wxprec.h>
-
-#ifndef WX_PRECOMP
 #include <wx/wx.h>
-#endif
 
 #include <wx/filename.h>
 #include <wx/stdpaths.h>
@@ -39,11 +34,14 @@
 
 #include <iostream>
 
+#include "tinyxml/tinyxml.h"
+
 #include "../../../include/ocpn_plugin.h"
 
 #include "Sight.h"
 #include "SightDialog.h"
 #include "CelestialNavigationDialog.h"
+#include "celestial_navigation_pi.h"
 
 /* XPM */
 static const char *eye[]={
@@ -116,12 +114,188 @@ CelestialNavigationDialog::CelestialNavigationDialog(wxWindow *parent)
     m_lSights->InsertColumn(rmTIME, _("Time (UTC)"));
     m_lSights->InsertColumn(rmMEASUREMENT, _("Measurement"));
     m_lSights->InsertColumn(rmCOLOR, _("Color"));
-    
-    UpdateSights();
+
+    m_sights_path = celestial_navigation_pi::StandardPath() + _T("Sights.xml");
+
+    if(!OpenXML(m_sights_path, false)) {
+        /* create directory for plugin files if it doesn't already exist */
+        wxFileName fn(m_sights_path);
+        wxFileName fn2 = fn.GetPath();
+        if(!fn.DirExists()) {
+            fn2.Mkdir();
+            fn.Mkdir();
+        }
+    }
 }
 
 CelestialNavigationDialog::~CelestialNavigationDialog()
 {
+    SaveXML(m_sights_path);
+}
+
+#define FAIL(X) do { error = X; goto failed; } while(0)
+double AttributeDouble(TiXmlElement *e, const char *name, double def)
+{
+    const char *attr = e->Attribute(name);
+    if(!attr)
+        return def;
+    char *end;
+    double d = strtod(attr, &end);
+    if(end == attr)
+        return def;
+    return d;
+}
+
+int AttributeInt(TiXmlElement *e, const char *name, int def)
+{
+    const char *attr = e->Attribute(name);
+    if(!attr)
+        return def;
+    char *end;
+    long d = strtol(attr, &end, 10);
+    if(end == attr)
+        return def;
+    return d;
+}
+
+bool AttributeBool(TiXmlElement *e, const char *name, bool def)
+{
+    return AttributeInt(e, name, def);
+}
+
+bool CelestialNavigationDialog::OpenXML(wxString filename, bool reportfailure)
+{
+    TiXmlDocument doc;
+    wxString error;
+
+    wxFileName fn(filename);
+
+    if(!doc.LoadFile(filename.mb_str()))
+        FAIL(_("Failed to load file."));
+    else {
+        TiXmlHandle root(doc.RootElement());
+
+        if(strcmp(root.Element()->Value(), "OpenCPNCelestialNavigation"))
+            FAIL(_("Invalid xml file"));
+
+        m_SightList.clear();
+
+        for(TiXmlElement* e = root.FirstChild().Element(); e; e = e->NextSiblingElement()) {
+            if(!strcmp(e->Value(), "Sight")) {
+                Sight s;
+
+                s.m_bVisible = AttributeBool(e, "Visible", true);
+                s.m_Type = (Sight::Type)AttributeInt(e, "Type", 0);
+                s.m_Body = wxString::FromUTF8(e->Attribute("Body"));
+                s.m_BodyLimb = (Sight::BodyLimb)AttributeInt(e, "Limb", 0);
+
+                s.m_DateTime.ParseDate(wxString::FromUTF8(e->Attribute("Date")));
+
+                wxDateTime time;
+                time.ParseTime(wxString::FromUTF8(e->Attribute("Time")));
+
+                if(s.m_DateTime.IsValid() && time.IsValid()) {
+                    s.m_DateTime.SetHour(time.GetHour());
+                    s.m_DateTime.SetMinute(time.GetMinute());
+                    s.m_DateTime.SetSecond(time.GetSecond());
+                } else
+                    continue; /* skip if invalid */
+            
+                s.m_TimeCertainty = AttributeDouble(e, "TimeCertainty", 3);
+
+                s.m_Measurement = AttributeDouble(e, "Measurement", 0);
+                s.m_MeasurementCertainty = AttributeDouble(e, "MeasurementCertainty", .25);
+
+                s.m_EyeHeight = AttributeDouble(e, "EyeHeight", 2);
+                s.m_Temperature = AttributeDouble(e, "Temperature", 10);
+                s.m_Pressure = AttributeDouble(e, "Pressure", 1010);
+                s.m_IndexError = AttributeDouble(e, "IndexError", 0);
+
+                s.m_ShiftNm = AttributeDouble(e, "ShiftNm", 0);
+                s.m_ShiftBearing = AttributeDouble(e, "ShiftBearing", 0);
+                s.m_bMagneticShiftBearing = AttributeBool(e, "MagneticShiftBearing", 0);
+
+                s.m_ColourName = wxString::FromUTF8(e->Attribute("ColourName"));
+                s.m_Colour = wxColour(wxString::FromUTF8(e->Attribute("Colour")));
+                s.m_Colour.Set(s.m_Colour.Red(), s.m_Colour.Green(), s.m_Colour.Blue(),
+                               AttributeInt(e, "Transparency", 150));
+
+                Sight *ns = new Sight(s);
+
+                ns->Recompute();
+                ns->RebuildPolygons();
+                m_SightList.push_back(ns);
+            } else
+                FAIL(_("Unrecognized xml node"));
+        }
+    }
+
+    UpdateSights();
+    RequestRefresh( GetParent() );
+    return true;
+failed:
+
+    if(reportfailure) {
+        wxMessageDialog mdlg(this, error, _("Weather Routing"), wxOK | wxICON_ERROR);
+        mdlg.ShowModal();
+    }
+    return false;
+}
+
+void CelestialNavigationDialog::SaveXML(wxString filename)
+{
+    TiXmlDocument doc;
+    TiXmlDeclaration* decl = new TiXmlDeclaration( "1.0", "utf-8", "" );
+    doc.LinkEndChild( decl );
+
+    TiXmlElement * root = new TiXmlElement( "OpenCPNCelestialNavigation" );
+    doc.LinkEndChild( root );
+
+    char version[24];
+    sprintf(version, "%d.%d", PLUGIN_VERSION_MAJOR, PLUGIN_VERSION_MINOR);
+    root->SetAttribute("version", version);
+    root->SetAttribute("creator", "Opencpn Celestial Navigation plugin");
+
+    for(std::list<Sight*>::iterator it = m_SightList.begin();
+        it != m_SightList.end(); it++) {
+        TiXmlElement *c = new TiXmlElement( "Sight" );
+
+        Sight *s = *it;
+
+        c->SetAttribute("Visible", s->m_bVisible);
+        c->SetAttribute("Type", s->m_Type);
+        c->SetAttribute("Body", s->m_Body.mb_str());
+        c->SetAttribute("BodyLimb", s->m_BodyLimb);
+
+        c->SetAttribute("Date", s->m_DateTime.FormatDate().mb_str());
+        c->SetAttribute("Time", s->m_DateTime.FormatTime().mb_str());
+
+        c->SetDoubleAttribute("TimeCertainty", s->m_TimeCertainty);
+
+        c->SetDoubleAttribute("Measurement", s->m_Measurement);
+        c->SetDoubleAttribute("MeasurementCertainty", s->m_MeasurementCertainty);
+
+        c->SetDoubleAttribute("EyeHeight", s->m_EyeHeight);
+        c->SetDoubleAttribute("Temperature", s->m_Temperature);
+        c->SetDoubleAttribute("Pressure", s->m_Pressure);
+        c->SetDoubleAttribute("IndexError", s->m_IndexError);
+                        
+        c->SetDoubleAttribute("ShiftNm", s->m_ShiftNm);
+        c->SetDoubleAttribute("ShiftBearing", s->m_ShiftBearing);
+        c->SetDoubleAttribute("MagneticShiftBearing", s->m_bMagneticShiftBearing);
+
+        c->SetAttribute("ColourName", s->m_ColourName.mb_str());
+        c->SetAttribute("Colour", s->m_Colour.GetAsString().mb_str());
+        c->SetAttribute("Transparency", s->m_Colour.Alpha());
+
+        root->LinkEndChild(c);
+    }
+
+    if(!doc.SaveFile(filename.mb_str())) {
+        wxMessageDialog mdlg(this, _("Failed to save xml file: ") + filename,
+                             _("Celestial Navigation"), wxOK | wxICON_ERROR);
+        mdlg.ShowModal();
+    }
 }
 
 void CelestialNavigationDialog::UpdateSights()
@@ -136,11 +310,10 @@ void CelestialNavigationDialog::UpdateSights()
     m_lSights->DeleteAllItems();
 
     // then add sights to the listctrl
-    SightList::iterator it;
     wxListItem item;
     int index = 0;
 
-    for (it = m_SightList.begin(); it != m_SightList.end(); ++it, ++index)
+    for (std::list<Sight*>::iterator it = m_SightList.begin(); it != m_SightList.end(); ++it, ++index)
     {
         item.SetId(index);
         item.SetImage((*it)->IsVisible() ? 0 : -1);
@@ -150,7 +323,7 @@ void CelestialNavigationDialog::UpdateSights()
         m_lSights->SetItemImage(index, (*it)->IsVisible() ? 0 : -1);
         m_lSights->SetItem(idx, rmTYPE, (*it)->m_Type ? _("Azimuth") : _("Altitude"));
         m_lSights->SetItem(idx, rmBODY, (*it)->m_Body);
-        wxDateTime dt = (*it)->m_DateTime.ToUTC();
+        wxDateTime dt = (*it)->m_DateTime;
         m_lSights->SetItem(idx, rmTIME, dt.FormatISODate() + _T(" ") + dt.FormatISOTime());
         m_lSights->SetItem(idx, rmMEASUREMENT, wxString::Format(_T("%.4f"), (*it)->m_Measurement));
         m_lSights->SetItem(idx, rmCOLOR, (*it)->m_ColourName);
@@ -190,7 +363,7 @@ void CelestialNavigationDialog::UpdateButtons()
     
     m_bEditSight->Enable(enable);
     m_bDeleteSight->Enable(enable);
-    m_bDeleteAllSights->Enable(m_SightList.GetCount() > 0);
+    m_bDeleteAllSights->Enable(m_SightList.size() > 0);
 }
 
 double dist(wxRealPoint a, wxRealPoint b)
@@ -330,7 +503,7 @@ void CelestialNavigationDialog::UpdateFix()
     int iterations = 0;
 again:
 
-    for (SightList::iterator it = m_SightList.begin(); it != m_SightList.end(); it++) {
+    for (std::list<Sight*>::iterator it = m_SightList.begin(); it != m_SightList.end(); it++) {
         Sight *s = *it;
         if(!s->IsVisible() || s->m_Type != Sight::ALTITUDE)
             continue;
@@ -495,8 +668,7 @@ fail:
 
 void CelestialNavigationDialog::OnNew(wxCommandEvent &event)
 {
-    wxDateTime now = wxDateTime::Now();
-    now.MakeUTC();
+    wxDateTime now = wxDateTime::Now().ToUTC();
 
     Sight s(Sight::ALTITUDE, _("Sun"), Sight::LOWER, now, 1, 0, .25);
     SightDialog dialog(GetParent(), s);
@@ -506,19 +678,23 @@ void CelestialNavigationDialog::OnNew(wxCommandEvent &event)
 
         dialog.RecomputeSight();
         ns->RebuildPolygons();
-        m_SightList.Append(ns);
+        m_SightList.push_back(ns);
         UpdateSights();
         RequestRefresh( GetParent() );
     }
 }
 
-void CelestialNavigationDialog::OnEdit(wxCommandEvent &event)
+void CelestialNavigationDialog::OnEdit( )
 {
     // Manipulate selected_index sight/track
     long selected_index = m_lSights->GetNextItem(-1, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
     if (selected_index < 0) return;
 
-    Sight *psight = m_SightList.Item(m_lSights->GetItemData(selected_index))->GetData();
+    std::list<Sight*>::iterator it = m_SightList.begin();
+    std::advance( it, selected_index );
+
+    Sight *psight = *it;
+
     Sight originalsight = *psight; /* in case of cancel */
     
     SightDialog dialog(GetParent(), *psight);
@@ -528,6 +704,7 @@ void CelestialNavigationDialog::OnEdit(wxCommandEvent &event)
         UpdateSights();
     } else
         *psight = originalsight;
+
     RequestRefresh( GetParent() );
 }
 
@@ -537,8 +714,11 @@ void CelestialNavigationDialog::OnDelete(wxCommandEvent &event)
     long selected_index = m_lSights->GetNextItem(-1, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
     if (selected_index < 0) return;
     
-    Sight *psight_to_delete = m_SightList.Item(m_lSights->GetItemData(selected_index))->GetData();
-    m_SightList.DeleteObject(psight_to_delete);
+    std::list<Sight*>::iterator it = m_SightList.begin();
+    std::advance( it, selected_index );
+
+    m_SightList.erase(it);
+    delete *it;
 
     UpdateSights();
     RequestRefresh( GetParent() );
@@ -549,7 +729,7 @@ void CelestialNavigationDialog::OnDeleteAll(wxCommandEvent &event)
     wxMessageDialog mdlg(this, _("Are you sure you want to delete all sights?"),
                          _("Celestial Navigation"), wxYES_NO);
     if(mdlg.ShowModal() == wxID_YES) {
-        m_SightList.Clear();
+        m_SightList.clear();
     
         UpdateSights();
         RequestRefresh( GetParent() );
@@ -595,7 +775,10 @@ void CelestialNavigationDialog::OnSightListLeftDown(wxMouseEvent &event)
     if (clicked_index > -1 && event.GetX() < m_lSights->GetColumnWidth(0))
     {
         // Process the clicked item
-        Sight *sight = m_SightList.Item(m_lSights->GetItemData(clicked_index))->GetData();
+        std::list<Sight*>::iterator it = m_SightList.begin();
+        std::advance( it, clicked_index );
+
+        Sight *sight = *it;
         sight->SetVisible(!sight->IsVisible());
         m_lSights->SetItemImage(clicked_index, sight->IsVisible() ? 0 : -1);
 

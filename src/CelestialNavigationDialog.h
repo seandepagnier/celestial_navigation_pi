@@ -37,18 +37,24 @@ public:
     CelestialNavigationDialog(wxWindow *parent);
     ~CelestialNavigationDialog();
 
-    SightList m_SightList;
+    std::list<Sight*> m_SightList;
 
     double m_fixlat, m_fixlon, m_fixerror;
 
 private:
+
+    bool OpenXML(wxString filename, bool reportfailure);
+    void SaveXML(wxString filename);
+
     void UpdateSights();     // Rebuild sight list
     void UpdateButtons();           // Correct button state
     void UpdateFix();
 
     // event handlers
     void OnNew(wxCommandEvent &event);
-    void OnEdit(wxCommandEvent &event);
+    void OnEdit( );
+    void OnEdit( wxMouseEvent& event ) { OnEdit(); }
+    void OnEdit(wxCommandEvent &event) { OnEdit(); }
     void OnDelete(wxCommandEvent &event);
     void OnDeleteAll(wxCommandEvent &event);
     void OnInformation( wxCommandEvent& event );
@@ -59,6 +65,8 @@ private:
     void OnBtnLeftDown(wxMouseEvent &event); // record control key state for some action buttons
     
     void OnSightSelected(wxListEvent &event);
+
+    wxString m_sights_path;
 };
 
 #endif // _CelestialNavigationDialog_h_

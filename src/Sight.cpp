@@ -38,7 +38,6 @@
 
 #include "Sight.h"
 
-WX_DEFINE_LIST ( SightList );
 WX_DEFINE_LIST ( wxRealPointList );
 
 double resolve_heading(double heading)
@@ -63,7 +62,7 @@ double resolve_heading_positive(double heading)
 //          Sight Implementation
 //-----------------------------------------------------------------------------
 
-int Sight::s_lastsightcolor = 0;
+int Sight::s_lastsightcolor;
 
 Sight::Sight(Type type, wxString body, BodyLimb bodylimb, wxDateTime datetime,
              double timecertainty, double measurement, double measurementcertainty)

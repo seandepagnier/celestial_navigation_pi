@@ -52,6 +52,7 @@ public:
     enum Type {ALTITUDE, AZIMUTH};
     enum BodyLimb {LOWER, CENTER, UPPER};
 
+    Sight() { s_lastsightcolor++; }
     Sight(Type type, wxString body, BodyLimb bodylimb, wxDateTime datetime,
           double timecertainty, double measurement, double measurementcertainty);
 
@@ -132,8 +133,6 @@ private:
 
     static int s_lastsightcolor;
 };
-
-WX_DECLARE_LIST(Sight, SightList);                    // establish class Sight as list member
 
 double resolve_heading(double heading);
 double resolve_heading_positive(double heading);

@@ -72,6 +72,7 @@ class CelestialNavigationDialogBase : public wxDialog
 		virtual void OnUpdateFix( wxSpinEvent& event ) { event.Skip(); }
 		virtual void OnUpdateFix( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnGoFix( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnEdit( wxMouseEvent& event ) { event.Skip(); }
 		virtual void OnSightListLeftDown( wxMouseEvent& event ) { event.Skip(); }
 		virtual void OnSightSelected( wxListEvent& event ) { event.Skip(); }
 		virtual void OnNew( wxCommandEvent& event ) { event.Skip(); }

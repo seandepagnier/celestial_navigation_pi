@@ -83,6 +83,11 @@ SET(SRC_CELESTIAL_NAVIGATION
 	  src/geodesic.h
           src/celestial_navigation_pi.cpp
 	  src/celestial_navigation_pi.h
+
+          src/tinyxml/tinyxml.h
+          src/tinyxml/tinyxml.cpp
+          src/tinyxml/tinyxmlparser.cpp
+          src/tinyxml/tinyxmlerror.cpp
 	)
 
 ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRC_CELESTIAL_NAVIGATION})

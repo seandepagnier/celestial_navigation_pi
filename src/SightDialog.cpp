@@ -127,7 +127,6 @@ SightDialog::SightDialog( wxWindow* parent, Sight &s)
         m_cBody->SetSelection(index);
 
    m_cLimb->SetSelection((int)m_Sight.m_BodyLimb);
-//   m_Sight.m_DateTime.ToUTC();
    m_Calendar->SetDate(m_Sight.m_DateTime);
 
    m_sHours->SetValue(m_Sight.m_DateTime.Format(_T("%H")));

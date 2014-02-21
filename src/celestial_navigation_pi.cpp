@@ -5,7 +5,7 @@
  * Author:   Sean D'Epagnier
  *
  ***************************************************************************
- *   Copyright (C) 2013 by Sean D'Epagnier   *
+ *   Copyright (C) 2014 by Sean D'Epagnier                                 *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -24,12 +24,8 @@
  ***************************************************************************
  */
 
-
-#include "wx/wxprec.h"
-
-#ifndef  WX_PRECOMP
-  #include "wx/wx.h"
-#endif //precompiled headers
+#include <wx/wx.h>
+#include <wx/stdpaths.h>
 
 #include "../../../include/ocpn_plugin.h"
 
@@ -205,15 +201,9 @@ bool celestial_navigation_pi::RenderOverlayAll(wxDC *dc, PlugIn_ViewPort *vp)
       return false;
 
    /* draw sights */
-   wxSightListNode *node = m_pCelestialNavigationDialog->m_SightList.GetFirst();
-   while ( node )
-   {
-      Sight *pSightRender = node->GetData();
-      if ( pSightRender )
-        pSightRender->Render ( dc, *vp );
-      
-      node = node->GetNext();
-   }
+   for (std::list<Sight*>::iterator it = m_pCelestialNavigationDialog->m_SightList.begin();
+        it != m_pCelestialNavigationDialog->m_SightList.end(); it++)
+       (*it)->Render ( dc, *vp );
 
    /* now render fix */
    double lat = m_pCelestialNavigationDialog->m_fixlat;
@@ -241,6 +231,24 @@ bool celestial_navigation_pi::RenderOverlayAll(wxDC *dc, PlugIn_ViewPort *vp)
    }
 
    return true;
+}
+
+wxString celestial_navigation_pi::StandardPath()
+{
+    wxStandardPathsBase& std_path = wxStandardPathsBase::Get();
+#ifdef __WXMSW__
+    wxString stdPath  = std_path.GetConfigDir();
+#endif
+#ifdef __WXGTK__
+    wxString stdPath  = std_path.GetUserDataDir();
+#endif
+#ifdef __WXOSX__
+    wxString stdPath  = std_path.GetUserConfigDir();   // should be ~/Library/Preferences	
+#endif
+
+    return stdPath + wxFileName::GetPathSeparator() +
+        _T("plugins") + wxFileName::GetPathSeparator() +
+        _T("celestial_navigation") +  wxFileName::GetPathSeparator();
 }
 
 static double s_cursor_lat, s_cursor_lon;

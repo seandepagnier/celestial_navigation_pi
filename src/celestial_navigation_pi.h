@@ -5,7 +5,7 @@
  * Author:   Sean D'Epagnier
  *
  ***************************************************************************
- *   Copyright (C) 2010 by Sean D'Epagnier                                 *
+ *   Copyright (C) 2010, 2014 by Sean D'Epagnier                           *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -27,14 +27,10 @@
 #ifndef _CELESTIAL_NAVIGATIONPI_H_
 #define _CELESTIAL_NAVIGATIONPI_H_
 
-#include "wx/wxprec.h"
-
-#ifndef  WX_PRECOMP
-  #include "wx/wx.h"
-#endif //precompiled headers
+#include "wx/wx.h"
 
 #define     PLUGIN_VERSION_MAJOR    1
-#define     PLUGIN_VERSION_MINOR    6
+#define     PLUGIN_VERSION_MINOR    7
 
 #define     MY_API_VERSION_MAJOR    1
 #define     MY_API_VERSION_MINOR    8
@@ -70,7 +66,6 @@ public:
       wxString GetShortDescription();
       wxString GetLongDescription();
 
-
       void OnToolbarToolCallback(int id);
 
       int GetToolbarToolCount(void);
@@ -80,6 +75,7 @@ public:
       bool RenderGLOverlay( wxGLContext *pcontext, PlugIn_ViewPort *vp );
       bool RenderOverlayAll(wxDC *dc, PlugIn_ViewPort *vp);
 
+      static wxString StandardPath();
       void SetCursorLatLon(double lat, double lon);
 
 private:
