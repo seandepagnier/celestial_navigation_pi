@@ -197,8 +197,8 @@ bool celestial_navigation_pi::RenderGLOverlay(wxGLContext *pcontext, PlugIn_View
 
 bool celestial_navigation_pi::RenderOverlayAll(wxDC *dc, PlugIn_ViewPort *vp)
 {
-   if(!m_pCelestialNavigationDialog)
-      return false;
+   if(!m_pCelestialNavigationDialog || !m_pCelestialNavigationDialog->IsShown())
+       return false;
 
    /* draw sights */
    for (std::list<Sight*>::iterator it = m_pCelestialNavigationDialog->m_SightList.begin();
