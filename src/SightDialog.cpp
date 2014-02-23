@@ -33,7 +33,7 @@
 #include "wx/colordlg.h"
 #include "wx/fileconf.h"
 
-#include "../../../include/ocpn_plugin.h"
+#include "ocpn_plugin.h"
 
 #include "SightDialog.h"
 #include "FindBodyDialog.h"

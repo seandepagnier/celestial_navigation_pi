@@ -27,7 +27,7 @@
 #include <wx/wx.h>
 #include <wx/stdpaths.h>
 
-#include "../../../include/ocpn_plugin.h"
+#include "ocpn_plugin.h"
 
 #include "Sight.h"
 #include "celestial_navigation_pi.h"

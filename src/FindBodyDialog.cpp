@@ -25,25 +25,12 @@
  *
  */
 
-// For compilers that support precompilation, includes "wx/wx.h".
-#include "wx/wxprec.h"
-
-#ifndef WX_PRECOMP
-#include "wx/wx.h"
-#endif
-
-#include <wx/listimpl.cpp>    // toh, 2009.02.22
-
-#include "wx/wxprec.h"
-
-
-#ifndef WX_PRECOMP
 #include <wx/wx.h>
-#endif
+#include <wx/listimpl.cpp>    // toh, 2009.02.22
 
 #include "FindBodyDialog.h"
 
-#include "../../../include/ocpn_plugin.h"
+#include "ocpn_plugin.h"
 
 #include "Sight.h"
 #include "celestial_navigation_pi.h"

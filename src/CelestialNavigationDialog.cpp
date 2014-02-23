@@ -36,7 +36,7 @@
 
 #include "tinyxml/tinyxml.h"
 
-#include "../../../include/ocpn_plugin.h"
+#include "ocpn_plugin.h"
 
 #include "Sight.h"
 #include "SightDialog.h"

@@ -34,7 +34,7 @@
 #include <wx/listimpl.cpp>
 #include <wx/fileconf.h>
 
-#include "../../../include/ocpn_plugin.h"
+#include "ocpn_plugin.h"
 
 #include "Sight.h"
 
@@ -131,7 +131,7 @@ using namespace astrolabe::vsop87d;
 void Sight::BodyLocation(wxDateTime time, double *lat, double *lon, double *ghaast, double *rad)
 {
     astrolabe::globals::vsop87d_text_path = (const char *)GetpSharedDataLocation()->mb_str();
-    astrolabe::globals::vsop87d_text_path.append("plugins/celestial_navigation/data/");
+    astrolabe::globals::vsop87d_text_path.append("plugins/celestial_navigation_pi/data/");
     astrolabe::globals::vsop87d_text_path.append("vsop87d.txt");
 
     time.MakeFromUTC();

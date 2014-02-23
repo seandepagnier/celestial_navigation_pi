@@ -27,17 +27,16 @@
 #ifndef _CELESTIAL_NAVIGATIONPI_H_
 #define _CELESTIAL_NAVIGATIONPI_H_
 
-#include "wx/wx.h"
+#include <wx/wx.h>
 
-#define     PLUGIN_VERSION_MAJOR    1
-#define     PLUGIN_VERSION_MINOR    7
+#include "version.h"
 
 #define     MY_API_VERSION_MAJOR    1
 #define     MY_API_VERSION_MINOR    8
 
 #define ABOUT_AUTHOR_URL "http://seandepagnier.users.sourceforge.net"
 
-#include "../../../include/ocpn_plugin.h"
+#include "ocpn_plugin.h"
 
 #include "CelestialNavigationDialog.h"
 
