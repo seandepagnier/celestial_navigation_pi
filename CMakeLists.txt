@@ -10,8 +10,8 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.6.2)
 
 PROJECT(celestial_navigation_pi)
 SET(PACKAGE_NAME celestial_navigation_pi)
-SET(PLUGIN_SOURCE_DIR .)
-MESSAGE (STATUS "")
+SET(CPACK_PACKAGE_CONTACT "Sean D'Epagnier ")
+
 MESSAGE (STATUS "*** Staging to build ${PACKAGE_NAME} ***")
 
 SET(VERSION_MAJOR "1")
@@ -42,6 +42,7 @@ SET(SRC_CELESTIAL_NAVIGATION
           src/celestial_navigation_pi.cpp
 
           src/tinyxml/tinyxml.cpp
+          src/tinyxml/tinystr.cpp
           src/tinyxml/tinyxmlparser.cpp
           src/tinyxml/tinyxmlerror.cpp
 	)

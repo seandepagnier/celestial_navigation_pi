@@ -69,10 +69,10 @@ class CelestialNavigationDialogBase : public wxDialog
 		wxButton* m_bInformation;
 		
 		// Virtual event handlers, overide them in your derived class
-		virtual void OnUpdateFix( wxSpinEvent& event ) { event.Skip(); }
+		virtual void OnUpdateFixSpin( wxSpinEvent& event ) { event.Skip(); }
 		virtual void OnUpdateFix( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnGoFix( wxCommandEvent& event ) { event.Skip(); }
-		virtual void OnEdit( wxMouseEvent& event ) { event.Skip(); }
+		virtual void OnEditMouse( wxMouseEvent& event ) { event.Skip(); }
 		virtual void OnSightListLeftDown( wxMouseEvent& event ) { event.Skip(); }
 		virtual void OnSightSelected( wxListEvent& event ) { event.Skip(); }
 		virtual void OnNew( wxCommandEvent& event ) { event.Skip(); }
@@ -159,10 +159,10 @@ class SightDialogBase : public wxDialog
 		virtual void Recompute( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnFindBody( wxCommandEvent& event ) { event.Skip(); }
 		virtual void MeasurementEntered( wxCommandEvent& event ) { event.Skip(); }
-		virtual void Recompute( wxCalendarEvent& event ) { event.Skip(); }
-		virtual void Recompute( wxSpinEvent& event ) { event.Skip(); }
-		virtual void Recompute( wxScrollEvent& event ) { event.Skip(); }
-		virtual void Recompute( wxColourPickerEvent& event ) { event.Skip(); }
+		virtual void RecomputeCalendar( wxCalendarEvent& event ) { event.Skip(); }
+		virtual void RecomputeSpin( wxSpinEvent& event ) { event.Skip(); }
+		virtual void RecomputeScroll( wxScrollEvent& event ) { event.Skip(); }
+		virtual void RecomputeColor( wxColourPickerEvent& event ) { event.Skip(); }
 		virtual void OnSetDefaults( wxCommandEvent& event ) { event.Skip(); }
 		
 	

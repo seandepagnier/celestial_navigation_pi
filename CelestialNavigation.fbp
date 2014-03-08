@@ -815,7 +815,7 @@
                                                 <event name="OnRightUp"></event>
                                                 <event name="OnSetFocus"></event>
                                                 <event name="OnSize"></event>
-                                                <event name="OnSpinCtrl">OnUpdateFix</event>
+                                                <event name="OnSpinCtrl">OnUpdateFixSpin</event>
                                                 <event name="OnSpinCtrlText"></event>
                                                 <event name="OnUpdateUI"></event>
                                             </object>
@@ -985,7 +985,7 @@
                                                 <event name="OnRightUp"></event>
                                                 <event name="OnSetFocus"></event>
                                                 <event name="OnSize"></event>
-                                                <event name="OnSpinCtrl">OnUpdateFix</event>
+                                                <event name="OnSpinCtrl">OnUpdateFixSpin</event>
                                                 <event name="OnSpinCtrlText"></event>
                                                 <event name="OnUpdateUI"></event>
                                             </object>
@@ -1323,7 +1323,7 @@
                                 <event name="OnKeyUp"></event>
                                 <event name="OnKillFocus"></event>
                                 <event name="OnLeaveWindow"></event>
-                                <event name="OnLeftDClick">OnEdit</event>
+                                <event name="OnLeftDClick">OnEditMouse</event>
                                 <event name="OnLeftDown">OnSightListLeftDown</event>
                                 <event name="OnLeftUp"></event>
                                 <event name="OnListBeginDrag"></event>
@@ -1975,7 +1975,7 @@
                         <object class="notebookpage" expanded="1">
                             <property name="bitmap"></property>
                             <property name="label">Sight</property>
-                            <property name="select">1</property>
+                            <property name="select">0</property>
                             <object class="wxPanel" expanded="0">
                                 <property name="BottomDockable">1</property>
                                 <property name="LeftDockable">1</property>
@@ -3502,7 +3502,7 @@
                                                     <property name="window_extra_style"></property>
                                                     <property name="window_name"></property>
                                                     <property name="window_style"></property>
-                                                    <event name="OnCalendar">Recompute</event>
+                                                    <event name="OnCalendar">RecomputeCalendar</event>
                                                     <event name="OnCalendarDay"></event>
                                                     <event name="OnCalendarMonth"></event>
                                                     <event name="OnCalendarSelChanged"></event>
@@ -3647,7 +3647,7 @@
                                                                     <event name="OnRightUp"></event>
                                                                     <event name="OnSetFocus"></event>
                                                                     <event name="OnSize"></event>
-                                                                    <event name="OnSpinCtrl">Recompute</event>
+                                                                    <event name="OnSpinCtrl">RecomputeSpin</event>
                                                                     <event name="OnSpinCtrlText"></event>
                                                                     <event name="OnUpdateUI"></event>
                                                                 </object>
@@ -3817,7 +3817,7 @@
                                                                     <event name="OnRightUp"></event>
                                                                     <event name="OnSetFocus"></event>
                                                                     <event name="OnSize"></event>
-                                                                    <event name="OnSpinCtrl">Recompute</event>
+                                                                    <event name="OnSpinCtrl">RecomputeSpin</event>
                                                                     <event name="OnSpinCtrlText"></event>
                                                                     <event name="OnUpdateUI"></event>
                                                                 </object>
@@ -3987,7 +3987,7 @@
                                                                     <event name="OnRightUp"></event>
                                                                     <event name="OnSetFocus"></event>
                                                                     <event name="OnSize"></event>
-                                                                    <event name="OnSpinCtrl">Recompute</event>
+                                                                    <event name="OnSpinCtrl">RecomputeSpin</event>
                                                                     <event name="OnSpinCtrlText"></event>
                                                                     <event name="OnUpdateUI"></event>
                                                                 </object>
@@ -4187,7 +4187,7 @@
                                                                             <event name="OnRightUp"></event>
                                                                             <event name="OnSetFocus"></event>
                                                                             <event name="OnSize"></event>
-                                                                            <event name="OnSpinCtrl">Recompute</event>
+                                                                            <event name="OnSpinCtrl">RecomputeSpin</event>
                                                                             <event name="OnSpinCtrlText"></event>
                                                                             <event name="OnUpdateUI"></event>
                                                                         </object>
@@ -5186,7 +5186,7 @@
                                             <event name="OnRightDClick"></event>
                                             <event name="OnRightDown"></event>
                                             <event name="OnRightUp"></event>
-                                            <event name="OnScroll">Recompute</event>
+                                            <event name="OnScroll">RecomputeScroll</event>
                                             <event name="OnScrollBottom"></event>
                                             <event name="OnScrollChanged"></event>
                                             <event name="OnScrollLineDown"></event>
@@ -5356,7 +5356,7 @@
                                             <property name="window_name"></property>
                                             <property name="window_style"></property>
                                             <event name="OnChar"></event>
-                                            <event name="OnColourChanged">Recompute</event>
+                                            <event name="OnColourChanged">RecomputeColor</event>
                                             <event name="OnEnterWindow"></event>
                                             <event name="OnEraseBackground"></event>
                                             <event name="OnKeyDown"></event>
@@ -5387,7 +5387,7 @@
                         <object class="notebookpage" expanded="0">
                             <property name="bitmap"></property>
                             <property name="label">Parameters</property>
-                            <property name="select">0</property>
+                            <property name="select">1</property>
                             <object class="wxPanel" expanded="0">
                                 <property name="BottomDockable">1</property>
                                 <property name="LeftDockable">1</property>
@@ -5912,7 +5912,7 @@
                                                     <event name="OnRightUp"></event>
                                                     <event name="OnSetFocus"></event>
                                                     <event name="OnSize"></event>
-                                                    <event name="OnSpinCtrl">Recompute</event>
+                                                    <event name="OnSpinCtrl">RecomputeSpin</event>
                                                     <event name="OnSpinCtrlText"></event>
                                                     <event name="OnUpdateUI"></event>
                                                 </object>
@@ -6165,7 +6165,7 @@
                                                     <event name="OnRightUp"></event>
                                                     <event name="OnSetFocus"></event>
                                                     <event name="OnSize"></event>
-                                                    <event name="OnSpinCtrl">Recompute</event>
+                                                    <event name="OnSpinCtrl">RecomputeSpin</event>
                                                     <event name="OnSpinCtrlText"></event>
                                                     <event name="OnUpdateUI"></event>
                                                 </object>

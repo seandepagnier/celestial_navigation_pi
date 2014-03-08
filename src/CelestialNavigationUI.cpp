@@ -134,11 +134,11 @@ CelestialNavigationDialogBase::CelestialNavigationDialogBase( wxWindow* parent, 
 	this->Centre( wxBOTH );
 	
 	// Connect Events
-	m_sInitialLatitude->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( CelestialNavigationDialogBase::OnUpdateFix ), NULL, this );
-	m_sInitialLongitude->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( CelestialNavigationDialogBase::OnUpdateFix ), NULL, this );
+	m_sInitialLatitude->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( CelestialNavigationDialogBase::OnUpdateFixSpin ), NULL, this );
+	m_sInitialLongitude->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( CelestialNavigationDialogBase::OnUpdateFixSpin ), NULL, this );
 	m_cbFixAlgorithm->Connect( wxEVT_COMMAND_COMBOBOX_SELECTED, wxCommandEventHandler( CelestialNavigationDialogBase::OnUpdateFix ), NULL, this );
 	m_bGo->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnGoFix ), NULL, this );
-	m_lSights->Connect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( CelestialNavigationDialogBase::OnEdit ), NULL, this );
+	m_lSights->Connect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( CelestialNavigationDialogBase::OnEditMouse ), NULL, this );
 	m_lSights->Connect( wxEVT_LEFT_DOWN, wxMouseEventHandler( CelestialNavigationDialogBase::OnSightListLeftDown ), NULL, this );
 	m_lSights->Connect( wxEVT_COMMAND_LIST_ITEM_DESELECTED, wxListEventHandler( CelestialNavigationDialogBase::OnSightSelected ), NULL, this );
 	m_lSights->Connect( wxEVT_COMMAND_LIST_ITEM_SELECTED, wxListEventHandler( CelestialNavigationDialogBase::OnSightSelected ), NULL, this );
@@ -152,11 +152,11 @@ CelestialNavigationDialogBase::CelestialNavigationDialogBase( wxWindow* parent, 
 CelestialNavigationDialogBase::~CelestialNavigationDialogBase()
 {
 	// Disconnect Events
-	m_sInitialLatitude->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( CelestialNavigationDialogBase::OnUpdateFix ), NULL, this );
-	m_sInitialLongitude->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( CelestialNavigationDialogBase::OnUpdateFix ), NULL, this );
+	m_sInitialLatitude->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( CelestialNavigationDialogBase::OnUpdateFixSpin ), NULL, this );
+	m_sInitialLongitude->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( CelestialNavigationDialogBase::OnUpdateFixSpin ), NULL, this );
 	m_cbFixAlgorithm->Disconnect( wxEVT_COMMAND_COMBOBOX_SELECTED, wxCommandEventHandler( CelestialNavigationDialogBase::OnUpdateFix ), NULL, this );
 	m_bGo->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnGoFix ), NULL, this );
-	m_lSights->Disconnect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( CelestialNavigationDialogBase::OnEdit ), NULL, this );
+	m_lSights->Disconnect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( CelestialNavigationDialogBase::OnEditMouse ), NULL, this );
 	m_lSights->Disconnect( wxEVT_LEFT_DOWN, wxMouseEventHandler( CelestialNavigationDialogBase::OnSightListLeftDown ), NULL, this );
 	m_lSights->Disconnect( wxEVT_COMMAND_LIST_ITEM_DESELECTED, wxListEventHandler( CelestialNavigationDialogBase::OnSightSelected ), NULL, this );
 	m_lSights->Disconnect( wxEVT_COMMAND_LIST_ITEM_SELECTED, wxListEventHandler( CelestialNavigationDialogBase::OnSightSelected ), NULL, this );
@@ -271,7 +271,7 @@ SightDialogBase::SightDialogBase( wxWindow* parent, wxWindowID id, const wxStrin
 	m_panel1->SetSizer( fgSizer5 );
 	m_panel1->Layout();
 	fgSizer5->Fit( m_panel1 );
-	m_notebook1->AddPage( m_panel1, _("Sight"), true );
+	m_notebook1->AddPage( m_panel1, _("Sight"), false );
 	m_panel2 = new wxPanel( m_notebook1, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxFlexGridSizer* fgSizer8;
 	fgSizer8 = new wxFlexGridSizer( 0, 1, 0, 0 );
@@ -484,7 +484,7 @@ SightDialogBase::SightDialogBase( wxWindow* parent, wxWindowID id, const wxStrin
 	m_panel8->SetSizer( fgSizer21 );
 	m_panel8->Layout();
 	fgSizer21->Fit( m_panel8 );
-	m_notebook1->AddPage( m_panel8, _("Parameters"), false );
+	m_notebook1->AddPage( m_panel8, _("Parameters"), true );
 	m_panel81 = new wxPanel( m_notebook1, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxFlexGridSizer* fgSizer211;
 	fgSizer211 = new wxFlexGridSizer( 0, 1, 0, 0 );
@@ -531,26 +531,26 @@ SightDialogBase::SightDialogBase( wxWindow* parent, wxWindowID id, const wxStrin
 	m_tMeasurementMinutes->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_tMeasurementMinutes->Connect( wxEVT_COMMAND_TEXT_ENTER, wxCommandEventHandler( SightDialogBase::MeasurementEntered ), NULL, this );
 	m_tMeasurementCertainty->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_Calendar->Connect( wxEVT_CALENDAR_DOUBLECLICKED, wxCalendarEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_sHours->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_sMinutes->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_sSeconds->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_sCertaintySeconds->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::Recompute ), NULL, this );
+	m_Calendar->Connect( wxEVT_CALENDAR_DOUBLECLICKED, wxCalendarEventHandler( SightDialogBase::RecomputeCalendar ), NULL, this );
+	m_sHours->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::RecomputeSpin ), NULL, this );
+	m_sMinutes->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::RecomputeSpin ), NULL, this );
+	m_sSeconds->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::RecomputeSpin ), NULL, this );
+	m_sCertaintySeconds->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::RecomputeSpin ), NULL, this );
 	m_tShiftNm->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_tShiftBearing->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_cbMagneticShiftBearing->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_sTransparency->Connect( wxEVT_SCROLL_TOP, wxScrollEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_sTransparency->Connect( wxEVT_SCROLL_BOTTOM, wxScrollEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_sTransparency->Connect( wxEVT_SCROLL_LINEUP, wxScrollEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_sTransparency->Connect( wxEVT_SCROLL_LINEDOWN, wxScrollEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_sTransparency->Connect( wxEVT_SCROLL_PAGEUP, wxScrollEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_sTransparency->Connect( wxEVT_SCROLL_PAGEDOWN, wxScrollEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_sTransparency->Connect( wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_sTransparency->Connect( wxEVT_SCROLL_THUMBRELEASE, wxScrollEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_sTransparency->Connect( wxEVT_SCROLL_CHANGED, wxScrollEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_ColourPicker->Connect( wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_sTemperature->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_sPressure->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::Recompute ), NULL, this );
+	m_sTransparency->Connect( wxEVT_SCROLL_TOP, wxScrollEventHandler( SightDialogBase::RecomputeScroll ), NULL, this );
+	m_sTransparency->Connect( wxEVT_SCROLL_BOTTOM, wxScrollEventHandler( SightDialogBase::RecomputeScroll ), NULL, this );
+	m_sTransparency->Connect( wxEVT_SCROLL_LINEUP, wxScrollEventHandler( SightDialogBase::RecomputeScroll ), NULL, this );
+	m_sTransparency->Connect( wxEVT_SCROLL_LINEDOWN, wxScrollEventHandler( SightDialogBase::RecomputeScroll ), NULL, this );
+	m_sTransparency->Connect( wxEVT_SCROLL_PAGEUP, wxScrollEventHandler( SightDialogBase::RecomputeScroll ), NULL, this );
+	m_sTransparency->Connect( wxEVT_SCROLL_PAGEDOWN, wxScrollEventHandler( SightDialogBase::RecomputeScroll ), NULL, this );
+	m_sTransparency->Connect( wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler( SightDialogBase::RecomputeScroll ), NULL, this );
+	m_sTransparency->Connect( wxEVT_SCROLL_THUMBRELEASE, wxScrollEventHandler( SightDialogBase::RecomputeScroll ), NULL, this );
+	m_sTransparency->Connect( wxEVT_SCROLL_CHANGED, wxScrollEventHandler( SightDialogBase::RecomputeScroll ), NULL, this );
+	m_ColourPicker->Connect( wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler( SightDialogBase::RecomputeColor ), NULL, this );
+	m_sTemperature->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::RecomputeSpin ), NULL, this );
+	m_sPressure->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::RecomputeSpin ), NULL, this );
 	m_tIndexError->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_bSetDefaults->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( SightDialogBase::OnSetDefaults ), NULL, this );
 }
@@ -568,26 +568,26 @@ SightDialogBase::~SightDialogBase()
 	m_tMeasurementMinutes->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_tMeasurementMinutes->Disconnect( wxEVT_COMMAND_TEXT_ENTER, wxCommandEventHandler( SightDialogBase::MeasurementEntered ), NULL, this );
 	m_tMeasurementCertainty->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_Calendar->Disconnect( wxEVT_CALENDAR_DOUBLECLICKED, wxCalendarEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_sHours->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_sMinutes->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_sSeconds->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_sCertaintySeconds->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::Recompute ), NULL, this );
+	m_Calendar->Disconnect( wxEVT_CALENDAR_DOUBLECLICKED, wxCalendarEventHandler( SightDialogBase::RecomputeCalendar ), NULL, this );
+	m_sHours->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::RecomputeSpin ), NULL, this );
+	m_sMinutes->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::RecomputeSpin ), NULL, this );
+	m_sSeconds->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::RecomputeSpin ), NULL, this );
+	m_sCertaintySeconds->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::RecomputeSpin ), NULL, this );
 	m_tShiftNm->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_tShiftBearing->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_cbMagneticShiftBearing->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_sTransparency->Disconnect( wxEVT_SCROLL_TOP, wxScrollEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_sTransparency->Disconnect( wxEVT_SCROLL_BOTTOM, wxScrollEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_sTransparency->Disconnect( wxEVT_SCROLL_LINEUP, wxScrollEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_sTransparency->Disconnect( wxEVT_SCROLL_LINEDOWN, wxScrollEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_sTransparency->Disconnect( wxEVT_SCROLL_PAGEUP, wxScrollEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_sTransparency->Disconnect( wxEVT_SCROLL_PAGEDOWN, wxScrollEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_sTransparency->Disconnect( wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_sTransparency->Disconnect( wxEVT_SCROLL_THUMBRELEASE, wxScrollEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_sTransparency->Disconnect( wxEVT_SCROLL_CHANGED, wxScrollEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_ColourPicker->Disconnect( wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_sTemperature->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_sPressure->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::Recompute ), NULL, this );
+	m_sTransparency->Disconnect( wxEVT_SCROLL_TOP, wxScrollEventHandler( SightDialogBase::RecomputeScroll ), NULL, this );
+	m_sTransparency->Disconnect( wxEVT_SCROLL_BOTTOM, wxScrollEventHandler( SightDialogBase::RecomputeScroll ), NULL, this );
+	m_sTransparency->Disconnect( wxEVT_SCROLL_LINEUP, wxScrollEventHandler( SightDialogBase::RecomputeScroll ), NULL, this );
+	m_sTransparency->Disconnect( wxEVT_SCROLL_LINEDOWN, wxScrollEventHandler( SightDialogBase::RecomputeScroll ), NULL, this );
+	m_sTransparency->Disconnect( wxEVT_SCROLL_PAGEUP, wxScrollEventHandler( SightDialogBase::RecomputeScroll ), NULL, this );
+	m_sTransparency->Disconnect( wxEVT_SCROLL_PAGEDOWN, wxScrollEventHandler( SightDialogBase::RecomputeScroll ), NULL, this );
+	m_sTransparency->Disconnect( wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler( SightDialogBase::RecomputeScroll ), NULL, this );
+	m_sTransparency->Disconnect( wxEVT_SCROLL_THUMBRELEASE, wxScrollEventHandler( SightDialogBase::RecomputeScroll ), NULL, this );
+	m_sTransparency->Disconnect( wxEVT_SCROLL_CHANGED, wxScrollEventHandler( SightDialogBase::RecomputeScroll ), NULL, this );
+	m_ColourPicker->Disconnect( wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler( SightDialogBase::RecomputeColor ), NULL, this );
+	m_sTemperature->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::RecomputeSpin ), NULL, this );
+	m_sPressure->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::RecomputeSpin ), NULL, this );
 	m_tIndexError->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_bSetDefaults->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( SightDialogBase::OnSetDefaults ), NULL, this );
 	

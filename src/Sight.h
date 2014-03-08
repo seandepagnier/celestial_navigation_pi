@@ -28,7 +28,7 @@
 
 #include <list>
 
-#ifdef __WXMSW__
+#ifdef __MSVC__
 #include <float.h>
 #include <iostream>
 #include <limits>

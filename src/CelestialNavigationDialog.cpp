@@ -676,7 +676,7 @@ void CelestialNavigationDialog::OnNew(wxCommandEvent &event)
     if( dialog.ShowModal() == wxID_OK ) {
         Sight *ns = new Sight(s);
 
-        dialog.RecomputeSight();
+        dialog.Recompute();
         ns->RebuildPolygons();
         m_SightList.push_back(ns);
         UpdateSights();

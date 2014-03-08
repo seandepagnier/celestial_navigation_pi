@@ -157,7 +157,7 @@ SightDialog::SightDialog( wxWindow* parent, Sight &s)
    m_ColourPicker->SetColour(m_Sight.m_Colour);
 
    m_breadytorecompute = true;
-   RecomputeSight();
+   Recompute();
 }
 
 SightDialog::~SightDialog( )
@@ -227,38 +227,10 @@ void SightDialog::OnSetDefaults( wxCommandEvent& event )
     pConf->Write( _T("DefaultIndexError"), indexerror );
 }
 
-void SightDialog::Recompute( wxCommandEvent& event )
+void SightDialog::Recompute()
 {
     m_cbMagneticAzimuth->Enable(m_cType->GetSelection() == AZIMUTH);
-    RecomputeSight();
-}
 
-void SightDialog::Recompute( wxCalendarEvent& event )
-{
-    RecomputeSight();
-    Refresh();
-}
-
-void SightDialog::Recompute( wxSpinEvent& event )
-{
-    RecomputeSight();
-    Refresh();
-}
-
-void SightDialog::Recompute( wxScrollEvent& event )
-{
-    RecomputeSight();
-    Refresh();
-}
-
-void SightDialog::Recompute( wxColourPickerEvent& event )
-{
-    RecomputeSight();
-    Refresh();
-}
-
-void SightDialog::RecomputeSight()
-{
     if(!m_breadytorecompute)
         return;
 
@@ -296,4 +268,6 @@ void SightDialog::RecomputeSight()
 
    m_Sight.Recompute();
    m_tCalculations->SetValue(m_Sight.m_CalcStr);
+
+   Refresh();
 }

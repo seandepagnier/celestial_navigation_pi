@@ -49,16 +49,16 @@ public:
 
     void OnSetDefaults( wxCommandEvent& event );
     void MeasurementEntered( wxCommandEvent& event ) { EndModal(wxID_OK); }
-    void Recompute( wxCommandEvent& event );
-    void Recompute( wxCalendarEvent& event );
-    void Recompute( wxSpinEvent& event );
-    void Recompute( wxScrollEvent& event );
-    void Recompute( wxColourPickerEvent& event );
+    void Recompute( wxCommandEvent& event ) { Recompute(); }
+    void RecomputeCalendar( wxCalendarEvent& event ) { Recompute(); }
+    void RecomputeSpin( wxSpinEvent& event ) { Recompute(); }
+//    void RecomputeScroll( wxScrollEvent& event ) { Recompute(); }
+    void RecomputeColor( wxColourPickerEvent& event ) { Recompute(); }
     void OnFindBody( wxCommandEvent& event );
 
     wxDateTime DateTime();
 
-    void RecomputeSight();
+    void Recompute();
 
 private:
     Sight &m_Sight;

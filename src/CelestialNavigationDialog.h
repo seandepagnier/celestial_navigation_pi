@@ -53,12 +53,12 @@ private:
     // event handlers
     void OnNew(wxCommandEvent &event);
     void OnEdit( );
-    void OnEdit( wxMouseEvent& event ) { OnEdit(); }
+    void OnEditMouse( wxMouseEvent& event ) { OnEdit(); }
     void OnEdit(wxCommandEvent &event) { OnEdit(); }
     void OnDelete(wxCommandEvent &event);
     void OnDeleteAll(wxCommandEvent &event);
     void OnInformation( wxCommandEvent& event );
-    void OnUpdateFix( wxSpinEvent& event ) { UpdateFix(); }
+    void OnUpdateFixSpin( wxSpinEvent& event ) { UpdateFix(); }
     void OnUpdateFix( wxCommandEvent& event ) { UpdateFix(); }
     void OnGoFix( wxCommandEvent& event );
     void OnSightListLeftDown(wxMouseEvent &event);
