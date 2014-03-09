@@ -1,9 +1,11 @@
+##---------------------------------------------------------------------------
+## Author:      Sean D'Epagnier
+## Copyright:   
+## License:     GPLv3+
+##---------------------------------------------------------------------------
+
 # build a CPack driven installer package
 #include (InstallRequiredSystemLibraries)
-
-SET (LIB_INSTALL_DIR "lib")
-SET (PACKAGE_FORMAT "DEB")
-SET (PACKAGE_DEPS "libc6, libwxgtk2.8-0 (>= 2.8.7.1), libglu1-mesa (>= 7.0.0), libgl1-mesa-glx (>= 7.0.0), zlib1g, bzip2")
 
 SET(CPACK_PACKAGE_NAME "${PACKAGE_NAME}")
 SET(CPACK_PACKAGE_VENDOR "opencpn.org")
@@ -16,6 +18,9 @@ SET(CPACK_INSTALL_CMAKE_PROJECTS "${CMAKE_CURRENT_BINARY_DIR};${PACKAGE_NAME};AL
 SET(CPACK_PACKAGE_EXECUTABLES OpenCPN ${PACKAGE_NAME})
 
 IF(WIN32)
+# to protect against confusable windows users, let us _not_ generate zip packages
+#  SET(CPACK_GENERATOR "NSIS;ZIP")
+
   # override install directory to put package files in the opencpn directory
   SET(CPACK_PACKAGE_INSTALL_DIRECTORY "OpenCPN")
 
@@ -44,7 +49,7 @@ IF (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/README")
     SET(CPACK_RESOURCE_FILE_README "${CMAKE_CURRENT_SOURCE_DIR}/README")
 ENDIF ()
 
-SET(CPACK_SOURCE_GENERATOR "TGZ")
+#SET(CPACK_SOURCE_GENERATOR "TGZ")
 
 # The following components are regex's to match anywhere (unless anchored)
 # in absolute path + filename to find files or directories to be excluded
@@ -60,32 +65,41 @@ IF(UNIX AND NOT APPLE)
 #        RPMTools_ADD_RPM_TARGETS(packagename ${CMAKE_SOURCE_DIR}/package.spec)
 #    ENDIF(RPMTools_FOUND)
 
+# need apt-get install rpm, for rpmbuild
+    SET(CPACK_GENERATOR "DEB;RPM;TBZ2")
 
-    SET(CPACK_GENERATOR ${PACKAGE_FORMAT})
+    SET(PACKAGE_DEPS "opencpn, bzip2, gzip")
+    SET(PACKAGE_RELEASE 1)
+
+    IF (CMAKE_SIZEOF_VOID_P MATCHES "8")
+      SET (ARCH "amd64")
+      SET(CPACK_RPM_PACKAGE_ARCHITECTURE "x86_64")
+    ELSE (CMAKE_SIZEOF_VOID_P MATCHES "8")
+      SET (ARCH "i386")
+      # note: in a chroot must use "setarch i686 make package"
+      SET(CPACK_RPM_PACKAGE_ARCHITECTURE "i686")
+    ENDIF (CMAKE_SIZEOF_VOID_P MATCHES "8")
+
     SET(CPACK_DEBIAN_PACKAGE_DEPENDS ${PACKAGE_DEPS})
     SET(CPACK_DEBIAN_PACKAGE_RECOMMENDS ${PACKAGE_RECS})
     SET(CPACK_DEBIAN_PACKAGE_ARCHITECTURE ${ARCH})
     SET(CPACK_DEBIAN_PACKAGE_VERSION "${CPACK_PACKAGE_VERSION}")
     SET(CPACK_DEBIAN_PACKAGE_SECTION "misc")
-#    SET(CPACK_RPM_PACKAGE_VERSION "${CPACK_PACKAGE_VERSION}")
-#    SET(CPACK_RPM_PACKAGE_ARCHITECTURE  ${ARCH})
-#    SET(CPACK_RPM_PACKAGE_REQUIRES  ${PACKAGE_DEPS})
+    SET(CPACK_DEBIAN_COMPRESSION_TYPE "xz") # requires my patches to cmake
+
+    SET(CPACK_RPM_PACKAGE_VERSION "${CPACK_PACKAGE_VERSION}")
+    SET(CPACK_RPM_PACKAGE_REQUIRES  ${PACKAGE_DEPS})
+#    SET(CPACK_RPM_PACKAGE_GROUP "Applications/Engineering")
+    SET(CPACK_RPM_PACKAGE_LICENSE "gplv3+")
+
+    SET(CPACK_RPM_COMPRESSION_TYPE "xz")
 #    SET(CPACK_RPM_USER_BINARY_SPECFILE "${CMAKE_SOURCE_DIR}/opencpn.spec.in")
-#    SET(CPACK_OPENCPN_RPM_BINDIR "${CMAKE_INSTALL_PREFIX}/${PREFIX_BIN}")
-#    SET(CPACK_OPENCPN_RPM_LIBDIR "${PREFIX_LIB}")
-#    SET(CPACK_OPENCPN_RPM_DATADIR "${CMAKE_INSTALL_PREFIX}/${PREFIX_DATA}")
+
     SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "${PACKAGE_NAME} PlugIn for OpenCPN")
     SET(CPACK_PACKAGE_DESCRIPTION "${PACKAGE_NAME} PlugIn for OpenCPN")
-    SET(CPACK_SET_DESTDIR ON)
+#    SET(CPACK_SET_DESTDIR ON)
     SET(CPACK_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
-    SET(PACKAGE_RELEASE 1)
-
-    IF (CMAKE_SIZEOF_VOID_P MATCHES "8")
-      SET (ARCH "amd64")
-    ELSE (CMAKE_SIZEOF_VOID_P MATCHES "8")
-      SET (ARCH "i386")
-    ENDIF (CMAKE_SIZEOF_VOID_P MATCHES "8")
 
     SET(CPACK_PACKAGE_FILE_NAME "${PACKAGE_NAME}_${PACKAGE_VERSION}-${PACKAGE_RELEASE}_${ARCH}" )
 ENDIF(UNIX AND NOT APPLE)
