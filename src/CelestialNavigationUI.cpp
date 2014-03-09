@@ -271,7 +271,7 @@ SightDialogBase::SightDialogBase( wxWindow* parent, wxWindowID id, const wxStrin
 	m_panel1->SetSizer( fgSizer5 );
 	m_panel1->Layout();
 	fgSizer5->Fit( m_panel1 );
-	m_notebook1->AddPage( m_panel1, _("Sight"), false );
+	m_notebook1->AddPage( m_panel1, _("Sight"), true );
 	m_panel2 = new wxPanel( m_notebook1, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxFlexGridSizer* fgSizer8;
 	fgSizer8 = new wxFlexGridSizer( 0, 1, 0, 0 );
@@ -484,7 +484,7 @@ SightDialogBase::SightDialogBase( wxWindow* parent, wxWindowID id, const wxStrin
 	m_panel8->SetSizer( fgSizer21 );
 	m_panel8->Layout();
 	fgSizer21->Fit( m_panel8 );
-	m_notebook1->AddPage( m_panel8, _("Parameters"), true );
+	m_notebook1->AddPage( m_panel8, _("Parameters"), false );
 	m_panel81 = new wxPanel( m_notebook1, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxFlexGridSizer* fgSizer211;
 	fgSizer211 = new wxFlexGridSizer( 0, 1, 0, 0 );

@@ -7,6 +7,8 @@ IF (COMMAND cmake_policy)
   CMAKE_POLICY(SET CMP0011 OLD)
 ENDIF (COMMAND cmake_policy)
 
+MESSAGE (STATUS "*** Staging to build ${PACKAGE_NAME} ***")
+
 configure_file(cmake/version.h.in ${CMAKE_SOURCE_DIR}/src/version.h)
 SET(PACKAGE_VERSION "${VERSION_MAJOR}.${VERSION_MINOR}" )
 

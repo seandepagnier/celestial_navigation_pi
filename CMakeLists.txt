@@ -12,8 +12,6 @@ PROJECT(celestial_navigation_pi)
 SET(PACKAGE_NAME celestial_navigation_pi)
 SET(CPACK_PACKAGE_CONTACT "Sean D'Epagnier ")
 
-MESSAGE (STATUS "*** Staging to build ${PACKAGE_NAME} ***")
-
 SET(VERSION_MAJOR "1")
 SET(VERSION_MINOR "8")
 
