@@ -24,11 +24,18 @@ IF(WIN32)
   # override install directory to put package files in the opencpn directory
   SET(CPACK_PACKAGE_INSTALL_DIRECTORY "OpenCPN")
 
-#  SET(CPACK_NSIS_INSTALLED_ICON_NAME "${PACKAGE_NAME}")
-  SET(CPACK_NSIS_PACKAGE_NAME_LC "${PACKAGE_NAME}")
+# CPACK_NSIS_DIR ??
+# CPACK_BUILDWIN_DIR ??
+# CPACK_PACKAGE_ICON ??
+
+  SET(CPACK_NSIS_PACKAGE_NAME "${PACKAGE_NAME}")
+
+  # Let cmake find NSIS.template.in
+  SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/buildwin")
 
 #  These lines set the name of the Windows Start Menu shortcut and the icon that goes with it
-  SET(CPACK_NSIS_DISPLAY_NAME "OpenCPN ${PACKAGE_NAME}")
+#  SET(CPACK_NSIS_INSTALLED_ICON_NAME "${PACKAGE_NAME}")
+#  SET(CPACK_NSIS_DISPLAY_NAME "OpenCPN ${PACKAGE_NAME}")
 
 #  SET(CPACK_PACKAGE_FILE_NAME "${PACKAGE_NAME}_${VERSION_MAJOR}.${VERSION_MINOR}_setup" )
 
@@ -55,6 +62,7 @@ ENDIF ()
 # in absolute path + filename to find files or directories to be excluded
 # from source tarball.
 set(CPACK_SOURCE_IGNORE_FILES
+"^${CMAKE_CURRENT_SOURCE_DIR}/.git/*"
 "^${CMAKE_CURRENT_SOURCE_DIR}/build*"
 "^${CPACK_PACKAGE_INSTALL_DIRECTORY}/*"
 )
