@@ -38,14 +38,18 @@ SET(SRC_CELESTIAL_NAVIGATION
           src/FindBodyDialog.cpp
           src/geodesic.c
           src/celestial_navigation_pi.cpp
-
-          src/tinyxml/tinyxml.cpp
-          src/tinyxml/tinystr.cpp
-          src/tinyxml/tinyxmlparser.cpp
-          src/tinyxml/tinyxmlerror.cpp
 	)
 
-ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRC_CELESTIAL_NAVIGATION})
+IF(WIN32)
+SET(SRC_TINYXML
+            src/tinyxml/tinyxml.cpp
+            src/tinyxml/tinyxmlparser.cpp
+            src/tinyxml/tinyxmlerror.cpp
+)
+ENDIF(WIN32)
+
+ADD_DEFINITIONS(-DTIXML_USE_STL)
+ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRC_CELESTIAL_NAVIGATION} ${SRC_TINYXML})
 
 INCLUDE("cmake/PluginInstall.cmake")
 INCLUDE("cmake/PluginLocalization.cmake")

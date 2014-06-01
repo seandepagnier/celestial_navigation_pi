@@ -32,9 +32,9 @@
 #include <wx/stdpaths.h>
 #include <wx/imaglist.h>
 
-#include <iostream>
-
 #include "tinyxml/tinyxml.h"
+
+//#include <iostream>
 
 #include "ocpn_plugin.h"
 
@@ -534,7 +534,7 @@ determine fix visually instead.\n"), wxString(_("Fix Position"), wxID_OK | wxICO
         double sm = sin(deg2rad(s->m_ObservedAltitude));
         double cm = cos(deg2rad(s->m_ObservedAltitude));
 
-        double d;
+        double d = NAN;
 
         switch(m_cbFixAlgorithm->GetSelection()) {
         case 0: /* plane */
