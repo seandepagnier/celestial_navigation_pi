@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: celestial_navigation_pi 3.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-16 08:41+0800\n"
+"POT-Creation-Date: 2014-06-12 21:57+0800\n"
 "PO-Revision-Date: 2013-04-16 21:26+0100\n"
 "Last-Translator: CarCode <carcode@me.com>\n"
 "Language-Team: CarCode <carcode@me.com>\n"
@@ -246,6 +246,10 @@ msgstr ""
 msgid "Celestial Navigation Sights"
 msgstr "Astronom. Navigation"
 #
+#, fuzzy
+msgid "Celestial_Navigation_Information.html"
+msgstr "Astronom. Navigation"
+#
 msgid "Center"
 msgstr ""
 #
@@ -304,7 +308,15 @@ msgstr ""
 "Höhenkorrektur Grad = 1.753*sqrt(%.3f) / 60.0\n"
 "Höhenkorrektur Grad = %.3f\n"
 #
+#, fuzzy
+msgid "Failed to load file."
+msgstr "Fehler b. Laden von:\n"
+#
 msgid "Failed to load file:\n"
+msgstr "Fehler b. Laden von:\n"
+#
+#, fuzzy
+msgid "Failed to save xml file: "
 msgstr "Fehler b. Laden von:\n"
 #
 msgid "Failure Alert"
@@ -351,6 +363,9 @@ msgid "Information"
 msgstr ""
 #
 msgid "Initial"
+msgstr ""
+#
+msgid "Invalid xml file"
 msgstr ""
 #
 #, fuzzy
@@ -483,6 +498,9 @@ msgstr ""
 msgid "Type"
 msgstr "Typ"
 #
+msgid "Unrecognized xml node"
+msgstr ""
+#
 #, fuzzy
 msgid "Upper"
 msgstr "Oberer Rand"
@@ -493,10 +511,15 @@ msgstr "Oberer Rand"
 msgid "Warning"
 msgstr "Warnung"
 #
+msgid "Weather Routing"
+msgstr ""
+#
+#
 #
 #
 #~ msgid "Celestial"
 #~ msgstr "Astronomisch"
+#
 #
 #
 #

@@ -739,17 +739,8 @@ void CelestialNavigationDialog::OnDeleteAll(wxCommandEvent &event)
 void CelestialNavigationDialog::OnInformation( wxCommandEvent& event )
 {
     wxString infolocation = *GetpSharedDataLocation()
-        + _T("plugins/celestial_navigation_pi/data/Celestial_Navigation_Information.html");
-#if 0
-    InformationDialog dlg(this);
-    if(dlg.m_htmlInformation->LoadFile(infolocation))
-        dlg.ShowModal();
-    else {
-        wxMessageDialog mdlg(this, _("Failed to load file:\n") + infolocation,
-                             wxString(_("Celestial Navigation"), wxOK | wxICON_ERROR));
-        mdlg.ShowModal();
-    }
-#endif
+        + _T("plugins/celestial_navigation_pi/data/")
+        + _("Celestial_Navigation_Information.html");
     wxLaunchDefaultBrowser(_T("file://") + infolocation);
 }
 

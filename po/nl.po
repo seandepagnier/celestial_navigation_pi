@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: celestial_navigation_pi (jan2014)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-16 08:41+0800\n"
+"POT-Creation-Date: 2014-06-12 21:57+0800\n"
 "PO-Revision-Date: 2014-01-19 14:08+0100\n"
 "Last-Translator: NAV <rider2@kpnmail.nl>\n"
 "Language-Team: rider2@kpnmail.nl <rider2@kpnmail.nl>\n"
@@ -253,6 +253,10 @@ msgstr ""
 msgid "Celestial Navigation Sights"
 msgstr "Astronomische positiebepaling"
 #
+#, fuzzy
+msgid "Celestial_Navigation_Information.html"
+msgstr "Astronomische positiebepaling"
+#
 msgid "Center"
 msgstr "middelpunt"
 #
@@ -312,7 +316,15 @@ msgstr ""
 "   Correctie voor Schijnbare Kimduiking (dip) in ° = 1.753*sqrt(%.3f) / 60.0\n"
 "   Correctie voor Schijnbare Kimduiking (dip) in ° = %.3f\n"
 #
+#, fuzzy
+msgid "Failed to load file."
+msgstr "Kon bestand niet laden:\n"
+#
 msgid "Failed to load file:\n"
+msgstr "Kon bestand niet laden:\n"
+#
+#, fuzzy
+msgid "Failed to save xml file: "
 msgstr "Kon bestand niet laden:\n"
 #
 msgid "Failure Alert"
@@ -355,6 +367,9 @@ msgstr "Informatie"
 #
 msgid "Initial"
 msgstr "Startwaarde"
+#
+msgid "Invalid xml file"
+msgstr ""
 #
 msgid "Latitude"
 msgstr "Breedte"
@@ -488,6 +503,9 @@ msgstr "Transparantie"
 msgid "Type"
 msgstr "Type"
 #
+msgid "Unrecognized xml node"
+msgstr ""
+#
 msgid "Upper"
 msgstr "bovenrand"
 #
@@ -497,9 +515,14 @@ msgstr "      Bovenrand"
 msgid "Warning"
 msgstr "Waarschuwing"
 #
+msgid "Weather Routing"
+msgstr ""
+#
+#
 #
 #~ msgid "Combo!"
 #~ msgstr "Gecombineerd!"
+#
 #
 #
 #~ msgid "Time"

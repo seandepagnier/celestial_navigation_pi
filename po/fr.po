@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: celestial_navigation_pi pour OpenCPN\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-16 08:41+0800\n"
+"POT-Creation-Date: 2014-06-12 21:57+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Gilletarom <gilletarom@netpratique.fr>\n"
 "Language-Team: Gilletarom <contactàgilletarom;fr>\n"
@@ -246,6 +246,10 @@ msgstr ""
 msgid "Celestial Navigation Sights"
 msgstr "Navigation stellaire"
 #
+#, fuzzy
+msgid "Celestial_Navigation_Information.html"
+msgstr "Navigation stellaire"
+#
 msgid "Center"
 msgstr ""
 #
@@ -304,7 +308,15 @@ msgstr ""
 "La correction de la hauteur en degrés = 1.753*sqrt(%.3f) / 60.0\n"
 "La correction de la hauteur en degré = %.3f\n"
 #
+#, fuzzy
+msgid "Failed to load file."
+msgstr "Echec du chargement du fichier :\n"
+#
 msgid "Failed to load file:\n"
+msgstr "Echec du chargement du fichier :\n"
+#
+#, fuzzy
+msgid "Failed to save xml file: "
 msgstr "Echec du chargement du fichier :\n"
 #
 #, fuzzy
@@ -352,6 +364,9 @@ msgid "Information"
 msgstr ""
 #
 msgid "Initial"
+msgstr ""
+#
+msgid "Invalid xml file"
 msgstr ""
 #
 #, fuzzy
@@ -487,6 +502,9 @@ msgstr ""
 msgid "Type"
 msgstr "Type"
 #
+msgid "Unrecognized xml node"
+msgstr ""
+#
 #, fuzzy
 msgid "Upper"
 msgstr "Upper Limb"
@@ -497,10 +515,15 @@ msgstr "Upper Limb"
 msgid "Warning"
 msgstr "Avertissement"
 #
+msgid "Weather Routing"
+msgstr ""
+#
+#
 #
 #
 #~ msgid "Celestial"
 #~ msgstr "Celeste"
+#
 #
 #
 #
