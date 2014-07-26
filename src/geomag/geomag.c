@@ -323,7 +323,7 @@ int geomag_load(const char *mdfile)
   
   igdgc=1; /* hard coded to geodetic */
   
-  stream=fopen(mdfile, "rt");
+  stream=fopen(mdfile, "rb");
 
   if(stream == NULL) {
      printf("Could not open model file %s\n", mdfile);
@@ -345,7 +345,7 @@ int geomag_load(const char *mdfile)
         fclose(stream);
         exit(5);
      }
-              
+
      /* New statement Dec 1999 changed by wmd  required by year 2000 models */
      if (!strncmp(inbuff,"   ",3))         /* If 1st 3 chars are spaces */
      {
@@ -713,7 +713,7 @@ int       gh;
   double g,hh;
   double trash;
   
-  stream = fopen(file, "rt");
+  stream = fopen(file, "rb");
   if (stream == NULL)
     {
       printf("\nError on opening file %s", file);

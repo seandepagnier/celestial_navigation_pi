@@ -13,7 +13,7 @@ SET(PACKAGE_NAME celestial_navigation_pi)
 SET(CPACK_PACKAGE_CONTACT "Sean D'Epagnier ")
 
 SET(VERSION_MAJOR "1")
-SET(VERSION_MINOR "8")
+SET(VERSION_MINOR "9")
 
 INCLUDE("cmake/PluginConfigure.cmake")
 
