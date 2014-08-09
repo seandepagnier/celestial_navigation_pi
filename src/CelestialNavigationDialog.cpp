@@ -158,7 +158,7 @@ int AttributeInt(TiXmlElement *e, const char *name, int def)
 
 bool AttributeBool(TiXmlElement *e, const char *name, bool def)
 {
-    return (bool)AttributeInt(e, name, def);
+    return AttributeInt(e, name, def) != 0;
 }
 
 bool CelestialNavigationDialog::OpenXML(wxString filename, bool reportfailure)
