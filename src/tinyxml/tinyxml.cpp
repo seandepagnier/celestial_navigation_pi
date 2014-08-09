@@ -22,6 +22,9 @@ must not be misrepresented as being the original software.
 distribution.
 */
 
+#include <stdio.h>
+#include <stdlib.h>
+
 #include <ctype.h>
 
 #ifdef TIXML_USE_STL

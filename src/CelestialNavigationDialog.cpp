@@ -34,8 +34,6 @@
 
 #include "tinyxml/tinyxml.h"
 
-//#include <iostream>
-
 #include "ocpn_plugin.h"
 
 #include "Sight.h"
@@ -315,12 +313,7 @@ void CelestialNavigationDialog::UpdateSights()
 
     for (std::list<Sight*>::iterator it = m_SightList.begin(); it != m_SightList.end(); ++it, ++index)
     {
-        item.SetId(index);
-        item.SetImage((*it)->IsVisible() ? 0 : -1);
-        item.SetData(index);
-        
-        long idx = m_lSights->InsertItem(item);
-        m_lSights->SetItemImage(index, (*it)->IsVisible() ? 0 : -1);
+        long idx = m_lSights->InsertItem(index, (*it)->IsVisible() ? 0 : -1);
         m_lSights->SetItem(idx, rmTYPE, (*it)->m_Type ? _("Azimuth") : _("Altitude"));
         m_lSights->SetItem(idx, rmBODY, (*it)->m_Body);
         wxDateTime dt = (*it)->m_DateTime;
