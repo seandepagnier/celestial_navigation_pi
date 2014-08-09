@@ -309,17 +309,23 @@ void CelestialNavigationDialog::UpdateSights()
 
     // then add sights to the listctrl
     wxListItem item;
-    int index = 0;
+    int idx = 0;
 
-    for (std::list<Sight*>::iterator it = m_SightList.begin(); it != m_SightList.end(); ++it, ++index)
+    for (std::list<Sight*>::iterator it = m_SightList.begin(); it != m_SightList.end(); ++it)
     {
-        long idx = m_lSights->InsertItem(index, (*it)->IsVisible() ? 0 : -1);
+        idx = m_lSights->InsertItem(idx, (*it)->IsVisible() ? 0 : -1);
+	m_lSights->SetItemData(idx, selected_index);
         m_lSights->SetItem(idx, rmTYPE, (*it)->m_Type ? _("Azimuth") : _("Altitude"));
         m_lSights->SetItem(idx, rmBODY, (*it)->m_Body);
         wxDateTime dt = (*it)->m_DateTime;
         m_lSights->SetItem(idx, rmTIME, dt.FormatISODate() + _T(" ") + dt.FormatISOTime());
         m_lSights->SetItem(idx, rmMEASUREMENT, wxString::Format(_T("%.4f"), (*it)->m_Measurement));
         m_lSights->SetItem(idx, rmCOLOR, (*it)->m_ColourName);
+
+#ifdef __WIN32__
+	// for some stupid reason on windows we need this to get the items in the right order
+	wxTheApp->Yield();
+#endif
     }
     
     m_lSights->SetColumnWidth(rmTYPE, wxLIST_AUTOSIZE);
