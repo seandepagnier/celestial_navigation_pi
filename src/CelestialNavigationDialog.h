@@ -46,9 +46,9 @@ private:
     bool OpenXML(wxString filename, bool reportfailure);
     void SaveXML(wxString filename);
 
-    void UpdateSights();     // Rebuild sight list
+    void UpdateSights(bool warnings=true);     // Rebuild sight list
     void UpdateButtons();           // Correct button state
-    void UpdateFix();
+    void UpdateFix(bool warnings=true);
 
     // event handlers
     void OnNew(wxCommandEvent &event);

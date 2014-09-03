@@ -5,7 +5,7 @@
  * Author:   Sean D'Epagnier
  *
  ***************************************************************************
- *   Copyright (C) 2013 by Sean D'Epagnier                                 *
+ *   Copyright (C) 2014 by Sean D'Epagnier                                 *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -237,12 +237,9 @@ void SightDialog::Recompute()
    m_Sight.m_Type = (Sight::Type)m_cType->GetSelection();
    m_Sight.m_Body = m_cBody->GetStringSelection();
    m_Sight.m_BodyLimb = (Sight::BodyLimb)m_cLimb->GetSelection();
+
    m_Sight.m_DateTime = DateTime();
    m_Sight.m_TimeCertainty = m_sCertaintySeconds->GetValue();
-   m_tEyeHeight->GetValue().ToDouble(&m_Sight.m_EyeHeight);
-   m_Sight.m_Temperature = m_sTemperature->GetValue();
-   m_Sight.m_Pressure = m_sPressure->GetValue();
-   m_tIndexError->GetValue().ToDouble(&m_Sight.m_IndexError);
 
    double measurement, measurementminutes;
    m_tMeasurement->GetValue().ToDouble(&measurement);
@@ -254,7 +251,15 @@ void SightDialog::Recompute()
    m_tMeasurementCertainty->GetValue().ToDouble(&measurementcertainty);
    m_Sight.m_MeasurementCertainty = measurementcertainty;
 
-   wxColour fc = m_ColourPicker->GetColour();
+   m_tEyeHeight->GetValue().ToDouble(&m_Sight.m_EyeHeight);
+   m_Sight.m_Temperature = m_sTemperature->GetValue();
+   m_Sight.m_Pressure = m_sPressure->GetValue();
+   m_tIndexError->GetValue().ToDouble(&m_Sight.m_IndexError);
+
+   wxColour fc = m_ColourPicker->GetColour(), c = wxColour(m_Sight.m_ColourName);
+   if(c.Red() != fc.Red() || c.Green() != fc.Green() || c.Blue() != fc.Blue())
+       m_Sight.m_ColourName = fc.GetAsString();
+
    m_Sight.m_Colour = wxColour(fc.Red(), fc.Green(), fc.Blue(), m_sTransparency->GetValue());
 
    m_Sight.m_bMagneticNorth = m_cbMagneticAzimuth->GetValue();

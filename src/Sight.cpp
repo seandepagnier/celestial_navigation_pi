@@ -96,7 +96,7 @@ Sight::Sight(Type type, wxString body, BodyLimb bodylimb, wxDateTime datetime,
         _T("MEDIUM GOLDENROD"), _T("MEDIUM ORCHID"), _T("MEDIUM SEA GREEN"),
         _T("VIOLET RED"), _T("YELLOW")};
 
-    m_ColourName = sightcolornames[s_lastsightcolor];
+    m_ColourName = sightcolornames[s_lastsightcolor].Lower();
     m_Colour = wxColour(m_ColourName);
 
     m_Colour.Set(m_Colour.Red(), m_Colour.Green(), m_Colour.Blue(), 150);

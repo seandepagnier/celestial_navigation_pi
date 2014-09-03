@@ -3502,10 +3502,10 @@
                                                     <property name="window_extra_style"></property>
                                                     <property name="window_name"></property>
                                                     <property name="window_style"></property>
-                                                    <event name="OnCalendar">RecomputeCalendar</event>
+                                                    <event name="OnCalendar"></event>
                                                     <event name="OnCalendarDay"></event>
                                                     <event name="OnCalendarMonth"></event>
-                                                    <event name="OnCalendarSelChanged"></event>
+                                                    <event name="OnCalendarSelChanged">RecomputeCalendar</event>
                                                     <event name="OnCalendarWeekDayClicked"></event>
                                                     <event name="OnCalendarYear"></event>
                                                     <event name="OnChar"></event>

@@ -228,7 +228,7 @@ bool CelestialNavigationDialog::OpenXML(wxString filename, bool reportfailure)
         }
     }
 
-    UpdateSights();
+    UpdateSights(false);
     RequestRefresh( GetParent() );
     return true;
 failed:
@@ -296,7 +296,7 @@ void CelestialNavigationDialog::SaveXML(wxString filename)
     }
 }
 
-void CelestialNavigationDialog::UpdateSights()
+void CelestialNavigationDialog::UpdateSights(bool warnings)
 {
     // if an item was selected, make it selected again if it still exist
     long selected_index = m_lSights->GetNextItem(-1, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
@@ -309,11 +309,11 @@ void CelestialNavigationDialog::UpdateSights()
 
     // then add sights to the listctrl
     wxListItem item;
-    int idx = 0;
+    int idx = -1;
 
     for (std::list<Sight*>::iterator it = m_SightList.begin(); it != m_SightList.end(); ++it)
     {
-        idx = m_lSights->InsertItem(idx, (*it)->IsVisible() ? 0 : -1);
+        idx = m_lSights->InsertItem(idx+1, (*it)->IsVisible() ? 0 : -1);
 	m_lSights->SetItemData(idx, selected_index);
         m_lSights->SetItem(idx, rmTYPE, (*it)->m_Type ? _("Azimuth") : _("Altitude"));
         m_lSights->SetItem(idx, rmBODY, (*it)->m_Body);
@@ -351,7 +351,7 @@ void CelestialNavigationDialog::UpdateSights()
     }
     
     UpdateButtons();
-    UpdateFix();
+    UpdateFix(warnings);
 }
 
 void CelestialNavigationDialog::UpdateButtons()
@@ -487,7 +487,7 @@ extern "C" int geomag_calc(double latitude, double longitude, double alt,
                            int day, int month, double year,
                            double results[14]);
 
-void CelestialNavigationDialog::UpdateFix()
+void CelestialNavigationDialog::UpdateFix(bool warnings)
 {
     std::list<std::vector<double> > J;
     std::list<double> R;
@@ -509,7 +509,7 @@ again:
     
         if(s->m_ShiftNm) {
             static bool seenwarning = false;
-            if(!seenwarning) {
+            if(!seenwarning && warnings) {
                 wxMessageDialog mdlg(this, _("Shifted sights are not used to compute a fix, \
 determine fix visually instead.\n"), wxString(_("Fix Position"), wxID_OK | wxICON_WARNING));
                 mdlg.ShowModal();
