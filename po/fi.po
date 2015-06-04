@@ -1,0 +1,560 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: opencpn\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-06-12 21:57+0800\n"
+"PO-Revision-Date: 2015-06-02 20:34-0400\n"
+"Last-Translator: nohal <pavel@kalian.cz>\n"
+"Language-Team: Finnish\n"
+"Language: fi_FI\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: opencpn\n"
+"X-Crowdin-Language: fi\n"
+"X-Crowdin-File: /plugins/celestial_navigation_pi/po/celestial_navigation_pi.pot\n"
+
+#: src/CelestialNavigationDialog.cpp:112 src/CelestialNavigationUI.cpp:194
+msgid "Type"
+msgstr "Tyyppi"
+
+#: src/CelestialNavigationDialog.cpp:113
+msgid "Body"
+msgstr "Runko"
+
+#: src/CelestialNavigationDialog.cpp:114
+msgid "Time (UTC)"
+msgstr "Aika (UTC)"
+
+#: src/CelestialNavigationDialog.cpp:115 src/CelestialNavigationUI.cpp:236
+msgid "Measurement"
+msgstr "Mittaus"
+
+#: src/CelestialNavigationDialog.cpp:116 src/CelestialNavigationUI.cpp:410
+msgid "Color"
+msgstr "Väri"
+
+#: src/CelestialNavigationDialog.cpp:174
+msgid "Failed to load file."
+msgstr "Tiedoston lataus epäonnistui."
+
+#: src/CelestialNavigationDialog.cpp:179
+msgid "Invalid xml file"
+msgstr "Virheellinen xml-tiedosto"
+
+#: src/CelestialNavigationDialog.cpp:229
+msgid "Unrecognized xml node"
+msgstr "Tuntematon xml-haara"
+
+#: src/CelestialNavigationDialog.cpp:239
+msgid "Weather Routing"
+msgstr "Sää reititys"
+
+#: src/CelestialNavigationDialog.cpp:295
+msgid "Failed to save xml file: "
+msgstr "Tiedostoa ei voi tallentaa xml-muodossa: "
+
+#: src/CelestialNavigationDialog.cpp:296 src/CelestialNavigationDialog.cpp:730
+#: src/Sight.cpp:876 src/celestial_navigation_pi.cpp:99
+#: src/celestial_navigation_pi.cpp:152
+msgid "Celestial Navigation"
+msgstr "Tähtiteteellinen navigointi"
+
+#: src/CelestialNavigationDialog.cpp:324 src/CelestialNavigationUI.cpp:198
+#: src/CelestialNavigationUI.cpp:634
+msgid "Azimuth"
+msgstr "Suuntakulma"
+
+#: src/CelestialNavigationDialog.cpp:324 src/CelestialNavigationUI.cpp:198
+#: src/CelestialNavigationUI.cpp:624
+msgid "Altitude"
+msgstr "Korkeus"
+
+#: src/CelestialNavigationDialog.cpp:514
+msgid "Shifted sights are not used to compute a fix, determine fix visually instead.\n"
+msgstr "Siirrettyjä näkymiä ei käytetä fix:in laskentaan, sensijaan määritä fix näkemäsi mukaan.\n"
+
+#: src/CelestialNavigationDialog.cpp:515
+msgid "Fix Position"
+msgstr "Fix sijainti"
+
+#: src/CelestialNavigationDialog.cpp:660 src/CelestialNavigationDialog.cpp:661
+#: src/CelestialNavigationDialog.cpp:662
+msgid "   N/A   "
+msgstr "   N/A   "
+
+#: src/CelestialNavigationDialog.cpp:673
+msgid "Sun"
+msgstr "Aurinko"
+
+#: src/CelestialNavigationDialog.cpp:729
+msgid "Are you sure you want to delete all sights?"
+msgstr "Oletko varma, että haluat poistaa kaikki suuntimat?"
+
+#: src/CelestialNavigationDialog.cpp:743
+msgid "Celestial_Navigation_Information.html"
+msgstr "Tähtitieteellisen_Navigoinin_Informaatio.html"
+
+#: src/CelestialNavigationUI.cpp:31
+msgid "Fix From Visible Sights"
+msgstr "Fix näkyvissä olevista suuntimista"
+
+#: src/CelestialNavigationUI.cpp:38 src/CelestialNavigationUI.cpp:606
+msgid "Latitude"
+msgstr "Leveyspiiri"
+
+#: src/CelestialNavigationUI.cpp:42
+msgid "       N/A       "
+msgstr "       N/A       "
+
+#: src/CelestialNavigationUI.cpp:46 src/CelestialNavigationUI.cpp:615
+msgid "Longitude"
+msgstr "Pituuspiiri"
+
+#: src/CelestialNavigationUI.cpp:50
+msgid "          N/A          "
+msgstr "          N/A          "
+
+#: src/CelestialNavigationUI.cpp:54
+msgid "Error"
+msgstr "Virhe"
+
+#: src/CelestialNavigationUI.cpp:58
+msgid "     N/A     "
+msgstr "     N/A     "
+
+#: src/CelestialNavigationUI.cpp:65 src/CelestialNavigationUI.cpp:72
+msgid "Initial"
+msgstr "Alustava"
+
+#: src/CelestialNavigationUI.cpp:79
+msgid "Alg"
+msgstr "Alg"
+
+#: src/CelestialNavigationUI.cpp:84
+msgid "Plane"
+msgstr "Taso"
+
+#: src/CelestialNavigationUI.cpp:85
+msgid "Sphere"
+msgstr "sfääri"
+
+#: src/CelestialNavigationUI.cpp:86
+msgid "Cone"
+msgstr "Kartio"
+
+#: src/CelestialNavigationUI.cpp:87
+msgid "Cone 2"
+msgstr "Kartio 2"
+
+#: src/CelestialNavigationUI.cpp:91
+msgid "Go"
+msgstr "Aloita"
+
+#: src/CelestialNavigationUI.cpp:111
+msgid "New"
+msgstr "Uusi"
+
+#: src/CelestialNavigationUI.cpp:114
+msgid "Edit"
+msgstr "Muokkaa"
+
+#: src/CelestialNavigationUI.cpp:117
+msgid "Delete"
+msgstr "Poista"
+
+#: src/CelestialNavigationUI.cpp:120
+msgid "Delete All"
+msgstr "Poista kaikki"
+
+#: src/CelestialNavigationUI.cpp:123
+msgid "Information"
+msgstr "Informaatiota"
+
+#: src/CelestialNavigationUI.cpp:204
+msgid "Magnetic Azimuth"
+msgstr "Magneettinen suuntakulma"
+
+#: src/CelestialNavigationUI.cpp:207
+msgid "Celestial Body"
+msgstr "Taivaankappale"
+
+#: src/CelestialNavigationUI.cpp:216
+msgid "Find"
+msgstr "Etsi"
+
+#: src/CelestialNavigationUI.cpp:219
+msgid "Limb"
+msgstr "Astekaari"
+
+#: src/CelestialNavigationUI.cpp:223
+msgid "Lower"
+msgstr "Alempi"
+
+#: src/CelestialNavigationUI.cpp:223
+msgid "Center"
+msgstr "Keskitetty"
+
+#: src/CelestialNavigationUI.cpp:223
+msgid "Upper"
+msgstr "Ylempi"
+
+#: src/CelestialNavigationUI.cpp:243 src/CelestialNavigationUI.cpp:250
+msgid "0"
+msgstr "0"
+
+#: src/CelestialNavigationUI.cpp:246 src/CelestialNavigationUI.cpp:376
+msgid "Degrees"
+msgstr "Astetta"
+
+#: src/CelestialNavigationUI.cpp:253 src/CelestialNavigationUI.cpp:309
+#: src/CelestialNavigationUI.cpp:473
+msgid "Minutes"
+msgstr "Minuuttia"
+
+#: src/CelestialNavigationUI.cpp:257
+msgid ".25"
+msgstr ".25"
+
+#: src/CelestialNavigationUI.cpp:260
+msgid "Degrees Certainty"
+msgstr "Asteen tarkkuudella"
+
+#: src/CelestialNavigationUI.cpp:274
+msgid "Sight"
+msgstr "Suunta"
+
+#: src/CelestialNavigationUI.cpp:302
+msgid "Hours"
+msgstr "Tunnit"
+
+#: src/CelestialNavigationUI.cpp:316 src/CelestialNavigationUI.cpp:334
+msgid "Seconds"
+msgstr "Sekunnit"
+
+#: src/CelestialNavigationUI.cpp:324
+msgid "Certainty"
+msgstr "Tarkkuus"
+
+#: src/CelestialNavigationUI.cpp:351
+msgid "Shift"
+msgstr "Siirto"
+
+#: src/CelestialNavigationUI.cpp:358
+msgid "Distance"
+msgstr "Etäisyys"
+
+#: src/CelestialNavigationUI.cpp:365
+msgid "Nm"
+msgstr "Nm"
+
+#: src/CelestialNavigationUI.cpp:369
+msgid "Bearing"
+msgstr "Suuntima"
+
+#: src/CelestialNavigationUI.cpp:380
+msgid "Magnetic Bearing"
+msgstr "Mangneettinen suuntima"
+
+#: src/CelestialNavigationUI.cpp:393
+msgid "Date and Time"
+msgstr "Päivämäärä ja kellonaika"
+
+#: src/CelestialNavigationUI.cpp:400
+msgid "Transparency"
+msgstr "Läpinäkyvyys"
+
+#: src/CelestialNavigationUI.cpp:421
+msgid "Config"
+msgstr "Kokoonpano"
+
+#: src/CelestialNavigationUI.cpp:433
+msgid "Eye Height"
+msgstr "Silmän korkeus"
+
+#: src/CelestialNavigationUI.cpp:437
+msgid "2"
+msgstr "2"
+
+#: src/CelestialNavigationUI.cpp:440
+msgid "Meters"
+msgstr "Metriä"
+
+#: src/CelestialNavigationUI.cpp:444
+msgid "Temperature"
+msgstr "Lämpötila"
+
+#: src/CelestialNavigationUI.cpp:451
+msgid "Celcius"
+msgstr "Celsius"
+
+#: src/CelestialNavigationUI.cpp:455
+msgid "Pressure"
+msgstr "Paine"
+
+#: src/CelestialNavigationUI.cpp:462
+msgid "MilliBars"
+msgstr "Millibaaria"
+
+#: src/CelestialNavigationUI.cpp:466
+msgid "Index Error"
+msgstr "Indeksivirhe"
+
+#: src/CelestialNavigationUI.cpp:480
+msgid "Set As Defaults"
+msgstr "Aseta oletuksiksi"
+
+#: src/CelestialNavigationUI.cpp:487
+msgid "Parameters"
+msgstr "Parametrit"
+
+#: src/CelestialNavigationUI.cpp:503
+msgid "Calculations"
+msgstr "Laskelmat"
+
+#: src/CelestialNavigationUI.cpp:626 src/CelestialNavigationUI.cpp:636
+msgid "MyLabel"
+msgstr "OmaOtsake"
+
+#: src/CelestialNavigationUI.cpp:643
+msgid "Done"
+msgstr "Tehty"
+
+#: src/CelestialNavigationUI.cpp:646
+msgid "Magnetic"
+msgstr "Magneettinen"
+
+#: src/CelestialNavigationUI.h:87
+msgid "Celestial Navigation Sights"
+msgstr "Tähtitieteelliset navigointi suunnat"
+
+#: src/CelestialNavigationUI.h:171
+msgid "Sight Properties"
+msgstr "Suuntien ominaisuudet"
+
+#: src/CelestialNavigationUI.h:198
+msgid "Find Celestial Body"
+msgstr "Etsi taivaankappale"
+
+#: src/Sight.cpp:159
+msgid "Astrolab failed, data unavailable:\n"
+msgstr "Astrolab epäonnistui, tietoja ei ole käytettävissä:\n"
+
+#: src/Sight.cpp:160
+msgid "\n"
+"Did you forget to install vsop87d.txt?\n"
+msgstr "\n"
+"Unohditko asentaa vsop87d.txt?\n"
+
+#: src/Sight.cpp:161
+msgid "The plugin will not work correctly"
+msgstr "Lisäosa ei toimi oikein"
+
+#: src/Sight.cpp:162
+msgid "Failure Alert"
+msgstr "Vika hälytys"
+
+#: src/Sight.cpp:508
+msgid "Formulas used to calculate sight\n\n"
+msgstr "Kaavoja käytetään laskettaessa suuntimia\n\n"
+
+#: src/Sight.cpp:512
+#, c-format
+msgid "Index Error is %.4f degrees\n\n"
+msgstr "Indeksivirhe on %.4f astetta\n\n"
+
+#: src/Sight.cpp:517
+#, c-format
+msgid "Eye Height is %.4f meters\n"
+"Height Correction Degrees = 1.758*sqrt(%.4f) / 60.0\n"
+"Height Correction Degrees = %.4f\n"
+msgstr "Silmän korkeus on %.4f metriä\n"
+"Korkeus korjaus asteina = 1.758*sqrt(%.4f) / 60.0\n"
+"Korkeus korjaus asteina = %.4f\n"
+
+#: src/Sight.cpp:524
+#, c-format
+msgid "\n"
+"Apparent Altitude (Ha)\n"
+"ApparentAltitude = Measurement - IndexCorrection - EyeHeightCorrection\n"
+"ApparentAltitude = %.4f - %.4f - %.4f\n"
+"ApparentAltitude = %.4f\n"
+msgstr "\n"
+"Suhteellinen korkeus (Ha) \n"
+"Suhteellinen korkeus = mittaus - Indeksikorjaus - Silmänkorkeuskorjaus\n"
+"Suhteellinen korkeus = %.4f - %.4f - %.4f\n"
+"Suhteellinen korkeus = %.4f\n"
+
+#: src/Sight.cpp:542
+#, c-format
+msgid "\n"
+"Refraction Correction\n"
+"x = tan(Pi/180*ApparentAltitude + 4.848e-2*(Pi/180) / (tan(Pi/180*ApparentAltitude) + .028))\n"
+"x = tan(Pi/180*%.4f + 4.848e-2*(Pi/180) / (tan(Pi/180*%.4f) + .028))\n"
+"x = %.4f\n"
+msgstr "\n"
+"Taittokorjaus\n"
+"x = tan (pii/180 * Suhteellinen korkeus + 4.848e-2*(Pi/180) / (tan(Pi/180*Suhteellinen korkeus) +.028))\n"
+"x = tan (pii/180 *%.4f + 4.848e-2*(Pi/180) / (tan(Pi/180*%.4f) +.028))\n"
+"x = %.4f\n"
+
+#: src/Sight.cpp:547
+#, c-format
+msgid "RefractionCorrection = .267 * Pressure / (x*(Temperature + 273.15)) / 60.0\n"
+"RefractionCorrection = .267 * %.4f / (x*(%.4f + 273.15)) / 60.0\n"
+"RefractionCorrection = %.4f\n"
+msgstr "Taittokorjaus =.267 * paine / (x * (lämpötila + 273.15)) / 60.0\n"
+"Taittokorjaus = .267 * %.4f / (x * (%.4f + 273.15)) / 60.0\n"
+"Taittokorjaus = %.4f\n"
+
+#: src/Sight.cpp:562
+#, c-format
+msgid "\n"
+"Sun selected, Limb Correction\n"
+"ra = %.4f, lc = 0.266564/ra = %.4f\n"
+msgstr "\n"
+"Aurinko valittu, astekaaren korjaus\n"
+"ra = %.4f, lc = 0.266564/ra = %.4f\n"
+
+#: src/Sight.cpp:572
+#, c-format
+msgid "\n"
+"Moon selected, Limb Correction\n"
+"SD = %.4f\n"
+"lc = 180/Pi * asin(Pi/180*SD)\n"
+"lc = %.4f\n"
+msgstr "\n"
+"Kuu valittu, astekaaren korjaus\n"
+"SD = %.4f\n"
+"lc = 180/pii * asin (pii/180 * SD)\n"
+"lc = %.4f\n"
+
+#: src/Sight.cpp:582
+msgid "Upper Limb"
+msgstr "Yläreuna"
+
+#: src/Sight.cpp:585
+msgid "Lower Limb"
+msgstr "Alareuna"
+
+#: src/Sight.cpp:588
+#, c-format
+msgid "\n"
+"LimbCorrection = %.4f\n"
+msgstr "\n"
+"Reunakorjaus = %.4f\n"
+
+#: src/Sight.cpp:593
+#, c-format
+msgid "\n"
+"Corrected Altitude\n"
+"CorrectedAltitude = ApparentAltitude - RefractionCorrection - LimbCorrection\n"
+"CorrectedAltitude = %.4f - %.4f - %.4f\n"
+"CorrectedAltitude = %.4f\n"
+msgstr "\n"
+"Korjattu korkeus\n"
+"Korjattukorkeus = Suhteellinenkorkeus - Taitekerroinkorjaus - Reunakorjaus\n"
+"Korjattukorkeus = %.4f - %.4f - %.4f\n"
+"Korjattukorkeus = %.4f\n"
+
+#: src/Sight.cpp:607
+#, c-format
+msgid "\n"
+"Sun selected, parallax correction\n"
+"rad = %.4f, HP = 0.002442/rad = %.4f\n"
+msgstr "\n"
+"Aurinko on  valittu, parallaksi korjausn\n"
+"rad = %.4f, HP = 0.002442/rad = %.4f\n"
+
+#: src/Sight.cpp:616
+#, c-format
+msgid "\n"
+"Moon selected, parallax correction\n"
+"HP = %.4f\n"
+msgstr "\n"
+"Kuu on valittu, parallaksi korjaus\n"
+"HP = %.4f\n"
+
+#: src/Sight.cpp:622
+#, c-format
+msgid "ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * CorrectedAltitude))\n"
+"ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * %.4f ) * cos(Pi/180 * %.4f))\n"
+"ParallaxCorrection = %.4f\n"
+msgstr "Parallaksikorjaus = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * Korjattukorkeus))\n"
+"Parallaksikorjaus = -180/Pi * asin( sin(Pi/180 * %.4f ) * cos(Pi/180 * %.4f))\n"
+"Parallaksikorjaus = %.4f\n"
+
+#: src/Sight.cpp:629
+#, c-format
+msgid "\n"
+"Observed Altitude (Ho)\n"
+"ObservedAltitude = CorrectedAltitude - ParallaxCorrection\n"
+"ObservedAltitude = %.4f - %.4f\n"
+"ObservedAltitude = %.4f\n"
+msgstr "\n"
+"Havainto korkeus (Ho)\n"
+"Havaintokorkeus = Korjattukorkeus - Parallaksikorjaus\n"
+"Havaintokorkeus = %.4f - %.4f\n"
+"Havaintokorkeus = %.4f\n"
+
+#: src/Sight.cpp:656
+msgid "Almanac Data For "
+msgstr "Almanakka tiedot "
+
+#: src/Sight.cpp:657
+#, c-format
+msgid "\n"
+"Geographical Position (lat, lon) = %.4f %.4f\n"
+"GHAAST = %.0f %.1f'\n"
+"SHA = %.0f %.1f'\n"
+"GHA = %.0f %.1f'\n"
+"Dec = %c %.0f %.1f'\n"
+"SD = %.1f'\n"
+"HP = %.1f'\n\n"
+msgstr "\n"
+"Maantiteellinen sijainti (lat, lon) = %.4f %.4f\n"
+"GHAAST = %.0f %.1f'\n"
+"SHA = %.0f %.1f'\n"
+"GHA = %.0f %.1f'\n"
+"Dec = %c %.0f %.1f'\n"
+"SD = %.1f'\n"
+"HP = %.1f'\n\n"
+
+#: src/Sight.cpp:876
+msgid "Building bearing Sight Positions"
+msgstr "Muodostetaan suuntimalinjojen sijainnit"
+
+#: src/SightDialog.cpp:168
+msgid "Measurement certainty likely set to small, sight may not appear "
+msgstr "Mitta on luultavasti asetettu liian pieneksi, kohde ei tulle näkyviin "
+
+#: src/SightDialog.cpp:169
+msgid "Warning"
+msgstr "Varoitus"
+
+#: src/celestial_navigation_pi.cpp:90
+msgid "Failed to load file:\n"
+msgstr "Tiedoston lataus epäonnistui :\n"
+
+#: src/celestial_navigation_pi.cpp:91
+msgid "\n"
+"Magnetic data will not be available for the celestial navigation plugin."
+msgstr "\n"
+"Magneetisuustietoja ei ole käytettävissä tähtinavigointilisäosalle."
+
+#: src/celestial_navigation_pi.cpp:92
+msgid "OpenCPN Alert"
+msgstr "OpenCPN-hälytys"
+
+#: src/celestial_navigation_pi.cpp:157
+msgid "Celestial Navigation PlugIn for OpenCPN"
+msgstr "OpenCPN:n tähtitieteelisen navigoinin lisäosa"
+
+#: src/celestial_navigation_pi.cpp:162
+msgid "Celestial Navigation PlugIn for OpenCPN.\n"
+"Implements nautical almanac for sun, moon, planets, and various navigational stars.  Compute position fix from celestial measurements."
+msgstr "OpenCPN:n tähtitieteelisen navigoinin lisäosa.\n"
+"Toteuttaa merenkulkualmanakan aurinkoa, kuuta, planeettoja ja tähtiä varten.  Laskee sijainnin fix:n tähtimittausten perusteella."
+
