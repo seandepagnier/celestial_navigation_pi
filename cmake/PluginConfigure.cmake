@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------
-## Author:      Sean D'Epagnier
-## Copyright:   
+## Author:      Pavel Kalian (Based on the work of Sean D'Epagnier)
+## Copyright:   2014
 ## License:     GPLv3+
 ##---------------------------------------------------------------------------
 
@@ -15,13 +15,13 @@ ENDIF (COMMAND cmake_policy)
 
 MESSAGE (STATUS "*** Staging to build ${PACKAGE_NAME} ***")
 
-configure_file(cmake/version.h.in ${CMAKE_SOURCE_DIR}/src/version.h)
+configure_file(cmake/version.h.in ${PROJECT_SOURCE_DIR}/src/version.h)
 SET(PACKAGE_VERSION "${VERSION_MAJOR}.${VERSION_MINOR}" )
 
 #SET(CMAKE_BUILD_TYPE Debug)
 #SET(CMAKE_VERBOSE_MAKEFILE ON)
 
-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/src)
+INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include ${PROJECT_SOURCE_DIR}/src)
 
 # SET(PROFILING 1)
 
@@ -30,8 +30,8 @@ IF(NOT MSVC)
  IF(PROFILING)
   ADD_DEFINITIONS( "-Wall -g -fprofile-arcs -ftest-coverage -fexceptions" )
  ELSE(PROFILING)
-  ADD_DEFINITIONS( "-Wall -g -fexceptions" )
-# ADD_DEFINITIONS( "-Wall -g -O2 -fexceptions" )
+#  ADD_DEFINITIONS( "-Wall -g -fexceptions" )
+ ADD_DEFINITIONS( "-Wall -Wno-unused-result -g -O2 -fexceptions" )
  ENDIF(PROFILING)
 
  IF(NOT APPLE)
@@ -54,8 +54,8 @@ SET(BUILD_SHARED_LIBS TRUE)
 FIND_PACKAGE(wxWidgets REQUIRED)
 
 IF(MSYS)
-# this is to convert msys to windows paths, and handle the missing /usr
-STRING( REGEX REPLACE "/usr/local" ";C:/MinGW/msys/1.0/local" wxWidgets_INCLUDE_DIRS ${wxWidgets_INCLUDE_DIRS} )
+# this is just a hack. I think the bug is in FindwxWidgets.cmake
+STRING( REGEX REPLACE "/usr/local" "\\\\;C:/MinGW/msys/1.0/usr/local" wxWidgets_INCLUDE_DIRS ${wxWidgets_INCLUDE_DIRS} )
 ENDIF(MSYS)
 
 INCLUDE(${wxWidgets_USE_FILE})
@@ -70,7 +70,6 @@ IF(OPENGL_GLU_FOUND)
     MESSAGE (STATUS "    Lib: " ${OPENGL_LIBRARIES})
     MESSAGE (STATUS "    Include: " ${OPENGL_INCLUDE_DIR})
     ADD_DEFINITIONS(-DocpnUSE_GL)
-
 ELSE(OPENGL_GLU_FOUND)
     MESSAGE (STATUS "OpenGL not found..." )
 ENDIF(OPENGL_GLU_FOUND)
