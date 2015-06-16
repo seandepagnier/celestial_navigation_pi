@@ -1,23 +1,20 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: celestial_navigation_pi (beta 1.9)\n"
+"Project-Id-Version: opencpn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-12 21:57+0800\n"
-"PO-Revision-Date: 2014-09-06 17:13+0100\n"
-"Last-Translator: NAV <rider2@kpnmail.nl>\n"
-"Language-Team: NAV <fj.bonig@vodafonethuis.nl>\n"
+"PO-Revision-Date: 2015-06-02 20:34-0400\n"
+"Last-Translator: nohal <pavel@kalian.cz>\n"
+"Language-Team: Dutch\n"
 "Language: nl_NL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
-"X-Poedit-Bookmarks: -1,-1,-1,-1,21,-1,-1,-1,-1,-1\n"
-"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: opencpn\n"
+"X-Crowdin-Language: nl\n"
+"X-Crowdin-File: /plugins/celestial_navigation_pi/po/celestial_navigation_pi.pot\n"
 
 #: src/CelestialNavigationDialog.cpp:112 src/CelestialNavigationUI.cpp:194
 msgid "Type"
@@ -29,11 +26,11 @@ msgstr "Hemellichaam"
 
 #: src/CelestialNavigationDialog.cpp:114
 msgid "Time (UTC)"
-msgstr "Tijd (UT)"
+msgstr "Tijd (UTC)"
 
 #: src/CelestialNavigationDialog.cpp:115 src/CelestialNavigationUI.cpp:236
 msgid "Measurement"
-msgstr "Gemeten waarde"
+msgstr "Observatie"
 
 #: src/CelestialNavigationDialog.cpp:116 src/CelestialNavigationUI.cpp:410
 msgid "Color"
@@ -57,7 +54,7 @@ msgstr "Weerroutering"
 
 #: src/CelestialNavigationDialog.cpp:295
 msgid "Failed to save xml file: "
-msgstr "Kon xml-bestand niet laden: "
+msgstr "Kon XML-bestand niet opslaan: "
 
 #: src/CelestialNavigationDialog.cpp:296 src/CelestialNavigationDialog.cpp:730
 #: src/Sight.cpp:876 src/celestial_navigation_pi.cpp:99
@@ -76,12 +73,8 @@ msgid "Altitude"
 msgstr "hoogte"
 
 #: src/CelestialNavigationDialog.cpp:514
-msgid ""
-"Shifted sights are not used to compute a fix, determine fix visually "
-"instead.\n"
-msgstr ""
-"Verzeilde positielijnen kunnen niet worden gebruikt voor bestekberekening, "
-"beoordeel uw geografische positie visueel op de kaart.\n"
+msgid "Shifted sights are not used to compute a fix, determine fix visually instead.\n"
+msgstr "Verzeilde positielijnen kunnen niet worden gebruikt voor een bestek, beoordeel uw geografische positie visueel op de kaart.\n"
 
 #: src/CelestialNavigationDialog.cpp:515
 msgid "Fix Position"
@@ -182,7 +175,7 @@ msgstr "Informatie"
 
 #: src/CelestialNavigationUI.cpp:204
 msgid "Magnetic Azimuth"
-msgstr "azimuth (magnetisch)"
+msgstr "magnetisch azimuth"
 
 #: src/CelestialNavigationUI.cpp:207
 msgid "Celestial Body"
@@ -295,7 +288,7 @@ msgstr "Luchttemperatuur"
 
 #: src/CelestialNavigationUI.cpp:451
 msgid "Celcius"
-msgstr "Celcius"
+msgstr "Celsius"
 
 #: src/CelestialNavigationUI.cpp:455
 msgid "Pressure"
@@ -350,12 +343,10 @@ msgid "Astrolab failed, data unavailable:\n"
 msgstr "Almanakfout, gegevens niet beschikbaar:\n"
 
 #: src/Sight.cpp:160
-msgid ""
-"\n"
+msgid "\n"
 "Did you forget to install vsop87d.txt?\n"
-msgstr ""
-"\n"
-"Hebt u vergeten om het almanakbestand 'vsop87d.txt' te installeren?\n"
+msgstr "\n"
+"Hebt u vergeten om 'vsop87d.txt' te installeren?\n"
 
 #: src/Sight.cpp:161
 msgid "The plugin will not work correctly"
@@ -366,102 +357,111 @@ msgid "Failure Alert"
 msgstr "Foutmelding"
 
 #: src/Sight.cpp:508
-msgid ""
-"Formulas used to calculate sight\n"
-"\n"
-msgstr ""
-"Gegevens en formules gebruikt voor hoogtecorrecties\n"
-"\n"
+msgid "Formulas used to calculate sight\n\n"
+msgstr "Gegevens en formules gebruikt voor hoogtecorrecties en bestekberekening\n\n"
 
 #: src/Sight.cpp:512
 #, c-format
-msgid ""
-"Index Error is %.4f degrees\n"
+msgid "Index Error is %.4f degrees\n\n"
+msgstr "   Indexfout sextant is: %.4f °\n"
 "\n"
-msgstr "   Indexfout is %.4f °\n"
+""
 
 #: src/Sight.cpp:517
 #, c-format
-msgid ""
-"Eye Height is %.4f meters\n"
+msgid "Eye Height is %.4f meters\n"
 "Height Correction Degrees = 1.758*sqrt(%.4f) / 60.0\n"
 "Height Correction Degrees = %.4f\n"
-msgstr ""
-"   Ooghoogte is: %.1f meter\n"
-"\n"
-"   Schijnbare Kimduiking (dip) in ° = 1.758*sqrt(%.4f) / 60.0\n"
-"   Schijnbare Kimduiking (dip) in ° = %.4f\n"
+msgstr "   Ooghoogte is: %.3f meter\n\n"
+"   Correctie voor Schijnbare Kimduiking (dip) in ° = 1.753*sqrt(%.3f) / 60.0\n"
+"   Correctie voor Schijnbare Kimduiking (dip) in ° = %.3f\n"
 
 #: src/Sight.cpp:524
 #, c-format
-msgid ""
-"\n"
+msgid "\n"
 "Apparent Altitude (Ha)\n"
 "ApparentAltitude = Measurement - IndexCorrection - EyeHeightCorrection\n"
 "ApparentAltitude = %.4f - %.4f - %.4f\n"
 "ApparentAltitude = %.4f\n"
-msgstr ""
+msgstr "\n"
 "\n"
 "   Hoogte 'Apparent' (Ha)\n"
+"\n"
 "      Ha = Hoogte Sextant - Indexcorrectie - Schijnbare Kimduiking\n"
+"\n"
 "      Ha = %.4f - %.4f - %.4f\n"
+"\n"
 "      Ha = %.4f\n"
+"\n"
+""
 
 #: src/Sight.cpp:542
 #, c-format
-msgid ""
-"\n"
+msgid "\n"
 "Refraction Correction\n"
-"x = tan(Pi/180*ApparentAltitude + 4.848e-2*(Pi/180) / (tan"
-"(Pi/180*ApparentAltitude) + .028))\n"
+"x = tan(Pi/180*ApparentAltitude + 4.848e-2*(Pi/180) / (tan(Pi/180*ApparentAltitude) + .028))\n"
 "x = tan(Pi/180*%.4f + 4.848e-2*(Pi/180) / (tan(Pi/180*%.4f) + .028))\n"
 "x = %.4f\n"
-msgstr ""
+msgstr "\n"
 "\n"
 "   Astronomische Refractie (R)\n"
-"      x = tan(Pi/180*Hoogte 'Apparent' + 4.848e-2*(Pi/180) / (tan"
-"(Pi/180*Hoogte 'Apparent') + .028))\n"
+"\n"
+"      x = tan(Pi/180*Hoogte 'Apparent' + 4.848e-2*(Pi/180) / (tan(Pi/180*Hoogte 'Apparent') + .028))\n"
+"\n"
 "      x = tan(Pi/180*%.4f + 4.848e-2*(Pi/180) / (tan(Pi/180*%.4f) + .028))\n"
+"\n"
 "      x = %.4f\n"
 "\n"
+"\n"
+"\n"
+""
 
 #: src/Sight.cpp:547
 #, c-format
-msgid ""
-"RefractionCorrection = .267 * Pressure / (x*(Temperature + 273.15)) / 60.0\n"
+msgid "RefractionCorrection = .267 * Pressure / (x*(Temperature + 273.15)) / 60.0\n"
 "RefractionCorrection = .267 * %.4f / (x*(%.4f + 273.15)) / 60.0\n"
 "RefractionCorrection = %.4f\n"
-msgstr ""
-"      R  in ° = .267 * luchtdruk / (x*(temperatuur + 273.15)) / 60.0\n"
+msgstr "      R  in ° = .267 * luchtdruk / (x*(temperatuur + 273.15)) / 60.0\n"
+"\n"
 "      R  in ° = .267 * %.4f / (x*(%.4f + 273.15)) / 60.0\n"
+"\n"
 "      R  in ° = %.4f\n"
+"\n"
+""
 
 #: src/Sight.cpp:562
 #, c-format
-msgid ""
-"\n"
+msgid "\n"
 "Sun selected, Limb Correction\n"
 "ra = %.4f, lc = 0.266564/ra = %.4f\n"
-msgstr ""
+msgstr "\n"
 "\n"
 "   Halve Middellijn Zon\n"
+"\n"
 "      Afstand = %.4f\n"
+"\n"
 "      Halve Middellijn Zon = 0.266564/Afstand = %.4f\n"
+"\n"
+""
 
 #: src/Sight.cpp:572
 #, c-format
-msgid ""
-"\n"
+msgid "\n"
 "Moon selected, Limb Correction\n"
 "SD = %.4f\n"
 "lc = 180/Pi * asin(Pi/180*SD)\n"
 "lc = %.4f\n"
-msgstr ""
+msgstr "\n"
 "\n"
 "   Halve Middellijn Maan\n"
+"\n"
 "      SD = %.4f\n"
+"\n"
 "      Halve Middellijn Maan = 180/Pi * asin(Pi/180*SD)\n"
+"\n"
 "      Halve Middellijn Maan = %.4f\n"
+"\n"
+""
 
 #: src/Sight.cpp:582
 msgid "Upper Limb"
@@ -473,83 +473,81 @@ msgstr "      Onderrand"
 
 #: src/Sight.cpp:588
 #, c-format
-msgid ""
-"\n"
+msgid "\n"
 "LimbCorrection = %.4f\n"
-msgstr ""
+msgstr "\n"
 "\n"
 "      Correctie Halve Middellijn = %.4f\n"
 
 #: src/Sight.cpp:593
 #, c-format
-msgid ""
-"\n"
+msgid "\n"
 "Corrected Altitude\n"
-"CorrectedAltitude = ApparentAltitude - RefractionCorrection - "
-"LimbCorrection\n"
+"CorrectedAltitude = ApparentAltitude - RefractionCorrection - LimbCorrection\n"
 "CorrectedAltitude = %.4f - %.4f - %.4f\n"
 "CorrectedAltitude = %.4f\n"
-msgstr ""
+msgstr "\n"
 "\n"
 "   Hoogte Deels Gecorrigeerd (Hx)\n"
-"      Hoogte Deels Gecorrigeerd = Hoogte 'Apparent' - Astronomische "
-"Refractie - Halve Middellijn\n"
+"\n"
+"      Hoogte Deels Gecorrigeerd = Hoogte 'Apparent' - Astronomische Refractie - Halve Middellijn\n"
+"\n"
 "      Hx = %.4f - %.4f - %.4f\n"
+"\n"
 "      Hx = %.4f\n"
+"\n"
+""
 
 #: src/Sight.cpp:607
 #, c-format
-msgid ""
-"\n"
+msgid "\n"
 "Sun selected, parallax correction\n"
 "rad = %.4f, HP = 0.002442/rad = %.4f\n"
-msgstr ""
-"\n"
+msgstr "\n"
 "   Horizontale Parallax (HP) en Parallax In Hoogte (PA) Zon\n"
 "      Straal = %.4f\n"
-"      HP = 0.002442/Straal = %.4f\n"
-"\n"
+"      HP = 0.002442/Straal = %.4f\n\n"
 
 #: src/Sight.cpp:616
 #, c-format
-msgid ""
-"\n"
+msgid "\n"
 "Moon selected, parallax correction\n"
 "HP = %.4f\n"
-msgstr ""
+msgstr "\n"
 "\n"
 "   Horizontale Parallax (HP) en Parallax In Hoogte (PA) Maan\n"
+"\n"
 "      HP = %.4f\n"
+"\n"
 "\n"
 
 #: src/Sight.cpp:622
 #, c-format
-msgid ""
-"ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * "
-"CorrectedAltitude))\n"
-"ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * %.4f ) * cos(Pi/180 * "
-"%.4f))\n"
+msgid "ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * CorrectedAltitude))\n"
+"ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * %.4f ) * cos(Pi/180 * %.4f))\n"
 "ParallaxCorrection = %.4f\n"
-msgstr ""
-"      PA in ° = -180/Pi * asin(sin(Pi/180 * HP ) * cos(Pi/180 * Hoogte Deels "
-"Gecorrigeerd))\n"
-"      PA in ° = -180/Pi * asin(sin(Pi/180 * %.4f ) * cos(Pi/180 * %.4f))\n"
-"      PA in ° = %.4f\n"
+msgstr "      Correctie voor HP en Parallax In Hoogte in ° = -180/Pi * asin(sin(Pi/180 * HP ) * cos(Pi/180 * Hoogte Geobserveerd))\n"
+"      Correctie voor HP en Parallax In Hoogte in ° = -180/Pi * asin(sin(Pi/180 * %.3f ) * cos(Pi/180 * %.3f))\n"
+"      Correctie voor HP en Parallax In Hoogte in ° = %.5f\n"
 
 #: src/Sight.cpp:629
 #, c-format
-msgid ""
-"\n"
+msgid "\n"
 "Observed Altitude (Ho)\n"
 "ObservedAltitude = CorrectedAltitude - ParallaxCorrection\n"
 "ObservedAltitude = %.4f - %.4f\n"
 "ObservedAltitude = %.4f\n"
-msgstr ""
+msgstr "\n"
 "\n"
 "   Ware Hoogte (Ho)\n"
+"\n"
 "      Ho = Hoogte Deels Gecorrigeerd - Parallax In Hoogte\n"
+"\n"
 "      Ho = %.4f - %.4f\n"
+"\n"
 "      Ho = %.4f\n"
+"\n"
+""
 
 #: src/Sight.cpp:656
 msgid "Almanac Data For "
@@ -557,29 +555,39 @@ msgstr "Almanakgegevens voor: "
 
 #: src/Sight.cpp:657
 #, c-format
-msgid ""
-"\n"
+msgid "\n"
 "Geographical Position (lat, lon) = %.4f %.4f\n"
 "GHAAST = %.0f %.1f'\n"
 "SHA = %.0f %.1f'\n"
 "GHA = %.0f %.1f'\n"
 "Dec = %c %.0f %.1f'\n"
 "SD = %.1f'\n"
-"HP = %.1f'\n"
-"\n"
-msgstr ""
+"HP = %.1f'\n\n"
+msgstr "\n"
 "\n"
 "   Aardse Projectie (B=Dec, WL=GHA, OL=360-GHA) = %.4f  %.4f\n"
 "\n"
+"\n"
+"\n"
 "   Aries GHA = %.0f° %.1f'\n"
+"\n"
 "            SHA = %.0f° %.1f'\n"
 "\n"
+"\n"
+"\n"
 "            GHA = %.0f° %.1f'\n"
+"\n"
 "             Dec = %c %.0f° %.1f'\n"
+"\n"
 "               SD = %.1f'\n"
+"\n"
 "               HP = %.1f'\n"
 "\n"
 "\n"
+"\n"
+"\n"
+"\n"
+""
 
 #: src/Sight.cpp:876
 msgid "Building bearing Sight Positions"
@@ -587,9 +595,7 @@ msgstr "Berekenen ..."
 
 #: src/SightDialog.cpp:168
 msgid "Measurement certainty likely set to small, sight may not appear "
-msgstr ""
-"Waarde voor 'meetonzekerheid' is waarschijnlijk zo laag ingesteld, dat "
-"hoogtekromme niet zichtbaar is bij een kleine kaartschaal. "
+msgstr "Waarde voor 'meetonzekerheid' is waarschijnlijk zo laag ingesteld, dat de hoogtekromme niet zichtbaar is bij een kleine kaartschaal. "
 
 #: src/SightDialog.cpp:169
 msgid "Warning"
@@ -600,11 +606,9 @@ msgid "Failed to load file:\n"
 msgstr "Kon bestand niet laden:\n"
 
 #: src/celestial_navigation_pi.cpp:91
-msgid ""
-"\n"
+msgid "\n"
 "Magnetic data will not be available for the celestial navigation plugin."
-msgstr ""
-"\n"
+msgstr "\n"
 "Geomagnetische gegevens zijn niet beschikbaar."
 
 #: src/celestial_navigation_pi.cpp:92
@@ -616,21 +620,8 @@ msgid "Celestial Navigation PlugIn for OpenCPN"
 msgstr "Astronomische navigatie plugin voor OpenCPN"
 
 #: src/celestial_navigation_pi.cpp:162
-msgid ""
-"Celestial Navigation PlugIn for OpenCPN.\n"
-"Implements nautical almanac for sun, moon, planets, and various navigational "
-"stars.  Compute position fix from celestial measurements."
-msgstr ""
-"Plugin voor astronomische navigatie binnen OpenCPN\n"
-"De plugin bevat astronomische gegevens voor zon, maan, planeten en de "
-"belangrijkste sterren en berekent astrobestekken. De lange termijn "
-"astronomische gegevens zijn die van VSOP87 (voor planeten, en indirect voor "
-"de zon) en  ELP2000-82 (voor de maan). De Astrolabe software routines "
-"(gebaseerd op Meeus 1998) worden gebruikt voor de berekeningen. De plugin "
-"berekent de positie van de waarnemer op een geheel innovatieve wijze. "
+msgid "Celestial Navigation PlugIn for OpenCPN.\n"
+"Implements nautical almanac for sun, moon, planets, and various navigational stars.  Compute position fix from celestial measurements."
+msgstr "Plugin voor astronomische navigatie binnen OpenCPN\n"
+"De plugin bevat astronomische gegevens voor zon, maan, planeten en de belangrijkste sterren en berekent astrobestekken. De lange termijn astronomische gegevens zijn die van VSOP87 (voor planeten, en indirect voor de zon) en  ELP2000-82 (voor de maan). De Astrolabe software routines (gebaseerd op Meeus 1998) worden gebruikt voor de berekeningen. De plugin berekent de positie van de waarnemer op een geheel innovatieve wijze. "
 
-#~ msgid "Combo!"
-#~ msgstr "Gecombineerd!"
-
-#~ msgid "Time"
-#~ msgstr "Tijd"
