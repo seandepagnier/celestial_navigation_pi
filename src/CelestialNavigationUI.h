@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Oct  8 2012)
+// C++ code generated with wxFormBuilder (version Oct 12 2015)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -61,6 +61,8 @@ class CelestialNavigationDialogBase : public wxDialog
 		wxStaticText* m_staticText36;
 		wxComboBox* m_cbFixAlgorithm;
 		wxButton* m_bGo;
+		wxSpinCtrl* m_sClockCorrection;
+		wxStaticText* m_staticText361;
 		wxListCtrl* m_lSights;
 		wxButton* m_bNewSight;
 		wxButton* m_bEditSight;
@@ -72,6 +74,7 @@ class CelestialNavigationDialogBase : public wxDialog
 		virtual void OnUpdateFixSpin( wxSpinEvent& event ) { event.Skip(); }
 		virtual void OnUpdateFix( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnGoFix( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnClockCorrection( wxSpinEvent& event ) { event.Skip(); }
 		virtual void OnEditMouse( wxMouseEvent& event ) { event.Skip(); }
 		virtual void OnSightListLeftDown( wxMouseEvent& event ) { event.Skip(); }
 		virtual void OnSightSelected( wxListEvent& event ) { event.Skip(); }

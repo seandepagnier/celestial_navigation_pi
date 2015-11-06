@@ -5,7 +5,7 @@
  * Author:   Sean D'Epagnier
  *
  ***************************************************************************
- *   Copyright (C) 2013 by Sean D'Epagnier                                 *
+ *   Copyright (C) 2015 by Sean D'Epagnier                                 *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -60,6 +60,7 @@ private:
     void OnInformation( wxCommandEvent& event );
     void OnUpdateFixSpin( wxSpinEvent& event ) { UpdateFix(); }
     void OnUpdateFix( wxCommandEvent& event ) { UpdateFix(); }
+    void OnClockCorrection( wxSpinEvent& event );
     void OnGoFix( wxCommandEvent& event );
     void OnSightListLeftDown(wxMouseEvent &event);
     void OnBtnLeftDown(wxMouseEvent &event); // record control key state for some action buttons
@@ -67,6 +68,7 @@ private:
     void OnSightSelected(wxListEvent &event);
 
     wxString m_sights_path;
+    int clock_correction;
 };
 
 #endif // _CelestialNavigationDialog_h_

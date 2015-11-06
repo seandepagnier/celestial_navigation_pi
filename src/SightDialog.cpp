@@ -5,7 +5,7 @@
  * Author:   Sean D'Epagnier
  *
  ***************************************************************************
- *   Copyright (C) 2014 by Sean D'Epagnier                                 *
+ *   Copyright (C) 2015 by Sean D'Epagnier                                 *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -40,8 +40,8 @@
 
 #include "Sight.h"
 
-SightDialog::SightDialog( wxWindow* parent, Sight &s)
-    : SightDialogBase(parent), m_Sight(s), m_breadytorecompute(false)
+SightDialog::SightDialog( wxWindow* parent, Sight &s, int clock_offset)
+    : SightDialogBase(parent), m_Sight(s), m_clock_offset(clock_offset), m_breadytorecompute(false)
 {
     m_cBody->Append(_T("Sun"));
     m_cBody->Append(_T("Moon"));
@@ -230,6 +230,7 @@ void SightDialog::OnSetDefaults( wxCommandEvent& event )
 void SightDialog::Recompute()
 {
     m_cbMagneticAzimuth->Enable(m_cType->GetSelection() == AZIMUTH);
+    m_cLimb->Enable(m_cType->GetSelection() == ALTITUDE);
 
     if(!m_breadytorecompute)
         return;
@@ -238,6 +239,15 @@ void SightDialog::Recompute()
    m_Sight.m_Body = m_cBody->GetStringSelection();
    m_Sight.m_BodyLimb = (Sight::BodyLimb)m_cLimb->GetSelection();
 
+   if(!m_Sight.m_Body.Cmp(_T("Moon")) && m_cType->GetSelection() == LUNAR) {
+       wxMessageDialog w
+           ( m_parent,
+             _("Lunar shot will be invalid taking distance from moon to itself"),
+             _("Warning"), wxOK | wxICON_WARNING );
+       w.ShowModal();
+   }
+
+   
    m_Sight.m_DateTime = DateTime();
    m_Sight.m_TimeCertainty = m_sCertaintySeconds->GetValue();
 
@@ -271,7 +281,7 @@ void SightDialog::Recompute()
    m_Sight.m_ShiftBearing = shiftbearing;
    m_Sight.m_bMagneticShiftBearing = m_cbMagneticShiftBearing->GetValue();
 
-   m_Sight.Recompute();
+   m_Sight.Recompute(m_clock_offset);
    m_tCalculations->SetValue(m_Sight.m_CalcStr);
 
    Refresh();

@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Oct  8 2012)
+// C++ code generated with wxFormBuilder (version Oct 12 2015)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -14,18 +14,16 @@ CelestialNavigationDialogBase::CelestialNavigationDialogBase( wxWindow* parent, 
 	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
 	
 	wxFlexGridSizer* fgSizer25;
-	fgSizer25 = new wxFlexGridSizer( 0, 2, 0, 0 );
+	fgSizer25 = new wxFlexGridSizer( 0, 1, 0, 0 );
 	fgSizer25->AddGrowableCol( 0 );
 	fgSizer25->AddGrowableRow( 0 );
 	fgSizer25->SetFlexibleDirection( wxBOTH );
 	fgSizer25->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
-	wxFlexGridSizer* fgSizer17;
-	fgSizer17 = new wxFlexGridSizer( 0, 1, 0, 0 );
-	fgSizer17->AddGrowableCol( 0 );
-	fgSizer17->AddGrowableRow( 1 );
-	fgSizer17->SetFlexibleDirection( wxBOTH );
-	fgSizer17->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+	wxFlexGridSizer* fgSizer21;
+	fgSizer21 = new wxFlexGridSizer( 0, 2, 0, 0 );
+	fgSizer21->SetFlexibleDirection( wxBOTH );
+	fgSizer21->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
 	wxStaticBoxSizer* sbSizer7;
 	sbSizer7 = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, _("Fix From Visible Sights") ), wxVERTICAL );
@@ -97,13 +95,41 @@ CelestialNavigationDialogBase::CelestialNavigationDialogBase( wxWindow* parent, 
 	sbSizer7->Add( fgSizer16, 1, wxEXPAND, 5 );
 	
 	
-	fgSizer17->Add( sbSizer7, 1, wxEXPAND, 5 );
+	fgSizer21->Add( sbSizer7, 1, wxEXPAND, 5 );
+	
+	wxStaticBoxSizer* sbSizer10;
+	sbSizer10 = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, _("Clock Correction") ), wxVERTICAL );
+	
+	wxFlexGridSizer* fgSizer20;
+	fgSizer20 = new wxFlexGridSizer( 0, 1, 0, 0 );
+	fgSizer20->SetFlexibleDirection( wxBOTH );
+	fgSizer20->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+	
+	m_sClockCorrection = new wxSpinCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxSP_ARROW_KEYS, -10000, 10000, 0 );
+	fgSizer20->Add( m_sClockCorrection, 0, wxALL, 5 );
+	
+	m_staticText361 = new wxStaticText( this, wxID_ANY, _("Seconds"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText361->Wrap( -1 );
+	fgSizer20->Add( m_staticText361, 0, wxALL, 5 );
+	
+	
+	sbSizer10->Add( fgSizer20, 1, wxEXPAND, 5 );
+	
+	
+	fgSizer21->Add( sbSizer10, 1, wxEXPAND, 5 );
+	
+	
+	fgSizer25->Add( fgSizer21, 1, wxEXPAND, 5 );
+	
+	wxFlexGridSizer* fgSizer17;
+	fgSizer17 = new wxFlexGridSizer( 0, 2, 0, 0 );
+	fgSizer17->AddGrowableCol( 0 );
+	fgSizer17->AddGrowableRow( 1 );
+	fgSizer17->SetFlexibleDirection( wxBOTH );
+	fgSizer17->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
 	m_lSights = new wxListCtrl( this, wxID_ANY, wxDefaultPosition, wxSize( 300,-1 ), wxLC_HRULES|wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_SORT_ASCENDING );
 	fgSizer17->Add( m_lSights, 0, wxALL|wxEXPAND, 5 );
-	
-	
-	fgSizer25->Add( fgSizer17, 1, wxEXPAND, 5 );
 	
 	wxBoxSizer* bSizer1;
 	bSizer1 = new wxBoxSizer( wxVERTICAL );
@@ -118,13 +144,16 @@ CelestialNavigationDialogBase::CelestialNavigationDialogBase( wxWindow* parent, 
 	bSizer1->Add( m_bDeleteSight, 0, wxALL|wxEXPAND, 5 );
 	
 	m_bDeleteAllSights = new wxButton( this, wxID_ANY, _("Delete All"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer1->Add( m_bDeleteAllSights, 0, wxALL, 5 );
+	bSizer1->Add( m_bDeleteAllSights, 0, wxALL|wxEXPAND, 5 );
 	
 	m_bInformation = new wxButton( this, wxID_ANY, _("Information"), wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer1->Add( m_bInformation, 0, wxALL|wxEXPAND, 5 );
 	
 	
-	fgSizer25->Add( bSizer1, 1, wxEXPAND, 5 );
+	fgSizer17->Add( bSizer1, 1, wxEXPAND, 5 );
+	
+	
+	fgSizer25->Add( fgSizer17, 1, wxEXPAND, 5 );
 	
 	
 	this->SetSizer( fgSizer25 );
@@ -138,6 +167,7 @@ CelestialNavigationDialogBase::CelestialNavigationDialogBase( wxWindow* parent, 
 	m_sInitialLongitude->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( CelestialNavigationDialogBase::OnUpdateFixSpin ), NULL, this );
 	m_cbFixAlgorithm->Connect( wxEVT_COMMAND_COMBOBOX_SELECTED, wxCommandEventHandler( CelestialNavigationDialogBase::OnUpdateFix ), NULL, this );
 	m_bGo->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnGoFix ), NULL, this );
+	m_sClockCorrection->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( CelestialNavigationDialogBase::OnClockCorrection ), NULL, this );
 	m_lSights->Connect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( CelestialNavigationDialogBase::OnEditMouse ), NULL, this );
 	m_lSights->Connect( wxEVT_LEFT_DOWN, wxMouseEventHandler( CelestialNavigationDialogBase::OnSightListLeftDown ), NULL, this );
 	m_lSights->Connect( wxEVT_COMMAND_LIST_ITEM_DESELECTED, wxListEventHandler( CelestialNavigationDialogBase::OnSightSelected ), NULL, this );
@@ -156,6 +186,7 @@ CelestialNavigationDialogBase::~CelestialNavigationDialogBase()
 	m_sInitialLongitude->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( CelestialNavigationDialogBase::OnUpdateFixSpin ), NULL, this );
 	m_cbFixAlgorithm->Disconnect( wxEVT_COMMAND_COMBOBOX_SELECTED, wxCommandEventHandler( CelestialNavigationDialogBase::OnUpdateFix ), NULL, this );
 	m_bGo->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnGoFix ), NULL, this );
+	m_sClockCorrection->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( CelestialNavigationDialogBase::OnClockCorrection ), NULL, this );
 	m_lSights->Disconnect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( CelestialNavigationDialogBase::OnEditMouse ), NULL, this );
 	m_lSights->Disconnect( wxEVT_LEFT_DOWN, wxMouseEventHandler( CelestialNavigationDialogBase::OnSightListLeftDown ), NULL, this );
 	m_lSights->Disconnect( wxEVT_COMMAND_LIST_ITEM_DESELECTED, wxListEventHandler( CelestialNavigationDialogBase::OnSightSelected ), NULL, this );

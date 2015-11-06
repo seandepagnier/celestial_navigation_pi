@@ -5,7 +5,7 @@
  * Author:   Sean D'Epagnier
  *
  ***************************************************************************
- *   Copyright (C) 2014 by Sean D'Epagnier                                 *
+ *   Copyright (C) 2015 by Sean D'Epagnier                                 *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -465,11 +465,19 @@ void Sight::Render( wxDC *dc, PlugIn_ViewPort &VP )
         glPopAttrib();            // restore state
 }
 
-void Sight::Recompute()
+void Sight::Recompute(int clock_offset)
 {
+    m_CalcStr.clear();
+
+    if(clock_offset)
+        m_CalcStr+=wxString::Format(_("Applying clock correction of %d seconds\n\n"), clock_offset);
+
+    m_CorrectedDateTime = m_DateTime + wxTimeSpan::Seconds(clock_offset);
+    
     switch(m_Type) {
     case ALTITUDE: RecomputeAltitude(); break;
     case AZIMUTH: RecomputeAzimuth(); break;
+    case LUNAR: RecomputeLunar(); break;
     }
 }
 
@@ -478,6 +486,7 @@ void Sight::RebuildPolygons()
     switch(m_Type) {
     case ALTITUDE: RebuildPolygonsAltitude(); break;
     case AZIMUTH: RebuildPolygonsAzimuth(); break;
+    case LUNAR: return; // lunar has no polygons
     }
 
     /* now shift the vertices as needed */
@@ -492,7 +501,7 @@ void Sight::RebuildPolygons()
                 double results[14];
                 lon = resolve_heading(lon);
                 geomag_calc(lat, lon, m_EyeHeight,
-                            m_DateTime.GetDay(), m_DateTime.GetMonth(), m_DateTime.GetYear(),
+                            m_CorrectedDateTime.GetDay(), m_CorrectedDateTime.GetMonth(), m_CorrectedDateTime.GetYear(),
                             results);
                 localbearing += results[0];
             }
@@ -502,9 +511,43 @@ void Sight::RebuildPolygons()
     }
 }
 
+wxString Sight::Alminac(double lat, double lon, double ghaast, double rad, double SD, double HP)
+{
+   double sha = 360 - lon - ghaast;
+   sha = resolve_heading_positive(sha);
+   double sha_minutes = (sha - floor(sha))*60;
+   sha = floor(sha);
+
+   double ghaast_minutes = (ghaast - floor(ghaast))*60;
+   ghaast = floor(ghaast);
+
+   double gha = -lon;
+   gha = resolve_heading_positive(gha);
+   double gha_minutes = (gha - floor(gha))*60;
+   gha = floor(gha);
+
+   double dec = lat;
+   char dec_sign = dec > 0 ? 'N' : 'S';
+   dec = fabs(dec);
+   double dec_minutes = (dec - floor(dec))*60;
+   dec = floor(dec);
+
+   return _("Almanac Data For ") + m_Body +
+wxString::Format(_("\n\
+Geographical Position (lat, lon) = %.4f %.4f\n\
+GHAAST = %.0f %.1f'\n\
+SHA = %.0f %.1f'\n\
+GHA = %.0f %.1f'\n\
+Dec = %c %.0f %.1f'\n\
+SD = %.1f'\n\
+HP = %.1f'\n\n"), lat, lon,
+                 ghaast, ghaast_minutes, sha, sha_minutes,
+                 gha, gha_minutes, dec_sign, dec, dec_minutes,
+                 SD*60, HP*60);
+}
+
 void Sight::RecomputeAltitude()
 {      
-    m_CalcStr.clear();
     m_CalcStr+=_("Formulas used to calculate sight\n\n");
 
     /* correct for index error */
@@ -555,7 +598,7 @@ RefractionCorrection = %.4f\n"), m_Pressure, m_Temperature, RefractionCorrection
 
     if( !m_Body.Cmp(_T("Sun"))) {
         double rad;
-        BodyLocation(m_DateTime, 0, 0, 0, &rad);
+        BodyLocation(m_CorrectedDateTime, 0, 0, 0, &rad);
         lc = 0.266564/rad;
         SD = r_to_d(sin(d_to_r(lc)));
 
@@ -601,7 +644,7 @@ CorrectedAltitude = %.4f\n"), ApparentAltitude,
     double HP = 0;
     if( !m_Body.Cmp(_T("Sun"))) {
         double rad;
-        BodyLocation(m_DateTime, 0, 0, 0, &rad);
+        BodyLocation(m_CorrectedDateTime, 0, 0, 0, &rad);
         HP = 0.002442/rad;
 
         m_CalcStr+=wxString::Format(_("\nSun selected, parallax correction\n\
@@ -632,47 +675,156 @@ ObservedAltitude = %.4f - %.4f\n\
 ObservedAltitude = %.4f\n"), CorrectedAltitude, ParallaxCorrection, m_ObservedAltitude);
 
    double lat, lon, ghaast, rad;
-   BodyLocation(m_DateTime, &lat, &lon, &ghaast, &rad);
+   BodyLocation(m_CorrectedDateTime, &lat, &lon, &ghaast, &rad);
 
-   double sha = 360 - lon - ghaast;
-   sha = resolve_heading_positive(sha);
-   double sha_minutes = (sha - floor(sha))*60;
-   sha = floor(sha);
-
-   double ghaast_minutes = (ghaast - floor(ghaast))*60;
-   ghaast = floor(ghaast);
-
-   double gha = -lon;
-   gha = resolve_heading_positive(gha);
-   double gha_minutes = (gha - floor(gha))*60;
-   gha = floor(gha);
-
-   double dec = lat;
-   char dec_sign = dec > 0 ? 'N' : 'S';
-   dec = fabs(dec);
-   double dec_minutes = (dec - floor(dec))*60;
-   dec = floor(dec);
-
-   wxString almstr = _("Almanac Data For ") + m_Body +
-wxString::Format(_("\n\
-Geographical Position (lat, lon) = %.4f %.4f\n\
-GHAAST = %.0f %.1f'\n\
-SHA = %.0f %.1f'\n\
-GHA = %.0f %.1f'\n\
-Dec = %c %.0f %.1f'\n\
-SD = %.1f'\n\
-HP = %.1f'\n\n"), lat, lon,
-                 ghaast, ghaast_minutes, sha, sha_minutes,
-                 gha, gha_minutes, dec_sign, dec, dec_minutes,
-                 SD*60, HP*60);
-
-   m_CalcStr = almstr + m_CalcStr;
+   m_CalcStr = Alminac(lat, lon, ghaast, rad, SD, HP) + m_CalcStr;
 }
 
 void Sight::RecomputeAzimuth()
 {      
-    m_CalcStr.clear();
     m_Measurement = resolve_heading_positive(m_Measurement);
+}
+
+void Sight::RecomputeLunar()
+{      
+    m_CalcStr+=_("Formulas used to calculate sight\n\n");
+
+    /* correct for index error */
+    double IndexCorrection = m_IndexError / 60.0;
+    m_CalcStr+=wxString::Format(_("Index Error is %.4f degrees\n\n"), IndexCorrection);
+
+    /* correct for height of observer
+       The dip of the sea horizon in minutes = 1.758*sqrt(height) */
+    double EyeHeightCorrection = 1.758*sqrt(m_EyeHeight) / 60.0;
+    m_CalcStr+=wxString::Format(_("Eye Height is %.4f meters\n\
+Height Correction Degrees = 1.758*sqrt(%.4f) / 60.0\n\
+Height Correction Degrees = %.4f\n"),
+                                m_EyeHeight, m_EyeHeight, EyeHeightCorrection);
+
+    /* Apparent Altitude Ha */
+    double ApparentAltitude = m_Measurement - IndexCorrection - EyeHeightCorrection;
+    m_CalcStr+=wxString::Format(_("\nApparent Altitude (Ha)\n\
+ApparentAltitude = Measurement - IndexCorrection - EyeHeightCorrection\n \
+ApparentAltitude = %.4f - %.4f - %.4f\n\
+ApparentAltitude = %.4f\n"), m_Measurement, IndexCorrection,
+                                EyeHeightCorrection, ApparentAltitude);
+    
+    /* compensate for refraction */
+    double RefractionCorrection;
+
+    double x = tan(M_PI/180 * ApparentAltitude + 4.848e-2*(M_PI/180)
+                   / (tan(M_PI/180 * ApparentAltitude) + .028));
+    m_CalcStr+=wxString::Format(_("\nRefraction Correction\n\
+x = tan(Pi/180*ApparentAltitude + 4.848e-2*(Pi/180) / (tan(Pi/180*ApparentAltitude) + .028))\n\
+x = tan(Pi/180*%.4f + 4.848e-2*(Pi/180) / (tan(Pi/180*%.4f) + .028))\n\
+x = %.4f\n"), ApparentAltitude, ApparentAltitude, x);
+    RefractionCorrection = .267 * m_Pressure / (x*(m_Temperature + 273.15)) / 60.0;
+    m_CalcStr+=wxString::Format(_("\
+RefractionCorrection = .267 * Pressure / (x*(Temperature + 273.15)) / 60.0\n\
+RefractionCorrection = .267 * %.4f / (x*(%.4f + 273.15)) / 60.0\n\
+RefractionCorrection = %.4f\n"), m_Pressure, m_Temperature, RefractionCorrection);
+
+    double SD = 0;
+    double lc = 0;
+
+    if( !m_Body.Cmp(_T("Sun"))) {
+        double rad;
+        BodyLocation(m_CorrectedDateTime, 0, 0, 0, &rad);
+        lc = 0.266564/rad;
+        SD = r_to_d(sin(d_to_r(lc)));
+
+        m_CalcStr+=wxString::Format(_("\nSun selected, Limb Correction\n\
+ra = %.4f, lc = 0.266564/ra = %.4f\n"), rad, lc);
+    }
+
+    /* moon radius: 1738 km
+       distance to moon: 384400 km
+    NOTE: could replace with a routine that finds the distance based on time */
+    double lunar_SD = r_to_d(1738/384400.0);
+    double lunar_lc = r_to_d(asin(d_to_r(SD)));
+    m_CalcStr+=wxString::Format(_("\nMoon selected, Limb Correction\n\
+SD = %.4f\n\
+lc = 180/Pi * asin(Pi/180*SD)\n\
+lc = %.4f\n"), lunar_SD, lunar_lc);
+
+    double LimbCorrection = lc + lunar_lc;
+    m_CalcStr+=wxString::Format(_("\nLimbCorrection = %.4f\n"), LimbCorrection);
+
+    double CorrectedAltitude = ApparentAltitude - RefractionCorrection - LimbCorrection;
+    m_CalcStr+=wxString::Format(_("\nCorrected Altitude\n\
+CorrectedAltitude = ApparentAltitude - RefractionCorrection - LimbCorrection\n\
+CorrectedAltitude = %.4f - %.4f - %.4f\n\
+CorrectedAltitude = %.4f\n"), ApparentAltitude,
+                                RefractionCorrection, LimbCorrection, CorrectedAltitude);
+
+    /* correct for limb shot */
+    double ParallaxCorrection = 0;
+    double HP = 0;
+    if( !m_Body.Cmp(_T("Sun"))) {
+        double rad;
+        BodyLocation(m_CorrectedDateTime, 0, 0, 0, &rad);
+        HP = 0.002442/rad;
+
+        m_CalcStr+=wxString::Format(_("\nSun selected, parallax correction\n\
+rad = %.4f, HP = 0.002442/rad = %.4f\n"), rad, HP);
+    }
+
+    if(HP) {
+        ParallaxCorrection = -r_to_d(asin(sin(d_to_r(HP))*cos(d_to_r(CorrectedAltitude))));
+        m_CalcStr+=wxString::Format(_("\
+ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * CorrectedAltitude))\n\
+ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * %.4f ) * cos(Pi/180 * %.4f))\n\
+ParallaxCorrection = %.4f\n"), HP, CorrectedAltitude, ParallaxCorrection);
+    }
+    
+    /* earth radius: 6357 km
+       distance to moon: 384400 km
+       NOTE: could replace with a routine that finds the distance based on time */
+    double LunarParallaxCorrection;
+    double lunar_HP = r_to_d(6357/384400.0);
+    m_CalcStr+=wxString::Format(_("\nMoon selected, parallax correction\n\
+HP = %.4f\n"), lunar_HP);
+
+    LunarParallaxCorrection = -r_to_d(asin(sin(d_to_r(lunar_HP))*cos(d_to_r(CorrectedAltitude))));
+    m_CalcStr+=wxString::Format(_("\
+ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * CorrectedAltitude))\n \
+ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * %.4f ) * cos(Pi/180 * %.4f))\n\
+ParallaxCorrection = %.4f\n"), lunar_HP, CorrectedAltitude, ParallaxCorrection);
+    
+    m_ObservedAltitude = CorrectedAltitude - ParallaxCorrection - LunarParallaxCorrection;
+    m_CalcStr+=wxString::Format(_("\nObserved Altitude (Ho)\n\
+ObservedAltitude = CorrectedAltitude - ParallaxCorrection\n  \
+ObservedAltitude = %.4f - %.4f\n\
+ObservedAltitude = %.4f\n"), CorrectedAltitude, ParallaxCorrection, m_ObservedAltitude);
+
+   double lat, lon, ghaast, rad;
+   BodyLocation(m_CorrectedDateTime, &lat, &lon, &ghaast, &rad);
+
+   m_CalcStr = Alminac(lat, lon, ghaast, rad, SD, HP) + m_CalcStr;
+
+   
+   double lunar_lat, lunar_lon, lunar_ghaast, lunar_rad;
+   wxString body = m_Body;
+   m_Body = _T("Moon");
+   BodyLocation(m_CorrectedDateTime, &lunar_lat, &lunar_lon, &lunar_ghaast, &lunar_rad);
+
+   m_CalcStr = Alminac(lunar_lat, lunar_lon, lunar_ghaast, lunar_rad, lunar_SD, lunar_HP);
+   m_Body = body;
+
+   // Compute angle between moon and body
+   double x1 = cos(lunar_lat)*cos(lunar_lon),   y1 = cos(lunar_lat)*sin(lunar_lon),   z1 = sin(lunar_lat);
+   double x2 = cos(lat)*cos(lon),               y2 = cos(lat)*sin(lon),               z2 = sin(lat);
+   double ang = acos(x1*x2 + y1*y2 + z1*z2) * 180 / M_PI;
+
+   double CorrectedMeasurement = m_Measurement - IndexCorrection - LimbCorrection;
+   m_CalcStr+=wxString::Format(_("\nCalculated angle between Moon and ") + m_Body + _T("%.4f"), ang);
+   m_CalcStr+=wxString::Format(_("\nCorrected Measurement %.4f"), CorrectedMeasurement);
+   m_CalcStr+=wxString::Format(_("\nError from measurement: %.4f"), CorrectedMeasurement - ang);
+
+   double error = CorrectedMeasurement - ang;
+
+   m_CalcStr+=_("\nMoon takes 28 days to orbit, one degree of error takes 6720 seconds");
+   m_CalcStr+=wxString::Format(_("\nTime correction %.4f seconds"), error * 6720);
 }
 
 void Sight::RebuildPolygonsAltitude()
@@ -725,7 +877,7 @@ void Sight::BuildAltitudeLineOfPosition(double tracestep,
                                         double timemin, double timemax, double timestep)
 {
    double lat, lon;
-   BodyLocation(m_DateTime, &lat, &lon, 0, 0);
+   BodyLocation(m_CorrectedDateTime, &lat, &lon, 0, 0);
    wxRealPointList *p, *l = new wxRealPointList;
    for(double trace=-180; trace<=180; trace+=tracestep) {
       p = new wxRealPointList;
@@ -790,7 +942,7 @@ bool Sight::BearingPoint( double altitude, double bearing,
         if(m_bMagneticNorth) {
             double results[14];
             geomag_calc(lat, lon, m_EyeHeight,
-                        m_DateTime.GetDay(), m_DateTime.GetMonth(), m_DateTime.GetYear(),
+                        m_CorrectedDateTime.GetDay(), m_CorrectedDateTime.GetMonth(), m_CorrectedDateTime.GetYear(),
                         results);
             localbearing += results[0];
         }
@@ -837,7 +989,7 @@ bool Sight::BearingPoint( double altitude, double bearing,
         if(m_bMagneticNorth) {
             double results[14];
             geomag_calc(rlat, rlon, m_EyeHeight,
-                        m_DateTime.GetDay(), m_DateTime.GetMonth(), m_DateTime.GetYear(),
+                        m_CorrectedDateTime.GetDay(), m_CorrectedDateTime.GetMonth(), m_CorrectedDateTime.GetYear(),
                         results);
             b -= results[0];
         }
@@ -867,7 +1019,7 @@ void Sight::BuildBearingLineOfPosition(double altitudestep,
     
     double blat, blon;
     
-    BodyLocation(m_DateTime, &blat, &blon, 0, 0);
+    BodyLocation(m_CorrectedDateTime, &blat, &blon, 0, 0);
 
     blon = resolve_heading(blon);
 

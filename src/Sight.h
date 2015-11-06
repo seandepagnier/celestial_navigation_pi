@@ -49,7 +49,7 @@ WX_DECLARE_LIST(wxRealPoint, wxRealPointList);
 class Sight : public wxObject
 {
 public:
-    enum Type {ALTITUDE, AZIMUTH};
+    enum Type {ALTITUDE, AZIMUTH, LUNAR};
     enum BodyLimb {LOWER, CENTER, UPPER};
 
     Sight() { s_lastsightcolor++; }
@@ -61,11 +61,13 @@ public:
     void SetVisible(bool visible = true); ///< set visibility and make points selectable accordingly
     bool IsVisible() { return m_bVisible; }
 
-    void Recompute();
+    void Recompute(int clock_offset);
     void RebuildPolygons();
 
+    wxString Alminac(double lat, double lon, double ghaast, double rad, double SD, double HP);
     void RecomputeAltitude();
     void RecomputeAzimuth();
+    void RecomputeLunar();
 
     void RebuildPolygonsAltitude();
     void RebuildPolygonsAzimuth();
@@ -130,6 +132,8 @@ private:
     void DrawPolygon(PlugIn_ViewPort &VP, wxRealPointList &area);
 
     wxDC *m_dc;
+
+    wxDateTime m_CorrectedDateTime;
 
     static int s_lastsightcolor;
 };

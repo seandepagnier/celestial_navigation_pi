@@ -40,9 +40,9 @@ class SightDialog: public SightDialogBase
 {
 
 public:
-   enum {ALTITUDE, AZIMUTH};
+    enum {ALTITUDE, AZIMUTH, LUNAR};
 
-   SightDialog(wxWindow* parent, Sight &sight);
+    SightDialog(wxWindow* parent, Sight &sight, int clock_offset);
     ~SightDialog( );
 
 //    void SetColorScheme(ColorScheme cs);
@@ -62,6 +62,7 @@ public:
 
 private:
     Sight &m_Sight;
+    int m_clock_offset;
     bool m_breadytorecompute;
 };
 

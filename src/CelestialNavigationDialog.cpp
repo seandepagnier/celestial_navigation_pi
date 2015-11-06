@@ -5,7 +5,7 @@
  * Author:   Sean D'Epagnier
  *
  ***************************************************************************
- *   Copyright (C) 2013 by Sean D'Epagnier                                 *
+ *   Copyright (C) 2015 by Sean D'Epagnier                                 *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -179,7 +179,9 @@ bool CelestialNavigationDialog::OpenXML(wxString filename, bool reportfailure)
         m_SightList.clear();
 
         for(TiXmlElement* e = root.FirstChild().Element(); e; e = e->NextSiblingElement()) {
-            if(!strcmp(e->Value(), "Sight")) {
+            if(!strcmp(e->Value(), "ClockError")) {
+                m_sClockCorrection->SetValue(AttributeInt(e, "Seconds", 0));
+            } else if(!strcmp(e->Value(), "Sight")) {
                 Sight s;
 
                 s.m_bVisible = AttributeBool(e, "Visible", true);
@@ -220,7 +222,7 @@ bool CelestialNavigationDialog::OpenXML(wxString filename, bool reportfailure)
 
                 Sight *ns = new Sight(s);
 
-                ns->Recompute();
+                ns->Recompute(m_sClockCorrection->GetValue());
                 ns->RebuildPolygons();
                 m_SightList.push_back(ns);
             } else
@@ -253,6 +255,10 @@ void CelestialNavigationDialog::SaveXML(wxString filename)
     sprintf(version, "%d.%d", PLUGIN_VERSION_MAJOR, PLUGIN_VERSION_MINOR);
     root->SetAttribute("version", version);
     root->SetAttribute("creator", "Opencpn Celestial Navigation plugin");
+
+    TiXmlElement *c = new TiXmlElement( "ClockError" );
+    c->SetAttribute("Seconds", m_sClockCorrection->GetValue());
+    root->LinkEndChild(c);
 
     for(std::list<Sight*>::iterator it = m_SightList.begin();
         it != m_SightList.end(); it++) {
@@ -670,7 +676,7 @@ void CelestialNavigationDialog::OnNew(wxCommandEvent &event)
     wxDateTime now = wxDateTime::Now().ToUTC();
 
     Sight s(Sight::ALTITUDE, _("Sun"), Sight::LOWER, now, 1, 0, .25);
-    SightDialog dialog(GetParent(), s);
+    SightDialog dialog(GetParent(), s, m_sClockCorrection->GetValue());
       
     if( dialog.ShowModal() == wxID_OK ) {
         Sight *ns = new Sight(s);
@@ -696,7 +702,7 @@ void CelestialNavigationDialog::OnEdit( )
 
     Sight originalsight = *psight; /* in case of cancel */
     
-    SightDialog dialog(GetParent(), *psight);
+    SightDialog dialog(GetParent(), *psight, m_sClockCorrection->GetValue());
     
     if( dialog.ShowModal() == wxID_OK ) {
         psight->RebuildPolygons();
@@ -741,6 +747,14 @@ void CelestialNavigationDialog::OnInformation( wxCommandEvent& event )
         + _T("plugins/celestial_navigation_pi/data/")
         + _("Celestial_Navigation_Information.html");
     wxLaunchDefaultBrowser(_T("file://") + infolocation);
+}
+
+void CelestialNavigationDialog::OnClockCorrection( wxSpinEvent& event )
+{
+    for (std::list<Sight*>::iterator it = m_SightList.begin(); it != m_SightList.end(); it++)
+        (*it)->Recompute(m_sClockCorrection->GetValue());
+
+    RequestRefresh( GetParent() );
 }
 
 void CelestialNavigationDialog::OnGoFix( wxCommandEvent& event )
