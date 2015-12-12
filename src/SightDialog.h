@@ -54,13 +54,16 @@ public:
     void RecomputeSpin( wxSpinEvent& event ) { Recompute(); }
 //    void RecomputeScroll( wxScrollEvent& event ) { Recompute(); }
     void RecomputeColor( wxColourPickerEvent& event ) { Recompute(); }
+    void NewBody();
+    void NewBody( wxCommandEvent& event ) { NewBody(); Recompute(); }
     void OnFindBody( wxCommandEvent& event );
 
     wxDateTime DateTime();
-
     void Recompute();
 
 private:
+    double BodyAltitude(wxString body);
+
     Sight &m_Sight;
     int m_clock_offset;
     bool m_breadytorecompute;

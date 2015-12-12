@@ -160,8 +160,9 @@ wxString celestial_navigation_pi::GetShortDescription()
 wxString celestial_navigation_pi::GetLongDescription()
 {
     return _("Celestial Navigation PlugIn for OpenCPN.\n\
-Implements nautical almanac for sun, moon, planets, and various \
-navigational stars.  Compute position fix from celestial measurements.");
+Implements nautical almanac for sun, moon, planets,\n\
+and various navigational stars.\n\
+Compute position fix from celestial measurements.");
 }
 
 void celestial_navigation_pi::OnToolbarToolCallback(int id)

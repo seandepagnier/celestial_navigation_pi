@@ -25,7 +25,6 @@
  *
  */
 
-
 #include <wx/wx.h>
 
 #include <wx/filename.h>
@@ -321,12 +320,16 @@ void CelestialNavigationDialog::UpdateSights(bool warnings)
     {
         idx = m_lSights->InsertItem(idx+1, (*it)->IsVisible() ? 0 : -1);
 	m_lSights->SetItemData(idx, selected_index);
-        m_lSights->SetItem(idx, rmTYPE, (*it)->m_Type ? _("Azimuth") : _("Altitude"));
+        m_lSights->SetItem(idx, rmTYPE, SightType[(*it)->m_Type]);
         m_lSights->SetItem(idx, rmBODY, (*it)->m_Body);
         wxDateTime dt = (*it)->m_DateTime;
         m_lSights->SetItem(idx, rmTIME, dt.FormatISODate() + _T(" ") + dt.FormatISOTime());
         m_lSights->SetItem(idx, rmMEASUREMENT, wxString::Format(_T("%.4f"), (*it)->m_Measurement));
-        m_lSights->SetItem(idx, rmCOLOR, (*it)->m_ColourName);
+        if((*it)->m_Type == Sight::LUNAR)
+            m_lSights->SetItem(idx, rmCOLOR, _("Time Correction") +
+                               wxString::Format(_T(": %.4f"), (*it)->m_TimeCorrection));
+        else
+            m_lSights->SetItem(idx, rmCOLOR, (*it)->m_ColourName);
 
 #ifdef __WIN32__
 	// for some stupid reason on windows we need this to get the items in the right order
@@ -754,6 +757,7 @@ void CelestialNavigationDialog::OnClockCorrection( wxSpinEvent& event )
     for (std::list<Sight*>::iterator it = m_SightList.begin(); it != m_SightList.end(); it++)
         (*it)->Recompute(m_sClockCorrection->GetValue());
 
+    UpdateSights();
     RequestRefresh( GetParent() );
 }
 

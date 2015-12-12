@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Oct 12 2015)
+// C++ code generated with wxFormBuilder (version Dec  8 2015)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -124,7 +124,7 @@ CelestialNavigationDialogBase::CelestialNavigationDialogBase( wxWindow* parent, 
 	wxFlexGridSizer* fgSizer17;
 	fgSizer17 = new wxFlexGridSizer( 0, 2, 0, 0 );
 	fgSizer17->AddGrowableCol( 0 );
-	fgSizer17->AddGrowableRow( 1 );
+	fgSizer17->AddGrowableRow( 0 );
 	fgSizer17->SetFlexibleDirection( wxBOTH );
 	fgSizer17->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
@@ -226,7 +226,7 @@ SightDialogBase::SightDialogBase( wxWindow* parent, wxWindowID id, const wxStrin
 	m_staticText1->Wrap( -1 );
 	fgSizer3->Add( m_staticText1, 0, wxALL, 5 );
 	
-	wxString m_cTypeChoices[] = { _("Altitude"), _("Azimuth") };
+	wxString m_cTypeChoices[] = { _("Altitude"), _("Azimuth"), _("Lunar") };
 	int m_cTypeNChoices = sizeof( m_cTypeChoices ) / sizeof( wxString );
 	m_cType = new wxChoice( m_panel1, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_cTypeNChoices, m_cTypeChoices, 0 );
 	m_cType->SetSelection( 0 );
@@ -263,6 +263,11 @@ SightDialogBase::SightDialogBase( wxWindow* parent, wxWindowID id, const wxStrin
 	
 	fgSizer5->Add( fgSizer3, 1, wxEXPAND, 5 );
 	
+	wxFlexGridSizer* fgSizer22;
+	fgSizer22 = new wxFlexGridSizer( 0, 2, 0, 0 );
+	fgSizer22->SetFlexibleDirection( wxBOTH );
+	fgSizer22->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+	
 	wxStaticBoxSizer* sbSizer1;
 	sbSizer1 = new wxStaticBoxSizer( new wxStaticBox( m_panel1, wxID_ANY, _("Measurement") ), wxVERTICAL );
 	
@@ -296,7 +301,33 @@ SightDialogBase::SightDialogBase( wxWindow* parent, wxWindowID id, const wxStrin
 	sbSizer1->Add( fgSizer4, 1, wxEXPAND, 5 );
 	
 	
-	fgSizer5->Add( sbSizer1, 1, wxEXPAND, 5 );
+	fgSizer22->Add( sbSizer1, 1, wxEXPAND, 5 );
+	
+	m_fgSizerLunar = new wxFlexGridSizer( 0, 2, 0, 0 );
+	m_fgSizerLunar->SetFlexibleDirection( wxBOTH );
+	m_fgSizerLunar->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+	
+	m_staticText37 = new wxStaticText( m_panel1, wxID_ANY, _("Lunar Altitude"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText37->Wrap( -1 );
+	m_staticText37->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_INFOTEXT ) );
+	
+	m_fgSizerLunar->Add( m_staticText37, 0, wxALL, 5 );
+	
+	m_tLunarAltitude = new wxTextCtrl( m_panel1, wxID_ANY, _("0"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_fgSizerLunar->Add( m_tLunarAltitude, 0, wxALL, 5 );
+	
+	m_staticText38 = new wxStaticText( m_panel1, wxID_ANY, _("Body Altitude"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText38->Wrap( -1 );
+	m_fgSizerLunar->Add( m_staticText38, 0, wxALL, 5 );
+	
+	m_tBodyAltitude = new wxTextCtrl( m_panel1, wxID_ANY, _("0"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_fgSizerLunar->Add( m_tBodyAltitude, 0, wxALL, 5 );
+	
+	
+	fgSizer22->Add( m_fgSizerLunar, 1, wxEXPAND, 5 );
+	
+	
+	fgSizer5->Add( fgSizer22, 1, wxEXPAND, 5 );
 	
 	
 	m_panel1->SetSizer( fgSizer5 );
@@ -554,7 +585,7 @@ SightDialogBase::SightDialogBase( wxWindow* parent, wxWindowID id, const wxStrin
 	// Connect Events
 	m_cType->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_cbMagneticAzimuth->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_cBody->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
+	m_cBody->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( SightDialogBase::NewBody ), NULL, this );
 	m_bFindBody->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( SightDialogBase::OnFindBody ), NULL, this );
 	m_cLimb->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_tMeasurement->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
@@ -591,7 +622,7 @@ SightDialogBase::~SightDialogBase()
 	// Disconnect Events
 	m_cType->Disconnect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_cbMagneticAzimuth->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
-	m_cBody->Disconnect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
+	m_cBody->Disconnect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( SightDialogBase::NewBody ), NULL, this );
 	m_bFindBody->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( SightDialogBase::OnFindBody ), NULL, this );
 	m_cLimb->Disconnect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_tMeasurement->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );

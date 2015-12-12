@@ -28,6 +28,8 @@
 #ifndef _CelestialNavigationDialog_h_
 #define _CelestialNavigationDialog_h_
 
+#include <list>
+
 #include "geodesic.h"
 #include "CelestialNavigationUI.h"
 

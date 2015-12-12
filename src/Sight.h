@@ -46,6 +46,8 @@ WX_DECLARE_LIST(wxRealPoint, wxRealPointList);
 //    Sight
 //----------------------------------------------------------------------------
 
+const wxString SightType[] = {_("Altitude"), _("Azimuth"), _("Lunar")};
+
 class Sight : public wxObject
 {
 public:
@@ -108,6 +110,9 @@ public:
 
     /* for azimuth */
     bool       m_bMagneticNorth; // if azimuth angle is in magnetic coordinates
+
+    /* for lunar */
+    double m_TimeCorrection;
 
 protected:
     double CalcAngle(wxRealPoint p1, wxRealPoint p2);

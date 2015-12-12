@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Oct 12 2015)
+// C++ code generated with wxFormBuilder (version Dec  8 2015)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -116,6 +116,11 @@ class SightDialogBase : public wxDialog
 		wxStaticText* m_staticText7;
 		wxTextCtrl* m_tMeasurementCertainty;
 		wxStaticText* m_staticText8;
+		wxFlexGridSizer* m_fgSizerLunar;
+		wxStaticText* m_staticText37;
+		wxTextCtrl* m_tLunarAltitude;
+		wxStaticText* m_staticText38;
+		wxTextCtrl* m_tBodyAltitude;
 		wxPanel* m_panel2;
 		wxCalendarCtrl* m_Calendar;
 		wxSpinCtrl* m_sHours;
@@ -160,6 +165,7 @@ class SightDialogBase : public wxDialog
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void Recompute( wxCommandEvent& event ) { event.Skip(); }
+		virtual void NewBody( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnFindBody( wxCommandEvent& event ) { event.Skip(); }
 		virtual void MeasurementEntered( wxCommandEvent& event ) { event.Skip(); }
 		virtual void RecomputeCalendar( wxCalendarEvent& event ) { event.Skip(); }

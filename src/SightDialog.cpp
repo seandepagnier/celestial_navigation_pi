@@ -35,10 +35,10 @@
 
 #include "ocpn_plugin.h"
 
+#include "Sight.h"
 #include "SightDialog.h"
 #include "FindBodyDialog.h"
-
-#include "Sight.h"
+#include "celestial_navigation_pi.h"
 
 SightDialog::SightDialog( wxWindow* parent, Sight &s, int clock_offset)
     : SightDialogBase(parent), m_Sight(s), m_clock_offset(clock_offset), m_breadytorecompute(false)
@@ -126,38 +126,39 @@ SightDialog::SightDialog( wxWindow* parent, Sight &s, int clock_offset)
     if(index != wxNOT_FOUND)
         m_cBody->SetSelection(index);
 
-   m_cLimb->SetSelection((int)m_Sight.m_BodyLimb);
-   m_Calendar->SetDate(m_Sight.m_DateTime);
+    m_cLimb->SetSelection((int)m_Sight.m_BodyLimb);
+    m_Calendar->SetDate(m_Sight.m_DateTime);
 
-   m_sHours->SetValue(m_Sight.m_DateTime.Format(_T("%H")));
-   m_sMinutes->SetValue(m_Sight.m_DateTime.Format(_T("%M")));
-   m_sSeconds->SetValue(m_Sight.m_DateTime.Format(_T("%S")));
+    m_sHours->SetValue(m_Sight.m_DateTime.Format(_T("%H")));
+    m_sMinutes->SetValue(m_Sight.m_DateTime.Format(_T("%M")));
+    m_sSeconds->SetValue(m_Sight.m_DateTime.Format(_T("%S")));
    
-   m_sCertaintySeconds->SetValue(m_Sight.m_TimeCertainty);
+    m_sCertaintySeconds->SetValue(m_Sight.m_TimeCertainty);
 
-   m_sTransparency->SetValue(m_Sight.m_Colour.Alpha());
-   m_tEyeHeight->SetValue(wxString::Format(_T("%.1f"), m_Sight.m_EyeHeight));
-   m_sTemperature->SetValue(m_Sight.m_Temperature);
-   m_sPressure->SetValue(m_Sight.m_Pressure);
-   m_tIndexError->SetValue(wxString::Format(_T("%.5f"), m_Sight.m_IndexError));
+    m_sTransparency->SetValue(m_Sight.m_Colour.Alpha());
+    m_tEyeHeight->SetValue(wxString::Format(_T("%.1f"), m_Sight.m_EyeHeight));
+    m_sTemperature->SetValue(m_Sight.m_Temperature);
+    m_sPressure->SetValue(m_Sight.m_Pressure);
+    m_tIndexError->SetValue(wxString::Format(_T("%.5f"), m_Sight.m_IndexError));
 
-   m_tShiftNm->SetValue(wxString::Format(_T("%.2f"), m_Sight.m_ShiftNm));
-   m_tShiftBearing->SetValue(wxString::Format(_T("%.2f"), m_Sight.m_ShiftBearing));
-   m_cbMagneticShiftBearing->SetValue(m_Sight.m_bMagneticShiftBearing);
+    m_tShiftNm->SetValue(wxString::Format(_T("%.2f"), m_Sight.m_ShiftNm));
+    m_tShiftBearing->SetValue(wxString::Format(_T("%.2f"), m_Sight.m_ShiftBearing));
+    m_cbMagneticShiftBearing->SetValue(m_Sight.m_bMagneticShiftBearing);
 
-   double measurement = trunc(m_Sight.m_Measurement);
-   double measurementminutes = 60*(m_Sight.m_Measurement - measurement);
-   m_tMeasurement->SetValue(wxString::Format(_T("%.0f"), measurement));
-   m_tMeasurementMinutes->SetValue(wxString::Format(_T("%.2f"), measurementminutes));
+    double measurement = trunc(m_Sight.m_Measurement);
+    double measurementminutes = 60*(m_Sight.m_Measurement - measurement);
+    m_tMeasurement->SetValue(wxString::Format(_T("%.0f"), measurement));
+    m_tMeasurementMinutes->SetValue(wxString::Format(_T("%.2f"), measurementminutes));
+    m_tMeasurementCertainty->SetValue(wxString::Format(_T("%.2f"), m_Sight.m_MeasurementCertainty));
+    m_cbMagneticAzimuth->SetValue(m_Sight.m_bMagneticNorth);
+    m_ColourPicker->SetColour(m_Sight.m_Colour);
 
-   m_tMeasurementCertainty->SetValue(wxString::Format(_T("%.2f"), m_Sight.m_MeasurementCertainty));
-
-   m_cbMagneticAzimuth->SetValue(m_Sight.m_bMagneticNorth);
-
-   m_ColourPicker->SetColour(m_Sight.m_Colour);
-
-   m_breadytorecompute = true;
-   Recompute();
+    // calculate approximate lunar altitude
+    m_tLunarAltitude->SetValue(wxString::Format(_T("%f"), BodyAltitude(_T("moon"))));
+    NewBody();
+    
+    m_breadytorecompute = true;
+    Recompute();
 }
 
 SightDialog::~SightDialog( )
@@ -176,9 +177,8 @@ void SightDialog::SetColorScheme(ColorScheme cs)
 {
       SetBackgroundColour(GetGlobalColor(_T("DILG1")));
 
-      wxColour back_color =GetGlobalColor(_T("DILG2"));
+      wxColour back_color = GetGlobalColor(_T("DILG2"));
       wxColour text_color = GetGlobalColor(_T("DILG3"));
-
 
       m_CancelButton->SetBackgroundColour(back_color);
       m_CancelButton->SetForegroundColour(text_color);
@@ -187,6 +187,11 @@ void SightDialog::SetColorScheme(ColorScheme cs)
       m_OKButton->SetForegroundColour(text_color);
 }
 #endif
+
+void SightDialog::NewBody()
+{
+    m_tBodyAltitude->SetValue(wxString::Format(_T("%f"), BodyAltitude(m_cBody->GetStringSelection())));
+}
 
 void SightDialog::OnFindBody( wxCommandEvent& event )
 {
@@ -230,7 +235,9 @@ void SightDialog::OnSetDefaults( wxCommandEvent& event )
 void SightDialog::Recompute()
 {
     m_cbMagneticAzimuth->Enable(m_cType->GetSelection() == AZIMUTH);
-    m_cLimb->Enable(m_cType->GetSelection() == ALTITUDE);
+    m_cLimb->Enable(m_cType->GetSelection() != AZIMUTH);
+
+    m_fgSizerLunar->Show(m_cType->GetSelection() == LUNAR);
 
     if(!m_breadytorecompute)
         return;
@@ -285,4 +292,15 @@ void SightDialog::Recompute()
    m_tCalculations->SetValue(m_Sight.m_CalcStr);
 
    Refresh();
+}
+
+double SightDialog::BodyAltitude(wxString body)
+{
+    Sight lunar(Sight::ALTITUDE, body, Sight::CENTER, wxDateTime::Now(), 0, 0, 0);
+    double lat1 = celestial_navigation_pi_CursorLat(), lat2;
+    double lon1 = celestial_navigation_pi_CursorLon(), lon2;
+    lunar.BodyLocation(lunar.m_DateTime, &lat2, &lon2, 0, 0);
+    double bearing, dist;
+    ll_gc_ll_reverse(lat1, lon1, lat2, lon2, &bearing, &dist);
+    return 90 - dist/60;
 }

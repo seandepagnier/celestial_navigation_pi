@@ -631,7 +631,6 @@ lc = %.4f\n"), SD, lc);
         m_CalcStr+=wxString::Format(_("\nLimbCorrection = %.4f\n"), LimbCorrection);
     }
 
-
     double CorrectedAltitude = ApparentAltitude - RefractionCorrection - LimbCorrection;
     m_CalcStr+=wxString::Format(_("\nCorrected Altitude\n\
 CorrectedAltitude = ApparentAltitude - RefractionCorrection - LimbCorrection\n\
@@ -747,7 +746,19 @@ SD = %.4f\n\
 lc = 180/Pi * asin(Pi/180*SD)\n\
 lc = %.4f\n"), lunar_SD, lunar_lc);
 
-    double LimbCorrection = lc + lunar_lc;
+    double LimbCorrection = 0;
+    if(lc) {
+        if(m_BodyLimb == UPPER) {
+            LimbCorrection = lc + lunar_lc;
+            m_CalcStr+=wxString::Format(_("Upper Limb"));
+        } else if(m_BodyLimb == LOWER) {
+            LimbCorrection = -lc - lunar_lc;
+            m_CalcStr+=wxString::Format(_("Lower Limb"));
+        }
+
+        m_CalcStr+=wxString::Format(_("\nLimbCorrection = %.4f\n"), LimbCorrection);
+    }
+
     m_CalcStr+=wxString::Format(_("\nLimbCorrection = %.4f\n"), LimbCorrection);
 
     double CorrectedAltitude = ApparentAltitude - RefractionCorrection - LimbCorrection;
@@ -801,14 +812,13 @@ ObservedAltitude = %.4f\n"), CorrectedAltitude, ParallaxCorrection, m_ObservedAl
    BodyLocation(m_CorrectedDateTime, &lat, &lon, &ghaast, &rad);
 
    m_CalcStr = Alminac(lat, lon, ghaast, rad, SD, HP) + m_CalcStr;
-
    
    double lunar_lat, lunar_lon, lunar_ghaast, lunar_rad;
    wxString body = m_Body;
    m_Body = _T("Moon");
    BodyLocation(m_CorrectedDateTime, &lunar_lat, &lunar_lon, &lunar_ghaast, &lunar_rad);
 
-   m_CalcStr = Alminac(lunar_lat, lunar_lon, lunar_ghaast, lunar_rad, lunar_SD, lunar_HP);
+   m_CalcStr = Alminac(lunar_lat, lunar_lon, lunar_ghaast, lunar_rad, lunar_SD, lunar_HP) + m_CalcStr;
    m_Body = body;
 
    // Compute angle between moon and body
@@ -817,14 +827,15 @@ ObservedAltitude = %.4f\n"), CorrectedAltitude, ParallaxCorrection, m_ObservedAl
    double ang = acos(x1*x2 + y1*y2 + z1*z2) * 180 / M_PI;
 
    double CorrectedMeasurement = m_Measurement - IndexCorrection - LimbCorrection;
-   m_CalcStr+=wxString::Format(_("\nCalculated angle between Moon and ") + m_Body + _T("%.4f"), ang);
+   m_CalcStr+=wxString::Format(_("\nCalculated angle between Moon and ") + m_Body + _T(" %.4f"), ang);
    m_CalcStr+=wxString::Format(_("\nCorrected Measurement %.4f"), CorrectedMeasurement);
    m_CalcStr+=wxString::Format(_("\nError from measurement: %.4f"), CorrectedMeasurement - ang);
 
    double error = CorrectedMeasurement - ang;
+   m_TimeCorrection = error * 6720;
 
    m_CalcStr+=_("\nMoon takes 28 days to orbit, one degree of error takes 6720 seconds");
-   m_CalcStr+=wxString::Format(_("\nTime correction %.4f seconds"), error * 6720);
+   m_CalcStr+=wxString::Format(_("\nTime correction %.4f seconds"), m_TimeCorrection);
 }
 
 void Sight::RebuildPolygonsAltitude()
