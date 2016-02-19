@@ -69,6 +69,7 @@ Sight::Sight(Type type, wxString body, BodyLimb bodylimb, wxDateTime datetime,
     : m_bVisible(true), m_Type(type), m_Body(body), m_BodyLimb(bodylimb),
      m_DateTime(datetime), m_TimeCertainty(timecertainty),
      m_Measurement(measurement), m_MeasurementCertainty(measurementcertainty),
+      m_LunarMoonAltitude(NAN), m_LunarBodyAltitude(NAN),
       m_ShiftNm(0), m_ShiftBearing(0), m_bMagneticShiftBearing(0),
       m_bMagneticNorth(false)
 {
@@ -701,18 +702,90 @@ Height Correction Degrees = %.4f\n"),
                                 m_EyeHeight, m_EyeHeight, EyeHeightCorrection);
 
     /* Apparent Altitude Ha */
-    double ApparentAltitude = m_Measurement - IndexCorrection - EyeHeightCorrection;
-    m_CalcStr+=wxString::Format(_("\nApparent Altitude (Ha)\n\
+    double ApparentAltitudeMoon = m_LunarMoonAltitude - IndexCorrection - EyeHeightCorrection;
+    m_CalcStr+=wxString::Format(_("\nApparent Moon Altitude (Ha)\n\
+ApparentAltitudeMoon = MeasurementMoon - IndexCorrection - EyeHeightCorrection\n \
+ApparentAltitudeMoon = %.4f - %.4f - %.4f\n\
+ApparentAltitudeMoon = %.4f\n"), m_LunarMoonAltitude, IndexCorrection,
+                                EyeHeightCorrection, ApparentAltitudeMoon);
+    
+    /* compensate for refraction */
+    double RefractionCorrectionMoon;
+
+    double x = tan(M_PI/180 * ApparentAltitudeMoon + 4.848e-2*(M_PI/180)
+                   / (tan(M_PI/180 * ApparentAltitudeMoon) + .028));
+    m_CalcStr+=wxString::Format(_("\nRefraction Correction\n\
+x = tan(Pi/180*ApparentAltitudeMoon + 4.848e-2*(Pi/180) / (tan(Pi/180*ApparentAltitudeMoon) + .028))\n\
+x = tan(Pi/180*%.4f + 4.848e-2*(Pi/180) / (tan(Pi/180*%.4f) + .028))\n\
+x = %.4f\n"), ApparentAltitudeMoon, ApparentAltitudeMoon, x);
+    RefractionCorrectionMoon = .267 * m_Pressure / (x*(m_Temperature + 273.15)) / 60.0;
+    m_CalcStr+=wxString::Format(_("\
+RefractionCorrectionMoon = .267 * Pressure / (x*(Temperature + 273.15)) / 60.0\n\
+RefractionCorrectionMoon = .267 * %.4f / (x*(%.4f + 273.15)) / 60.0\n\
+RefractionCorrectionMoon = %.4f\n"), m_Pressure, m_Temperature, RefractionCorrectionMoon);
+
+    /* moon radius: 1738 km
+       distance to moon: 384400 km
+    NOTE: could replace with a routine that finds the distance based on time */
+    double lunar_SD = r_to_d(1738/384400.0);
+    double lunar_lc = r_to_d(asin(d_to_r(lunar_SD)));
+    m_CalcStr+=wxString::Format(_("\nMoon selected, Limb Correction\n\
+SD = %.4f\n\
+lc = 180/Pi * asin(Pi/180*SD)\n\
+lc = %.4f\n"), lunar_SD, lunar_lc);
+
+    double LimbCorrectionMoon = 0;
+    if(lunar_lc) {
+        if(m_BodyLimb == UPPER) {
+            LimbCorrectionMoon = lunar_lc;
+            m_CalcStr+=wxString::Format(_("Upper Limb"));
+        } else if(m_BodyLimb == LOWER) {
+            LimbCorrectionMoon = -lunar_lc;
+            m_CalcStr+=wxString::Format(_("Lower Limb"));
+        }
+
+        m_CalcStr+=wxString::Format(_("\nLimbCorrectionMoon = %.4f\n"), LimbCorrectionMoon);
+    }
+
+    m_CalcStr+=wxString::Format(_("\nLimbCorrectionMoon = %.4f\n"), LimbCorrectionMoon);
+
+    double CorrectedAltitudeMoon = ApparentAltitudeMoon - RefractionCorrectionMoon - LimbCorrectionMoon;
+    m_CalcStr+=wxString::Format(_("\nCorrected Altitude\n\
+CorrectedAltitudeMoon = ApparentAltitudeMoon - RefractionCorrectionMoon - LimbCorrectionMoon\n\
+CorrectedAltitudeMoon = %.4f - %.4f - %.4f\n\
+CorrectedAltitudeMoon = %.4f\n"), ApparentAltitudeMoon, RefractionCorrectionMoon,
+                                LimbCorrectionMoon, CorrectedAltitudeMoon);
+    
+    /* earth radius: 6357 km
+       distance to moon: 384400 km
+       NOTE: could replace with a routine that finds the distance based on time */
+    double ParallaxCorrectionMoon;
+    double lunar_HP = r_to_d(6357/384400.0);
+    m_CalcStr+=wxString::Format(_("\nMoon selected, parallax correction\n\
+HP = %.4f\n"), lunar_HP);
+
+    ParallaxCorrectionMoon = -r_to_d(asin(sin(d_to_r(lunar_HP))*cos(d_to_r(CorrectedAltitudeMoon))));
+    m_CalcStr+=wxString::Format(_("\
+ParallaxCorrectionMoon = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * CorrectedAltitude))\n \
+ParallaxCorrectionMoon = -180/Pi * asin( sin(Pi/180 * %.4f ) * cos(Pi/180 * %.4f))\n\
+ParallaxCorrectionMoon = %.4f\n"), lunar_HP, CorrectedAltitudeMoon, ParallaxCorrectionMoon);
+
+
+    // body
+
+    /* Apparent Altitude Ha */
+    double ApparentAltitude = m_LunarBodyAltitude - IndexCorrection - EyeHeightCorrection;
+    m_CalcStr+=wxString::Format(_("\nApparent  Altitude (Ha)\n\
 ApparentAltitude = Measurement - IndexCorrection - EyeHeightCorrection\n \
 ApparentAltitude = %.4f - %.4f - %.4f\n\
-ApparentAltitude = %.4f\n"), m_Measurement, IndexCorrection,
+ApparentAltitude = %.4f\n"), m_LunarBodyAltitude, IndexCorrection,
                                 EyeHeightCorrection, ApparentAltitude);
     
     /* compensate for refraction */
     double RefractionCorrection;
 
-    double x = tan(M_PI/180 * ApparentAltitude + 4.848e-2*(M_PI/180)
-                   / (tan(M_PI/180 * ApparentAltitude) + .028));
+    x = tan(M_PI/180 * ApparentAltitude + 4.848e-2*(M_PI/180)
+            / (tan(M_PI/180 * ApparentAltitude) + .028));
     m_CalcStr+=wxString::Format(_("\nRefraction Correction\n\
 x = tan(Pi/180*ApparentAltitude + 4.848e-2*(Pi/180) / (tan(Pi/180*ApparentAltitude) + .028))\n\
 x = tan(Pi/180*%.4f + 4.848e-2*(Pi/180) / (tan(Pi/180*%.4f) + .028))\n\
@@ -736,37 +809,25 @@ RefractionCorrection = %.4f\n"), m_Pressure, m_Temperature, RefractionCorrection
 ra = %.4f, lc = 0.266564/ra = %.4f\n"), rad, lc);
     }
 
-    /* moon radius: 1738 km
-       distance to moon: 384400 km
-    NOTE: could replace with a routine that finds the distance based on time */
-    double lunar_SD = r_to_d(1738/384400.0);
-    double lunar_lc = r_to_d(asin(d_to_r(SD)));
-    m_CalcStr+=wxString::Format(_("\nMoon selected, Limb Correction\n\
-SD = %.4f\n\
-lc = 180/Pi * asin(Pi/180*SD)\n\
-lc = %.4f\n"), lunar_SD, lunar_lc);
-
     double LimbCorrection = 0;
     if(lc) {
         if(m_BodyLimb == UPPER) {
-            LimbCorrection = lc + lunar_lc;
+            LimbCorrection = lc;
             m_CalcStr+=wxString::Format(_("Upper Limb"));
         } else if(m_BodyLimb == LOWER) {
-            LimbCorrection = -lc - lunar_lc;
+            LimbCorrection = -lc;
             m_CalcStr+=wxString::Format(_("Lower Limb"));
         }
 
         m_CalcStr+=wxString::Format(_("\nLimbCorrection = %.4f\n"), LimbCorrection);
     }
 
-    m_CalcStr+=wxString::Format(_("\nLimbCorrection = %.4f\n"), LimbCorrection);
-
     double CorrectedAltitude = ApparentAltitude - RefractionCorrection - LimbCorrection;
     m_CalcStr+=wxString::Format(_("\nCorrected Altitude\n\
 CorrectedAltitude = ApparentAltitude - RefractionCorrection - LimbCorrection\n\
 CorrectedAltitude = %.4f - %.4f - %.4f\n\
-CorrectedAltitude = %.4f\n"), ApparentAltitude,
-                                RefractionCorrection, LimbCorrection, CorrectedAltitude);
+CorrectedAltitude = %.4f\n"), ApparentAltitude, RefractionCorrection,
+                                LimbCorrection, CorrectedAltitude);
 
     /* correct for limb shot */
     double ParallaxCorrection = 0;
@@ -787,26 +848,23 @@ ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * CorrectedA
 ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * %.4f ) * cos(Pi/180 * %.4f))\n\
 ParallaxCorrection = %.4f\n"), HP, CorrectedAltitude, ParallaxCorrection);
     }
-    
-    /* earth radius: 6357 km
-       distance to moon: 384400 km
-       NOTE: could replace with a routine that finds the distance based on time */
-    double LunarParallaxCorrection;
-    double lunar_HP = r_to_d(6357/384400.0);
-    m_CalcStr+=wxString::Format(_("\nMoon selected, parallax correction\n\
-HP = %.4f\n"), lunar_HP);
 
-    LunarParallaxCorrection = -r_to_d(asin(sin(d_to_r(lunar_HP))*cos(d_to_r(CorrectedAltitude))));
+
+    double CorrectionsMoon = RefractionCorrectionMoon + LimbCorrectionMoon + ParallaxCorrectionMoon;
+    double CorrectionsBody = RefractionCorrection + LimbCorrection + ParallaxCorrection;
+    double Corrections = fabs(CorrectionsMoon - CorrectionsBody);
+
     m_CalcStr+=wxString::Format(_("\
-ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * CorrectedAltitude))\n \
-ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * %.4f ) * cos(Pi/180 * %.4f))\n\
-ParallaxCorrection = %.4f\n"), lunar_HP, CorrectedAltitude, ParallaxCorrection);
-    
-    m_ObservedAltitude = CorrectedAltitude - ParallaxCorrection - LunarParallaxCorrection;
-    m_CalcStr+=wxString::Format(_("\nObserved Altitude (Ho)\n\
-ObservedAltitude = CorrectedAltitude - ParallaxCorrection\n  \
-ObservedAltitude = %.4f - %.4f\n\
-ObservedAltitude = %.4f\n"), CorrectedAltitude, ParallaxCorrection, m_ObservedAltitude);
+CorrectionsMoon = %.4f\n\
+CorrectionsBody = %.4f\n\
+Corrections = abs(CorrectionsMoon - CorrectionsBody) = %.4f\n"), CorrectionsMoon, CorrectionsBody, Corrections);
+
+    double CorrectedMeasurement = m_Measurement - Corrections - IndexCorrection;
+    m_CalcStr+=wxString::Format(_("\
+CorrectedMeasurement = Measurement - Corrections - IndexCorrection\n\
+CorrectedMeasurement = %.4f - %.4f - %.4f\n\
+CorrectedMeasurement = %.4f\n"), m_Measurement, Corrections, IndexCorrection,
+                                CorrectedMeasurement);
 
    double lat, lon, ghaast, rad;
    BodyLocation(m_CorrectedDateTime, &lat, &lon, &ghaast, &rad);
@@ -826,12 +884,11 @@ ObservedAltitude = %.4f\n"), CorrectedAltitude, ParallaxCorrection, m_ObservedAl
    double x2 = cos(lat)*cos(lon),               y2 = cos(lat)*sin(lon),               z2 = sin(lat);
    double ang = acos(x1*x2 + y1*y2 + z1*z2) * 180 / M_PI;
 
-   double CorrectedMeasurement = m_Measurement - IndexCorrection - LimbCorrection;
+//   double CorrectedMeasurement = m_Measurement - IndexCorrection - LimbCorrection;
    m_CalcStr+=wxString::Format(_("\nCalculated angle between Moon and ") + m_Body + _T(" %.4f"), ang);
-   m_CalcStr+=wxString::Format(_("\nCorrected Measurement %.4f"), CorrectedMeasurement);
-   m_CalcStr+=wxString::Format(_("\nError from measurement: %.4f"), CorrectedMeasurement - ang);
-
    double error = CorrectedMeasurement - ang;
+   m_CalcStr+=wxString::Format(_("\nError from measurement: %.4f"), error);
+
    m_TimeCorrection = error * 6720;
 
    m_CalcStr+=_("\nMoon takes 28 days to orbit, one degree of error takes 6720 seconds");

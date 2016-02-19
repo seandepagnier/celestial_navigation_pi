@@ -118,9 +118,9 @@ class SightDialogBase : public wxDialog
 		wxStaticText* m_staticText8;
 		wxFlexGridSizer* m_fgSizerLunar;
 		wxStaticText* m_staticText37;
-		wxTextCtrl* m_tLunarAltitude;
+		wxTextCtrl* m_tLunarMoonAltitude;
 		wxStaticText* m_staticText38;
-		wxTextCtrl* m_tBodyAltitude;
+		wxTextCtrl* m_tLunarBodyAltitude;
 		wxPanel* m_panel2;
 		wxCalendarCtrl* m_Calendar;
 		wxSpinCtrl* m_sHours;

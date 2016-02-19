@@ -313,15 +313,15 @@ SightDialogBase::SightDialogBase( wxWindow* parent, wxWindowID id, const wxStrin
 	
 	m_fgSizerLunar->Add( m_staticText37, 0, wxALL, 5 );
 	
-	m_tLunarAltitude = new wxTextCtrl( m_panel1, wxID_ANY, _("0"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_fgSizerLunar->Add( m_tLunarAltitude, 0, wxALL, 5 );
+	m_tLunarMoonAltitude = new wxTextCtrl( m_panel1, wxID_ANY, _("0"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_fgSizerLunar->Add( m_tLunarMoonAltitude, 0, wxALL, 5 );
 	
 	m_staticText38 = new wxStaticText( m_panel1, wxID_ANY, _("Body Altitude"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText38->Wrap( -1 );
 	m_fgSizerLunar->Add( m_staticText38, 0, wxALL, 5 );
 	
-	m_tBodyAltitude = new wxTextCtrl( m_panel1, wxID_ANY, _("0"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_fgSizerLunar->Add( m_tBodyAltitude, 0, wxALL, 5 );
+	m_tLunarBodyAltitude = new wxTextCtrl( m_panel1, wxID_ANY, _("0"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_fgSizerLunar->Add( m_tLunarBodyAltitude, 0, wxALL, 5 );
 	
 	
 	fgSizer22->Add( m_fgSizerLunar, 1, wxEXPAND, 5 );

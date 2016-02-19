@@ -154,7 +154,10 @@ SightDialog::SightDialog( wxWindow* parent, Sight &s, int clock_offset)
     m_ColourPicker->SetColour(m_Sight.m_Colour);
 
     // calculate approximate lunar altitude
-    m_tLunarAltitude->SetValue(wxString::Format(_T("%f"), BodyAltitude(_T("moon"))));
+    if(wxIsNaN(m_Sight.m_LunarMoonAltitude))
+        m_Sight.m_LunarMoonAltitude = BodyAltitude(_T("moon"));
+    m_tLunarMoonAltitude->SetValue(wxString::Format(_T("%.2f"), m_Sight.m_LunarMoonAltitude));
+    m_tLunarBodyAltitude->SetValue(wxString::Format(_T("%.2f"), m_Sight.m_LunarBodyAltitude));
     NewBody();
     
     m_breadytorecompute = true;
@@ -190,7 +193,7 @@ void SightDialog::SetColorScheme(ColorScheme cs)
 
 void SightDialog::NewBody()
 {
-    m_tBodyAltitude->SetValue(wxString::Format(_T("%f"), BodyAltitude(m_cBody->GetStringSelection())));
+    m_tLunarBodyAltitude->SetValue(wxString::Format(_T("%f"), BodyAltitude(m_cBody->GetStringSelection())));
 }
 
 void SightDialog::OnFindBody( wxCommandEvent& event )
@@ -267,6 +270,9 @@ void SightDialog::Recompute()
    double measurementcertainty;
    m_tMeasurementCertainty->GetValue().ToDouble(&measurementcertainty);
    m_Sight.m_MeasurementCertainty = measurementcertainty;
+
+   m_tLunarMoonAltitude->GetValue().ToDouble(&m_Sight.m_LunarMoonAltitude);
+   m_tLunarBodyAltitude->GetValue().ToDouble(&m_Sight.m_LunarBodyAltitude);
 
    m_tEyeHeight->GetValue().ToDouble(&m_Sight.m_EyeHeight);
    m_Sight.m_Temperature = m_sTemperature->GetValue();
