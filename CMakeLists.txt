@@ -45,6 +45,8 @@ SET(SRC_CELESTIAL_NAVIGATION
           src/Sight.cpp
           src/icons.cpp
           src/FindBodyDialog.cpp
+          src/FixDialog.cpp
+          src/ClockCorrectionDialog.cpp
           src/geodesic.c
           src/celestial_navigation_pi.cpp
 	)

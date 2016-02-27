@@ -70,8 +70,8 @@ Sight::Sight(Type type, wxString body, BodyLimb bodylimb, wxDateTime datetime,
      m_DateTime(datetime), m_TimeCertainty(timecertainty),
      m_Measurement(measurement), m_MeasurementCertainty(measurementcertainty),
       m_LunarMoonAltitude(NAN), m_LunarBodyAltitude(NAN),
-      m_ShiftNm(0), m_ShiftBearing(0), m_bMagneticShiftBearing(0),
-      m_bMagneticNorth(false)
+      m_ShiftNm(0), m_ShiftBearing(0), m_bMagneticShiftBearing(true),
+      m_bMagneticNorth(true)
 {
     wxFileConfig *pConf = GetOCPNConfigObject();
     pConf->SetPath( _T("/PlugIns/CelestialNavigation") );
@@ -900,15 +900,15 @@ void Sight::RebuildPolygonsAltitude()
       polygons.clear();
 
       double altitudemin, altitudemax, altitudestep;
-      altitudemin = m_ObservedAltitude - m_MeasurementCertainty;
-      altitudemax = m_ObservedAltitude + m_MeasurementCertainty;
-      altitudestep = ComputeStepSize(m_MeasurementCertainty, 1, altitudemin, altitudemax);
+      altitudemin = m_ObservedAltitude - m_MeasurementCertainty/60;
+      altitudemax = m_ObservedAltitude + m_MeasurementCertainty/60;
+      altitudestep = ComputeStepSize(m_MeasurementCertainty/60, 1, altitudemin, altitudemax);
 
       double timemin, timemax, timestep;
       timemin =  - m_TimeCertainty;
       timemax =  + m_TimeCertainty;
-      timestep = ComputeStepSize(m_TimeCertainty, 1, timemin, timemax);
-
+//      timestep = ComputeStepSize(m_TimeCertainty, 1, timemin, timemax);
+      timestep = wxMax(2*m_TimeCertainty, 1);
       BuildAltitudeLineOfPosition(1, altitudemin, altitudemax, altitudestep,
                                   timemin, timemax, timestep);
 }
@@ -944,14 +944,14 @@ void Sight::BuildAltitudeLineOfPosition(double tracestep,
                                         double altitudemin, double altitudemax, double altitudestep,
                                         double timemin, double timemax, double timestep)
 {
+    for(double time=timemin; time<=timemax; time+=timestep) {
    double lat, lon;
-   BodyLocation(m_CorrectedDateTime, &lat, &lon, 0, 0);
+   BodyLocation(m_CorrectedDateTime+wxTimeSpan::Seconds(time), &lat, &lon, 0, 0);
    wxRealPointList *p, *l = new wxRealPointList;
    for(double trace=-180; trace<=180; trace+=tracestep) {
       p = new wxRealPointList;
       for(double altitude=altitudemin; altitude<=altitudemax
               && fabs(altitude) <= 90; altitude+=altitudestep) {
-//         for(double time=timemin; time<=timemax; time+=timestep)
             p->Append(new wxRealPoint(DistancePoint( altitude, trace, lat, lon)));
             if(altitudestep == 0)
                 break;
@@ -967,6 +967,7 @@ void Sight::BuildAltitudeLineOfPosition(double tracestep,
 
       l = p;
    }
+    }
 }
 
 void Sight::RebuildPolygonsAzimuth()
@@ -974,14 +975,15 @@ void Sight::RebuildPolygonsAzimuth()
     polygons.clear();
 
     double azimuthmin, azimuthmax, azimuthstep;
-    azimuthmin = m_Measurement - m_MeasurementCertainty;
-    azimuthmax = m_Measurement + m_MeasurementCertainty;
-    azimuthstep = ComputeStepSize(m_MeasurementCertainty, 1, azimuthmin, azimuthmax);
+    azimuthmin = m_Measurement - m_MeasurementCertainty/60;
+    azimuthmax = m_Measurement + m_MeasurementCertainty/60;
+    azimuthstep = ComputeStepSize(m_MeasurementCertainty/60, 1, azimuthmin, azimuthmax);
     
     double timemin, timemax, timestep;
     timemin = - m_TimeCertainty;
     timemax = + m_TimeCertainty;
-    timestep = ComputeStepSize(m_TimeCertainty, 1, timemin, timemax);
+//    timestep = ComputeStepSize(m_TimeCertainty, 1, timemin, timemax);
+    timestep = wxMax(2*m_TimeCertainty, 1);
     
     BuildBearingLineOfPosition(1, azimuthmin, azimuthmax, azimuthstep,
                                timemin, timemax, timestep);
@@ -1077,6 +1079,7 @@ void Sight::BuildBearingLineOfPosition(double altitudestep,
                                        double azimuthmin, double azimuthmax, double azimuthstep,
                                        double timemin, double timemax, double timestep)
 { 
+    for(double time=timemin; time<=timemax; time+=timestep) {
     double lasttrace[100];
     for (int i = 0; i < 100; i++)
         lasttrace[i]= 1000.0;
@@ -1087,26 +1090,26 @@ void Sight::BuildBearingLineOfPosition(double altitudestep,
     
     double blat, blon;
     
-    BodyLocation(m_CorrectedDateTime, &blat, &blon, 0, 0);
+    BodyLocation(m_CorrectedDateTime+wxTimeSpan::Seconds(time), &blat, &blon, 0, 0);
 
     blon = resolve_heading(blon);
 
     /* sometimes it takes a long time to build magnetic azimuth sights */
     wxProgressDialog progressdialog(
-        _("Celestial Navigation"), _("Building bearing Sight Positions"), 200, NULL,
+        _("Celestial Navigation"), _("Building bearing Sight Positions"), 201, NULL,
         wxPD_SMOOTH | wxPD_ELAPSED_TIME | wxPD_REMAINING_TIME);
 
     wxRealPointList *p, *l = new wxRealPointList;
     l->Append(new wxRealPoint(blat, blon));
     for(double altitude=200; altitude>=0; altitude-=1) 
     {
-        if(m_bMagneticNorth)
+        if(m_bMagneticNorth && (int)altitude%10==0)
             progressdialog.Update(200-altitude);
 
         int index = 0;
         p = new wxRealPointList;
         double lat, lon, llat, llon;
-        for(double azimuth=azimuthmin; azimuth<=azimuthmax; azimuth+=.25)
+        for(double azimuth=azimuthmin; azimuth<=azimuthmax; azimuth+=azimuthstep)
         {
             trace = lasttrace[index];
             llat = lastlat[index];
@@ -1136,5 +1139,6 @@ void Sight::BuildBearingLineOfPosition(double altitudestep,
         l->DeleteContents(true);
         delete l;
         l = p;
+    }
     }
 }

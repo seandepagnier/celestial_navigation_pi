@@ -32,6 +32,8 @@
 
 #include "geodesic.h"
 #include "CelestialNavigationUI.h"
+#include "FixDialog.h"
+#include "ClockCorrectionDialog.h"
 
 class CelestialNavigationDialog : public CelestialNavigationDialogBase
 {
@@ -39,16 +41,16 @@ public:
     CelestialNavigationDialog(wxWindow *parent);
     ~CelestialNavigationDialog();
 
-    std::list<Sight*> m_SightList;
+    void UpdateSights(bool warnings=true);     // Rebuild sight list
 
-    double m_fixlat, m_fixlon, m_fixerror;
+    std::list<Sight*> m_SightList;
+    FixDialog m_FixDialog;
 
 private:
 
     bool OpenXML(wxString filename, bool reportfailure);
     void SaveXML(wxString filename);
 
-    void UpdateSights(bool warnings=true);     // Rebuild sight list
     void UpdateButtons();           // Correct button state
     void UpdateFix(bool warnings=true);
 
@@ -59,18 +61,21 @@ private:
     void OnEdit(wxCommandEvent &event) { OnEdit(); }
     void OnDelete(wxCommandEvent &event);
     void OnDeleteAll(wxCommandEvent &event);
+    void OnFix( wxCommandEvent& event );
+    void OnDRShift( wxCommandEvent& event );
+    void OnClockOffset( wxCommandEvent& event );
     void OnInformation( wxCommandEvent& event );
-    void OnUpdateFixSpin( wxSpinEvent& event ) { UpdateFix(); }
-    void OnUpdateFix( wxCommandEvent& event ) { UpdateFix(); }
+    void OnHide( wxCommandEvent& event );
+
     void OnClockCorrection( wxSpinEvent& event );
-    void OnGoFix( wxCommandEvent& event );
     void OnSightListLeftDown(wxMouseEvent &event);
     void OnBtnLeftDown(wxMouseEvent &event); // record control key state for some action buttons
-    
     void OnSightSelected(wxListEvent &event);
 
     wxString m_sights_path;
     int clock_correction;
+
+    ClockCorrectionDialog m_ClockCorrectionDialog;
 };
 
 #endif // _CelestialNavigationDialog_h_
