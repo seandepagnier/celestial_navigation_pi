@@ -5,20 +5,20 @@ msgstr ""
 "POT-Creation-Date: 2016-02-27 14:09-0300\n"
 "PO-Revision-Date: 2016-02-27 12:12-0500\n"
 "Last-Translator: nohal <pavel@kalian.cz>\n"
-"Language-Team: Swedish\n"
-"Language: sv_SE\n"
+"Language-Team: Japanese\n"
+"Language: ja_JP\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: opencpn\n"
-"X-Crowdin-Language: sv-SE\n"
+"X-Crowdin-Language: ja\n"
 "X-Crowdin-File: /plugins/celestial_navigation_pi/po/celestial_navigation_pi.pot\n"
 
 #: src/CelestialNavigationDialog.cpp:109 src/CelestialNavigationUI.cpp:225
 msgid "Type"
-msgstr "Typ"
+msgstr ""
 
 #: src/CelestialNavigationDialog.cpp:110
 msgid "Body"
@@ -26,27 +26,27 @@ msgstr ""
 
 #: src/CelestialNavigationDialog.cpp:111
 msgid "Time (UTC)"
-msgstr "Tid (UTC)"
+msgstr "時刻 (UTC)"
 
 #: src/CelestialNavigationDialog.cpp:112 src/CelestialNavigationUI.cpp:272
 msgid "Measurement"
-msgstr "Mätning"
+msgstr ""
 
 #: src/CelestialNavigationDialog.cpp:113 src/CelestialNavigationUI.cpp:472
 msgid "Color"
-msgstr "Färg"
+msgstr "色"
 
 #: src/CelestialNavigationDialog.cpp:171
 msgid "Failed to load file."
-msgstr "Misslyckades ladda fil."
+msgstr ""
 
 #: src/CelestialNavigationDialog.cpp:176
 msgid "Invalid xml file"
-msgstr "Ogiltig xml fil"
+msgstr ""
 
 #: src/CelestialNavigationDialog.cpp:228
 msgid "Unrecognized xml node"
-msgstr "Okänd Xml-nod"
+msgstr ""
 
 #: src/CelestialNavigationDialog.cpp:238
 msgid "Weather Routing"
@@ -54,7 +54,7 @@ msgstr ""
 
 #: src/CelestialNavigationDialog.cpp:298
 msgid "Failed to save xml file: "
-msgstr "Det gick inte att spara XML-filen: "
+msgstr ""
 
 #: src/CelestialNavigationDialog.cpp:299 src/CelestialNavigationDialog.cpp:738
 #: src/Sight.cpp:1096 src/celestial_navigation_pi.cpp:99
@@ -77,7 +77,7 @@ msgstr ""
 #: src/CelestialNavigationDialog.cpp:668 src/CelestialNavigationDialog.cpp:669
 #: src/CelestialNavigationDialog.cpp:670
 msgid "   N/A   "
-msgstr ""
+msgstr "   なし   "
 
 #: src/CelestialNavigationDialog.cpp:681
 msgid "Sun"
@@ -97,31 +97,31 @@ msgstr ""
 
 #: src/CelestialNavigationUI.cpp:36 src/CelestialNavigationUI.cpp:668
 msgid "Latitude"
-msgstr "Latitude"
+msgstr ""
 
 #: src/CelestialNavigationUI.cpp:40
 msgid "       N/A       "
-msgstr ""
+msgstr "       なし       "
 
 #: src/CelestialNavigationUI.cpp:44 src/CelestialNavigationUI.cpp:677
 msgid "Longitude"
-msgstr "Longitude"
+msgstr "経度"
 
 #: src/CelestialNavigationUI.cpp:48
 msgid "          N/A          "
-msgstr ""
+msgstr "          なし          "
 
 #: src/CelestialNavigationUI.cpp:52
 msgid "Error"
-msgstr "Fel"
+msgstr "エラー"
 
 #: src/CelestialNavigationUI.cpp:56
 msgid "     N/A     "
-msgstr ""
+msgstr "     なし     "
 
 #: src/CelestialNavigationUI.cpp:63 src/CelestialNavigationUI.cpp:70
 msgid "Initial"
-msgstr "Inledande"
+msgstr ""
 
 #: src/CelestialNavigationUI.cpp:77
 msgid "Alg"
@@ -158,28 +158,28 @@ msgstr ""
 
 #: src/CelestialNavigationUI.cpp:137
 msgid "New"
-msgstr "Ny"
+msgstr ""
 
 #: src/CelestialNavigationUI.cpp:140
 msgid "Edit"
-msgstr "Redigera"
+msgstr ""
 
 #: src/CelestialNavigationUI.cpp:143
 msgid "Delete"
-msgstr "Radera"
+msgstr "削除"
 
 #: src/CelestialNavigationUI.cpp:146
 msgid "Delete All"
-msgstr "Radera allt"
+msgstr "すべて削除"
 
 #: src/CelestialNavigationUI.cpp:149
 msgid "Information"
-msgstr "Information"
+msgstr "情報"
 
 #: src/CelestialNavigationUI.cpp:229 src/CelestialNavigationUI.cpp:686
 #: src/Sight.h:49
 msgid "Altitude"
-msgstr "Höjd"
+msgstr ""
 
 #: src/CelestialNavigationUI.cpp:229 src/CelestialNavigationUI.cpp:696
 #: src/Sight.h:49
@@ -200,7 +200,7 @@ msgstr ""
 
 #: src/CelestialNavigationUI.cpp:247
 msgid "Find"
-msgstr "Hitta"
+msgstr ""
 
 #: src/CelestialNavigationUI.cpp:250
 msgid "Limb"
@@ -208,33 +208,33 @@ msgstr ""
 
 #: src/CelestialNavigationUI.cpp:254
 msgid "Lower"
-msgstr "Lägre"
+msgstr ""
 
 #: src/CelestialNavigationUI.cpp:254
 msgid "Center"
-msgstr "Center"
+msgstr ""
 
 #: src/CelestialNavigationUI.cpp:254
 msgid "Upper"
-msgstr "Övre"
+msgstr ""
 
 #: src/CelestialNavigationUI.cpp:279 src/CelestialNavigationUI.cpp:286
 #: src/CelestialNavigationUI.cpp:316 src/CelestialNavigationUI.cpp:323
 msgid "0"
-msgstr ""
+msgstr "0"
 
 #: src/CelestialNavigationUI.cpp:282 src/CelestialNavigationUI.cpp:438
 msgid "Degrees"
-msgstr "Grader"
+msgstr ""
 
 #: src/CelestialNavigationUI.cpp:289 src/CelestialNavigationUI.cpp:371
 #: src/CelestialNavigationUI.cpp:535
 msgid "Minutes"
-msgstr "Minuter"
+msgstr ""
 
 #: src/CelestialNavigationUI.cpp:293
 msgid ".25"
-msgstr ""
+msgstr ".25"
 
 #: src/CelestialNavigationUI.cpp:296
 msgid "Degrees Certainty"
@@ -254,7 +254,7 @@ msgstr ""
 
 #: src/CelestialNavigationUI.cpp:364
 msgid "Hours"
-msgstr ""
+msgstr "時間"
 
 #: src/CelestialNavigationUI.cpp:386
 msgid "Certainty"
@@ -302,7 +302,7 @@ msgstr ""
 
 #: src/CelestialNavigationUI.cpp:502
 msgid "Meters"
-msgstr ""
+msgstr "メートル"
 
 #: src/CelestialNavigationUI.cpp:506
 msgid "Temperature"
@@ -342,11 +342,11 @@ msgstr ""
 
 #: src/CelestialNavigationUI.cpp:705
 msgid "Done"
-msgstr "Färdig"
+msgstr ""
 
 #: src/CelestialNavigationUI.cpp:708
 msgid "Magnetic"
-msgstr "Magnetisk"
+msgstr ""
 
 #: src/CelestialNavigationUI.h:90
 msgid "Celestial Navigation Sights"
@@ -627,7 +627,7 @@ msgstr ""
 
 #: src/celestial_navigation_pi.cpp:92
 msgid "OpenCPN Alert"
-msgstr "OpenCPN Varning"
+msgstr ""
 
 #: src/celestial_navigation_pi.cpp:157
 msgid "Celestial Navigation PlugIn for OpenCPN"
