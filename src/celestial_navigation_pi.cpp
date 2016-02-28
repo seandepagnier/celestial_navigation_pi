@@ -207,9 +207,9 @@ bool celestial_navigation_pi::RenderOverlayAll(wxDC *dc, PlugIn_ViewPort *vp)
        (*it)->Render ( dc, *vp );
 
    /* now render fix */
-   double lat = m_pCelestialNavigationDialog->m_fixlat;
-   double lon = m_pCelestialNavigationDialog->m_fixlon;
-   double err = m_pCelestialNavigationDialog->m_fixerror;
+   double lat = m_pCelestialNavigationDialog->m_FixDialog.m_fixlat;
+   double lon = m_pCelestialNavigationDialog->m_FixDialog.m_fixlon;
+   double err = m_pCelestialNavigationDialog->m_FixDialog.m_fixerror;
    wxPoint r1, r2;
    GetCanvasPixLL(vp, &r1, lat-1, lon-1);
    GetCanvasPixLL(vp, &r2, lat+1, lon+1);
