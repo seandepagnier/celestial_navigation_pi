@@ -10,3 +10,7 @@ src/SightDialog.cpp
 src/SightDialog.h
 src/celestial_navigation_pi.cpp
 src/celestial_navigation_pi.h
+src/ClockCorrectionDialog.cpp
+src/ClockCorrectionDialog.h
+src/FixDialog.cpp
+src/FixDialog.h
