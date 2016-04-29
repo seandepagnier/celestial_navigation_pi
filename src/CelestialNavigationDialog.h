@@ -5,7 +5,7 @@
  * Author:   Sean D'Epagnier
  *
  ***************************************************************************
- *   Copyright (C) 2015 by Sean D'Epagnier                                 *
+ *   Copyright (C) 2016 by Sean D'Epagnier                                 *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -40,10 +40,8 @@ class CelestialNavigationDialog : public CelestialNavigationDialogBase
 public:
     CelestialNavigationDialog(wxWindow *parent);
     ~CelestialNavigationDialog();
+    void UpdateSights();
 
-    void UpdateSights(bool warnings=true);     // Rebuild sight list
-
-    std::list<Sight*> m_SightList;
     FixDialog m_FixDialog;
 
 private:
@@ -71,6 +69,9 @@ private:
     void OnSightListLeftDown(wxMouseEvent &event);
     void OnBtnLeftDown(wxMouseEvent &event); // record control key state for some action buttons
     void OnSightSelected(wxListEvent &event);
+
+    void InsertSight(Sight *s, bool warnings=true);
+    void UpdateSight(int idx, bool warnings=true);
 
     wxString m_sights_path;
     int clock_correction;

@@ -35,9 +35,11 @@
 void ClockCorrectionDialog::OnUpdate( wxSpinEvent& event )
 {
     CelestialNavigationDialog *parent((CelestialNavigationDialog*)GetParent());
-    std::list<Sight*> &SightList = parent->m_SightList;
-    for (std::list<Sight*>::iterator it = SightList.begin(); it != SightList.end(); it++)
-        (*it)->Recompute(m_sClockCorrection->GetValue());
+    wxListCtrl *lSights = parent->m_lSights;
+    for(int i = 0; i<lSights->GetItemCount(); i++) {
+        Sight *s = (Sight*)wxUIntToPtr(lSights->GetItemData(i));
+        s->Recompute(m_sClockCorrection->GetValue());
+    }
 
     parent->UpdateSights();
     RequestRefresh( parent->GetParent() );

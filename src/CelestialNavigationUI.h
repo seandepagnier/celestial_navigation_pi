@@ -49,7 +49,6 @@ class CelestialNavigationDialogBase : public wxDialog
 	private:
 	
 	protected:
-		wxListCtrl* m_lSights;
 		wxButton* m_bNewSight;
 		wxButton* m_bEditSight;
 		wxButton* m_bDeleteSight;
@@ -74,6 +73,7 @@ class CelestialNavigationDialogBase : public wxDialog
 		
 	
 	public:
+		wxListCtrl* m_lSights;
 		
 		CelestialNavigationDialogBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("Celestial Navigation Sights"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 500,250 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER ); 
 		~CelestialNavigationDialogBase();

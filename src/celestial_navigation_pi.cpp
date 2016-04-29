@@ -76,23 +76,6 @@ int celestial_navigation_pi::Init(void)
     // Get a pointer to the opencpn display canvas, to use as a parent for windows created
     m_parent_window = GetOCPNCanvasWindow();
 
-    // Create the Context Menu Items
-
-    //    In order to avoid an ASSERT on msw debug builds,
-    //    we need to create a dummy menu to act as a surrogate parent of the created MenuItems
-    //    The Items will be re-parented when added to the real context meenu
-    wxMenu dummy_menu;
-
-    /* load the geographical magnetic table */
-    wxString geomag_text_path = *GetpSharedDataLocation();
-    geomag_text_path.Append(_T("plugins/celestial_navigation_pi/data/IGRF11.COF"));
-    if(geomag_load(geomag_text_path.mb_str()) == -1) {
-        wxMessageDialog mdlg(m_parent_window, _("Failed to load file:\n") + geomag_text_path
-                             + _("\nMagnetic data will not be available for the celestial navigation plugin."),
-                             wxString(_("OpenCPN Alert"), wxOK | wxICON_ERROR));
-        mdlg.ShowModal();
-    }
-
     //    This PlugIn needs a toolbar icon, so request its insertion
     m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_celestial_navigation,
                                             _img_celestial_navigation, wxITEM_NORMAL,
@@ -167,8 +150,19 @@ Compute position fix from celestial measurements.");
 
 void celestial_navigation_pi::OnToolbarToolCallback(int id)
 {
-    if(NULL == m_pCelestialNavigationDialog)
+    if(!m_pCelestialNavigationDialog) {
+        /* load the geographical magnetic table */
+        wxString geomag_text_path = *GetpSharedDataLocation();
+        geomag_text_path.Append(_T("plugins/celestial_navigation_pi/data/IGRF11.COF"));
+        if(geomag_load(geomag_text_path.mb_str()) == -1) {
+            wxMessageDialog mdlg(m_parent_window, _("Failed to load file:\n") + geomag_text_path
+                                 + _("\nMagnetic data will not be available for the celestial navigation plugin."),
+                                 wxString(_("OpenCPN Alert"), wxOK | wxICON_ERROR));
+            mdlg.ShowModal();
+        }
+
         m_pCelestialNavigationDialog = new CelestialNavigationDialog(m_parent_window);
+    }
 
     m_pCelestialNavigationDialog->Show(!m_pCelestialNavigationDialog->IsShown());
 }
@@ -198,13 +192,15 @@ bool celestial_navigation_pi::RenderGLOverlay(wxGLContext *pcontext, PlugIn_View
 
 bool celestial_navigation_pi::RenderOverlayAll(wxDC *dc, PlugIn_ViewPort *vp)
 {
-   if(!m_pCelestialNavigationDialog || !m_pCelestialNavigationDialog->IsShown())
-       return false;
+    if(!m_pCelestialNavigationDialog || !m_pCelestialNavigationDialog->IsShown())
+        return false;
 
-   /* draw sights */
-   for (std::list<Sight*>::iterator it = m_pCelestialNavigationDialog->m_SightList.begin();
-        it != m_pCelestialNavigationDialog->m_SightList.end(); it++)
-       (*it)->Render ( dc, *vp );
+    /* draw sights */
+    wxListCtrl *lSights = m_pCelestialNavigationDialog->m_lSights;
+    for(int i = 0; i<lSights->GetItemCount(); i++) {
+        Sight *s = (Sight*)wxUIntToPtr(lSights->GetItemData(i));
+        s->Render ( dc, *vp );
+    }
 
    /* now render fix */
    double lat = m_pCelestialNavigationDialog->m_FixDialog.m_fixlat;

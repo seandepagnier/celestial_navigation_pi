@@ -164,7 +164,6 @@ extern "C" int geomag_calc(double latitude, double longitude, double alt,
 
 void FixDialog::Update(bool warnings)
 {
-    std::list<Sight*> &SightList = ((CelestialNavigationDialog*)GetParent())->m_SightList;
     std::list<std::vector<double> > J;
     std::list<double> R;
 
@@ -176,10 +175,10 @@ void FixDialog::Update(bool warnings)
     X[2] = sin(deg2rad(initiallat));
 
     int iterations = 0;
+    wxListCtrl *lSights = ((CelestialNavigationDialog*)GetParent())->m_lSights;
 again:
-
-    for (std::list<Sight*>::iterator it = SightList.begin(); it != SightList.end(); it++) {
-        Sight *s = *it;
+    for(int i = 0; i<lSights->GetItemCount(); i++) {
+        Sight *s = (Sight*)wxUIntToPtr(lSights->GetItemData(i));
         if(!s->IsVisible() || s->m_Type != Sight::ALTITUDE)
             continue;
     
