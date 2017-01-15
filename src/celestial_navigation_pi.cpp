@@ -233,14 +233,13 @@ bool celestial_navigation_pi::RenderOverlayAll(wxDC *dc, PlugIn_ViewPort *vp)
 wxString celestial_navigation_pi::StandardPath()
 {
     wxStandardPathsBase& std_path = wxStandardPathsBase::Get();
-#ifdef __WXMSW__
+
+#if defined(__WXMSW__)
     wxString stdPath  = std_path.GetConfigDir();
-#endif
-#ifdef __WXGTK__
+#elif defined(__WXGTK__) || defined(__WXQT__)
     wxString stdPath  = std_path.GetUserDataDir();
-#endif
-#ifdef __WXOSX__
-    wxString stdPath  = std_path.GetUserConfigDir();   // should be ~/Library/Preferences	
+#elif defined(__WXOSX__)
+    wxString stdPath  = (std_path.GetUserConfigDir() + s + _T("opencpn"));
 #endif
 
     return stdPath + wxFileName::GetPathSeparator() +
