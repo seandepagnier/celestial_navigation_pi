@@ -32,6 +32,7 @@
 #include "Sight.h"
 #include "celestial_navigation_pi.h"
 #include "icons.h"
+using namespace std;
 
 // the class factories, used to create and destroy instances of the PlugIn
 
@@ -233,13 +234,13 @@ bool celestial_navigation_pi::RenderOverlayAll(wxDC *dc, PlugIn_ViewPort *vp)
 wxString celestial_navigation_pi::StandardPath()
 {
     wxStandardPathsBase& std_path = wxStandardPathsBase::Get();
-
+    wxString s = wxFileName::GetPathSeparator();
 #if defined(__WXMSW__)
     wxString stdPath  = std_path.GetConfigDir();
 #elif defined(__WXGTK__) || defined(__WXQT__)
     wxString stdPath  = std_path.GetUserDataDir();
 #elif defined(__WXOSX__)
-    wxString stdPath  = (std_path.GetUserConfigDir() + s + _T("opencpn"));
+    wxString stdPath  = (std_path.GetUserConfigDir() + s + _T("opencpn"));   // should be ~/Library/Preferences/opencpn
 #endif
 
     return stdPath + wxFileName::GetPathSeparator() +
