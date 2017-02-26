@@ -208,7 +208,7 @@ bool CelestialNavigationDialog::OpenXML(wxString filename, bool reportfailure)
                 s.m_bVisible = AttributeBool(e, "Visible", true);
                 s.m_Type = (Sight::Type)AttributeInt(e, "Type", 0);
                 s.m_Body = wxString::FromUTF8(e->Attribute("Body"));
-                s.m_BodyLimb = (Sight::BodyLimb)AttributeInt(e, "Limb", 0);
+                s.m_BodyLimb = (Sight::BodyLimb)AttributeInt(e, "BodyLimb", 0);
 
                 s.m_DateTime.ParseDate(wxString::FromUTF8(e->Attribute("Date")));
 
