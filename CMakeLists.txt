@@ -44,6 +44,8 @@ SET(SRC_CELESTIAL_NAVIGATION
           src/FixDialog.cpp
           src/ClockCorrectionDialog.cpp
           src/geodesic.c
+          src/transform_star.cpp
+          src/epv00.cpp
           src/celestial_navigation_pi.cpp
 	)
 
