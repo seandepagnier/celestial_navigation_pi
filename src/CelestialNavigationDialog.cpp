@@ -110,8 +110,6 @@ CelestialNavigationDialog::CelestialNavigationDialog(wxWindow *parent)
 #endif
     Move(pConf->Read ( _T ( "DialogPosX" ), 20L ), pConf->Read ( _T ( "DialogPosY" ), 20L ));
 
-    SetTransparent(128);
-
 // create a image list for the list with just the eye icon
     wxImageList *imglist = new wxImageList(20, 20, true, 1);
     imglist->Add(wxBitmap(eye));
