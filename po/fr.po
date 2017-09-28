@@ -95,7 +95,7 @@ msgstr "Etes vous certain de vouloir détruire tous les vues ?"
 
 #: src/CelestialNavigationDialog.cpp:743
 msgid "Celestial_Navigation_Information.html"
-msgstr "Navigation stellaire"
+msgstr "Celestial_Navigation_Information.html"
 
 #: src/CelestialNavigationUI.cpp:31
 msgid "Fix From Visible Sights"
