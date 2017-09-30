@@ -130,7 +130,7 @@ int my_isnan(double d)
 #define IEXT 0
 #define FALSE 0
 #define TRUE 1                  /* constants */
-#define RECL 81
+#define RECL 80
 
 #define MAXINBUFF RECL+14
 
@@ -339,6 +339,7 @@ int geomag_load(const char *mdfile)
   {
      fileline++;                           /* On new line */
               
+     inbuff[strcspn(inbuff, "\r\n")] = 0;  /* remove end of line */
      if (strlen(inbuff) != RECL)       /* IF incorrect record size */
      {
         printf("Corrupt record in file %s on line %d.\n", mdfile, fileline);
