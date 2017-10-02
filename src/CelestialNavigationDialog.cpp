@@ -325,6 +325,7 @@ void CelestialNavigationDialog::InsertSight(Sight *s, bool warnings)
     wxListItem item;
     item.SetId(m_lSights->GetItemCount());
     item.SetData(s);
+    item.SetMask(item.GetMask() | wxLIST_MASK_TEXT);
 
     int idx = m_lSights->InsertItem(item);
     m_lSights->SetItemImage(idx, s->IsVisible() ? 0 : -1);
