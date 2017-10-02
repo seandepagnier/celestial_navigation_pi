@@ -419,6 +419,7 @@ void CelestialNavigationDialog::OnEdit( )
     SightDialog dialog(GetParent(), *psight, m_ClockCorrectionDialog.m_sClockCorrection->GetValue());
     
     if( dialog.ShowModal() == wxID_OK ) {
+        dialog.Recompute();
         psight->RebuildPolygons();
         UpdateSight(selected_index);
     } else
