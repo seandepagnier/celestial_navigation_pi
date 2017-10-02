@@ -713,7 +713,7 @@ Height Correction Degrees = %.4f\n"),
     /* Apparent Altitude Ha */
     double ApparentAltitudeMoon = m_LunarMoonAltitude - IndexCorrection - EyeHeightCorrection;
     m_CalcStr+=wxString::Format(_("\nApparent Moon Altitude (Ha)\n\
-ApparentAltitudeMoon = MeasurementMoon - IndexCorrection - EyeHeightCorrection\n \
+ApparentAltitudeMoon = MeasurementMoon - IndexCorrection - EyeHeightCorrection\n\
 ApparentAltitudeMoon = %.4f - %.4f - %.4f\n\
 ApparentAltitudeMoon = %.4f\n"), m_LunarMoonAltitude, IndexCorrection,
                                 EyeHeightCorrection, ApparentAltitudeMoon);
@@ -775,7 +775,7 @@ HP = %.4f\n"), lunar_HP);
 
     ParallaxCorrectionMoon = -r_to_d(asin(sin(d_to_r(lunar_HP))*cos(d_to_r(CorrectedAltitudeMoon))));
     m_CalcStr+=wxString::Format(_("\
-ParallaxCorrectionMoon = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * CorrectedAltitude))\n \
+ParallaxCorrectionMoon = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * CorrectedAltitude))\n\
 ParallaxCorrectionMoon = -180/Pi * asin( sin(Pi/180 * %.4f ) * cos(Pi/180 * %.4f))\n\
 ParallaxCorrectionMoon = %.4f\n"), lunar_HP, CorrectedAltitudeMoon, ParallaxCorrectionMoon);
 
@@ -784,8 +784,8 @@ ParallaxCorrectionMoon = %.4f\n"), lunar_HP, CorrectedAltitudeMoon, ParallaxCorr
 
     /* Apparent Altitude Ha */
     double ApparentAltitude = m_LunarBodyAltitude - IndexCorrection - EyeHeightCorrection;
-    m_CalcStr+=wxString::Format(_("\nApparent  Altitude (Ha)\n\
-ApparentAltitude = Measurement - IndexCorrection - EyeHeightCorrection\n \
+    m_CalcStr+=wxString::Format(_("\nApparent Altitude (Ha)\n\
+ApparentAltitude = Measurement - IndexCorrection - EyeHeightCorrection\n\
 ApparentAltitude = %.4f - %.4f - %.4f\n\
 ApparentAltitude = %.4f\n"), m_LunarBodyAltitude, IndexCorrection,
                                 EyeHeightCorrection, ApparentAltitude);

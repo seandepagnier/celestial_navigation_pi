@@ -254,7 +254,7 @@ bool CelestialNavigationDialog::OpenXML(wxString filename, bool reportfailure)
 failed:
 
     if(reportfailure) {
-        wxMessageDialog mdlg(this, error, _("Weather Routing"), wxOK | wxICON_ERROR);
+        wxMessageDialog mdlg(this, error, _("Celestial Navigation"), wxOK | wxICON_ERROR);
         mdlg.ShowModal();
     }
     return false;
