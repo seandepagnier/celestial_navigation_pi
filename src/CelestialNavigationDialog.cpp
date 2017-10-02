@@ -288,7 +288,7 @@ void CelestialNavigationDialog::SaveXML(wxString filename)
         c->SetAttribute("Body", s->m_Body.mb_str());
         c->SetAttribute("BodyLimb", s->m_BodyLimb);
 
-        c->SetAttribute("Date", s->m_DateTime.FormatDate().mb_str());
+        c->SetAttribute("Date", s->m_DateTime.FormatISODate().mb_str());
         c->SetAttribute("Time", s->m_DateTime.FormatTime().mb_str());
 
         c->SetDoubleAttribute("TimeCertainty", s->m_TimeCertainty);
