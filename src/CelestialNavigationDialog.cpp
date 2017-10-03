@@ -110,8 +110,6 @@ CelestialNavigationDialog::CelestialNavigationDialog(wxWindow *parent)
 #endif
     Move(pConf->Read ( _T ( "DialogPosX" ), 20L ), pConf->Read ( _T ( "DialogPosY" ), 20L ));
 
-    SetTransparent(128);
-
 // create a image list for the list with just the eye icon
     wxImageList *imglist = new wxImageList(20, 20, true, 1);
     imglist->Add(wxBitmap(eye));
@@ -256,7 +254,7 @@ bool CelestialNavigationDialog::OpenXML(wxString filename, bool reportfailure)
 failed:
 
     if(reportfailure) {
-        wxMessageDialog mdlg(this, error, _("Weather Routing"), wxOK | wxICON_ERROR);
+        wxMessageDialog mdlg(this, error, _("Celestial Navigation"), wxOK | wxICON_ERROR);
         mdlg.ShowModal();
     }
     return false;
@@ -290,7 +288,7 @@ void CelestialNavigationDialog::SaveXML(wxString filename)
         c->SetAttribute("Body", s->m_Body.mb_str());
         c->SetAttribute("BodyLimb", s->m_BodyLimb);
 
-        c->SetAttribute("Date", s->m_DateTime.FormatDate().mb_str());
+        c->SetAttribute("Date", s->m_DateTime.FormatISODate().mb_str());
         c->SetAttribute("Time", s->m_DateTime.FormatTime().mb_str());
 
         c->SetDoubleAttribute("TimeCertainty", s->m_TimeCertainty);
@@ -327,6 +325,7 @@ void CelestialNavigationDialog::InsertSight(Sight *s, bool warnings)
     wxListItem item;
     item.SetId(m_lSights->GetItemCount());
     item.SetData(s);
+    item.SetMask(item.GetMask() | wxLIST_MASK_TEXT);
 
     int idx = m_lSights->InsertItem(item);
     m_lSights->SetItemImage(idx, s->IsVisible() ? 0 : -1);
@@ -421,6 +420,7 @@ void CelestialNavigationDialog::OnEdit( )
     SightDialog dialog(GetParent(), *psight, m_ClockCorrectionDialog.m_sClockCorrection->GetValue());
     
     if( dialog.ShowModal() == wxID_OK ) {
+        dialog.Recompute();
         psight->RebuildPolygons();
         UpdateSight(selected_index);
     } else
