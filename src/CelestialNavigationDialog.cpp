@@ -188,7 +188,7 @@ bool CelestialNavigationDialog::OpenXML(wxString filename, bool reportfailure)
     wxFileName fn(filename);
 
     if(!doc.LoadFile(filename.mb_str()))
-        FAIL(_("Failed to load file."));
+        FAIL(_("Failed to load file: ") + filename);
     else {
         TiXmlHandle root(doc.RootElement());
 

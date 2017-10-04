@@ -151,13 +151,20 @@ Compute position fix from celestial measurements.");
 
 void celestial_navigation_pi::OnToolbarToolCallback(int id)
 {
+    int ret;
     if(!m_pCelestialNavigationDialog) {
         /* load the geographical magnetic table */
         wxString geomag_text_path = *GetpSharedDataLocation();
         geomag_text_path.Append(_T("plugins/celestial_navigation_pi/data/IGRF11.COF"));
-        if(geomag_load(geomag_text_path.mb_str()) == -1) {
-            wxMessageDialog mdlg(m_parent_window, _("Failed to load file:\n") + geomag_text_path
-                                 + _("\nMagnetic data will not be available for the celestial navigation plugin."),
+        if((ret = geomag_load(geomag_text_path.mb_str())) < 0) {
+	    wxString message = _("Failed to load file: ") + geomag_text_path + "\n";
+	    switch (ret) {
+	    case -1: message += "(" + _("open error") + ")\n"; break;
+	    case -5: message += "(" + _("corrupt record") + ")\n"; break;
+	    case -6: message += "(" + _("too many models") + ")\n"; break;
+	    }
+            wxMessageDialog mdlg(m_parent_window, message
+                                 + _("Magnetic data will not be available for the celestial navigation plugin."),
                                  wxString(_("OpenCPN Alert"), wxOK | wxICON_ERROR));
             mdlg.ShowModal();
         }

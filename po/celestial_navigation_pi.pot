@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: celestial_navigation_pi .\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-02 16:04+0200\n"
+"POT-Creation-Date: 2017-10-04 08:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,8 +37,8 @@ msgstr ""
 msgid "Color"
 msgstr ""
 
-#: src/CelestialNavigationDialog.cpp:191
-msgid "Failed to load file."
+#: src/CelestialNavigationDialog.cpp:191 src/celestial_navigation_pi.cpp:160
+msgid "Failed to load file: "
 msgstr ""
 
 #: src/CelestialNavigationDialog.cpp:196
@@ -671,16 +671,23 @@ msgid ""
 "Compute position fix from celestial measurements."
 msgstr ""
 
-#: src/celestial_navigation_pi.cpp:159
-msgid "Failed to load file:\n"
+#: src/celestial_navigation_pi.cpp:162
+msgid "open error"
 msgstr ""
 
-#: src/celestial_navigation_pi.cpp:160
+#: src/celestial_navigation_pi.cpp:163
+msgid "corrupt record"
+msgstr ""
+
+#: src/celestial_navigation_pi.cpp:164
+msgid "too many models"
+msgstr ""
+
+#: src/celestial_navigation_pi.cpp:167
 msgid ""
-"\n"
 "Magnetic data will not be available for the celestial navigation plugin."
 msgstr ""
 
-#: src/celestial_navigation_pi.cpp:161
+#: src/celestial_navigation_pi.cpp:168
 msgid "OpenCPN Alert"
 msgstr ""

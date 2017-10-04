@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: opencpn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-02 16:04+0200\n"
+"POT-Creation-Date: 2017-10-04 08:29+0200\n"
 "PO-Revision-Date: 2015-06-04 16:22-0400\n"
 "Last-Translator: nohal <pavel@kalian.cz>\n"
 "Language-Team: French\n"
@@ -137,14 +137,6 @@ msgid ""
 msgstr ""
 "\n"
 "Correction du bord de la lune = %.4f\n"
-#
-# File: src/celestial_navigation_pi.cpp, line: 160
-msgid ""
-"\n"
-"Magnetic data will not be available for the celestial navigation plugin."
-msgstr ""
-"\n"
-"Les données magnétiques ne sont pas disponibles pour le complément de navigation astronomique."
 #
 # File: src/Sight.cpp, line: 625
 # File: src/Sight.cpp, line: 741
@@ -484,13 +476,8 @@ msgstr ""
 "Correction de la hauteur de l'oeil en degrés = 1.758*sqrt(%.4f) / 60.0\n"
 "Correction de la hauteur de l'oeil en degrés = %.4f\n"
 #
-# File: src/CelestialNavigationDialog.cpp, line: 191
-msgid "Failed to load file."
-msgstr "Impossible de charger le fichier."
-#
-# File: src/celestial_navigation_pi.cpp, line: 159
-msgid "Failed to load file:\n"
-msgstr "Impossible de charger le fichier:\n"
+msgid "Failed to load file: "
+msgstr "Impossible de charger le fichier: "
 #
 # File: src/CelestialNavigationDialog.cpp, line: 316
 msgid "Failed to save xml file: "
@@ -614,6 +601,10 @@ msgstr "Azimut magnétique"
 # File: src/CelestialNavigationUI.cpp, line: 604
 msgid "Magnetic Bearing"
 msgstr "Cap magnétique"
+#
+# File: src/celestial_navigation_pi.cpp, line: 167
+msgid "Magnetic data will not be available for the celestial navigation plugin."
+msgstr "Les données magnétiques ne sont pas disponibles pour le complément de navigation astronomique."
 #
 # File: src/CelestialNavigationDialog.cpp, line: 124
 # File: src/CelestialNavigationUI.cpp, line: 179
@@ -795,3 +786,15 @@ msgstr "Bord supérieur"
 # File: src/SightDialog.cpp, line: 256
 msgid "Warning"
 msgstr "Avertissement"
+#
+# File: src/celestial_navigation_pi.cpp, line:163
+msgid "corrupt record"
+msgstr ""
+#
+# File: src/celestial_navigation_pi.cpp, line:162
+msgid "open error"
+msgstr ""
+#
+# File: src/celestial_navigation_pi.cpp, line:164
+msgid "too many models"
+msgstr ""

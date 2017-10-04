@@ -344,7 +344,7 @@ int geomag_load(const char *mdfile)
      {
         printf("Corrupt record in file %s on line %d.\n", mdfile, fileline);
         fclose(stream);
-        exit(5);
+        return -5;
      }
 
      /* New statement Dec 1999 changed by wmd  required by year 2000 models */
@@ -356,7 +356,7 @@ int geomag_load(const char *mdfile)
         {
            printf("Too many models in file %s on line %d.", mdfile, fileline);
            fclose(stream);
-           exit(6);
+	   return -6;
         }
                   
         irec_pos[modelI]=ftell(stream);
