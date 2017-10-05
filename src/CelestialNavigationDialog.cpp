@@ -105,10 +105,19 @@ CelestialNavigationDialog::CelestialNavigationDialog(wxWindow *parent)
 
     pConf->SetPath( _T("/PlugIns/CelestialNavigation") );
 
-#ifdef __WXGTK__
-    Move(0, 0);        // workaround for gtk autocentre dialog behavior
-#endif
-    Move(pConf->Read ( _T ( "DialogPosX" ), 20L ), pConf->Read ( _T ( "DialogPosY" ), 20L ));
+//#ifdef __WXGTK__
+//    Move(0, 0);        // workaround for gtk autocentre dialog behavior
+//#endif
+//    Move(pConf->Read ( _T ( "DialogPosX" ), 20L ), pConf->Read ( _T ( "DialogPosY" ), 20L ));
+    wxPoint p = GetPosition();
+    pConf->Read ( _T ( "DialogX" ), &p.x, p.x);
+    pConf->Read ( _T ( "DialogY" ), &p.y, p.y);
+    SetPosition(p);
+
+    wxSize s = GetSize();
+    pConf->Read ( _T ( "DialogWidth" ), &s.x, s.x);
+    pConf->Read ( _T ( "DialogHeight" ), &s.y, s.y);
+    SetSize(s);
 
 // create a image list for the list with just the eye icon
     wxImageList *imglist = new wxImageList(20, 20, true, 1);
@@ -143,9 +152,12 @@ CelestialNavigationDialog::~CelestialNavigationDialog()
     pConf->SetPath( _T("/PlugIns/CelestialNavigation") );
 
     wxPoint p = GetPosition();
+    pConf->Write ( _T ( "DialogX" ), p.x);
+    pConf->Write ( _T ( "DialogY" ), p.y);
 
-    pConf->Write ( _T ( "DialogPosX" ), p.x );
-    pConf->Write ( _T ( "DialogPosY" ), p.y );
+    wxSize s = GetSize();
+    pConf->Write ( _T ( "DialogWidth" ), s.x);
+    pConf->Write ( _T ( "DialogHeight" ), s.y);
 
     SaveXML(m_sights_path);
 }
