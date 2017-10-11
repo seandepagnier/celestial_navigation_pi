@@ -420,6 +420,18 @@ void CelestialNavigationDialog::OnNew(wxCommandEvent &event)
     }
 }
 
+void CelestialNavigationDialog::OnDuplicate(wxCommandEvent &event)
+{
+    long selected_index = m_lSights->GetNextItem(-1, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
+    if (selected_index < 0) return;
+
+    Sight *psight = (Sight*)wxUIntToPtr(m_lSights->GetItemData(selected_index));
+    Sight *ns = new Sight(*psight);
+    ns->RebuildPolygons();
+    InsertSight(ns);
+    RequestRefresh( GetParent() );
+}
+
 void CelestialNavigationDialog::OnEdit( )
 {
     // Manipulate selected_index sight/track

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: opencpn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-04 08:29+0200\n"
+"POT-Creation-Date: 2017-10-11 09:16+0200\n"
 "PO-Revision-Date: 2015-06-04 16:22-0400\n"
 "Last-Translator: nohal <pavel@kalian.cz>\n"
 "Language-Team: French\n"
@@ -453,6 +453,9 @@ msgstr "Distance"
 msgid "Done"
 msgstr "Effectué"
 #
+msgid "Duplicate"
+msgstr "Dupliquer"
+#
 # File: src/CelestialNavigationUI.cpp, line: 43
 msgid "Edit"
 msgstr "Modifier"
@@ -747,10 +750,6 @@ msgstr "Température"
 msgid "The plugin will not work correctly"
 msgstr "Le complément ne fonctionnera pas correctement"
 #
-# File: src/CelestialNavigationUI.cpp, line: 323
-msgid "Time"
-msgstr "Heure"
-#
 # File: src/CelestialNavigationDialog.cpp, line: 123
 msgid "Time (UTC)"
 msgstr "Heure (UTC)"
@@ -787,14 +786,11 @@ msgstr "Bord supérieur"
 msgid "Warning"
 msgstr "Avertissement"
 #
-# File: src/celestial_navigation_pi.cpp, line:163
 msgid "corrupt record"
-msgstr ""
+msgstr "enregistrement corrompu"
 #
-# File: src/celestial_navigation_pi.cpp, line:162
 msgid "open error"
-msgstr ""
+msgstr "erreur d'ouverture"
 #
-# File: src/celestial_navigation_pi.cpp, line:164
 msgid "too many models"
-msgstr ""
+msgstr "trop de modèles"

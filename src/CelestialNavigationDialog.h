@@ -54,6 +54,7 @@ private:
 
     // event handlers
     void OnNew(wxCommandEvent &event);
+    void OnDuplicate(wxCommandEvent &event);
     void OnEdit( );
     void OnEditMouse( wxMouseEvent& event ) { OnEdit(); }
     void OnEdit(wxCommandEvent &event) { OnEdit(); }
