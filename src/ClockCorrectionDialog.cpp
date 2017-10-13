@@ -39,6 +39,7 @@ void ClockCorrectionDialog::OnUpdate( wxSpinEvent& event )
     for(int i = 0; i<lSights->GetItemCount(); i++) {
         Sight *s = (Sight*)wxUIntToPtr(lSights->GetItemData(i));
         s->Recompute(m_sClockCorrection->GetValue());
+        s->RebuildPolygons();
     }
 
     parent->UpdateSights();
