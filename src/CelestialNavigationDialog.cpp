@@ -129,7 +129,7 @@ CelestialNavigationDialog::CelestialNavigationDialog(wxWindow *parent)
 
     m_lSights->InsertColumn(rmTYPE, _("Type"));
     m_lSights->InsertColumn(rmBODY, _("Body"));
-    m_lSights->InsertColumn(rmTIME, _("Time (UTC)"));
+    m_lSights->InsertColumn(rmTIME, _("Time (UT)"));
     m_lSights->InsertColumn(rmMEASUREMENT, _("Measurement"));
     m_lSights->InsertColumn(rmCOLOR, _("Color"));
 

@@ -751,8 +751,8 @@ msgid "The plugin will not work correctly"
 msgstr "Le complément ne fonctionnera pas correctement"
 #
 # File: src/CelestialNavigationDialog.cpp, line: 123
-msgid "Time (UTC)"
-msgstr "Heure (UTC)"
+msgid "Time (UT)"
+msgstr "Heure (TU)"
 #
 # File: src/CelestialNavigationDialog.cpp, line: 349
 msgid "Time Correction"

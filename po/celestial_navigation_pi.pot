@@ -26,7 +26,7 @@ msgid "Body"
 msgstr ""
 
 #: src/CelestialNavigationDialog.cpp:132 src/CelestialNavigationUI.cpp:328
-msgid "Time (UTC)"
+msgid "Time (UT)"
 msgstr ""
 
 #: src/CelestialNavigationDialog.cpp:133 src/CelestialNavigationUI.cpp:184
