@@ -220,10 +220,10 @@ bool CelestialNavigationDialog::OpenXML(wxString filename, bool reportfailure)
                 s.m_Body = wxString::FromUTF8(e->Attribute("Body"));
                 s.m_BodyLimb = (Sight::BodyLimb)AttributeInt(e, "BodyLimb", 0);
 
-                s.m_DateTime.ParseDate(wxString::FromUTF8(e->Attribute("Date")));
+                s.m_DateTime.ParseISODate(wxString::FromUTF8(e->Attribute("Date")));
 
                 wxDateTime time;
-                time.ParseTime(wxString::FromUTF8(e->Attribute("Time")));
+                time.ParseISOTime(wxString::FromUTF8(e->Attribute("Time")));
 
                 if(s.m_DateTime.IsValid() && time.IsValid()) {
                     s.m_DateTime.SetHour(time.GetHour());
@@ -301,7 +301,7 @@ void CelestialNavigationDialog::SaveXML(wxString filename)
         c->SetAttribute("BodyLimb", s->m_BodyLimb);
 
         c->SetAttribute("Date", s->m_DateTime.FormatISODate().mb_str());
-        c->SetAttribute("Time", s->m_DateTime.FormatTime().mb_str());
+        c->SetAttribute("Time", s->m_DateTime.FormatISOTime().mb_str());
 
         c->SetDoubleAttribute("TimeCertainty", s->m_TimeCertainty);
 
