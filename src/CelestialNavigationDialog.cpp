@@ -400,7 +400,7 @@ void CelestialNavigationDialog::UpdateButtons()
 
 void CelestialNavigationDialog::UpdateFix(bool warnings)
 {
-    m_FixDialog.Update(warnings);
+    m_FixDialog.Update(m_ClockCorrectionDialog.m_sClockCorrection->GetValue(), warnings);
 }
 
 void CelestialNavigationDialog::OnNew(wxCommandEvent &event)
