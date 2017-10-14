@@ -515,6 +515,7 @@ SightDialogBase::SightDialogBase( wxWindow* parent, wxWindowID id, const wxStrin
 	m_sTransparency->Connect( wxEVT_SCROLL_THUMBRELEASE, wxScrollEventHandler( SightDialogBase::RecomputeScroll ), NULL, this );
 	m_sTransparency->Connect( wxEVT_SCROLL_CHANGED, wxScrollEventHandler( SightDialogBase::RecomputeScroll ), NULL, this );
 	m_ColourPicker->Connect( wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler( SightDialogBase::RecomputeColor ), NULL, this );
+	m_tEyeHeight->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_sTemperature->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::RecomputeSpin ), NULL, this );
 	m_sPressure->Connect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::RecomputeSpin ), NULL, this );
 	m_tIndexError->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
@@ -552,6 +553,7 @@ SightDialogBase::~SightDialogBase()
 	m_sTransparency->Disconnect( wxEVT_SCROLL_THUMBRELEASE, wxScrollEventHandler( SightDialogBase::RecomputeScroll ), NULL, this );
 	m_sTransparency->Disconnect( wxEVT_SCROLL_CHANGED, wxScrollEventHandler( SightDialogBase::RecomputeScroll ), NULL, this );
 	m_ColourPicker->Disconnect( wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler( SightDialogBase::RecomputeColor ), NULL, this );
+	m_tEyeHeight->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );
 	m_sTemperature->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::RecomputeSpin ), NULL, this );
 	m_sPressure->Disconnect( wxEVT_COMMAND_SPINCTRL_UPDATED, wxSpinEventHandler( SightDialogBase::RecomputeSpin ), NULL, this );
 	m_tIndexError->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( SightDialogBase::Recompute ), NULL, this );

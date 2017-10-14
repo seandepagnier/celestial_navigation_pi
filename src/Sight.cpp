@@ -37,6 +37,7 @@
 #include "ocpn_plugin.h"
 
 #include "Sight.h"
+#include "transform_star.hpp"
 
 WX_DEFINE_LIST ( wxRealPointList );
 
@@ -141,7 +142,7 @@ void Sight::BodyLocation(wxDateTime time, double *lat, double *lon, double *ghaa
     double jdd = ut_to_dt(jdu);              
    
     double l, b, r;
-    double ra, dec;
+    double ra, dec, dra=0., ddec=0., radvel=0., parallax=0.;
     // nutation in longitude
     const double deltaPsi = nut_in_lon(jdd);
     
@@ -193,6 +194,7 @@ void Sight::BodyLocation(wxDateTime time, double *lat, double *lon, double *ghaa
        }
     else {
        vPlanets planet;
+       vPlanets *planetPtr = &planet;
        if(!m_Body.Cmp(_T("Mercury")))
           planet = vMercury;
        else if(!m_Body.Cmp(_T("Venus")))
@@ -204,73 +206,80 @@ void Sight::BodyLocation(wxDateTime time, double *lat, double *lon, double *ghaa
        else if(!m_Body.Cmp(_T("Saturn")))
           planet = vSaturn;
        else { /* star maybe */
-          if(!m_Body.Cmp(_T("Alpheratz"))) ra = 0.0365979981624047, dec = 0.508585349622516;
-          else if(!m_Body.Cmp(_T("Ankaa"))) ra = 0.289219237568502, dec = -0.738378993348721;
-          else if(!m_Body.Cmp(_T("Schedar"))) ra = 0.176746620828405, dec = 0.986762578179113;
-          else if(!m_Body.Cmp(_T("Diphda"))) ra = 0.190182710825649, dec = -0.284027125450659;
-          else if(!m_Body.Cmp(_T("Achernar"))) ra = 0.426358483543957, dec = -0.998969740640864;
-          else if(!m_Body.Cmp(_T("Hamal"))) ra = 0.554898863177301, dec = 0.409496532815273;
-          else if(!m_Body.Cmp(_T("Polaris"))) ra = 0.662403356568365, dec = 1.55795361238231;
-          else if(!m_Body.Cmp(_T("Acamar"))) ra = 0.777812962468281, dec = -0.703449961435399;
-          else if(!m_Body.Cmp(_T("Menkar"))) ra = 0.795346540133816, dec = 0.071379118269757;
-          else if(!m_Body.Cmp(_T("Mirfak"))) ra = 0.891528726329137, dec = 0.870240557591617;
-          else if(!m_Body.Cmp(_T("Aldebaran"))) ra = 1.20393095418572, dec = 0.288141690680868;
-          else if(!m_Body.Cmp(_T("Rigel"))) ra = 1.37243034888306, dec = -0.143145651152089;
-          else if(!m_Body.Cmp(_T("Capella"))) ra = 1.38181782770328, dec = 0.802816394191974;
-          else if(!m_Body.Cmp(_T("Bellatrix"))) ra = 1.41865452145751, dec = 0.110823559364829;
-          else if(!m_Body.Cmp(_T("Elnath"))) ra = 1.42371695076379, dec = 0.499297460743863;
-          else if(!m_Body.Cmp(_T("Alnilam"))) ra = 1.46700741394297, dec = -0.0209774031679285;
-          else if(!m_Body.Cmp(_T("Betelgeuse"))) ra = 1.54972913370916, dec = 0.129277633374139;
-          else if(!m_Body.Cmp(_T("Canopus"))) ra = 1.67530590791159, dec = -0.919712778207749;
-          else if(!m_Body.Cmp(_T("Sirius"))) ra = 1.76779435200004, dec = -0.291751259436422;
-          else if(!m_Body.Cmp(_T("Adhara"))) ra = 1.82660341749553, dec = -0.505655821260435;
-          else if(!m_Body.Cmp(_T("Procyon"))) ra = 2.00406704139727, dec = 0.0911692127326482;
-          else if(!m_Body.Cmp(_T("Pollux"))) ra = 2.03035606325544, dec = 0.489152763555466;
-          else if(!m_Body.Cmp(_T("Avior"))) ra = 2.19262805045961, dec = -1.03864058972501;
-          else if(!m_Body.Cmp(_T("Suhail"))) ra = 2.3910865308218, dec = -0.758040127372437;
-          else if(!m_Body.Cmp(_T("Miaplacidus"))) ra = 2.41379035550816, dec = -1.21679507312234;
-          else if(!m_Body.Cmp(_T("Alphard"))) ra = 2.47656717980308, dec = -0.151121122246412;
-          else if(!m_Body.Cmp(_T("Regulus"))) ra = 2.65435490407471, dec = 0.20886743009561;
-          else if(!m_Body.Cmp(_T("Dubhe"))) ra = 2.65435490407471, dec = 0.20886743009561;
-          else if(!m_Body.Cmp(_T("Denebola"))) ra = 3.09385626957378, dec = 0.254330430646302;
-          else if(!m_Body.Cmp(_T("Gienah"))) ra = 3.21056008074728, dec = -0.306164425958095;
-          else if(!m_Body.Cmp(_T("Acrux"))) ra = 3.25764947120958, dec = -1.10128690460105;
-          else if(!m_Body.Cmp(_T("Gacrux"))) ra = 3.2775756189358, dec = -0.996815713455695;
-          else if(!m_Body.Cmp(_T("Alioth"))) ra = 3.37732845789249, dec = 0.97668334053394;
-          else if(!m_Body.Cmp(_T("Spica"))) ra = 3.51331719009724, dec = -0.194801816805651;
-          else if(!m_Body.Cmp(_T("Alkaid"))) ra = 3.61082442298847, dec = 0.860680031800137;
-          else if(!m_Body.Cmp(_T("Hadar"))) ra = 3.68187386795507, dec = -1.0537085989339;
-          else if(!m_Body.Cmp(_T("Menkent"))) ra = 3.69437478872248, dec = -0.634753462707325;
-          else if(!m_Body.Cmp(_T("Arcturus"))) ra = 3.73352834160889, dec = 0.334792935627001;
-          else if(!m_Body.Cmp(_T("Rigil"))) ra = 3.83801502982356, dec = -1.06175315112964;
-          else if(!m_Body.Cmp(_T("Zubenelgenubi"))) ra = 3.88635809755977, dec = -0.279201774882576;
-          else if(!m_Body.Cmp(_T("Kochab"))) ra = 3.88643372849402, dec = 1.29425860309002;
-          else if(!m_Body.Cmp(_T("Alphecca"))) ra = 4.07834490432777, dec = 0.466259352479109;
-          else if(!m_Body.Cmp(_T("Antares"))) ra = 4.31707190480797, dec = -0.461324458259779;
-          else if(!m_Body.Cmp(_T("Atria"))) ra = 4.40113132490715, dec = -1.2047619975572;
-          else if(!m_Body.Cmp(_T("Sabik"))) ra = 4.49587361446958, dec = -0.274451570435065;
-          else if(!m_Body.Cmp(_T("Shaula"))) ra = 4.59724088298436, dec = 0.647730470509584;
-          else if(!m_Body.Cmp(_T("Rasalhague"))) ra = 4.6030222861316, dec = 0.219213354050488;
-          else if(!m_Body.Cmp(_T("Eltanin"))) ra = 4.6975827705636, dec = 0.898652093745679;
-          else if(!m_Body.Cmp(_T("Kaus Australis"))) ra = 4.81785922708271, dec = -0.600124675906715;
-          else if(!m_Body.Cmp(_T("Vega"))) ra = 4.87356551168385, dec = 0.676903120509757;
-          else if(!m_Body.Cmp(_T("Nunki"))) ra = 4.95353021482492, dec = -0.458964385260138;
-          else if(!m_Body.Cmp(_T("Altair"))) ra = 5.1957723884129, dec = 0.154781417057421;
-          else if(!m_Body.Cmp(_T("Peacock"))) ra = 5.34789972206191, dec = -0.964556211114666;
-          else if(!m_Body.Cmp(_T("Deneb"))) ra = 5.41676750546352, dec = 0.790289933439844;
-          else if(!m_Body.Cmp(_T("Enif"))) ra = 5.69058479415959, dec = 0.172351457559912;
-          else if(!m_Body.Cmp(_T("Al Na'ir"))) ra = 5.7955112253515, dec = -0.819623585215376;
-          else if(!m_Body.Cmp(_T("Fomalhaut"))) ra = 6.01113938223019, dec = -0.517005309535209;
-          else if(!m_Body.Cmp(_T("Markab"))) ra = 6.04216260968439, dec = 0.265381676088868;
+          planetPtr = NULL;
+/* Numbers from http://simbad.u-strasbg.fr */
+#define IFDEC_STAR(name,rahh,ramm,rass,drax,decdd,decmm,decss,ddecx,radvelx,parallaxx) if(!m_Body.Cmp(_T(name))) ra = (rahh+(ramm+rass/60.)/60.)/12.*pi, dra = drax, dec = (decdd>0?1.:-1.)*(abs(decdd)+(decmm+decss/60.)/60.)/180.*pi, ddec = ddecx, radvel = radvelx, parallax = parallaxx;
+          IFDEC_STAR("Alpheratz",0,8,23.25988,137.46,29,5,25.5520,-163.44,-10.10,33.62)
+          else IFDEC_STAR("Ankaa",0,26,17.05140,233.05,-42,18,21.55,-356.30,74.6,38.5)
+	  else IFDEC_STAR("Schedar",0,40,30.44107,50.88,56,32,14.3922,-32.13,-4.31,14.29)
+	  else IFDEC_STAR("Diphda",0,43,35.37090,232.55,-17,59,11.7827,31.99,13.32,33.86)
+	  else IFDEC_STAR("Achernar",1,37,42.84548,87.00,-57,14,12.31,-38.24,18.60,23.39)
+	  else IFDEC_STAR("Hamal",2,7,10.40570,188.55,23,27,44.7032,-148.08,-14.64,49.56)
+	  else IFDEC_STAR("Polaris",2,31,49.09456,44.48,89,15,50.7923,-11.85,-16.42,7.54)
+	  else IFDEC_STAR("Acamar",2,58,15.696,-44.6,-40,18,16.97,19.0,11.9,28.00)
+	  else IFDEC_STAR("Menkar",3,2,16.77307,-10.41,4,5,23.0596,-76.85,-26.08,13.09)
+	  else IFDEC_STAR("Mirfak",3,24,19.37009,23.75,49,51,40.2455,-26.23,-2.04,6.44)
+	  else IFDEC_STAR("Aldebaran",4,35,55.23907,63.45,16,30,33.4885,-188.94,54.26,48.94)
+          else IFDEC_STAR("Rigel",5,14,32.27210,1.31,-8,12,5.8981,0.50,17.80,3.78)
+          else IFDEC_STAR("Capella",5,16,41.35871,75.25,45,59,52.7693,-426.89,29.19,76.2)
+          else IFDEC_STAR("Bellatrix",5,25,7.86325,-8.11,6,20,58.9318,-12.88,18.2,12.92)
+          else IFDEC_STAR("Elnath",5,26,17.51312,22.76,28,36,26.8262,-173.58,9.2,24.36)
+          else IFDEC_STAR("Alnilam",5,36,12.81335,1.44,-1,12,6.9089,-0.78,27.30,1.65)
+          else IFDEC_STAR("Betelgeuse",5,55,10.30536,27.54,7,24,25.4304,11.30,21.91,6.55)
+          else IFDEC_STAR("Canopus",6,23,57.10988,19.93,-52,41,44.3810,23.24,20.30,10.55)
+          else IFDEC_STAR("Sirius",6,45,8.91728,-546.01,-16,42,58.0171,-1223.07,-5.50,379.21)
+          else IFDEC_STAR("Adhara",6,58,37.54876,3.24,-28,58,19.5102,1.33,27.30,8.05)
+          else IFDEC_STAR("Procyon",7,39,18.11950,-714.59,5,13,29.9552,-1036.80,-3.2,284.56)
+          else IFDEC_STAR("Pollux",7,45,18.94987,-626.55,28,1,34.3160,-45.80,3.23,96.54)
+          else IFDEC_STAR("Avior",8,22,30.83526,-25.52,-59,30,34.1431,22.06,11.60,5.39)
+          else IFDEC_STAR("Suhail",9,7,59.75787,-24.01,-43,25,57.3273,13.52,17.60,5.99)
+          else IFDEC_STAR("Miaplacidus",9,13,11.97746,-156.47,-69,43,1.9473,108.95,-5.10,28.82)
+          else IFDEC_STAR("Alphard",9,27,35.24270,-15.23,-8,39,30.9583,34.37,-4.27,18.09)
+          else IFDEC_STAR("Regulus",10,8,22.31099,-248.73,11,58,1.9516,5.59,5.9,41.13)
+          else IFDEC_STAR("Dubhe",11,3,43.67152,-134.11,61,45,3.7249,-34.70,-9.40,26.54)
+          else IFDEC_STAR("Denebola",11,49,3.57834,-497.68,14,34,19.4090,-114.67,-0.20,90.91)
+          else IFDEC_STAR("Gienah",12,15,48.37081,-158.61,-17,32,30.9496,21.86,-4.2,21.23)
+          else IFDEC_STAR("Acrux",12,26,35.871,-35.3,-63,5,56.58,-12.0,-11.2,0.0)
+          else IFDEC_STAR("Gacrux",12,31,9.95961,28.23,-57,6,47.5684,-265.08,21.00,36.83)
+          else IFDEC_STAR("Alioth",12,54,1.74959,111.91,55,57,35.3627,-8.24,-12.70,39.51)
+          else IFDEC_STAR("Spica",13,25,11.57937,-42.35,-11,9,40.7501,-30.67,1.0,13.06)
+          else IFDEC_STAR("Alkaid",13,47,32.43776,-121.17,49,18,47.7602,-14.91,-13.40,31.38)
+          else IFDEC_STAR("Hadar",14,3,49.40535,-33.27,-60,22,22.9266,-23.16,5.90,8.32)
+          else IFDEC_STAR("Menkent",14,6,40.94752,-520.53,-36,22,11.8371,-518.06,1.30,55.45)
+          else IFDEC_STAR("Arcturus",14,15,39.67207,-1093.39,19,10,56.6730,-2000.06,-5.19,88.83)
+          else IFDEC_STAR("Rigil",14,39,36.49400,-3679.25,-60,50,2.3737,473.67,-21.40,754.81)
+          else IFDEC_STAR("Zubenelgenubi",14,50,52.71309,-105.68,-16,2,30.3955,-68.40,-10.,43.03)
+          else IFDEC_STAR("Kochab",14,50,42.32580,-32.61,74,9,19.8142,11.42,16.96,24.91)
+          else IFDEC_STAR("Alphecca",15,34,41.26800,120.27,26,42,52.8940,-89.58,1.7,43.46)
+          else IFDEC_STAR("Antares",16,29,24.45970,-12.11,-26,25,55.2094,-23.30,-3.50,5.89)
+          else IFDEC_STAR("Atria",16,48,39.89508,17.99,-69,01,39.7626,-31.58,-3.00,8.35)
+          else IFDEC_STAR("Sabik",17,10,22.68689,40.13,-15,43,29.6639,99.17,-2.40,36.91)
+          else IFDEC_STAR("Shaula",17,33,36.52012,-8.53,-37,6,13.7648,-30.80,-3.00,5.71)
+          else IFDEC_STAR("Rasalhague",17,34,56.06945,108.07,12,33,36.1346,-221.57,11.70,67.13)
+          else IFDEC_STAR("Eltanin",17,56,36.36988,-8.48,51,29,20.0242,-22.79,-27.91,21.14)
+          else IFDEC_STAR("Kaus Australis",18,24,10.31840,-39.42,-34,23,4.6193,-124.20,-15.00,22.76)
+          else IFDEC_STAR("Vega",18,36,56.33635,200.94,38,47,1.2802,286.23,-20.60,130.23)
+          else IFDEC_STAR("Nunki",18,55,15.92650,15.14,-26,17,48.2068,-53.43,-11.2,14.32)
+          else IFDEC_STAR("Altair",19,50,46.99855,536.23,8,52,5.9563,385.29,-26.60,194.95)
+          else IFDEC_STAR("Peacock",20,25,38.85705,6.90,-56,44,6.3230,-86.02,2.0,18.24)
+          else IFDEC_STAR("Deneb",20,41,25.91514,2.01,45,16,49.2197,1.85,-4.90,2.31)
+          else IFDEC_STAR("Enif",21,44,11.15614,26.92,9,52,30.0311,0.44,3.39,4.73)
+          else IFDEC_STAR("Al Na'ir",22,8,13.98473,126.69,-46,57,39.5078,-147.47,10.90,32.29)
+          else IFDEC_STAR("Fomalhaut",22,57,39.04625,328.95,-29,37,20.0533,-164.67,6.50,129.81)
+          else IFDEC_STAR("Scheat",23,3,46.45746,187.65,28,4,58.0336,136.93,7.99,16.64)
+          else IFDEC_STAR("Markab",23,4,45.65345,60.40,15,12,18.9617,-41.30,-2.70,24.46)
           else {
              wxString s;
              s.Printf ( _T ( "Unknown celestial body: " ) + m_Body);
              wxLogMessage ( s );
           }
-          goto notplanet;
+          proper_motion_parallax(jdd,ra,dec,dra,ddec,radvel,parallax);
+          frame_bias(ra,dec);
+          precess(jdd,ra,dec);
+          nutate(jdd,ra,dec);
        }
-       geocentric_planet(jdd, planet, deltaPsi, eps, days_per_second, ra, dec);
-    notplanet:;
+       if (planetPtr != NULL)
+          geocentric_planet(jdd, planet, deltaPsi, eps, days_per_second, ra, dec);
     }
 
     // account for earth's hour angle
@@ -704,7 +713,7 @@ Height Correction Degrees = %.4f\n"),
     /* Apparent Altitude Ha */
     double ApparentAltitudeMoon = m_LunarMoonAltitude - IndexCorrection - EyeHeightCorrection;
     m_CalcStr+=wxString::Format(_("\nApparent Moon Altitude (Ha)\n\
-ApparentAltitudeMoon = MeasurementMoon - IndexCorrection - EyeHeightCorrection\n \
+ApparentAltitudeMoon = MeasurementMoon - IndexCorrection - EyeHeightCorrection\n\
 ApparentAltitudeMoon = %.4f - %.4f - %.4f\n\
 ApparentAltitudeMoon = %.4f\n"), m_LunarMoonAltitude, IndexCorrection,
                                 EyeHeightCorrection, ApparentAltitudeMoon);
@@ -766,7 +775,7 @@ HP = %.4f\n"), lunar_HP);
 
     ParallaxCorrectionMoon = -r_to_d(asin(sin(d_to_r(lunar_HP))*cos(d_to_r(CorrectedAltitudeMoon))));
     m_CalcStr+=wxString::Format(_("\
-ParallaxCorrectionMoon = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * CorrectedAltitude))\n \
+ParallaxCorrectionMoon = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * CorrectedAltitude))\n\
 ParallaxCorrectionMoon = -180/Pi * asin( sin(Pi/180 * %.4f ) * cos(Pi/180 * %.4f))\n\
 ParallaxCorrectionMoon = %.4f\n"), lunar_HP, CorrectedAltitudeMoon, ParallaxCorrectionMoon);
 
@@ -775,8 +784,8 @@ ParallaxCorrectionMoon = %.4f\n"), lunar_HP, CorrectedAltitudeMoon, ParallaxCorr
 
     /* Apparent Altitude Ha */
     double ApparentAltitude = m_LunarBodyAltitude - IndexCorrection - EyeHeightCorrection;
-    m_CalcStr+=wxString::Format(_("\nApparent  Altitude (Ha)\n\
-ApparentAltitude = Measurement - IndexCorrection - EyeHeightCorrection\n \
+    m_CalcStr+=wxString::Format(_("\nApparent Altitude (Ha)\n\
+ApparentAltitude = Measurement - IndexCorrection - EyeHeightCorrection\n\
 ApparentAltitude = %.4f - %.4f - %.4f\n\
 ApparentAltitude = %.4f\n"), m_LunarBodyAltitude, IndexCorrection,
                                 EyeHeightCorrection, ApparentAltitude);
