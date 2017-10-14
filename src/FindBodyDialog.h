@@ -44,8 +44,6 @@ public:
     void Update();
 
     Sight& m_Sight;
-
-    static double lat, lon;
 };
 
 #endif

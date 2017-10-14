@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Dec  8 2015)
+// C++ code generated with wxFormBuilder (version Jul 25 2017)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -212,10 +212,11 @@ class FindBodyDialogBase : public wxDialog
 	protected:
 		wxTextCtrl* m_tLatitude;
 		wxTextCtrl* m_tLongitude;
-		wxStaticText* m_stAltitude;
-		wxStaticText* m_stAzimuth;
-		wxButton* m_bDone;
+		wxTextCtrl* m_tAltitude;
+		wxTextCtrl* m_tAzimuth;
+		wxCheckBox* m_cbBoatPosition;
 		wxCheckBox* m_cbMagneticAzimuth;
+		wxButton* m_bDone;
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void OnUpdate( wxCommandEvent& event ) { event.Skip(); }

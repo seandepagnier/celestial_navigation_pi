@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Dec  8 2015)
+// C++ code generated with wxFormBuilder (version Jul 25 2017)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -666,9 +666,8 @@ FindBodyDialogBase::FindBodyDialogBase( wxWindow* parent, wxWindowID id, const w
 	wxStaticBoxSizer* sbSizer8;
 	sbSizer8 = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, _("Altitude") ), wxVERTICAL );
 	
-	m_stAltitude = new wxStaticText( this, wxID_ANY, _("MyLabel"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_stAltitude->Wrap( -1 );
-	sbSizer8->Add( m_stAltitude, 0, wxALL, 5 );
+	m_tAltitude = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_READONLY );
+	sbSizer8->Add( m_tAltitude, 0, wxALL, 5 );
 	
 	
 	fgSizer24->Add( sbSizer8, 1, wxEXPAND, 5 );
@@ -676,18 +675,21 @@ FindBodyDialogBase::FindBodyDialogBase( wxWindow* parent, wxWindowID id, const w
 	wxStaticBoxSizer* sbSizer9;
 	sbSizer9 = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, _("Azimuth") ), wxVERTICAL );
 	
-	m_stAzimuth = new wxStaticText( this, wxID_ANY, _("MyLabel"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_stAzimuth->Wrap( -1 );
-	sbSizer9->Add( m_stAzimuth, 0, wxALL, 5 );
+	m_tAzimuth = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_READONLY );
+	sbSizer9->Add( m_tAzimuth, 0, wxALL, 5 );
 	
 	
 	fgSizer24->Add( sbSizer9, 1, wxEXPAND, 5 );
 	
-	m_bDone = new wxButton( this, wxID_ANY, _("Done"), wxDefaultPosition, wxDefaultSize, 0 );
-	fgSizer24->Add( m_bDone, 0, wxALL, 5 );
+	m_cbBoatPosition = new wxCheckBox( this, wxID_ANY, _("Boat Position"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_cbBoatPosition->SetValue(true); 
+	fgSizer24->Add( m_cbBoatPosition, 0, wxALL, 5 );
 	
 	m_cbMagneticAzimuth = new wxCheckBox( this, wxID_ANY, _("Magnetic"), wxDefaultPosition, wxDefaultSize, 0 );
 	fgSizer24->Add( m_cbMagneticAzimuth, 0, wxALL, 5 );
+	
+	m_bDone = new wxButton( this, wxID_ANY, _("Done"), wxDefaultPosition, wxDefaultSize, 0 );
+	fgSizer24->Add( m_bDone, 0, wxALL, 5 );
 	
 	
 	this->SetSizer( fgSizer24 );
@@ -699,8 +701,8 @@ FindBodyDialogBase::FindBodyDialogBase( wxWindow* parent, wxWindowID id, const w
 	// Connect Events
 	m_tLatitude->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( FindBodyDialogBase::OnUpdate ), NULL, this );
 	m_tLongitude->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( FindBodyDialogBase::OnUpdate ), NULL, this );
-	m_bDone->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( FindBodyDialogBase::OnDone ), NULL, this );
 	m_cbMagneticAzimuth->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( FindBodyDialogBase::OnUpdate ), NULL, this );
+	m_bDone->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( FindBodyDialogBase::OnDone ), NULL, this );
 }
 
 FindBodyDialogBase::~FindBodyDialogBase()
@@ -708,8 +710,8 @@ FindBodyDialogBase::~FindBodyDialogBase()
 	// Disconnect Events
 	m_tLatitude->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( FindBodyDialogBase::OnUpdate ), NULL, this );
 	m_tLongitude->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( FindBodyDialogBase::OnUpdate ), NULL, this );
-	m_bDone->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( FindBodyDialogBase::OnDone ), NULL, this );
 	m_cbMagneticAzimuth->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( FindBodyDialogBase::OnUpdate ), NULL, this );
+	m_bDone->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( FindBodyDialogBase::OnDone ), NULL, this );
 	
 }
 
