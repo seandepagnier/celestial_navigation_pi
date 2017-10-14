@@ -214,10 +214,11 @@ class FindBodyDialogBase : public wxDialog
 	protected:
 		wxTextCtrl* m_tLatitude;
 		wxTextCtrl* m_tLongitude;
-		wxStaticText* m_stAltitude;
-		wxStaticText* m_stAzimuth;
-		wxButton* m_bDone;
+		wxTextCtrl* m_tAltitude;
+		wxTextCtrl* m_tAzimuth;
+		wxCheckBox* m_cbBoatPosition;
 		wxCheckBox* m_cbMagneticAzimuth;
+		wxButton* m_bDone;
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void OnUpdate( wxCommandEvent& event ) { event.Skip(); }

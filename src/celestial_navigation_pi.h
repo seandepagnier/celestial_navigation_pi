@@ -75,6 +75,7 @@ public:
       bool RenderOverlayAll(wxDC *dc, PlugIn_ViewPort *vp);
 
       static wxString StandardPath();
+      void SetPositionFixEx(PlugIn_Position_Fix_Ex &pfix);
       void SetCursorLatLon(double lat, double lon);
 
 private:
@@ -84,7 +85,6 @@ private:
       CelestialNavigationDialog       *m_pCelestialNavigationDialog;
 };
 
-extern double celestial_navigation_pi_CursorLat();
-extern double celestial_navigation_pi_CursorLon();
+extern void celestial_navigation_pi_BoatPos(double &lat, double &lon);
 
 #endif

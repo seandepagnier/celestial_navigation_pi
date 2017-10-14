@@ -36,14 +36,25 @@
 #include "celestial_navigation_pi.h"
 #include "geodesic.h"
 
-double FindBodyDialog::lat = -100, FindBodyDialog::lon;
-
 FindBodyDialog::FindBodyDialog( wxWindow* parent, Sight &sight )
 : FindBodyDialogBase(parent), m_Sight(sight)
 {
-    if(lat == -100) {
-        lat = celestial_navigation_pi_CursorLat();
-        lon = celestial_navigation_pi_CursorLon();
+    double lat, lon;
+    celestial_navigation_pi_BoatPos(lat, lon);
+    wxFileConfig *pConf = GetOCPNConfigObject();
+    pConf->SetPath( _T("/PlugIns/CelestialNavigation/FindBody") );
+    
+    bool boat_position;
+    pConf->Read( _T("BoatPosition"), &boat_position, true );
+    m_cbBoatPosition->SetValue(boat_position);
+    
+    bool magnetic_azimuth;
+    pConf->Read( _T("MagneticAzimuth"), &magnetic_azimuth, false);
+    m_cbMagneticAzimuth->SetValue(magnetic_azimuth);
+    
+    if(!m_cbBoatPosition->GetValue()) {
+        pConf->Read( _T("Lat"), &lat, lat );
+        pConf->Read( _T("Lon"), &lon, lon );
     }
 
     m_tLatitude->SetValue(wxString::Format(_T("%.4f"), lat));
@@ -55,6 +66,15 @@ FindBodyDialog::FindBodyDialog( wxWindow* parent, Sight &sight )
 
 FindBodyDialog::~FindBodyDialog( )
 {
+    wxFileConfig *pConf = GetOCPNConfigObject();
+    pConf->SetPath( _T("/PlugIns/CelestialNavigation/FindBody") );
+    pConf->Write( _T("BoatPosition"), m_cbBoatPosition->GetValue());
+    pConf->Write( _T("MagneticAzimuth"), m_cbMagneticAzimuth->GetValue());
+    double lat, lon;
+    if(m_tLatitude->GetValue().ToDouble(&lat))
+        pConf->Write( _T("Lat"), lat );
+    if(m_tLatitude->GetValue().ToDouble(&lon))
+        pConf->Write( _T("Lon"), lon );
 }
 
 extern "C" int geomag_calc(double latitude, double longitude, double alt,
@@ -92,6 +112,6 @@ void FindBodyDialog::Update()
         bearing -= results[0];
     }
     
-    m_stAltitude->SetLabel(wxString::Format(_T("%f"), dist));
-    m_stAzimuth->SetLabel(wxString::Format(_T("%f"), bearing));
+    m_tAltitude->SetValue(wxString::Format(_T("%f"), dist));
+    m_tAzimuth->SetValue(wxString::Format(_T("%f"), bearing));
 }

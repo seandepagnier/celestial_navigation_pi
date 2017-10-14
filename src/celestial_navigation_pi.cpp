@@ -87,7 +87,8 @@ int celestial_navigation_pi::Init(void)
 
     return (WANTS_OVERLAY_CALLBACK |
             WANTS_OPENGL_OVERLAY_CALLBACK |
-            WANTS_CURSOR_LATLON       |
+            WANTS_NMEA_EVENTS         |
+//            WANTS_CURSOR_LATLON       |
             WANTS_TOOLBAR_CALLBACK    |
             INSTALLS_TOOLBAR_TOOL
         );
@@ -255,20 +256,19 @@ wxString celestial_navigation_pi::StandardPath()
         _T("celestial_navigation") +  wxFileName::GetPathSeparator();
 }
 
-static double s_cursor_lat, s_cursor_lon;
+static double s_boat_lat, s_boat_lon;
+void celestial_navigation_pi::SetPositionFixEx(PlugIn_Position_Fix_Ex &pfix)
+{
+    s_boat_lat = pfix.Lat;
+    s_boat_lon = pfix.Lon;
+}
 
 void celestial_navigation_pi::SetCursorLatLon(double lat, double lon)
 {
-   s_cursor_lat = lat;
-   s_cursor_lon = lon;
 }
 
-double celestial_navigation_pi_CursorLat()
+void celestial_navigation_pi_BoatPos(double &lat, double &lon)
 {
-   return s_cursor_lat;
-}
-
-double celestial_navigation_pi_CursorLon()
-{
-   return s_cursor_lon;
+    lat = s_boat_lat;
+    lon = s_boat_lon;
 }
