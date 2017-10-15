@@ -27,6 +27,7 @@
 
 #include <wx/wx.h>
 #include <wx/listimpl.cpp>    // toh, 2009.02.22
+#include <wx/fileconf.h>
 
 #include "FindBodyDialog.h"
 
