@@ -38,13 +38,14 @@ class FixDialog : public FixDialogBase
 {
 public:
     FixDialog(wxWindow *parent);
-    void Update(bool warnings);
+    void Update(int clock_offset, bool warnings);
 
+    int m_clock_offset;
     double m_fixlat, m_fixlon, m_fixerror;
 private:
     void OnGo( wxCommandEvent& event );
-    void OnUpdate( wxCommandEvent& event ) { Update(false); }
-    void OnUpdateSpin( wxSpinEvent& event ) { Update(false); }
+    void OnUpdate( wxCommandEvent& event ) { Update(m_clock_offset, false); }
+    void OnUpdateSpin( wxSpinEvent& event ) { Update(m_clock_offset, false); }
 };
 
 #endif

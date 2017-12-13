@@ -163,7 +163,7 @@ extern "C" int geomag_calc(double latitude, double longitude, double alt,
                            int day, int month, double year,
                            double results[14]);
 
-void FixDialog::Update(bool warnings)
+void FixDialog::Update(int clock_offset, bool warnings)
 {
     std::list<std::vector<double> > J;
     std::list<double> R;
@@ -175,6 +175,7 @@ void FixDialog::Update(bool warnings)
     X[1] = cos(deg2rad(initiallat))*sin(deg2rad(initiallon));
     X[2] = sin(deg2rad(initiallat));
 
+    m_clock_offset = clock_offset;
     int iterations = 0;
     wxListCtrl *lSights = ((CelestialNavigationDialog*)GetParent())->m_lSights;
 again:
@@ -195,7 +196,7 @@ determine fix visually instead.\n"), wxString(_("Fix Position"), wxID_OK | wxICO
         }
 
         double lat, lon;
-        s->BodyLocation(s->m_DateTime, &lat, &lon, 0, 0);
+        s->BodyLocation(s->m_DateTime + wxTimeSpan::Seconds(clock_offset), &lat, &lon, 0, 0);
 
         /* take vector from body location of length equal to
            normalized measurement (so the plane this vector
