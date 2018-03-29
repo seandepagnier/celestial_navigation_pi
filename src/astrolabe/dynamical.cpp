@@ -273,18 +273,22 @@ namespace {
 
         {cal_to_jd(2000), 63.8},
         {cal_to_jd(2002), 64.3},
-        {cal_to_jd(2004), 64.4},
+        {cal_to_jd(2004), 64.6},
         {cal_to_jd(2006), 64.8},
         {cal_to_jd(2008), 65.5},
 
         {cal_to_jd(2010), 66.1},
         {cal_to_jd(2012), 66.6},
+        {cal_to_jd(2014), 67.3},
+        {cal_to_jd(2016), 68.1},
 
         // estimated
 
-        {cal_to_jd(2014), 67.1},
-        {cal_to_jd(2016), 67.6},
-        {cal_to_jd(2018), 68.1}
+        {cal_to_jd(2018), 69.0},
+        {cal_to_jd(2020), 69.9},
+        {cal_to_jd(2022), 70.0},
+        {cal_to_jd(2024), 71.0},
+        {cal_to_jd(2026), 72.0}
 
      
         };

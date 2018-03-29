@@ -1,15 +1,17 @@
 /******************************************************************************
+ * $Id: ocpn_draw_pi.h,v 1.0 2015/01/28 01:54:37 jongough Exp $
  *
  * Project:  OpenCPN
- * Purpose:  Celestial Navigation Support
- * Author:   Sean D'Epagnier
+ * Purpose:  Redefine _() macro to allow usage of catalog
+ * Author:   Jon Gough
  *
  ***************************************************************************
- *   Copyright (C) 2016 by Sean D'Epagnier                                 *
+ *   Copyright (C) 2010 by David S. Register   *
+ *   $EMAIL$   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 3 of the License, or     *
+ *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
  *   This program is distributed in the hope that it will be useful,       *
@@ -20,28 +22,21 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,  USA.             *
  ***************************************************************************
- *
  */
+#ifndef _ODCATTRANS_H_
+#define _ODCATTRANS_H_
 
-#include <wx/wx.h>
-#include "CelestialNavigationDialog.h"
-#include "ClockCorrectionDialog.h"
+#ifndef WXINTL_NO_GETTEXT_MACRO
+#ifdef _
+#undef _
+#endif // _
+#if wxCHECK_VERSION(3,0,0)
+#define _(s) wxGetTranslation((s), wxS("opencpn-${PROJECT_NAME}"))
+#else // wxCHECK_VERSION(3,0,0)
+    #define _(s) wxGetTranslation(wxT(s), wxT("opencpn-${PROJECT_NAME}"))
+#endif // wxCHECK_VERSION(3,0,0)
+#endif // WXINTL_NO_GETTEXT_MACRO
 
-#include "ocpn_plugin.h"
-#include "Sight.h"
-
-void ClockCorrectionDialog::OnUpdate( wxSpinEvent& event )
-{
-    CelestialNavigationDialog *parent((CelestialNavigationDialog*)GetParent());
-    wxListCtrl *lSights = parent->m_lSights;
-    for(int i = 0; i<lSights->GetItemCount(); i++) {
-        Sight *s = (Sight*)wxUIntToPtr(lSights->GetItemData(i));
-        s->Recompute(m_sClockCorrection->GetValue());
-        s->RebuildPolygons();
-    }
-
-    parent->UpdateSights();
-    RequestRefresh( parent->GetParent() );
-}
+#endif

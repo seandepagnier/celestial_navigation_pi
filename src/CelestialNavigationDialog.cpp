@@ -105,10 +105,19 @@ CelestialNavigationDialog::CelestialNavigationDialog(wxWindow *parent)
 
     pConf->SetPath( _T("/PlugIns/CelestialNavigation") );
 
-#ifdef __WXGTK__
-    Move(0, 0);        // workaround for gtk autocentre dialog behavior
-#endif
-    Move(pConf->Read ( _T ( "DialogPosX" ), 20L ), pConf->Read ( _T ( "DialogPosY" ), 20L ));
+//#ifdef __WXGTK__
+//    Move(0, 0);        // workaround for gtk autocentre dialog behavior
+//#endif
+//    Move(pConf->Read ( _T ( "DialogPosX" ), 20L ), pConf->Read ( _T ( "DialogPosY" ), 20L ));
+    wxPoint p = GetPosition();
+    pConf->Read ( _T ( "DialogX" ), &p.x, p.x);
+    pConf->Read ( _T ( "DialogY" ), &p.y, p.y);
+    SetPosition(p);
+
+    wxSize s = GetSize();
+    pConf->Read ( _T ( "DialogWidth" ), &s.x, s.x);
+    pConf->Read ( _T ( "DialogHeight" ), &s.y, s.y);
+    SetSize(s);
 
 // create a image list for the list with just the eye icon
     wxImageList *imglist = new wxImageList(20, 20, true, 1);
@@ -120,7 +129,7 @@ CelestialNavigationDialog::CelestialNavigationDialog(wxWindow *parent)
 
     m_lSights->InsertColumn(rmTYPE, _("Type"));
     m_lSights->InsertColumn(rmBODY, _("Body"));
-    m_lSights->InsertColumn(rmTIME, _("Time (UTC)"));
+    m_lSights->InsertColumn(rmTIME, _("Time (UT)"));
     m_lSights->InsertColumn(rmMEASUREMENT, _("Measurement"));
     m_lSights->InsertColumn(rmCOLOR, _("Color"));
 
@@ -143,9 +152,12 @@ CelestialNavigationDialog::~CelestialNavigationDialog()
     pConf->SetPath( _T("/PlugIns/CelestialNavigation") );
 
     wxPoint p = GetPosition();
+    pConf->Write ( _T ( "DialogX" ), p.x);
+    pConf->Write ( _T ( "DialogY" ), p.y);
 
-    pConf->Write ( _T ( "DialogPosX" ), p.x );
-    pConf->Write ( _T ( "DialogPosY" ), p.y );
+    wxSize s = GetSize();
+    pConf->Write ( _T ( "DialogWidth" ), s.x);
+    pConf->Write ( _T ( "DialogHeight" ), s.y);
 
     SaveXML(m_sights_path);
 }
@@ -188,7 +200,7 @@ bool CelestialNavigationDialog::OpenXML(wxString filename, bool reportfailure)
     wxFileName fn(filename);
 
     if(!doc.LoadFile(filename.mb_str()))
-        FAIL(_("Failed to load file."));
+        FAIL(_("Failed to load file: ") + filename);
     else {
         TiXmlHandle root(doc.RootElement());
 
@@ -208,10 +220,10 @@ bool CelestialNavigationDialog::OpenXML(wxString filename, bool reportfailure)
                 s.m_Body = wxString::FromUTF8(e->Attribute("Body"));
                 s.m_BodyLimb = (Sight::BodyLimb)AttributeInt(e, "BodyLimb", 0);
 
-                s.m_DateTime.ParseDate(wxString::FromUTF8(e->Attribute("Date")));
+                s.m_DateTime.ParseISODate(wxString::FromUTF8(e->Attribute("Date")));
 
                 wxDateTime time;
-                time.ParseTime(wxString::FromUTF8(e->Attribute("Time")));
+                time.ParseISOTime(wxString::FromUTF8(e->Attribute("Time")));
 
                 if(s.m_DateTime.IsValid() && time.IsValid()) {
                     s.m_DateTime.SetHour(time.GetHour());
@@ -289,7 +301,7 @@ void CelestialNavigationDialog::SaveXML(wxString filename)
         c->SetAttribute("BodyLimb", s->m_BodyLimb);
 
         c->SetAttribute("Date", s->m_DateTime.FormatISODate().mb_str());
-        c->SetAttribute("Time", s->m_DateTime.FormatTime().mb_str());
+        c->SetAttribute("Time", s->m_DateTime.FormatISOTime().mb_str());
 
         c->SetDoubleAttribute("TimeCertainty", s->m_TimeCertainty);
 
@@ -388,7 +400,7 @@ void CelestialNavigationDialog::UpdateButtons()
 
 void CelestialNavigationDialog::UpdateFix(bool warnings)
 {
-    m_FixDialog.Update(warnings);
+    m_FixDialog.Update(m_ClockCorrectionDialog.m_sClockCorrection->GetValue(), warnings);
 }
 
 void CelestialNavigationDialog::OnNew(wxCommandEvent &event)
@@ -406,6 +418,18 @@ void CelestialNavigationDialog::OnNew(wxCommandEvent &event)
         InsertSight(ns);
         RequestRefresh( GetParent() );
     }
+}
+
+void CelestialNavigationDialog::OnDuplicate(wxCommandEvent &event)
+{
+    long selected_index = m_lSights->GetNextItem(-1, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
+    if (selected_index < 0) return;
+
+    Sight *psight = (Sight*)wxUIntToPtr(m_lSights->GetItemData(selected_index));
+    Sight *ns = new Sight(*psight);
+    ns->RebuildPolygons();
+    InsertSight(ns);
+    RequestRefresh( GetParent() );
 }
 
 void CelestialNavigationDialog::OnEdit( )

@@ -115,7 +115,19 @@ SightDialog::SightDialog( wxWindow* parent, Sight &s, int clock_offset)
 //    SetColorScheme((ColorScheme)0);
 
     GetSizer()->SetSizeHints(this);
-    Centre();
+
+    wxFileConfig *pConf = GetOCPNConfigObject();
+    pConf->SetPath( _T("/PlugIns/CelestialNavigation") );
+
+    wxPoint p = GetPosition();
+    pConf->Read ( _T ( "SightsDialogX" ), &p.x, p.x);
+    pConf->Read ( _T ( "SightsDialogY" ), &p.y, p.y);
+    SetPosition(p);
+
+    wxSize sz = GetSize();
+    pConf->Read ( _T ( "SightsDialogWidth" ), &sz.x, sz.x);
+    pConf->Read ( _T ( "SightsDialogHeight" ), &sz.y, sz.y);
+    SetSize(sz);
 
     m_cType->SetSelection(m_Sight.m_Type);
 
@@ -173,6 +185,17 @@ SightDialog::~SightDialog( )
              _("Warning"), wxOK | wxICON_WARNING );
        w.ShowModal();
    }
+
+    wxFileConfig *pConf = GetOCPNConfigObject();
+    pConf->SetPath( _T("/PlugIns/CelestialNavigation") );
+
+    wxPoint p = GetPosition();
+    pConf->Write ( _T ( "SightsDialogX" ), p.x);
+    pConf->Write ( _T ( "SightsDialogY" ), p.y);
+
+    wxSize s = GetSize();
+    pConf->Write ( _T ( "SightsDialogWidth" ), s.x);
+    pConf->Write ( _T ( "SightsDialogHeight" ), s.y);
 }
 
 #if 0
