@@ -17,9 +17,6 @@ SET(CPACK_PACKAGE_CONTACT "Sean D'Epagnier ")
 
 MESSAGE (STATUS "*** Building ${PACKAGE_NAME} ***")
 
-INCLUDE( VERSION.cmake )
-SET(PLUGIN_VERSION "${PLUGIN_VERSION_MAJOR}.${PLUGIN_VERSION_MINOR}.${PLUGIN_VERSION_PATCH}" )
-
 INCLUDE("cmake/PluginConfigure.cmake")
 
 SET(SRC_CELESTIAL_NAVIGATION
@@ -49,16 +46,10 @@ SET(SRC_CELESTIAL_NAVIGATION
           src/celestial_navigation_pi.cpp
 	)
 
-IF(WIN32)
-SET(SRC_TINYXML
-            src/tinyxml/tinyxml.cpp
-            src/tinyxml/tinyxmlparser.cpp
-            src/tinyxml/tinyxmlerror.cpp
-)
-ENDIF(WIN32)
+INCLUDE("cmake/PluginXML.cmake")
+INCLUDE("cmake/PluginGL.cmake")
 
-ADD_DEFINITIONS(-DTIXML_USE_STL)
-ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRC_CELESTIAL_NAVIGATION} ${SRC_TINYXML})
+ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRC_CELESTIAL_NAVIGATION} ${SRC_TINYXML} ${SRC_PLUGINGL})
 
 INCLUDE("cmake/PluginInstall.cmake")
 INCLUDE("cmake/PluginLocalization.cmake")

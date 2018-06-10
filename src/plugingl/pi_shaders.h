@@ -1,13 +1,9 @@
-/******************************************************************************
- * $Id: ocpn_draw_pi.h,v 1.0 2015/01/28 01:54:37 jongough Exp $
+/***************************************************************************
  *
  * Project:  OpenCPN
- * Purpose:  Redefine _() macro to allow usage of catalog
- * Author:   Jon Gough
  *
  ***************************************************************************
- *   Copyright (C) 2010 by David S. Register   *
- *   $EMAIL$   *
+ *   Copyright (C) 2017 by David S. Register                               *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -22,17 +18,28 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,  USA.             *
- ***************************************************************************
- */
-#ifndef _ODCATTRANS_H_
-#define _ODCATTRANS_H_
+ *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,  USA.         *
+ **************************************************************************/
 
-#ifndef WXINTL_NO_GETTEXT_MACRO
-#ifdef _
-#undef _
-#endif // _
-#define _(s) wxGetTranslation((s), wxS("opencpn-${PROJECT_NAME}"))
-#endif // WXINTL_NO_GETTEXT_MACRO
+#ifndef __PISHADERS_H__
+#define __PISHADERS_H__
+
+#include "wx/wxprec.h"
+#ifndef  WX_PRECOMP
+#include "wx/wx.h"
+#endif //precompiled headers
+
+#include "GLES2/gl2.h"
+
+    extern GLint pi_color_tri_shader_program;
+    extern GLint pi_colorv_tri_shader_program;
+    extern GLint pi_texture_2D_shader_program;
+    extern GLint pi_texture_2DA_shader_program;
+    extern GLint pi_texture_text_shader_program;
+    extern GLint pi_circle_filled_shader_program;
+    
+
+bool pi_loadShaders();
+void configureShaders(float width, float height);
 
 #endif

@@ -43,6 +43,8 @@
 
 WX_DECLARE_LIST(wxRealPoint, wxRealPointList);
 
+class piDC;
+
 //    Sight
 //----------------------------------------------------------------------------
 
@@ -99,7 +101,7 @@ public:
     wxString   m_ColourName;
     wxColour   m_Colour;     // Color of the sight
 
-    virtual void Render(wxDC *dc, PlugIn_ViewPort &pVP);
+    virtual void Render(piDC &dc, PlugIn_ViewPort &pVP);
 
     void BodyLocation(wxDateTime time, double *lat, double *lon, double *ghaash, double *rad);
     std::list<wxRealPoint> GetPoints();
@@ -135,9 +137,7 @@ private:
                                     double azimuthmin, double azimuthmax, double azimuthstep,
                                     double timemin, double timemax, double timestep);
 
-    void DrawPolygon(PlugIn_ViewPort &VP, wxRealPointList &area);
-
-    wxDC *m_dc;
+    void DrawPolygon(piDC &dc, PlugIn_ViewPort &vp, wxRealPointList &area);
 
     wxDateTime m_CorrectedDateTime;
 

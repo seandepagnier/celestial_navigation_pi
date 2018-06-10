@@ -144,6 +144,10 @@ CelestialNavigationDialog::CelestialNavigationDialog(wxWindow *parent)
             fn.Mkdir();
         }
     }
+#ifdef __OCPN__ANDROID__
+    GetHandle()->setStyleSheet( qtStyleSheet);
+    Move(0, 0);
+#endif
 }
 
 CelestialNavigationDialog::~CelestialNavigationDialog()

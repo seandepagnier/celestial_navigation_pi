@@ -35,6 +35,7 @@
 #include <wx/fileconf.h>
 
 #include "ocpn_plugin.h"
+#include "plugingl/pidc.h"
 
 #include "Sight.h"
 #include "transform_star.hpp"
@@ -389,7 +390,7 @@ wxRealPointList *Sight::ReduceToConvexPolygon(wxRealPointList *points)
 }
 
 /* Draw a polygon (specified in lat/lon coords) to dc given a list of points */
-void Sight::DrawPolygon(PlugIn_ViewPort &VP, wxRealPointList &area)
+void Sight::DrawPolygon(piDC &dc, PlugIn_ViewPort &vp, wxRealPointList &area)
 {
    int n = area.size();
    wxPoint *ppoints = new wxPoint[n];
@@ -405,7 +406,7 @@ void Sight::DrawPolygon(PlugIn_ViewPort &VP, wxRealPointList &area)
       wxPoint r;
 
       /* don't draw areas crossing opposite from center longitude */
-      double lon = (*it)->y - VP.clon;
+      double lon = (*it)->y - vp.clon;
       lon = resolve_heading_positive(lon);
 
       if(lon > 90 && lon <= 180)
@@ -420,21 +421,13 @@ void Sight::DrawPolygon(PlugIn_ViewPort &VP, wxRealPointList &area)
       maxx = wxMax(maxx, (*it)->x);
       maxy = wxMax(maxy, (*it)->y);
 
-      GetCanvasPixLL(&VP, &r, (*it)->x, (*it)->y);
+      GetCanvasPixLL(&vp, &r, (*it)->x, (*it)->y);
 
       ppoints[i] = r;
    }
 
-   if(!(rear1 && rear2)) {
-       if(m_dc)
-           m_dc->DrawPolygon(n, ppoints);
-       else {
-         glBegin(GL_POLYGON);
-         for(int i=n-1; i>=0; i--)
-             glVertex2i(ppoints[i].x, ppoints[i].y);
-         glEnd();
-       }
-   }
+   if(!(rear1 && rear2))
+       dc.DrawPolygon(n, ppoints);
 
    delete [] ppoints;
 }
@@ -446,33 +439,19 @@ double Sight::ComputeStepSize(double certainty, double stepsize, double min, dou
 }
 
 /* render the area of position for this sight */
-void Sight::Render( wxDC *dc, PlugIn_ViewPort &VP )
+void Sight::Render( piDC &dc, PlugIn_ViewPort &vp )
 {
     if ( !m_bVisible )
         return;
 
-    m_dc = dc;
-    
-    if(dc) {
-        dc->SetPen ( wxPen(m_Colour, 1) );
-        dc->SetBrush ( wxBrush(m_Colour) );
-    } else {
-        glColor4ub(m_Colour.Red(), m_Colour.Green(), m_Colour.Blue(), m_Colour.Alpha());
-        glPushAttrib(GL_COLOR_BUFFER_BIT | GL_POLYGON_BIT);      //Save state
-        
-        glEnable(GL_POLYGON_SMOOTH);
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    }
+    dc.SetPen ( wxPen(m_Colour, 1) );
+    dc.SetBrush ( wxBrush(m_Colour) );
     
     std::list<wxRealPointList*>::iterator it = polygons.begin();
     while(it != polygons.end()) {
-        DrawPolygon(VP, **it);
+        DrawPolygon(dc, vp, **it);
         ++it;
     }
-    
-    if(!m_dc)
-        glPopAttrib();            // restore state
 }
 
 void Sight::Recompute(int clock_offset)
