@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Dec 20 2017)
+// C++ code generated with wxFormBuilder (version May 19 2018)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO *NOT* EDIT THIS FILE!
@@ -49,17 +49,20 @@ CelestialNavigationDialogBase::CelestialNavigationDialogBase( wxWindow* parent, 
 	m_bClockOffset = new wxButton( this, wxID_ANY, _("Clock Offset"), wxDefaultPosition, wxDefaultSize, 0 );
 	fgSizer24->Add( m_bClockOffset, 0, wxALL|wxEXPAND, 5 );
 	
+	m_tbHide = new wxToggleButton( this, wxID_ANY, _("Hide"), wxDefaultPosition, wxDefaultSize, 0 );
+	fgSizer24->Add( m_tbHide, 0, wxALL|wxEXPAND, 5 );
+	
 	m_bEditSight = new wxButton( this, wxID_ANY, _("Edit"), wxDefaultPosition, wxDefaultSize, 0 );
 	fgSizer24->Add( m_bEditSight, 0, wxALL|wxEXPAND, 5 );
 	
-	m_tbHide = new wxToggleButton( this, wxID_ANY, _("Hide"), wxDefaultPosition, wxDefaultSize, 0 );
-	fgSizer24->Add( m_tbHide, 0, wxALL|wxEXPAND, 5 );
+	m_bInformation = new wxButton( this, wxID_ANY, _("Information"), wxDefaultPosition, wxDefaultSize, 0 );
+	fgSizer24->Add( m_bInformation, 0, wxALL|wxEXPAND, 5 );
 	
 	m_bDeleteSight = new wxButton( this, wxID_ANY, _("Delete"), wxDefaultPosition, wxDefaultSize, 0 );
 	fgSizer24->Add( m_bDeleteSight, 0, wxALL|wxEXPAND, 5 );
 	
-	m_bInformation = new wxButton( this, wxID_ANY, _("Information"), wxDefaultPosition, wxDefaultSize, 0 );
-	fgSizer24->Add( m_bInformation, 0, wxALL|wxEXPAND, 5 );
+	m_bClose = new wxButton( this, wxID_ANY, _("Close"), wxDefaultPosition, wxDefaultSize, 0 );
+	fgSizer24->Add( m_bClose, 0, wxALL, 5 );
 	
 	m_bDeleteAllSights = new wxButton( this, wxID_ANY, _("Delete All"), wxDefaultPosition, wxDefaultSize, 0 );
 	fgSizer24->Add( m_bDeleteAllSights, 0, wxALL|wxEXPAND, 5 );
@@ -85,10 +88,12 @@ CelestialNavigationDialogBase::CelestialNavigationDialogBase( wxWindow* parent, 
 	m_bFix->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnFix ), NULL, this );
 	m_bDuplicateSight->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnDuplicate ), NULL, this );
 	m_bClockOffset->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnClockOffset ), NULL, this );
-	m_bEditSight->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnEdit ), NULL, this );
 	m_tbHide->Connect( wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnHide ), NULL, this );
-	m_bDeleteSight->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnDelete ), NULL, this );
+	m_bEditSight->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnEdit ), NULL, this );
 	m_bInformation->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnInformation ), NULL, this );
+	m_bDeleteSight->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnDelete ), NULL, this );
+	m_bClose->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnClose ), NULL, this );
+	m_bClose->Connect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( CelestialNavigationDialogBase::OnClose ), NULL, this );
 	m_bDeleteAllSights->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnDeleteAll ), NULL, this );
 }
 
@@ -103,10 +108,12 @@ CelestialNavigationDialogBase::~CelestialNavigationDialogBase()
 	m_bFix->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnFix ), NULL, this );
 	m_bDuplicateSight->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnDuplicate ), NULL, this );
 	m_bClockOffset->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnClockOffset ), NULL, this );
-	m_bEditSight->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnEdit ), NULL, this );
 	m_tbHide->Disconnect( wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnHide ), NULL, this );
-	m_bDeleteSight->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnDelete ), NULL, this );
+	m_bEditSight->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnEdit ), NULL, this );
 	m_bInformation->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnInformation ), NULL, this );
+	m_bDeleteSight->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnDelete ), NULL, this );
+	m_bClose->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnClose ), NULL, this );
+	m_bClose->Disconnect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( CelestialNavigationDialogBase::OnClose ), NULL, this );
 	m_bDeleteAllSights->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CelestialNavigationDialogBase::OnDeleteAll ), NULL, this );
 	
 }

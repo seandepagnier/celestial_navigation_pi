@@ -44,6 +44,7 @@ SET(SRC_CELESTIAL_NAVIGATION
           src/transform_star.cpp
           src/epv00.cpp
           src/celestial_navigation_pi.cpp
+          src/zuFile.cpp
 	)
 
 INCLUDE("cmake/PluginXML.cmake")

@@ -5,7 +5,7 @@ QString qtStyleSheet = "\
 QScrollBar:horizontal {\
 border: 0px solid grey;\
 background-color: rgb(240, 240, 240);\
-height: 35px;\
+height: 25px;\
 margin: 0px 1px 0 1px;\
 }\
 QScrollBar::handle:horizontal {\

@@ -65,6 +65,7 @@ private:
     void OnClockOffset( wxCommandEvent& event );
     void OnInformation( wxCommandEvent& event );
     void OnHide( wxCommandEvent& event );
+    void OnClose( wxCommandEvent& event ) { Hide(); }
 
     void OnClockCorrection( wxSpinEvent& event );
     void OnSightListLeftDown(wxMouseEvent &event);

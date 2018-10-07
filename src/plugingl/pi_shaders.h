@@ -29,7 +29,9 @@
 #include "wx/wx.h"
 #endif //precompiled headers
 
+#ifdef ocpnUSE_GLES2
 #include "GLES2/gl2.h"
+#endif
 
     extern GLint pi_color_tri_shader_program;
     extern GLint pi_colorv_tri_shader_program;

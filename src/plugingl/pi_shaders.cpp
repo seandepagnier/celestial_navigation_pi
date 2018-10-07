@@ -21,14 +21,12 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,  USA.         *
  **************************************************************************/
 
-#include "pi_shaders.h"
-
-#include "linmath.h"
-
 #ifdef USE_ANDROID_GLES2    
 #include "qdebug.h"
 
 #include "GLES2/gl2.h"
+#include "pi_shaders.h"
+#include "linmath.h"
 
 // Simple colored triangle shader
 

@@ -39,6 +39,7 @@
 
 #include "Sight.h"
 #include "transform_star.hpp"
+#include "zuFile.h"
 
 WX_DEFINE_LIST ( wxRealPointList );
 
@@ -130,12 +131,32 @@ using namespace astrolabe::sun;
 using namespace astrolabe::util;
 using namespace astrolabe::vsop87d;
 
+wxString DataDirectory()
+{
+    wxString s = wxFileName::GetPathSeparator();
+    return *GetpSharedDataLocation() + "plugins" + s + "celestial_navigation_pi" + s + "data" + s;
+}
+
+wxString UserDataDirectory()
+{
+    wxString s = wxFileName::GetPathSeparator();
+    return *GetpPrivateApplicationDataLocation() + s + "plugins"
+        + s + "celestial_navigation_pi" + s;
+}
+
 /* calculate what position the body for this sight is directly over at a given time */ 
 void Sight::BodyLocation(wxDateTime time, double *lat, double *lon, double *ghaast, double *rad)
 {
-    astrolabe::globals::vsop87d_text_path = (const char *)GetpSharedDataLocation()->mb_str();
-    astrolabe::globals::vsop87d_text_path.append("plugins/celestial_navigation_pi/data/");
-    astrolabe::globals::vsop87d_text_path.append("vsop87d.txt");
+    static int error_message = 2;
+    wxString filename = DataDirectory() + "vsop87d.txt";
+    wxFileName fn(filename);
+    if(fn.Exists()) {
+        if(error_message)
+            error_message = 1; // don't try to download if it is installed
+    } else
+        filename = UserDataDirectory() + "vsop87d.txt";
+    
+    astrolabe::globals::vsop87d_text_path = (const char *)filename.mb_str();
 
     time.MakeFromUTC();
     double jdu = time.GetJulianDayNumber();
@@ -154,17 +175,54 @@ void Sight::BodyLocation(wxDateTime time, double *lat, double *lon, double *ghaa
         Sun sun;
         sun.dimension3(jdd, l, b, r);
     } catch (Error e) {
-        static bool showonce = false;
-        if(!showonce) {
+        if(error_message) {
+            error_message--;
             wxString err;
             const char *what = e.what();
             while(*what) err += *what++;
-            wxMessageDialog mdlg(NULL, _("Astrolab failed, data unavailable:\n")
-                                 + err + _("\nDid you forget to install vsop87d.txt?\n")
-                                 +_("The plugin will not work correctly"),
-                                 wxString(_("Failure Alert"), wxOK | wxICON_ERROR));
-            mdlg.ShowModal();
-            showonce = true;
+            if(error_message == 1) {
+                wxMessageDialog mdlg(NULL, _("Astrolab failed, data unavailable:\n")
+                                     + err + _("\nWould you like to download?"),
+                                     _("Failure Alert"), wxYES | wxNO | wxICON_ERROR);
+                if(mdlg.ShowModal() == wxID_YES) {
+                    wxString url = "https://cytranet.dl.sourceforge.net/project/opencpnplugins/celestial_navigation_pi/";
+                    wxString path = DataDirectory();
+                    wxString fn = "vsop87d.txt.gz";
+                    wxBitmap bm; //empty
+
+                    _OCPN_DLStatus status = OCPN_downloadFile(
+                        url+fn, path+fn, _("downloading celestial navigation data file"),
+                        "",
+                        bm, GetOCPNCanvasWindow(),
+                        OCPN_DLDS_CAN_ABORT|OCPN_DLDS_SHOW_ALL|OCPN_DLDS_AUTO_CLOSE, 20);
+                    if(status == OCPN_DL_NO_ERROR) {
+#ifndef WIN32 // never hit because data is distribued easier to not compile compression support
+                        // now decompress downloaded file
+                        ZUFILE *f = zu_open(path+fn.mb_str(), "rb", ZU_COMPRESS_AUTO);
+                        if(f) {
+                            FILE *out = fopen(path+"vsop87d.txt", "w");
+                            if(out) {
+                                char buf[1024];
+                                for(;;) {
+                                    size_t size = zu_read(f, buf, sizeof buf);
+                                    fwrite(buf, size, 1, out);
+                                    if(size != sizeof buf)
+                                        break;
+                                }
+                                fclose(out);
+                                BodyLocation(time, lat, lon, ghaast, rad);
+                            }
+                            zu_close(f);
+                        }
+#endif
+                    }
+                }
+            } else {
+                wxMessageDialog mdlg(NULL, _("vsop87d.txt missing or corrupt\n")
+                                     + _("The plugin will not work correctly"),
+                                     wxString(_("Failure Alert"), wxOK | wxICON_ERROR));
+                mdlg.ShowModal();
+            }
         }
         return;
     }
