@@ -36,10 +36,26 @@
 
 #include "ocpn_plugin.h"
 
+#include "icons.h"
 #include "Sight.h"
 #include "SightDialog.h"
 #include "CelestialNavigationDialog.h"
 #include "celestial_navigation_pi.h"
+#include "zuFile.h"
+
+#include "astrolabe/astrolabe.hpp"
+static wxString DataDirectory()
+{
+    wxString s = wxFileName::GetPathSeparator();
+    return *GetpSharedDataLocation() + "plugins" + s + "celestial_navigation_pi" + s + "data" + s;
+}
+
+static wxString UserDataDirectory()
+{
+    wxString s = wxFileName::GetPathSeparator();
+    return *GetpPrivateApplicationDataLocation() + s + "plugins"
+        + s + "celestial_navigation" + s;
+}
 
 /* XPM */
 static const char *eye[]={
@@ -144,6 +160,51 @@ CelestialNavigationDialog::CelestialNavigationDialog(wxWindow *parent)
             fn.Mkdir();
         }
     }
+
+    
+    wxString filename = DataDirectory() + "vsop87d.txt";
+    wxFileName fn(filename);
+    if(!fn.Exists())
+        filename = UserDataDirectory() + "vsop87d.txt";
+    
+    astrolabe::globals::vsop87d_text_path = (const char *)filename.mb_str();
+
+    
+#ifndef WIN32 // never hit because data is distribued easier to not compile compression support
+    wxMessageDialog mdlg(this, _("Astrolab data unavailable.\n")
+                         + _("\nWould you like to download?"),
+                         _("Failure Alert"), wxYES | wxNO | wxICON_ERROR);
+    if(mdlg.ShowModal() == wxID_YES) {
+        wxString url = "https://cfhcable.dl.sourceforge.net/project/opencpnplugins/celestial_navigation_pi/";
+        wxString path = UserDataDirectory();
+        wxString fn = "vsop87d.txt.gz";
+        
+        _OCPN_DLStatus status = OCPN_downloadFile(
+            url+fn, path+fn, _("downloading celestial navigation data file"),
+            "downloading...",
+            *_img_celestial_navigation, this,
+            OCPN_DLDS_CAN_ABORT|OCPN_DLDS_ELAPSED_TIME|OCPN_DLDS_ESTIMATED_TIME|OCPN_DLDS_REMAINING_TIME|OCPN_DLDS_SPEED|OCPN_DLDS_SIZE|OCPN_DLDS_URL|OCPN_DLDS_AUTO_CLOSE, 20);
+        if(status == OCPN_DL_NO_ERROR) {            
+            // now decompress downloaded file
+            ZUFILE *f = zu_open(path+fn.mb_str(), "rb", ZU_COMPRESS_AUTO);
+            if(f) {
+                FILE *out = fopen(path+"vsop87d.txt", "w");
+                if(out) {
+                    char buf[1024];
+                    for(;;) {
+                        size_t size = zu_read(f, buf, sizeof buf);
+                        fwrite(buf, size, 1, out);
+                        if(size != sizeof buf)
+                            break;
+                    }
+                    fclose(out);
+                }
+                zu_close(f);
+            }
+        }
+    }
+#endif
+    
 #ifdef __OCPN__ANDROID__
     GetHandle()->setStyleSheet( qtStyleSheet);
     Move(0, 0);
