@@ -3,7 +3,11 @@ msgstr ""
 "Project-Id-Version: opencpn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-28 14:10-0300\n"
+<<<<<<< HEAD
 "PO-Revision-Date: 2019-02-26 17:16\n"
+=======
+"PO-Revision-Date: 2018-03-03 08:26-0500\n"
+>>>>>>> parent of 710a444... remove po/tr_TR.po
 "Last-Translator: nohal <pavel@kalian.cz>\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
@@ -544,9 +548,16 @@ msgstr "\n"
 msgid "ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * CorrectedAltitude))\n"
 "ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * %.4f ) * cos(Pi/180 * %.4f))\n"
 "ParallaxCorrection = %.4f\n"
+<<<<<<< HEAD
 msgstr "ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * CorrectedAltitude))\n"
 "ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * %.4f ) * cos(Pi/180 * %.4f))\n"
 "ParallaxCorrection = %.4f\n"
+=======
+msgstr "ParallaxCorrection-180 = / Pi * asin (günah (Pi/180 * HP) * cos (Pi/180 * CorrectedAltitude)) \n"
+"ParallaxCorrection-180 = / Pi * asin (günah (Pi/180 * %.4f) * cos (Pi/180 * %.4f)) \n"
+"ParallaxCorrection %.4f\n"
+" ="
+>>>>>>> parent of 710a444... remove po/tr_TR.po
 
 #: src/Sight.cpp:672
 #, c-format
@@ -622,9 +633,16 @@ msgstr "\n"
 msgid "ParallaxCorrectionMoon = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * CorrectedAltitude))\n"
 " ParallaxCorrectionMoon = -180/Pi * asin( sin(Pi/180 * %.4f ) * cos(Pi/180 * %.4f))\n"
 "ParallaxCorrectionMoon = %.4f\n"
+<<<<<<< HEAD
 msgstr "ParallaxCorrectionMoon = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * CorrectedAltitude))\n"
 " ParallaxCorrectionMoon = -180/Pi * asin( sin(Pi/180 * %.4f ) * cos(Pi/180 * %.4f))\n"
 "ParallaxCorrectionMoon = %.4f\n"
+=======
+msgstr "ParallaxCorrection-180 = / Pi * asin (günah (Pi/180 * HP) * cos (Pi/180 * CorrectedAltitude)) \n"
+"ParallaxCorrection-180 = / Pi * asin (günah (Pi/180 * %.4f) * cos (Pi/180 * %.4f)) \n"
+"ParallaxCorrection %.4f\n"
+" ="
+>>>>>>> parent of 710a444... remove po/tr_TR.po
 
 #: src/Sight.cpp:778
 #, c-format
@@ -644,18 +662,32 @@ msgstr "\n"
 msgid "CorrectionsMoon = %.4f\n"
 "CorrectionsBody = %.4f\n"
 "Corrections = abs(CorrectionsMoon - CorrectionsBody) = %.4f\n"
+<<<<<<< HEAD
 msgstr "CorrectionsMoon = %.4f\n"
 "CorrectionsBody = %.4f\n"
 "Corrections = abs(CorrectionsMoon - CorrectionsBody) = %.4f\n"
+=======
+msgstr "CorrectionsMoon %.4f\n"
+"CorrectionsBody = %.4f\n"
+"Corrections = abs (CorrectionsMoon - CorrectionsBody) = %.4f\n"
+" ="
+>>>>>>> parent of 710a444... remove po/tr_TR.po
 
 #: src/Sight.cpp:863
 #, c-format
 msgid "CorrectedMeasurement = Measurement - Corrections - IndexCorrection\n"
 "CorrectedMeasurement = %.4f - %.4f - %.4f\n"
 "CorrectedMeasurement = %.4f\n"
+<<<<<<< HEAD
 msgstr "CorrectedMeasurement = Measurement - Corrections - IndexCorrection\n"
 "CorrectedMeasurement = %.4f - %.4f - %.4f\n"
 "CorrectedMeasurement = %.4f\n"
+=======
+msgstr "CorrectedMeasurement ölçüm - düzeltmeler - IndexCorrection\n"
+"CorrectedMeasurement = %.4f - %.4f - %.4f\n"
+"CorrectedMeasurement = %.4f\n"
+" ="
+>>>>>>> parent of 710a444... remove po/tr_TR.po
 
 #: src/Sight.cpp:888
 msgid "\n"
@@ -701,7 +733,12 @@ msgstr "Ay atışı Ay'ı kendisini geçersiz alarak hesaplar"
 
 #: src/celestial_navigation_pi.cpp:90
 msgid "Failed to load file:\n"
+<<<<<<< HEAD
 msgstr "Dosya yüklerken Hata oluştu:\n"
+=======
+msgstr "Dosya:\n"
+" yükleme başarısız"
+>>>>>>> parent of 710a444... remove po/tr_TR.po
 
 #: src/celestial_navigation_pi.cpp:91
 msgid "\n"
