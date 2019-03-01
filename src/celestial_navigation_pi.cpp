@@ -32,9 +32,6 @@
 #include "Sight.h"
 #include "celestial_navigation_pi.h"
 #include "icons.h"
-
-#include "plugingl/pidc.h"
-
 using namespace std;
 
 // the class factories, used to create and destroy instances of the PlugIn
@@ -56,7 +53,7 @@ extern "C" DECL_EXP void destroy_pi(opencpn_plugin* p)
 //---------------------------------------------------------------------------------------------------------
 
 celestial_navigation_pi::celestial_navigation_pi(void *ppimgr)
-    :opencpn_plugin_111 (ppimgr)
+    :opencpn_plugin_18 (ppimgr)
 {
     // Create the PlugIn icons
     initialize_images();
@@ -194,25 +191,18 @@ void celestial_navigation_pi::SetColorScheme(PI_ColorScheme cs)
 
 bool celestial_navigation_pi::RenderOverlay(wxDC &dc, PlugIn_ViewPort *vp)
 {
-    piDC pidc(dc);
-    Render(pidc, vp);
-    return true;
+    return RenderOverlayAll(&dc, vp);
 }
 
 bool celestial_navigation_pi::RenderGLOverlay(wxGLContext *pcontext, PlugIn_ViewPort *vp)
 {
-    piDC pidc;
-    glEnable( GL_BLEND );
-    pidc.SetVP(vp);
-    Render(pidc, vp);
-    glDisable( GL_BLEND );
-    return true;
+    return RenderOverlayAll(NULL, vp);
 } 
 
-void celestial_navigation_pi::Render(piDC &dc, PlugIn_ViewPort *vp)
+bool celestial_navigation_pi::RenderOverlayAll(wxDC *dc, PlugIn_ViewPort *vp)
 {
     if(!m_pCelestialNavigationDialog || !m_pCelestialNavigationDialog->IsShown())
-        return;
+        return false;
 
     /* draw sights */
     wxListCtrl *lSights = m_pCelestialNavigationDialog->m_lSights;
@@ -230,12 +220,25 @@ void celestial_navigation_pi::Render(piDC &dc, PlugIn_ViewPort *vp)
    GetCanvasPixLL(vp, &r2, lat+1, lon+1);
 
    if(!isnan(err)) {
-       dc.SetPen ( wxPen(wxColor(255, 0, 0), 1) );
-       dc.SetBrush( *wxTRANSPARENT_BRUSH);
-       dc.DrawLine( r1.x, r1.y, r2.x, r2.y );
-       dc.DrawLine( r1.x, r2.y, r2.x, r1.y );
+       if(dc) {
+           dc->SetPen ( wxPen(wxColor(255, 0, 0), 1) );
+           dc->SetBrush( *wxTRANSPARENT_BRUSH);
+           dc->DrawLine( r1.x, r1.y, r2.x, r2.y );
+           dc->DrawLine( r1.x, r2.y, r2.x, r1.y );
+       } else {
+           glColor3d(1, 0, 0);
+           glBegin(GL_LINES);
+           glVertex2i(r1.x, r1.y);
+           glVertex2i(r2.x, r2.y);
+           glVertex2i(r1.x, r2.y);
+           glVertex2i(r2.x, r1.y);
+           glEnd();
+       }
    }
+
+   return true;
 }
+
 wxString celestial_navigation_pi::StandardPath()
 {
     wxStandardPathsBase& std_path = wxStandardPathsBase::Get();

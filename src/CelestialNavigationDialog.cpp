@@ -160,6 +160,7 @@ CelestialNavigationDialog::CelestialNavigationDialog(wxWindow *parent)
             fn.Mkdir();
         }
     }
+<<<<<<< HEAD
 
     
     wxString filename = DataDirectory() + "vsop87d.txt";
@@ -209,6 +210,8 @@ CelestialNavigationDialog::CelestialNavigationDialog(wxWindow *parent)
     GetHandle()->setStyleSheet( qtStyleSheet);
     Move(0, 0);
 #endif
+=======
+>>>>>>> parent of ddd0bac... android build
 }
 
 CelestialNavigationDialog::~CelestialNavigationDialog()

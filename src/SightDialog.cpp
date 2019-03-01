@@ -174,11 +174,6 @@ SightDialog::SightDialog( wxWindow* parent, Sight &s, int clock_offset)
     
     m_breadytorecompute = true;
     Recompute();
-
-#ifdef __OCPN__ANDROID__
-    GetHandle()->setStyleSheet( qtStyleSheet);
-    Move(0, 0);
-#endif
 }
 
 SightDialog::~SightDialog( )
