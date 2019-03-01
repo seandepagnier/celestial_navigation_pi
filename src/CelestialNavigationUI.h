@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version May 19 2018)
+// C++ code generated with wxFormBuilder (version Dec 20 2017)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO *NOT* EDIT THIS FILE!
@@ -55,11 +55,10 @@ class CelestialNavigationDialogBase : public wxDialog
 		wxButton* m_bFix;
 		wxButton* m_bDuplicateSight;
 		wxButton* m_bClockOffset;
-		wxToggleButton* m_tbHide;
 		wxButton* m_bEditSight;
-		wxButton* m_bInformation;
+		wxToggleButton* m_tbHide;
 		wxButton* m_bDeleteSight;
-		wxButton* m_bClose;
+		wxButton* m_bInformation;
 		wxButton* m_bDeleteAllSights;
 		
 		// Virtual event handlers, overide them in your derived class
@@ -70,12 +69,10 @@ class CelestialNavigationDialogBase : public wxDialog
 		virtual void OnFix( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnDuplicate( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnClockOffset( wxCommandEvent& event ) { event.Skip(); }
-		virtual void OnHide( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnEdit( wxCommandEvent& event ) { event.Skip(); }
-		virtual void OnInformation( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnHide( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnDelete( wxCommandEvent& event ) { event.Skip(); }
-		virtual void OnClose( wxCommandEvent& event ) { event.Skip(); }
-		virtual void OnClose( wxMouseEvent& event ) { event.Skip(); }
+		virtual void OnInformation( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnDeleteAll( wxCommandEvent& event ) { event.Skip(); }
 		
 	

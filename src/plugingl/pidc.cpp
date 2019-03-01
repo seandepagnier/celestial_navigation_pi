@@ -32,6 +32,9 @@
 #endif
 
 #include "ocpn_plugin.h"
+#include "linmath.h"
+
+#include "pi_shaders.h"
 
 #ifdef __MSVC__
 #include <windows.h>
@@ -53,18 +56,19 @@
 #include "GL/gl_private.h"
 #else
 #include "GL/gl.h"
-#include "GL/glu.h"
 #endif
 
-#include "linmath.h"
-#include "plugingl/pi_shaders.h"
+#ifdef USE_ANDROID_GLES2
+#include "GLES2/gl2.h"
+#endif
+
 
 #ifdef __OCPN__ANDROID__
 #include "qdebug.h"
 #endif
 
-static float GLMinSymbolLineWidth;
-static wxArrayPtrVoid pi_gTesselatorVertices;
+extern float g_GLMinSymbolLineWidth;
+wxArrayPtrVoid pi_gTesselatorVertices;
 
 #ifdef USE_ANDROID_GLES2
 extern GLint pi_color_tri_shader_program;
@@ -90,7 +94,7 @@ piDC::piDC( wxGLCanvas &canvas ) :
     workBufSize = 0;
     s_odc_tess_work_buf = NULL;
     
-#ifdef USE_ANDROID_GLES2
+    #ifdef USE_ANDROID_GLES2
     s_odc_tess_vertex_idx = 0;
     s_odc_tess_vertex_idx_this = 0;
     s_odc_tess_buf_len = 0;
@@ -140,10 +144,6 @@ piDC::piDC() :
     workBuf = NULL;
     workBufSize = 0;
     s_odc_tess_work_buf = NULL;
-
-    GLint parms[2];
-    glGetIntegerv( GL_SMOOTH_LINE_WIDTH_RANGE, &parms[0] );
-    GLMinSymbolLineWidth = wxMax(parms[0], 1);
 
     pi_loadShaders();
     
@@ -402,8 +402,8 @@ void piDrawGLThickLine( float x1, float y1, float x2, float y2, wxPen pen, bool 
         /* wx draws a nice rounded end in dc mode, so replicate
            this for opengl mode, should this be done for the dashed mode case? */
         if(pen.GetCap() == wxCAP_ROUND) {
-            piDrawEndCap( x1, y1, t1, angle);
-            piDrawEndCap( x2, y2, t1, angle + M_PI);
+            DrawEndCap( x1, y1, t1, angle);
+            DrawEndCap( x2, y2, t1, angle + M_PI);
         }
 
     }
@@ -540,7 +540,7 @@ void piDC::DrawLine( wxCoord x1, wxCoord y1, wxCoord x2, wxCoord y2, bool b_hiqu
     else if( ConfigurePen() ) {
         bool b_draw_thick = false;
 
-        float pen_width = wxMax(GLMinSymbolLineWidth, m_pen.GetWidth());
+        float pen_width = wxMax(g_GLMinSymbolLineWidth, m_pen.GetWidth());
 
         //      Enable anti-aliased lines, at best quality
         if( b_hiqual ) {
@@ -576,7 +576,7 @@ void piDC::DrawLine( wxCoord x1, wxCoord y1, wxCoord x2, wxCoord y2, bool b_hiqu
         
 #ifdef USE_ANDROID_GLES2
         if( b_draw_thick )
-            piDrawGLThickLine( x1, y1, x2, y2, m_pen, b_hiqual );
+            DrawGLThickLine( x1, y1, x2, y2, m_pen, b_hiqual );
         else {
             glUseProgram(pi_color_tri_shader_program);
             
@@ -652,7 +652,7 @@ void piDC::DrawLine( wxCoord x1, wxCoord y1, wxCoord x2, wxCoord y2, bool b_hiqu
         
 #else
         if( b_draw_thick )
-            piDrawGLThickLine( x1, y1, x2, y2, m_pen, b_hiqual );
+            DrawGLThickLine( x1, y1, x2, y2, m_pen, b_hiqual );
         else {
             wxDash *dashes;
             int n_dashes = m_pen.GetDashes( &dashes );
@@ -723,7 +723,7 @@ void piDrawGLThickLines( int n, wxPoint points[],wxCoord xoffset,
 #ifdef USE_ANDROID_GLES2
      wxPoint p0 = points[0];
      for( int i = 1; i < n; i++ ) {
-         piDrawGLThickLine( p0.x + xoffset, p0.y + yoffset, points[i].x + xoffset,
+         DrawGLThickLine( p0.x + xoffset, p0.y + yoffset, points[i].x + xoffset,
                           points[i].y + yoffset, pen, b_hiqual );
          p0 = points[i];
         }
@@ -736,7 +736,7 @@ void piDrawGLThickLines( int n, wxPoint points[],wxCoord xoffset,
     {
         wxPoint p0 = points[0];
         for( int i = 1; i < n; i++ ) {
-            piDrawGLThickLine( p0.x + xoffset, p0.y + yoffset, points[i].x + xoffset,
+            DrawGLThickLine( p0.x + xoffset, p0.y + yoffset, points[i].x + xoffset,
                              points[i].y + yoffset, pen, b_hiqual );
             p0 = points[i];
         }
@@ -809,8 +809,8 @@ void piDrawGLThickLines( int n, wxPoint points[],wxCoord xoffset,
     }
  
     if(pen.GetCap() == wxCAP_ROUND) {
-        piDrawEndCap( x0, y0, t1, a0);
-        piDrawEndCap( x0, y0, t1, a0 + M_PI);
+        DrawEndCap( x0, y0, t1, a0);
+        DrawEndCap( x0, y0, t1, a0 + M_PI);
      }
 
     glEnd();
@@ -850,18 +850,18 @@ void piDrawGLThickLines( int n, wxPoint points[],wxCoord xoffset,
                 if( m_pen.GetWidth() > parms[1] )
                     b_draw_thick = true;
                 else
-                    glLineWidth( wxMax(GLMinSymbolLineWidth, m_pen.GetWidth()) );
+                    glLineWidth( wxMax(g_GLMinSymbolLineWidth, m_pen.GetWidth()) );
             } else
-                glLineWidth( wxMax(GLMinSymbolLineWidth, 1) );
+                glLineWidth( wxMax(g_GLMinSymbolLineWidth, 1) );
         } else {
             if( m_pen.GetWidth() > 1 ) {
                 GLint parms[2];
                 glGetIntegerv( GL_ALIASED_LINE_WIDTH_RANGE, &parms[0] );
                 if( m_pen.GetWidth() > parms[1] ) b_draw_thick = true;
                 else
-                    glLineWidth( wxMax(GLMinSymbolLineWidth, m_pen.GetWidth()) );
+                    glLineWidth( wxMax(g_GLMinSymbolLineWidth, m_pen.GetWidth()) );
             } else
-                glLineWidth( wxMax(GLMinSymbolLineWidth, 1) );
+                glLineWidth( wxMax(g_GLMinSymbolLineWidth, 1) );
         }
 
         if( b_draw_thick) {
@@ -969,7 +969,7 @@ void piDC::DrawGLLineArray( int n, float *vertex_array, float *color_array,  boo
             #else
             SetGLAttrs( b_hiqual );
             #endif        
-            //bool b_draw_thick = false;
+            bool b_draw_thick = false;
             
             glDisable( GL_LINE_STIPPLE );
             SetGLStipple();
@@ -982,23 +982,23 @@ void piDC::DrawGLLineArray( int n, float *vertex_array, float *color_array,  boo
                     //if(glGetError())
                         //glGetIntegerv( GL_ALIASED_LINE_WIDTH_RANGE, &parms[0] );
                     
-                    glLineWidth( wxMax(GLMinSymbolLineWidth, m_pen.GetWidth()) );
+                    glLineWidth( wxMax(g_GLMinSymbolLineWidth, m_pen.GetWidth()) );
                 } else
-                    glLineWidth( wxMax(GLMinSymbolLineWidth, 1) );
+                    glLineWidth( wxMax(g_GLMinSymbolLineWidth, 1) );
             } else {
                 if( m_pen.GetWidth() > 1 ) {
                     //GLint parms[2];
                     //glGetIntegerv( GL_ALIASED_LINE_WIDTH_RANGE, &parms[0] );
-                    glLineWidth( wxMax(GLMinSymbolLineWidth, m_pen.GetWidth()) );
+                    glLineWidth( wxMax(g_GLMinSymbolLineWidth, m_pen.GetWidth()) );
                 } else
-                    glLineWidth( wxMax(GLMinSymbolLineWidth, 1) );
+                    glLineWidth( wxMax(g_GLMinSymbolLineWidth, 1) );
             }
             
-#ifndef USE_ANDROID_GLES2
+#ifndef USE_ANDROID_GLES2        
             
             glBegin( GL_LINE_STRIP );
             for( int i = 0; i < n; i++ )
-                glVertex2f( vertex_array[2*i], vertex_array[2*i+1] );
+                glVertex2i( points[i].x + xoffset, points[i].y + yoffset );
             glEnd();
             
 #else
@@ -1477,7 +1477,7 @@ typedef union {
 } GLvertex;
 
 #ifndef USE_ANDROID_GLES2
-static void piDCcombineCallback( GLdouble coords[3], GLdouble *vertex_data[4], GLfloat weight[4],
+void APIENTRY piDCcombineCallback( GLdouble coords[3], GLdouble *vertex_data[4], GLfloat weight[4],
         GLdouble **dataOut )
 {
     GLvertex *vertex;
@@ -1496,26 +1496,26 @@ static void piDCcombineCallback( GLdouble coords[3], GLdouble *vertex_data[4], G
     *dataOut = &(vertex->data[0]);
 }
 
-static void piDCvertexCallback( GLvoid* arg )
+void APIENTRY ocpnDCvertexCallback( GLvoid* arg )
 {
     GLvertex* vertex;
     vertex = (GLvertex*) arg;
     glVertex2f( (float)vertex->info.x, (float)vertex->info.y );
 }
 
-static void piDCerrorCallback( GLenum errorCode )
+void APIENTRY ocpnDCerrorCallback( GLenum errorCode )
 {
-//   const GLubyte *estring;
-//   estring = gluErrorString(errorCode);
+   const GLubyte *estring;
+   estring = gluErrorString(errorCode);
    //wxLogMessage( _T("OpenGL Tessellation Error: %s"), (char *)estring );
 }
 
-static void piDCbeginCallback( GLenum type )
+void APIENTRY ocpnDCbeginCallback( GLenum type )
 {
     glBegin( type );
 }
 
-static void piDCendCallback()
+void APIENTRY ocpnDCendCallback()
 {
     glEnd();
 }
@@ -1670,11 +1670,11 @@ void piDC::DrawPolygonTessellated( int n, wxPoint points[], wxCoord xoffset, wxC
         static GLUtesselator *tobj = NULL;
         if( ! tobj ) tobj = gluNewTess();
 
-        gluTessCallback( tobj, GLU_TESS_VERTEX, (_GLUfuncptr) &piDCvertexCallback );
-        gluTessCallback( tobj, GLU_TESS_BEGIN, (_GLUfuncptr) &piDCbeginCallback );
-        gluTessCallback( tobj, GLU_TESS_END, (_GLUfuncptr) &piDCendCallback );
-        gluTessCallback( tobj, GLU_TESS_COMBINE, (_GLUfuncptr) &piDCcombineCallback );
-        gluTessCallback( tobj, GLU_TESS_ERROR, (_GLUfuncptr) &piDCerrorCallback );
+        gluTessCallback( tobj, GLU_TESS_VERTEX, (_GLUfuncptr) &ocpnDCvertexCallback );
+        gluTessCallback( tobj, GLU_TESS_BEGIN, (_GLUfuncptr) &ocpnDCbeginCallback );
+        gluTessCallback( tobj, GLU_TESS_END, (_GLUfuncptr) &ocpnDCendCallback );
+        gluTessCallback( tobj, GLU_TESS_COMBINE, (_GLUfuncptr) &ocpnDCcombineCallback );
+        gluTessCallback( tobj, GLU_TESS_ERROR, (_GLUfuncptr) &ocpnDCerrorCallback );
 
         gluTessNormal( tobj, 0, 0, 1);
         gluTessProperty( tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_NONZERO );
@@ -1837,7 +1837,7 @@ void piDC::DrawText( const wxString &text, wxCoord x, wxCoord y )
             
             if( w && h ) {
 
-                if(m_textbackgroundcolour.Alpha() != 0) {
+                if(m_textbackgroundcolour.Alpha() != 255) {
                     wxPen p = m_pen;
                     wxBrush b = m_brush;
                     SetPen(*wxTRANSPARENT_PEN);
@@ -1856,8 +1856,7 @@ void piDC::DrawText( const wxString &text, wxCoord x, wxCoord y )
                 glPushMatrix();
                 glTranslatef(x, y, 0);
                 
-                glColor3ub( m_textforegroundcolour.Red(),
-                            m_textforegroundcolour.Green(),
+                glColor3ub( m_textforegroundcolour.Red(), m_textforegroundcolour.Green(),
                             m_textforegroundcolour.Blue() );
                 
 
@@ -2029,7 +2028,7 @@ bool piDC::ConfigurePen()
 #ifdef ocpnUSE_GL
 #ifndef USE_ANDROID_GLES2    
     glColor4ub( c.Red(), c.Green(), c.Blue(), c.Alpha() );
-    glLineWidth( wxMax(GLMinSymbolLineWidth, width) );
+    glLineWidth( wxMax(g_GLMinSymbolLineWidth, width) );
 #endif    
 #endif    
     return true;
