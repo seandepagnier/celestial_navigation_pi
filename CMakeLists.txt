@@ -45,6 +45,7 @@ set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
 set(TP_COMMENT "  * Release for O5 using CI")
 
+
 set(PARENT "opencpn")
 
 #Used to set up a local webserver with git loaded, for testing purposes.
