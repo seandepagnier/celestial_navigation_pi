@@ -29,11 +29,11 @@ if(COMMAND cmake_policy)
     endif(POLICY CMP0077)
 endif(COMMAND cmake_policy)
 
-set(VERBOSE_NAME "CelestialNavigation")
-set(COMMON_NAME "celestialnavigation")  # Search "getcommonname"in <plugin_pi>.cpp
+set(VERBOSE_NAME "Celestial_Navigation")
+set(COMMON_NAME "celestial_navigation")  # Search "getcommonname"in <plugin_pi>.cpp
 set(TITLE_NAME "CELESTIALNAVIGATION")
 set(PACKAGE_CONTACT  "Sean D'Epagnier ")
-set(PACKAGE "celestialnavigation")
+set(PACKAGE "celestial_navigation")
 
 set(VERSION_MAJOR "2")
 set(VERSION_MINOR "3")
