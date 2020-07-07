@@ -3,26 +3,131 @@
 ## Copyright:   
 ## License:     GPLv3
 ##---------------------------------------------------------------------------
- 
+# Frontend2 Author: Jon Gough  
+# Frontend2: v1.0.125
+# ---------------------------------------------------------------------------
+## ----- When changing this file do NOT change the order in which sections occur        ----- ##
+## ----- Changes should only be made between the section blocks that identify where     ----- ##
+## ----- these changes should be. The whole configuration process relies on this        ----- ##
+## ----- sequence to be successful                                                      ----- ##
+##  
 
+##
+##----- Modify section below to include all the details for your plugin ----- ##
+##
+
+set(CMLOC "CMakeLists: ")
 # define minimum cmake version
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6.2)
+cmake_minimum_required(VERSION 3.1.1)
+if(COMMAND cmake_policy)
+    if(POLICY CMP0043)
+        cmake_policy(SET CMP0043 NEW)
+    endif(POLICY CMP0043)
+    cmake_policy(SET CMP0048 NEW)
+    if(POLICY CMP0077)
+        cmake_policy(SET CMP0077 NEW)
+    endif(POLICY CMP0077)
+endif(COMMAND cmake_policy)
 
-PROJECT(celestial_navigation_pi)
+set(VERBOSE_NAME "CelestialNavigation")
+set(COMMON_NAME "celestialnavigation")  # Search "getcommonname"in <plugin_pi>.cpp
+set(TITLE_NAME "CELESTIALNAVIGATION")
+set(PACKAGE_CONTACT  "Sean D'Epagnier ")
+set(PACKAGE "celestialnavigation")
 
-SET(PACKAGE_NAME celestial_navigation_pi)
-SET(VERBOSE_NAME CelestialNavigation)
-SET(TITLE_NAME CELESTIALNAVIGATION)
-SET(CPACK_PACKAGE_CONTACT "Sean D'Epagnier ")
+set(VERSION_MAJOR "2")
+set(VERSION_MINOR "3")
+set(VERSION_PATCH "1")
+set(VERSION_TWEAK "0")
+set(VERSION_DATE "2020-7-07")
+set(OCPN_MIN_VERSION "ov50")
+set(OCPN_API_VERSION_MAJOR "1")
+set(OCPN_API_VERSION_MINOR "16")
+set(TP_COMMENT "  * Release for O5 using CI")
 
-MESSAGE (STATUS "*** Building ${PACKAGE_NAME} ***")
+set(PARENT "opencpn")
 
-INCLUDE( VERSION.cmake )
-SET(PLUGIN_VERSION "${PLUGIN_VERSION_MAJOR}.${PLUGIN_VERSION_MINOR}.${PLUGIN_VERSION_PATCH}" )
+#Used to set up a local webserver with git loaded, for testing purposes.
+set(GIT_REPOSITORY_SERVER "github.com")
 
-INCLUDE("cmake/PluginConfigure.cmake")
+#No longer needed, queried.
+#set(GIT_USER "rgleason")
+#set(GIT_REPOSITORY_NAME "celestial_navigation_pi")
 
-SET(SRC_CELESTIAL_NAVIGATION
+# Specifies Cloudsmith upload repository suffix for each catalog
+set(PROD "prod")    #Standard Repos
+set(BETA "beta")    #Standard Repos
+set(ALPHA "alpha")  #Standard Repos
+
+#set(CLOUDSMITH_USER "jon-gough")
+#set(CLOUDSMITH_USER "rick-gleason")
+set(CLOUDSMITH_USER "opencpn")
+
+# Set if yourCloudsmith Base Repository name does not match your Git Repository name.
+# set(CLOUDSMITH_BASE_REPOSITORY "celestical_navigation_pi")
+# set(CLOUDSMITH_BASE_REPOSITORY "opencpn-plugins") #Rick's customization
+set (CLOUDSMITH_BASE_REPOSITORY "celestial-navigation")  #without the pi 
+
+set(XML_INFO_URL "https://opencpn.org/OpenCPN/plugins/celestialnav.html")
+set(XML_SUMMARY "Celestial Navigation Plugin for OpenCPN")
+set(XML_DESCRIPTION "Celestial Navigation PlugIn for OpenCPN.\n\
+Implements nautical almanac for sun, moon, planets,\n\
+and various navigational stars.\n\
+Compute position fix from celestial measurements.")
+
+##
+## ----- Modify section above to include all the details for your plugin ----- ##
+## ----- Modify section below if there are special requirements for the plugin ----- ##
+##
+
+# option(PLUGIN_USE_SVG "Use SVG graphics" ON)
+
+set(CMAKE_CXX_STANDARD 11)
+
+# Prefer libGL.so to libOpenGL.so, see CMP0072
+set(OpenGL_GL_PREFERENCE "LEGACY")
+# Don't use local version of GLU library
+set(USE_LOCAL_GLU FALSE)
+option(USE_GL "Enable OpenGL support" OFF)
+message(STATUS "${CMLOC}USE_GL: ${USE_GL}")
+
+if("${CMAKE_BUILD_TYPE}" STREQUAL "")
+    set(CMAKE_BUILD_TYPE
+        "Release"
+        CACHE STRING "Choose the type of build" FORCE)
+endif("${CMAKE_BUILD_TYPE}" STREQUAL "")
+set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "" "Debug" "Release" "RelWithDebInfo" "MinSizeRel")
+message(STATUS "${CMLOC}Build type: ${CMAKE_BUILD_TYPE}")
+
+##
+## ----- The statements below are used to setup standard variables that are required by the CMAKE process - do not remove ----- ##
+##
+
+project(${PACKAGE})
+
+include("cmake/PluginSetup.cmake")
+
+##
+## ----- The above is used to setup standard variables that are required by the CMAKE process - do not remove ----- ##
+## ----- Modify section below if there are special requirements for the plugin ----- ##
+##
+set(CMAKE_VERBOSE_MAKEFILE ON)
+
+option(Plugin_CXX11 "Use c++11" OFF)
+
+##
+## ----- Modify section above if there are special requirements for the plugin ----- ##
+## ----- do not change next section - needed to configure build process ----- ##
+##
+
+include("cmake/PluginConfigure.cmake")
+
+##
+## ----- do not change section above - needed to configure build process ----- ##
+# ----- Change below to match project requirements for source, headers, etc. ----- ##
+# 
+
+SET(SRC_
           src/astrolabe/calendar.cpp
           src/astrolabe/dicts.cpp
           src/astrolabe/dynamical.cpp
@@ -49,6 +154,20 @@ SET(SRC_CELESTIAL_NAVIGATION
           src/celestial_navigation_pi.cpp
 	)
 
+SET(HDRS
+        src/celestial_navigation_pi.h
+        src/CelestialNavigationDialog.h
+        src/CelestialNavigationUI.h
+        src/ClockCorrectionDialog.h
+        src/FindBodyDialog.h
+		src/FixDialog.h
+		src/geodesic.h
+		src/icons.h
+		src/Sight.h
+		src/SightDialog.h
+	)	
+		
+
 IF(WIN32)
 SET(SRC_TINYXML
             src/tinyxml/tinyxml.cpp
@@ -56,10 +175,51 @@ SET(SRC_TINYXML
             src/tinyxml/tinyxmlerror.cpp
 )
 ENDIF(WIN32)
+##
+# Modify/configure 'Include' Directories below for the Plugin
+##
+
+#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude)
+#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/extinclude)
+#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/)
+#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/wx/include)
+#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude/wxcurl)
+#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude/wxcurl/include)
+#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/lz4)
+#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/bitmaps)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/astrolabe)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/geomag)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/api-16)
+
+##
+## Statement below is required to collect all the set( headers and SRCS  - Adjust as required
+## This add_library  can be used in conditionals below.
+##
+##    SET(EXTSRC  ${EXTSRC}   etc   Can be in an if statement as below
+##
+					  
 
 ADD_DEFINITIONS(-DTIXML_USE_STL)
-ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRC_CELESTIAL_NAVIGATION} ${SRC_TINYXML})
+ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRC} ${HDRS} ${SRC_TINYXML})
+
+
+
+#These are NOT used in Testplugin, used for other plugins
+#include("cmake/PluginJSON.cmake")
+#include("cmake/PluginXML.cmake")
+#include("cmake/PluginGL.cmake")
+##
+## ----- Change above to match project requirements ----- ##
+##
+
+##
+## ----- do not change next section - needed to configure build process ----- ##
+##							   
 
 INCLUDE("cmake/PluginInstall.cmake")
 INCLUDE("cmake/PluginLocalization.cmake")
 INCLUDE("cmake/PluginPackage.cmake")
+
+##
+## ----- do not change section above - needed to configure build process ----- ##
+##		

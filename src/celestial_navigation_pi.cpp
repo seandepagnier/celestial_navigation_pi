@@ -109,12 +109,12 @@ bool celestial_navigation_pi::DeInit(void)
 
 int celestial_navigation_pi::GetAPIVersionMajor()
 {
-    return MY_API_VERSION_MAJOR;
+    return OCPN_API_VERSION_MAJOR;
 }
 
 int celestial_navigation_pi::GetAPIVersionMinor()
 {
-    return MY_API_VERSION_MINOR;
+    return OCPN_API_VERSION_MINOR;
 }
 
 int celestial_navigation_pi::GetPlugInVersionMajor()
@@ -134,7 +134,8 @@ wxBitmap *celestial_navigation_pi::GetPlugInBitmap()
 
 wxString celestial_navigation_pi::GetCommonName()
 {
-    return _("Celestial Navigation");
+ //   return _("Celestial Navigation");
+	return _T(PLUGIN_COMMON_NAME);	
 }
 
 wxString celestial_navigation_pi::GetShortDescription()

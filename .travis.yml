@@ -1,55 +1,40 @@
 language: cpp
-os:
-- linux
-- osx
-before_install:
-- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update; fi
-- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
-install:
-- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install build-essential
-  cmake gettext git-core gpsd gpsd-clients libgps-dev wx-common libwxgtk3.0-dev libglu1-mesa-dev
-  libgtk2.0-dev wx3.0-headers libbz2-dev libtinyxml-dev libportaudio2 portaudio19-dev
-  libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev;
-  fi
-- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-    brew install cairo libexif xz libarchive;
-    wget http://opencpn.navnux.org/build_deps/wx312_opencpn50_macos109.tar.xz;
-    tar xJf wx312_opencpn50_macos109.tar.xz -C /tmp;
-    export PATH="/usr/local/opt/gettext/bin:$PATH";
-    echo 'export PATH="/usr/local/opt/gettext/bin:$PATH"' >> ~/.bash_profile;
-    wget http://opencpn.navnux.org/build_deps/Packages.dmg;
-    hdiutil attach Packages.dmg;
-    sudo installer -pkg "/Volumes/Packages 1.2.5/Install Packages.pkg" -target "/";
-  fi
-script:
-- mkdir -p build
-- cd build
-- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then cmake -DwxWidgets_CONFIG_EXECUTABLE=/tmp/wx312_opencpn50_macos109/bin/wx-config -DwxWidgets_CONFIG_OPTIONS="--prefix=/tmp/wx312_opencpn50_macos109" -DCMAKE_INSTALL_PREFIX=/tmp/opencpn -DCMAKE_OSX_DEPLOYMENT_TARGET=10.9 ..; fi
-- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cmake ..; fi
-- make
-- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then make create-pkg; ls -la; pwd; fi
-env:
-  global:
-  - secure: gzuRKPoISDCbjfRdI+KS0H3/9T4CDLybTxLwirUJ660IaFTewNYXj/pyOJOr7miOrBmQaJQw7aKAG4fpfbHpY0kkLQe2JHaJv84uyuev4QuJGtfyim3a2U4FbxtCyyjREyGI15enBra3N1xKtQqNbnkgOCKPtWSAlX4rf1elj5A=
-addons:
-  coverity_scan:
-    project:
-      name: nohal/celestial_navigation_pi
-      description: Build submitted via Travis CI
-    notification_email: pavel@kalian.cz
-    build_command_prepend: mkdir -p build; cd build; cmake ..; make clean
-    build_command: make
-    branch_pattern: coverity_scan
-before_deploy:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export RELEASE_PKG_FILE=$(ls *.pkg); fi
-deploy:
-  provider: releases
-  api_key:
-    secure: VU95qFxSJuxVzddd23xL3XYUxYVRl50Kov1bhUc5Mq9ClZ+t4P1M45nuTPm8787UREkUXV5+pU+T6vLvcpBb8NkWs2gbU7hgNcTTYRjSY93+Ot+GHDOiYnKlf/td3KzE06jfoJoW8QX5cuNfYkNNdh+PW0eV1ixk60OjK9//MZw=
-  file: "${RELEASE_PKG_FILE}"
-  skip_cleanup: true
-  on:
-    tags: true
-    all_branches: true
-    os: osx
-    repo: nohal/celestial_navigation_pi
+
+matrix:
+  include:
+# The following 2 env: sections are now being done in circleci but are left here for examples
+#  - env:
+#    - OCPN_TARGET=stretch-armhf
+#    - DOCKER_IMAGE=raspbian/stretch
+#    - BUILD_FLAGS="-j2"
+#    - BUILD_ENV=raspbian
+#    services:
+#    - docker
+#    before_script:
+#    - travis_wait 120 sleep infinity & bash ./ci/travis-build-raspbian-armhf-part1.sh
+#    script:
+#    - travis_wait 120 sleep infinity & bash ./ci/travis-build-raspbian-armhf-part2.sh
+#  - env:
+#    - OCPN_TARGET=buster-armhf
+#    - DOCKER_IMAGE=jongough/raspbian-buster:plugin_build_tooling_current
+#    - BUILD_FLAGS=-j2
+#    - BUILD_ENV=raspbian
+#    services:
+#    - docker
+#    before_script:
+#    - travis_wait 120 sleep infinity & bash ./ci/travis-build-raspbian-armhf-part1.sh
+#    script:
+#    - travis_wait 120 sleep infinity & bash ./ci/travis-build-raspbian-armhf-part2.sh
+# The following env: section is for arm64 and cannot yet be run in circleci
+  - env:
+    - OCPN_TARGET=bionic-armh64
+    - DOCKER_IMAGE=arm64v8/ubuntu:18.04
+    - BUILD_FLAGS=-j2
+    - BUILD_ENV=ubuntu
+    services:
+    - docker
+    before_script:
+    - travis_wait 120 sleep infinity & bash ./ci/travis-build-raspbian-armhf-part1.sh
+    script:
+    - travis_wait 120 sleep infinity & bash ./ci/travis-build-raspbian-armhf-part2.sh
+    - bash ./ci/cloudsmith-upload.sh
