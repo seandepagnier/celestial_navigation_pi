@@ -45,7 +45,6 @@ set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
 set(TP_COMMENT "  * Release for O5 using CI")
 
-
 set(PARENT "opencpn")
 
 #Used to set up a local webserver with git loaded, for testing purposes.
@@ -128,7 +127,8 @@ include("cmake/PluginConfigure.cmake")
 # ----- Change below to match project requirements for source, headers, etc. ----- ##
 # 
 
-SET(SRC_
+SET(SRCS
+          src/astrolabe/astrolabe.hpp
           src/astrolabe/calendar.cpp
           src/astrolabe/dicts.cpp
           src/astrolabe/dynamical.cpp
@@ -168,7 +168,6 @@ SET(HDRS
 		src/SightDialog.h
 	)	
 		
-
 IF(WIN32)
 SET(SRC_TINYXML
             src/tinyxml/tinyxml.cpp
@@ -190,6 +189,7 @@ ENDIF(WIN32)
 #include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/bitmaps)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/astrolabe)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/geomag)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/tinyxml)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/api-16)
 
 ##
@@ -197,13 +197,10 @@ include_directories(BEFORE ${PROJECT_SOURCE_DIR}/api-16)
 ## This add_library  can be used in conditionals below.
 ##
 ##    SET(EXTSRC  ${EXTSRC}   etc   Can be in an if statement as below
-##
-					  
+##				  
 
 ADD_DEFINITIONS(-DTIXML_USE_STL)
-ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRC} ${HDRS} ${SRC_TINYXML})
-
-
+ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRCS} ${HDRS} ${SRC_TINYXML})
 
 #These are NOT used in Testplugin, used for other plugins
 #include("cmake/PluginJSON.cmake")
