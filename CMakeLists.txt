@@ -166,6 +166,8 @@ SET(HDRS
 		src/icons.h
 		src/Sight.h
 		src/SightDialog.h
+		
+		api-16/ocpn-plugin.h
 	)	
 		
 IF(WIN32)
