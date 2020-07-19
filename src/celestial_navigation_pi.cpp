@@ -53,7 +53,7 @@ extern "C" DECL_EXP void destroy_pi(opencpn_plugin* p)
 //---------------------------------------------------------------------------------------------------------
 
 celestial_navigation_pi::celestial_navigation_pi(void *ppimgr)
-    :opencpn_plugin_18 (ppimgr)
+    :opencpn_plugin_116 (ppimgr)
 {
     // Create the PlugIn icons
     initialize_images();
