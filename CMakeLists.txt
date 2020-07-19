@@ -4,7 +4,7 @@
 ## License:     GPLv3
 ##---------------------------------------------------------------------------
 # Frontend2 Author: Jon Gough  
-# Frontend2: v1.0.125
+# Frontend2: v1.0.127
 # ---------------------------------------------------------------------------
 ## ----- When changing this file do NOT change the order in which sections occur        ----- ##
 ## ----- Changes should only be made between the section blocks that identify where     ----- ##
@@ -30,16 +30,17 @@ if(COMMAND cmake_policy)
 endif(COMMAND cmake_policy)
 
 set(VERBOSE_NAME "Celestial_Navigation")
-set(COMMON_NAME "celestial_navigation")  # Search "getcommonname"in <plugin_pi>.cpp
+set(COMMON_NAME "Celestial Navigation")  # Search "getcommonname"in <plugin_pi>.cpp
 set(TITLE_NAME "CELESTIALNAVIGATION")
 set(PACKAGE_CONTACT  "Sean D'Epagnier ")
 set(PACKAGE "celestial_navigation")
-
+set(SHORT_DESCRIPTION "Celestial Navigation Plugin for OpenCPN")
+set(LONG_DESCRIPTION "Implements nautical almanac for sun, moon, planets and various navigational stars. Compute position fix from celestial measurements.")
 set(VERSION_MAJOR "2")
 set(VERSION_MINOR "3")
 set(VERSION_PATCH "2")
-set(VERSION_TWEAK "1")
-set(VERSION_DATE "2020-7-19")
+set(VERSION_TWEAK "2")
+set(VERSION_DATE "2020-7-20")
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
@@ -55,9 +56,9 @@ set(GIT_REPOSITORY_SERVER "github.com")
 #set(GIT_REPOSITORY_NAME "celestial_navigation_pi")
 
 # Specifies Cloudsmith upload repository suffix for each catalog
-set(PROD "prod")    #Standard Repos
-set(BETA "beta")    #Standard Repos
-set(ALPHA "alpha")  #Standard Repos
+set(PROD "prod") # Standard Repos
+set(BETA "beta") # Standard Repos
+set(ALPHA "alpha") # Standard Repos
 
 #set(CLOUDSMITH_USER "jon-gough")
 #set(CLOUDSMITH_USER "rick-gleason")
@@ -69,11 +70,8 @@ set(CLOUDSMITH_USER "opencpn")
 set (CLOUDSMITH_BASE_REPOSITORY "celestial-navigation")  #without the pi 
 
 set(XML_INFO_URL "https://opencpn.org/OpenCPN/plugins/celestialnav.html")
-set(XML_SUMMARY "Celestial Navigation Plugin for OpenCPN")
-set(XML_DESCRIPTION "Celestial Navigation PlugIn for OpenCPN.\n\
-Implements nautical almanac for sun, moon, planets,\n\
-and various navigational stars.\n\
-Compute position fix from celestial measurements.")
+set(XML_SUMMARY ${SHORT_DESCRIPTION})
+set(XML_DESCRIPTION ${LONG_DESCRIPTION})
 
 ##
 ## ----- Modify section above to include all the details for your plugin ----- ##
@@ -104,8 +102,9 @@ message(STATUS "${CMLOC}Build type: ${CMAKE_BUILD_TYPE}")
 ##
 
 project(${PACKAGE})
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake;")
 
-include("cmake/PluginSetup.cmake")
+include("PluginSetup")
 
 ##
 ## ----- The above is used to setup standard variables that are required by the CMAKE process - do not remove ----- ##
@@ -120,7 +119,7 @@ option(Plugin_CXX11 "Use c++11" OFF)
 ## ----- do not change next section - needed to configure build process ----- ##
 ##
 
-include("cmake/PluginConfigure.cmake")
+include("PluginConfigure")
 
 ##
 ## ----- do not change section above - needed to configure build process ----- ##
@@ -205,9 +204,9 @@ ADD_DEFINITIONS(-DTIXML_USE_STL)
 ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRCS} ${HDRS} ${SRC_TINYXML})
 
 #These are NOT used in Testplugin, used for other plugins
-#include("cmake/PluginJSON.cmake")
-#include("cmake/PluginXML.cmake")
-#include("cmake/PluginGL.cmake")
+#include("PluginJSON")
+#include("PluginXML")
+#include("PluginGL")
 ##
 ## ----- Change above to match project requirements ----- ##
 ##
@@ -216,9 +215,9 @@ ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRCS} ${HDRS} ${SRC_TINYXML})
 ## ----- do not change next section - needed to configure build process ----- ##
 ##							   
 
-INCLUDE("cmake/PluginInstall.cmake")
-INCLUDE("cmake/PluginLocalization.cmake")
-INCLUDE("cmake/PluginPackage.cmake")
+include("PluginInstall")
+include("PluginLocalization")
+include("PluginPackage")
 
 ##
 ## ----- do not change section above - needed to configure build process ----- ##
