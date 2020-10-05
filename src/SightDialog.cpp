@@ -27,7 +27,7 @@
 
 #include <wx/wx.h>
 #include <wx/listimpl.cpp>    // toh, 2009.02.22
-
+#include <GL/gl.h>
 #include "wx/notebook.h"
 #include "wx/datetime.h"
 #include "wx/colordlg.h"
