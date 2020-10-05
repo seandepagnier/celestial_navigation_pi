@@ -23,6 +23,7 @@ src/geodesic.c
 src/transform_star.cpp
 src/epv00.cpp
 src/celestial_navigation_pi.cpp
+api-16/ocpn_plugin.h
 src/celestial_navigation_pi.h
 src/CelestialNavigationDialog.h
 src/CelestialNavigationUI.h

@@ -12,3 +12,5 @@
 // API version of OCPN to use
 #define OCPN_API_VERSION_MAJOR ${OCPN_API_VERSION_MAJOR}
 #define OCPN_API_VERSION_MINOR ${OCPN_API_VERSION_MINOR}
+// Include extra version settings if required
+${EXTRA_VERSION_INFO}

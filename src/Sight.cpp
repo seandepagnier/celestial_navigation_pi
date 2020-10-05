@@ -25,6 +25,12 @@
  *
  */
 
+//#include "wx/wxprec.h"
+
+//#ifndef  WX_PRECOMP
+//  #include "wx/wx.h"
+//#endif //precompiled headers
+
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>

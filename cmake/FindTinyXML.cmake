@@ -1,6 +1,9 @@
-# * Find TinyXML Find the native TinyXML includes and library
+# - Find TinyXML
+# Find the native TinyXML includes and library
 #
-# TINYXML_FOUND       - True if TinyXML found. TINYXML_INCLUDE_DIR - where to find tinyxml.h, etc. TINYXML_LIBRARIES   - List of libraries when using TinyXML.
+#   TINYXML_FOUND       - True if TinyXML found.
+#   TINYXML_INCLUDE_DIR - where to find tinyxml.h, etc.
+#   TINYXML_LIBRARIES   - List of libraries when using TinyXML.
 #
 
 if(TINYXML_INCLUDE_DIR)

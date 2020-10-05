@@ -5,6 +5,11 @@
 set(SAVE_CMLOC ${CMLOC})
 set(CMLOC "PluginSetup: ")
 
+if(NOT DEFINED GIT_REPOSITORY_SERVER)
+    set(GIT_REPOSITORY_SERVER "github.com")
+    message(STATUS "${CMLOC}GIT_REPOSITORY_SERVER not found setting to: ${GIT_REPOSITORY_SERVER}")
+endif()
+
 # Export variables used in plugin setup: GIT_HASH, GIT_COMMIT, PKG_TARGET, PKG_TARGET_VERSION and PKG_NVR
 if(NOT ${PACKAGE} MATCHES "(.*)_pi")
     set(PACKAGE_NAME ${PACKAGE}_pi)
@@ -60,6 +65,14 @@ elseif(MSVC)
 elseif(APPLE)
     set(PKG_TARGET "darwin")
     execute_process(COMMAND "sw_vers" "-productVersion" OUTPUT_VARIABLE PKG_TARGET_VERSION)
+elseif(_wx_selected_config MATCHES "androideabi-qt-arm64")
+     set(PKG_TARGET "Android")
+     set(PKG_TARGET_VERSION 16)
+     set(QT_ANDROID ON)
+elseif(_wx_selected_config MATCHES "androideabi-qt-armhf")
+     set(PKG_TARGET "Android")
+     set(PKG_TARGET_VERSION 16)
+     set(QT_ANDROID ON)
 elseif(UNIX)
     # Some linux dist:
     execute_process(COMMAND "lsb_release" "-is" OUTPUT_VARIABLE PKG_TARGET)
@@ -69,7 +82,7 @@ else()
     set(PKG_TARGET_VERSION 1)
 endif()
 
-if(NOT WIN32)
+if(NOT WIN32 AND NOT QT_ANDROID)
     # default
     set(ARCH "i386")
     if(UNIX AND NOT APPLE)
@@ -151,9 +164,15 @@ if(NOT WIN32)
         set(ARCH "x86_64")
     endif(APPLE)
 
-else(NOT WIN32)
-    set(ARCH "x86_64")
-endif(NOT WIN32)
+else(NOT WIN32 AND NOT QT_ANDROID)
+  set(ARCH "x86_64")
+  if(_wx_selected_config MATCHES "androideabi-qt-arm64")
+     set(ARCH "arm64")
+  endif(_wx_selected_config MATCHES "androideabi-qt-arm64")
+  if(_wx_selected_config MATCHES "androideabi-qt-armhf")
+     set(ARCH "armhf")              
+  endif(_wx_selected_config MATCHES "androideabi-qt-armhf")
+endif(NOT WIN32 AND NOT QT_ANDROID)
 
 message(STATUS "${CMLOC}ARCH: ${ARCH}")
 
@@ -234,5 +253,17 @@ if(CMAKE_VERSION VERSION_GREATER 3.9)
         set(CMAKE_CXX_CPPCHECK ${CPPCHECK_EXECUTABLE})
     endif()
 endif()
+
+find_program(HAVE_LD_SO
+    PATHS /lib NO_DEFAULT_PATH
+    NAMES ld.so ld-linux.so.1  ld-linux.so.2
+)
+
+set(CMAKE_SKIP_BUILD_RPATH true)
+if (HAVE_LD_SO)   # linux.
+    message(STATUS "${CMLOC}Setting RPATH: \$ORIGIN:\$ORIGIN/..")
+    set(CMAKE_BUILD_RPATH "\$ORIGIN;\$ORIGIN/..")
+    set(CMAKE_INSTALL_RPATH "\$ORIGIN;\$ORIGIN/..")
+endif ()
 
 set(CMLOC ${SAVE_CMLOC})
