@@ -504,13 +504,22 @@ void CelestialNavigationDialog::OnClockOffset( wxCommandEvent& event )
     m_ClockCorrectionDialog.Show();
 }
 
-void CelestialNavigationDialog::OnInformation( wxCommandEvent& event )
+//void CelestialNavigationDialog::OnInformation( wxCommandEvent& event )
+//{
+//    wxString infolocation = *GetpSharedDataLocation()
+//        + _T("plugins/celestial_navigation_pi/data/")
+//        + _("Celestial_Navigation_Information.html");
+//    wxLaunchDefaultBrowser(_T("file://") + infolocation);
+//}
+
+    void CelestialNavigationDialog::OnInformation( wxCommandEvent& event )
 {
-    wxString infolocation = *GetpSharedDataLocation()
-        + _T("plugins/celestial_navigation_pi/data/")
-        + _("Celestial_Navigation_Information.html");
+    wxString infolocation =GetPluginDataDir("celestial_navigation_pi")
+       + _T("/data/")
+       + _("Celestial_Navigation_Information.html");
     wxLaunchDefaultBrowser(_T("file://") + infolocation);
 }
+
 
 void CelestialNavigationDialog::OnHide( wxCommandEvent& event )
 {
