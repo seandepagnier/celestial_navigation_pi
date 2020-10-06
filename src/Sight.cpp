@@ -44,6 +44,7 @@
 
 #include "ocpn_plugin.h"
 
+#include "celestial_navigation_pi.h"
 #include "Sight.h"
 #include "transform_star.hpp"
 
@@ -140,8 +141,10 @@ using namespace astrolabe::vsop87d;
 /* calculate what position the body for this sight is directly over at a given time */ 
 void Sight::BodyLocation(wxDateTime time, double *lat, double *lon, double *ghaast, double *rad)
 {
-    astrolabe::globals::vsop87d_text_path = (const char *)GetpSharedDataLocation()->mb_str();
-    astrolabe::globals::vsop87d_text_path.append("plugins/celestial_navigation_pi/data/");
+//    astrolabe::globals::vsop87d_text_path = (const char *)GetPluginDataDir(celestial_navigation_pi)->mb_str();
+    astrolabe::globals::vsop87d_text_path = GetPluginDataDir("celestial_navigation_pi");
+//    astrolabe::globals::vsop87d_text_path.append("plugins/celestial_navigation_pi/data/");
+    astrolabe::globals::vsop87d_text_path.append("/data/");
     astrolabe::globals::vsop87d_text_path.append("vsop87d.txt");
 
     time.MakeFromUTC();

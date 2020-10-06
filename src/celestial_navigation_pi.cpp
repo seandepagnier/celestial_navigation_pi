@@ -167,8 +167,9 @@ void celestial_navigation_pi::OnToolbarToolCallback(int id)
     int ret;
     if(!m_pCelestialNavigationDialog) {
         /* load the geographical magnetic table */
-        wxString geomag_text_path = *GetpSharedDataLocation();
-        geomag_text_path.Append(_T("plugins/celestial_navigation_pi/data/IGRF11.COF"));
+        wxString geomag_text_path = GetPluginDataDir("celestial_navigation_pi");   
+//        geomag_text_path.Append(_T("plugins/celestial_navigation_pi/data/IGRF11.COF"));
+        geomag_text_path.Append(_T("/data/IGRF11.COF"));		
         if((ret = geomag_load(geomag_text_path.mb_str())) < 0) {
 	    wxString message = _("Failed to load file: ") + geomag_text_path + "\n";
 	    switch (ret) {
