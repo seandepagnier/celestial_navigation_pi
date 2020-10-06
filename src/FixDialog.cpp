@@ -108,7 +108,7 @@ double MinCirclePoints(double &mincx, double &mincy,
     points.pop_back();
     all_points.push_front(cpoints);
 
-    if(isinf(mind))
+    if(::isinf(mind))
         return NAN;
     return mind;
 }
