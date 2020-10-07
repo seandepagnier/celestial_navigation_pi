@@ -33,7 +33,9 @@
 #include "Sight.h"
 
 #include <vector>
-using namespace std;
+
+//#include <cmath>
+//using namespace std;
 
 FixDialog::FixDialog(wxWindow *parent) :
     FixDialogBase(parent),
