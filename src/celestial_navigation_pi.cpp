@@ -39,6 +39,7 @@
 #include "Sight.h"
 #include "celestial_navigation_pi.h"
 #include "icons.h"
+
 using namespace std;
 
 // the class factories, used to create and destroy instances of the PlugIn
