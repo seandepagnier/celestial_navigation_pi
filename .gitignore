@@ -1,0 +1,4 @@
+build
+buildwin
+data/
+!data/*.svg
