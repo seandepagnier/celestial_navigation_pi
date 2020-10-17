@@ -34,6 +34,8 @@
 #include <wx/listimpl.cpp>
 #include <wx/fileconf.h>
 
+#include <GL/gl.h>
+
 #include "ocpn_plugin.h"
 
 #include "Sight.h"

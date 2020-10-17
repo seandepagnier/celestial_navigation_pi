@@ -49,6 +49,18 @@ SET(SRC_CELESTIAL_NAVIGATION
           src/celestial_navigation_pi.cpp
 	)
 
+#added for android
+set(LIBHDRS
+    libs/GL/gl.h
+    libs/GL/gl_private.h
+    libs/GL/glext.h
+    libs/GL/glu.h
+#    libs/wx/include/wx/json_defs.h
+#    libs/wx/include/wx/jsonreader.h
+#    libs/wx/include/wx/jsonval.h
+#    libs/wx/include/wx/jsonwriter.h
+	)
+
 IF(WIN32)
 SET(SRC_TINYXML
             src/tinyxml/tinyxml.cpp
@@ -56,6 +68,15 @@ SET(SRC_TINYXML
             src/tinyxml/tinyxmlerror.cpp
 )
 ENDIF(WIN32)
+
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src)  #nor so sure this is needed, trying to fix cnav.
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/astrolabe)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/geomag)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/tinyxml)
+# include_directories(BEFORE ${PROJECT_SOURCE_DIR}/api-16)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/GL)
+
 
 ADD_DEFINITIONS(-DTIXML_USE_STL)
 ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRC_CELESTIAL_NAVIGATION} ${SRC_TINYXML})

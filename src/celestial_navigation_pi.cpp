@@ -29,6 +29,8 @@
 
 #include "ocpn_plugin.h"
 
+#include <GL/gl.h>
+
 #include "Sight.h"
 #include "celestial_navigation_pi.h"
 #include "icons.h"

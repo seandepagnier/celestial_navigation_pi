@@ -34,6 +34,8 @@
 
 #include "tinyxml/tinyxml.h"
 
+#include <GL/gl.h>
+
 #include "ocpn_plugin.h"
 
 #include "icons.h"
