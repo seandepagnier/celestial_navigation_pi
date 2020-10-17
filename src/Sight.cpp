@@ -132,19 +132,14 @@ using namespace astrolabe::vsop87d;
 /* calculate what position the body for this sight is directly over at a given time */ 
 void Sight::BodyLocation(wxDateTime time, double *lat, double *lon, double *ghaast, double *rad)
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
+// <<<<<<< HEAD
     static int error_message = 1;
-=======
-    astrolabe::globals::vsop87d_text_path = (const char *)GetpSharedDataLocation()->mb_str();
-    astrolabe::globals::vsop87d_text_path.append("plugins/celestial_navigation_pi/data/");
-    astrolabe::globals::vsop87d_text_path.append("vsop87d.txt");
->>>>>>> parent of 547ae52... android support
-=======
-    astrolabe::globals::vsop87d_text_path = (const char *)GetpSharedDataLocation()->mb_str();
-    astrolabe::globals::vsop87d_text_path.append("plugins/celestial_navigation_pi/data/");
-    astrolabe::globals::vsop87d_text_path.append("vsop87d.txt");
->>>>>>> parent of 547ae52... android support
+// =======
+//    astrolabe::globals::vsop87d_text_path = (const char *)GetpSharedDataLocation()->mb_str();
+//    astrolabe::globals::vsop87d_text_path.append("plugins/celestial_navigation_pi/data/");
+//    astrolabe::globals::vsop87d_text_path.append("vsop87d.txt");
+// >>>>>>> parent of 547ae52... android support
+
 
     time.MakeFromUTC();
     double jdu = time.GetJulianDayNumber();
@@ -168,26 +163,24 @@ void Sight::BodyLocation(wxDateTime time, double *lat, double *lon, double *ghaa
             wxString err;
             const char *what = e.what();
             while(*what) err += *what++;
-<<<<<<< HEAD
-<<<<<<< HEAD
-            wxMessageDialog mdlg(NULL, _("vsop87d.txt missing or corrupt\n")
-                                 + err + _("The plugin will not work correctly"),
-                                 _("Failure Alert"), wxOK | wxICON_ERROR);
-            mdlg.ShowModal();
-            wxRemoveFile(astrolabe::globals::vsop87d_text_path);
-=======
-=======
->>>>>>> parent of 547ae52... android support
+// <<<<<<< HEAD
+//            wxMessageDialog mdlg(NULL, _("vsop87d.txt missing or corrupt\n")
+//                                 + err + _("The plugin will not work correctly"),
+//                                 _("Failure Alert"), wxOK | wxICON_ERROR);
+//            mdlg.ShowModal();
+//            wxRemoveFile(astrolabe::globals::vsop87d_text_path);
+// =======
+// >>>>>>> parent of 547ae52... android support
             wxMessageDialog mdlg(NULL, _("Astrolab failed, data unavailable:\n")
                                  + err + _("\nDid you forget to install vsop87d.txt?\n")
                                  +_("The plugin will not work correctly"),
                                  wxString(_("Failure Alert"), wxOK | wxICON_ERROR));
             mdlg.ShowModal();
             showonce = true;
-<<<<<<< HEAD
->>>>>>> parent of 547ae52... android support
-=======
->>>>>>> parent of 547ae52... android support
+// <<<<<<< HEAD
+// >>>>>>> parent of 547ae52... android support
+// =======
+// >>>>>>> parent of 547ae52... android support
         }
         if(lat) *lat = 0;
         if(lon) *lon = 0;

@@ -51,11 +51,11 @@ static wxString DataDirectory()
 }
 
 static wxString UserDataDirectory()
-{
+ {
     wxString s = wxFileName::GetPathSeparator();
     return *GetpPrivateApplicationDataLocation() + s + "plugins"
         + s + "celestial_navigation" + s;
-}
+ }
 
 /* XPM */
 static const char *eye[]={
@@ -205,9 +205,8 @@ CelestialNavigationDialog::CelestialNavigationDialog(wxWindow *parent)
             fn.Mkdir();
         }
     }
-<<<<<<< HEAD
 
-    
+// from HEAD    
 #ifdef __OCPN__ANDROID__
     GetHandle()->setAttribute(Qt::WA_AcceptTouchEvents);
     GetHandle()->grabGesture(Qt::PanGesture);
@@ -221,8 +220,9 @@ CelestialNavigationDialog::CelestialNavigationDialog(wxWindow *parent)
     GetHandle()->setStyleSheet( qtStyleSheet);
     Move(0, 0);
 #endif
-=======
->>>>>>> parent of ddd0bac... android build
+// beginning of parent of parent of ddd0bac... android build
+//
+// end of parent of ddd0bac... android build
 }
 
 #ifdef __OCPN__ANDROID__ 
