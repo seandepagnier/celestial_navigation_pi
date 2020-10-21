@@ -36,26 +36,10 @@
 
 #include "ocpn_plugin.h"
 
-#include "icons.h"
 #include "Sight.h"
 #include "SightDialog.h"
 #include "CelestialNavigationDialog.h"
 #include "celestial_navigation_pi.h"
-#include "zuFile.h"
-
-#include "astrolabe/astrolabe.hpp"
-static wxString DataDirectory()
-{
-    wxString s = wxFileName::GetPathSeparator();
-    return *GetpSharedDataLocation() + "plugins" + s + "celestial_navigation_pi" + s + "data" + s;
-}
-
-static wxString UserDataDirectory()
-{
-    wxString s = wxFileName::GetPathSeparator();
-    return *GetpPrivateApplicationDataLocation() + s + "plugins"
-        + s + "celestial_navigation" + s;
-}
 
 /* XPM */
 static const char *eye[]={
@@ -134,51 +118,6 @@ CelestialNavigationDialog::CelestialNavigationDialog(wxWindow *parent)
     pConf->Read ( _T ( "DialogWidth" ), &s.x, s.x);
     pConf->Read ( _T ( "DialogHeight" ), &s.y, s.y);
     SetSize(s);
-    
-    wxString filename = DataDirectory() + "vsop87d.txt";
-    wxFileName fn(filename);
-    if(!fn.Exists())
-        filename = UserDataDirectory() + "vsop87d.txt";
-    
-    wxFileName fn2(filename);
-#ifndef WIN32 // never hit because data is distribued easier to not compile compression support
-    if(!fn2.Exists()) {
-        wxMessageDialog mdlg(this, _("Astrolab data unavailable.\n")
-                             + filename + "\n"
-                             + _("\nWould you like to download?"),
-                             _("Failure Alert"), wxYES | wxNO | wxICON_ERROR);
-        if(mdlg.ShowModal() == wxID_YES) {
-            wxString url = "https://cfhcable.dl.sourceforge.net/project/opencpnplugins/celestial_navigation_pi/";
-            wxString path = UserDataDirectory();
-            wxString fn = "vsop87d.txt.gz";
-        
-            _OCPN_DLStatus status = OCPN_downloadFile(
-                url+fn, path+fn, _("downloading celestial navigation data file"),
-                "downloading...",
-                *_img_celestial_navigation, this,
-                OCPN_DLDS_CAN_ABORT|OCPN_DLDS_ELAPSED_TIME|OCPN_DLDS_ESTIMATED_TIME|OCPN_DLDS_REMAINING_TIME|OCPN_DLDS_SPEED|OCPN_DLDS_SIZE|OCPN_DLDS_URL|OCPN_DLDS_AUTO_CLOSE, 20);
-            if(status == OCPN_DL_NO_ERROR) {            
-                // now decompress downloaded file
-                ZUFILE *f = zu_open(path+fn.mb_str(), "rb", ZU_COMPRESS_AUTO);
-                if(f) {
-                    FILE *out = fopen(path+"vsop87d.txt", "w");
-                    if(out) {
-                        char buf[1024];
-                        for(;;) {
-                            size_t size = zu_read(f, buf, sizeof buf);
-                            fwrite(buf, size, 1, out);
-                            if(size != sizeof buf)
-                                break;
-                        }
-                        fclose(out);
-                    }
-                    zu_close(f);
-                }
-            }
-        }
-    }
-#endif
-    astrolabe::globals::vsop87d_text_path = (const char *)filename.mb_str();
 
 // create a image list for the list with just the eye icon
     wxImageList *imglist = new wxImageList(20, 20, true, 1);
@@ -194,7 +133,7 @@ CelestialNavigationDialog::CelestialNavigationDialog(wxWindow *parent)
     m_lSights->InsertColumn(rmMEASUREMENT, _("Measurement"));
     m_lSights->InsertColumn(rmCOLOR, _("Color"));
 
-    m_sights_path = UserDataDirectory() + "Sights.xml";
+    m_sights_path = celestial_navigation_pi::StandardPath() + _T("Sights.xml");
 
     if(!OpenXML(m_sights_path, false)) {
         /* create directory for plugin files if it doesn't already exist */
@@ -205,49 +144,7 @@ CelestialNavigationDialog::CelestialNavigationDialog(wxWindow *parent)
             fn.Mkdir();
         }
     }
-<<<<<<< HEAD
-
-    
-#ifdef __OCPN__ANDROID__
-    GetHandle()->setAttribute(Qt::WA_AcceptTouchEvents);
-    GetHandle()->grabGesture(Qt::PanGesture);
-    GetHandle()->setStyleSheet( qtStyleSheet);
-
-    m_lSights->GetHandle()->setAttribute(Qt::WA_AcceptTouchEvents);
-    m_lSights->GetHandle()->grabGesture(Qt::PanGesture);
-    m_lSights->Connect( wxEVT_QT_PANGESTURE,
-                       (wxObjectEventFunction) (wxEventFunction) &CelestialNavigationDialog::OnEvtPanGesture, NULL, this );
-
-    GetHandle()->setStyleSheet( qtStyleSheet);
-    Move(0, 0);
-#endif
-=======
->>>>>>> parent of ddd0bac... android build
 }
-
-#ifdef __OCPN__ANDROID__ 
-void CelestialNavigationDialog::OnEvtPanGesture( wxQT_PanGestureEvent &event)
-{
-    switch(event.GetState()){
-        case GestureStarted:
-            m_startPos = GetPosition();
-            m_startMouse = event.GetCursorPos(); //g_mouse_pos_screen;
-            break;
-        default:
-        {
-            wxPoint pos = event.GetCursorPos();
-            int x = wxMax(0, pos.x + m_startPos.x - m_startMouse.x);
-            int y = wxMax(0, pos.y + m_startPos.y - m_startMouse.y);
-            int xmax = ::wxGetDisplaySize().x - GetSize().x;
-            x = wxMin(x, xmax);
-            int ymax = ::wxGetDisplaySize().y - GetSize().y;          // Some fluff at the bottom
-            y = wxMin(y, ymax);
-            
-            Move(x, y);
-        } break;
-    }
-}
-#endif
 
 CelestialNavigationDialog::~CelestialNavigationDialog()
 {
