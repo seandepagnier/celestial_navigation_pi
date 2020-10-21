@@ -962,14 +962,11 @@ int DECL_EXP PI_PLIBRenderObjectToGL( const wxGLContext &glcc, PI_S57Obj *pObj,
                                     PlugIn_ViewPort *vp, wxRect &render_rect );
 
 /* API 1.11 OpenGL Display List and vertex buffer object routines
-
    Effectively these two routines cancel each other so all
    of the translation, scaling and rotation can be done by opengl.
-
    Display lists need only be built infrequently, but used in each frame
    greatly accelerates the speed of rendering.  This avoids costly calculations,
    and also allows the vertexes to be stored in graphics memory.
-
    static int dl = 0;
    glPushMatrix();
    PlugInMultMatrixViewport(current_viewport);
