@@ -47,10 +47,34 @@ SET(SRC_CELESTIAL_NAVIGATION
           src/zuFile.cpp
 	)
 
+SET(HDRS
+        src/celestial_navigation_pi.h
+        src/CelestialNavigationDialog.h
+        src/CelestialNavigationUI.h
+        src/ClockCorrectionDialog.h
+        src/FindBodyDialog.h
+		src/FixDialog.h
+		src/geodesic.h
+		src/icons.h
+		src/Sight.h
+		src/SightDialog.h
+	)	
+
+SET(LIBHDRS
+         include/GL/gl.h
+         include/GL/gl_private.h
+         include/GL/glext.h
+         include/GL/glu.h
+         src/zlib-1.2.3/zconf.h
+		 src/zlib-1.2.3/zlib.h
+		 src/bzip2/bzip.h
+	)
+
 INCLUDE("cmake/PluginXML.cmake")
 INCLUDE("cmake/PluginGL.cmake")
 
-ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRC_CELESTIAL_NAVIGATION} ${SRC_TINYXML} ${SRC_PLUGINGL})
+ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRC_CELESTIAL_NAVIGATION}  ${SRC_TINYXML} ${SRC_PLUGINGL})
+# ${HDRS} ${LIBHDRS}
 
 INCLUDE("cmake/PluginInstall.cmake")
 INCLUDE("cmake/PluginLocalization.cmake")
