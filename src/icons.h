@@ -11,4 +11,8 @@ extern void initialize_images(void);
 
 extern wxBitmap *_img_celestial_navigation;
 
+#ifdef PLUGIN_USE_SVG
+extern wxString _svg_celestial_navigation;
+#endif
+
 #endif /* ICONS_H */

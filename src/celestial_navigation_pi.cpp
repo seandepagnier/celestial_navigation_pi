@@ -82,6 +82,21 @@ int celestial_navigation_pi::Init(void)
 {
     AddLocaleCatalog( _T("opencpn-celestial_navigation_pi") );
 
+//From watchdog
+
+#ifdef PLUGIN_USE_SVG
+    m_leftclick_tool_id = InsertPlugInToolSVG(  "Watchdog" , _svg_celestial_navigation, _svg_celestial_navigation,
+        _svg_celestial_navigation, wxITEM_CHECK, _( "Celestial_Navigation" ),  "" , NULL, CELESTIAL_NAVIGATION_TOOL_POSITION, 0, this);
+#else
+    m_leftclick_tool_id  = InsertPlugInTool
+        ("", _img_celestial_navigation, _img_celestial_navigation, wxITEM_NORMAL,
+         _("Celestial_Navigation"), "", NULL, CELESTIAL_NAVIGATION_TOOL_POSITION, 0, this);
+#endif
+
+// end from watchog
+
+
+
     // Get a pointer to the opencpn display canvas, to use as a parent for windows created
     m_parent_window = GetOCPNCanvasWindow();
 
