@@ -47,7 +47,7 @@ if(OCPN_FLATPAK_CONFIG OR OCPN_FLATPAK_BUILD)
     set(PKG_TARGET "flatpak")
     set(PKG_TARGET_VERSION "18.08") # As of flatpak/*yaml
 elseif(MINGW)
-    set(PKG_TARGET "mingw")
+    set(PKG_TARGET "mingw-x86_64")
     if(CMAKE_SYSTEM_VERSION)
         set(PKG_TARGET_VERSION ${CMAKE_SYSTEM_VERSION})
     else()

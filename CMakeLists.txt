@@ -3,8 +3,7 @@
 ## Copyright:   
 ## License:     GPLv3
 ##---------------------------------------------------------------------------
-# Frontend2 Author: Jon Gough  
-# Frontend2: v1.0.137.0
+# Frontend2  v1.0.139.0   Author: Jon Gough  
 # ---------------------------------------------------------------------------
 ## ----- When changing this file do NOT change the order in which sections occur        ----- ##
 ## ----- Changes should only be made between the section blocks that identify where     ----- ##
@@ -40,8 +39,8 @@ set(LONG_DESCRIPTION "Implements nautical almanac for sun, moon, planets and var
 set(VERSION_MAJOR "2")
 set(VERSION_MINOR "3")
 set(VERSION_PATCH "3")
-set(VERSION_TWEAK "5")
-set(VERSION_DATE "2020-10-06")
+set(VERSION_TWEAK "6")
+set(VERSION_DATE "2020-10-21")
 set(OCPN_MIN_VERSION "ov52")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")

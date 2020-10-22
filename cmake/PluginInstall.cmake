@@ -13,6 +13,18 @@ if(NOT APPLE)
     target_link_libraries(${PACKAGE_NAME} ${wxWidgets_LIBRARIES} ${EXTRA_LIBS})
 endif(NOT APPLE)
 
+
+# To strip symbols from mingw leamas
+# if (${BUILD_TYPE} STREQUAL "tarball" AND MINGW)
+#  find_program(STRIP_UTIL NAMES strip REQUIRED)
+#  install(CODE
+#    "execute_process(
+#      COMMAND ${STRIP_UTIL} app/files/plugins/lib${PACKAGE_NAME}.dll
+#      WORKING_DIRECTORY ${CMAKE_BINARY_DIR})"
+#  )
+#endif ()
+
+
 if(WIN32)
     if(MSVC)
         # TARGET_LINK_LIBRARIES(${PACKAGE_NAME} gdiplus.lib glu32.lib)
