@@ -39,7 +39,7 @@ set(LONG_DESCRIPTION "Implements nautical almanac for sun, moon, planets and var
 set(VERSION_MAJOR "2")
 set(VERSION_MINOR "3")
 set(VERSION_PATCH "3")
-set(VERSION_TWEAK "7")
+set(VERSION_TWEAK "8")
 set(VERSION_DATE "2020-10-21")
 set(OCPN_MIN_VERSION "ov52")
 set(OCPN_API_VERSION_MAJOR "1")
@@ -251,6 +251,11 @@ ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRCS} ${HDRS} ${LIBHDRS} ${SRC_TINYXML})
 ##==================================
 
 ADD_DEFINITIONS(-DTIXML_USE_STL)
+
+IF(PLUGIN_USE_SVG)
+  ADD_DEFINITIONS(-DCELESTIAL_NAVIGATION_USE_SVG)
+ENDIF(PLUGIN_USE_SVG)
+
 
 #needed only if glshim project is included.
 if(QT_ANDROID)
