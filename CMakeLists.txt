@@ -39,8 +39,8 @@ set(LONG_DESCRIPTION "Implements nautical almanac for sun, moon, planets and var
 set(VERSION_MAJOR "2")
 set(VERSION_MINOR "3")
 set(VERSION_PATCH "3")
-set(VERSION_TWEAK "8")
-set(VERSION_DATE "2020-10-21")
+set(VERSION_TWEAK "13")
+set(VERSION_DATE "2020-10-24")
 set(OCPN_MIN_VERSION "ov52")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
@@ -201,7 +201,7 @@ ENDIF(WIN32)
 set(EXTINCLUDE extinclude/nlohmann/json.hpp extinclude/ODAPI.h)
 
 set(LIBSSRC libs/wxJSON/src/jsonreader.cpp libs/wxJSON/src/jsonval.cpp libs/wxJSON/src/jsonwriter.cpp)
-											if(APPLE)
+if(APPLE)
     option(PI_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" OFF)
 else(APPLE)
     option(PI_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" ON)
@@ -255,7 +255,6 @@ ADD_DEFINITIONS(-DTIXML_USE_STL)
 IF(PLUGIN_USE_SVG)
   ADD_DEFINITIONS(-DCELESTIAL_NAVIGATION_USE_SVG)
 ENDIF(PLUGIN_USE_SVG)
-
 
 #needed only if glshim project is included.
 if(QT_ANDROID)

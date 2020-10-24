@@ -82,18 +82,6 @@ int celestial_navigation_pi::Init(void)
 {
     AddLocaleCatalog( _T("opencpn-celestial_navigation_pi") );
 
-//From watchdog
-
-#ifdef PLUGIN_USE_SVG
-    m_leftclick_tool_id = InsertPlugInToolSVG(  "Watchdog" , _svg_celestial_navigation, _svg_celestial_navigation,
-        _svg_celestial_navigation, wxITEM_CHECK, _( "Celestial_Navigation" ),  "" , NULL, CELESTIAL_NAVIGATION_TOOL_POSITION, 0, this);
-#else
-    m_leftclick_tool_id  = InsertPlugInTool
-        ("", _img_celestial_navigation, _img_celestial_navigation, wxITEM_NORMAL,
-         _("Celestial_Navigation"), "", NULL, CELESTIAL_NAVIGATION_TOOL_POSITION, 0, this);
-#endif
-
-// end from watchog
 
 
 
@@ -101,12 +89,17 @@ int celestial_navigation_pi::Init(void)
     m_parent_window = GetOCPNCanvasWindow();
 
     //    This PlugIn needs a toolbar icon, so request its insertion
-    m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_celestial_navigation,
-                                            _img_celestial_navigation, wxITEM_NORMAL,
-                                            _("Celestial Navigation"), _T(""), NULL,
-                                            CELESTIAL_NAVIGATION_TOOL_POSITION, 0, this);
+ 
+#ifdef PLUGIN_USE_SVG
+    m_leftclick_tool_id = InsertPlugInToolSVG( "Celestial Navigation" , _svg_celestial_navigation, _svg_celestial_navigation_rollover,
+        _svg_celestial_navigation_toggled, wxITEM_CHECK, _( "Celestial Navigation" ),  "" , NULL, CELESTIAL_NAVIGATION_TOOL_POSITION, 0, this);
+#else
+    m_leftclick_tool_id  = InsertPlugInTool
+        ("", _img_celestial_navigation, _img_celestial_navigation, wxITEM_NORMAL,
+         _("Celestial Navigation"), "", NULL, CELESTIAL_NAVIGATION_TOOL_POSITION, 0, this);
+#endif
 
-    m_pCelestialNavigationDialog = NULL;
+    m_pCelestialNavigationDialog = NULL;	 
 
     return (WANTS_OVERLAY_CALLBACK |
             WANTS_OPENGL_OVERLAY_CALLBACK |
@@ -163,17 +156,11 @@ wxString celestial_navigation_pi::GetCommonName()
 
 wxString celestial_navigation_pi::GetShortDescription()
 {
-    // return _("Celestial Navigation PlugIn for OpenCPN");
 	   return _(PLUGIN_SHORT_DESCRIPTION);
 }
 
 wxString celestial_navigation_pi::GetLongDescription()
 {
-	//    return _("Celestial Navigation PlugIn for OpenCPN.\n\
-// Implements nautical almanac for sun, moon, planets,\n\
-// and various navigational stars.\n\
-//Compute position fix from celestial measurements.");
-
        return _(PLUGIN_LONG_DESCRIPTION);
 
 }
