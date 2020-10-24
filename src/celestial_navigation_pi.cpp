@@ -24,18 +24,17 @@
  ***************************************************************************
  */
 
-#include <wx/wxprec.h>
+#include "wx/wxprec.h"
 
 #ifndef WX_PRECOMP
-#include <wx/wx.h>
+#include "wx/wx.h"
 #endif //precompiled headers
 
-#include <wx/wx.h>
+//#include <wx/wx.h>
 #include <wx/stdpaths.h>
 #include <GL/gl.h>
 
 #include "ocpn_plugin.h"
-
 #include "Sight.h"
 #include "celestial_navigation_pi.h"
 #include "icons.h"

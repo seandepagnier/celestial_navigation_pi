@@ -39,7 +39,7 @@ set(LONG_DESCRIPTION "Implements nautical almanac for sun, moon, planets and var
 set(VERSION_MAJOR "2")
 set(VERSION_MINOR "3")
 set(VERSION_PATCH "3")
-set(VERSION_TWEAK "13")
+set(VERSION_TWEAK "14")
 set(VERSION_DATE "2020-10-24")
 set(OCPN_MIN_VERSION "ov52")
 set(OCPN_API_VERSION_MAJOR "1")
@@ -233,9 +233,11 @@ include_directories(BEFORE ${PROJECT_SOURCE_DIR}/extinclude)
 #include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/bitmaps)
 
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src)  #nor so sure this is needed, trying to fix cnav.
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/astrolabe)
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/geomag)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/tinyxml)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/glshim)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/geomag)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/astrolabe)
+
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/api-16)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/GL)
