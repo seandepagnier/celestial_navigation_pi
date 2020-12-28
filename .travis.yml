@@ -28,6 +28,7 @@ matrix:
 # The following env: section is for arm64 and cannot yet be run in circleci
   - env:
     - OCPN_TARGET=bionic-armh64
+    - BUILD_GTK3=true
     - DOCKER_IMAGE=arm64v8/ubuntu:18.04
     - BUILD_FLAGS=-j2
     - BUILD_ENV=ubuntu

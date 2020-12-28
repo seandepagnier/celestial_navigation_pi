@@ -65,10 +65,10 @@ else(WIN32)
 endif(WIN32)
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(CPACK_STRIP_FILES "")
+    set(CPACK_STRIP_FILES FALSE)
     message(STATUS "${CMLOC}Not stripping debug information from module")
 else(CMAKE_BUILD_TYPE STREQUAL "DEBUG")
-    set(CPACK_STRIP_FILES "${PACKAGE_NAME}")
+    set(CPACK_STRIP_FILES TRUE)
     message(STATUS "${CMLOC}Stripping debug information from module")
 endif(CMAKE_BUILD_TYPE STREQUAL "Debug")
 

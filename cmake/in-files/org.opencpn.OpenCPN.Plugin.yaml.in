@@ -16,7 +16,7 @@ modules:
     build-options:
         cflags: -fPIC
         cxxflags: -fPIC -DFLATPAK
-        strip: true		
+        strip: true
     sources:
        - type: git
          url: git://${GIT_REPOSITORY_SERVER}/${GIT_REPOSITORY}
