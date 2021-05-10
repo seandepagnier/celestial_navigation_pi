@@ -3,6 +3,10 @@ Celestial Navigation Plugin for OpenCPN
 
 automatically perform sight reductions, and plot position from celestial sights.
 
+Source Repository: https://github.com/seandepagnier/celestial_navigation_pi
+Maintainence Repository: https://github.com/rgleason/celestial_navigation_pi
+Please make PR's to both repositories. Thank you.
+
 Compiling
 =========
 
