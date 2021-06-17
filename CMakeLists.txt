@@ -185,13 +185,11 @@ set(LIBHDRS
 	)
 
 		
-IF(WIN32)
 SET(SRC_TINYXML
             src/tinyxml/tinyxml.cpp
             src/tinyxml/tinyxmlparser.cpp
             src/tinyxml/tinyxmlerror.cpp
 )
-ENDIF(WIN32)
 
 set(EXTINCLUDE extinclude/nlohmann/json.hpp extinclude/ODAPI.h)
 
