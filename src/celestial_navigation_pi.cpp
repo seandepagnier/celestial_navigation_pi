@@ -256,19 +256,11 @@ bool celestial_navigation_pi::RenderOverlayAll(wxDC *dc, PlugIn_ViewPort *vp)
 
 wxString celestial_navigation_pi::StandardPath()
 {
-    wxStandardPathsBase& std_path = wxStandardPathsBase::Get();
-    wxString s = wxFileName::GetPathSeparator();
-#if defined(__WXMSW__)
-    wxString stdPath  = std_path.GetConfigDir();
-#elif defined(__WXGTK__) || defined(__WXQT__)
-    wxString stdPath  = std_path.GetUserDataDir();
-#elif defined(__WXOSX__)
-    wxString stdPath  = (std_path.GetUserConfigDir() + s + _T("opencpn"));   // should be ~/Library/Preferences/opencpn
-#endif
-
-    return stdPath + wxFileName::GetPathSeparator() +
-        _T("plugins") + wxFileName::GetPathSeparator() +
-        _T("celestial_navigation") +  wxFileName::GetPathSeparator();
+    wxString stdPath(*GetpPrivateApplicationDataLocation());
+    stdPath = stdPath + wxFileName::GetPathSeparator() + "plugins"
+        + wxFileName::GetPathSeparator() + "celestial_navigation"
+        + wxFileName::GetPathSeparator();
+    return stdPath;
 }
 
 static double s_boat_lat, s_boat_lon;
