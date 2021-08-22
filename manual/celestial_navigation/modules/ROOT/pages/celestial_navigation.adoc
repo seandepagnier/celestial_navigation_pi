@@ -11,10 +11,11 @@ celestial fix. You find the forum thread here:
 === Links
 
 * Source:
-https://github.com/seandepagnier/celestial_navigation_pi[GithubRepository]
+https://github.com/seandepagnier/celestial_navigation_pi[Github Repository]
 * Releases:
-https://github.com/rgleason/celestial_navigation_pi/releases[GithubWindows Releases]
-* Download: https://opencpn.org/OpenCPN/plugins/celestialnav.html
+https://github.com/rgleason/celestial_navigation_pi/releases[Github Windows Releases]
+* Download: 
+https://opencpn.org/OpenCPN/plugins/celestialnav.html[OpenCPN Website Downloads Page]
 * Forum:
 http://www.cruisersforum.com/forums/f134/celestial-navigation-plugin-redux-98748.html[Celestial Navigation Plugin Redux]
 
@@ -64,7 +65,7 @@ positioning (see below).
 This is the document containing the test data used for the example
 below:
 
-image::textbook_data.pdf[] 
+image::textbook_data.pdf[Test Data for Example] 
 
 (4 star observations).
 
