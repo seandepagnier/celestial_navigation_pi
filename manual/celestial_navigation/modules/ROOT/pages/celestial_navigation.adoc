@@ -79,7 +79,7 @@ Times for sights are entered in UTC. Sights are likely taken
 extemporaneously with time details, unique exact time for each sight
 must be entered separately, overriding the computer time & date.
 
-image::sight-2-date-time-certainty-shift.png["Sight 2 Date Time certainty shift",width=550,link="_images/Sight-2-date-time-certainty-shift.png"]
+image::sight-2-date-time-certainty-shift.png["sight 2 date time certainty shift",width=550,link="_images/sight-2-date-time-certainty-shift.png"]
 
 === 4. DR Shift - Distance and Bearing
 
@@ -229,7 +229,7 @@ Properties - Date and Time Tab] and xref:_9_four_circles_of_position_showing_dr_
 
 == Accuracy of Astronomical Data
 
-* http://aa.usno.navy.mil/data/docs/celnavtable.php[Celestial Navigation Data for Assumed Position and Time- Navy]
+* Website Under revision: aa.usno.navy.mil/data/docs/celnavtable.php[Celestial Navigation Data for Assumed Position and Time- Navy]
 * From http://www.clearskyinstitute.com/[Clear Sky Institute] refer to their github repository https://github.com/XEphem/XEphem[Astronomical Software Ephemeris]
 * https://www.usno.navy.mil/USNO[The United States Naval Observatory (USNO)]
 
@@ -428,13 +428,13 @@ by Tien-Pen Hsu (1), Chih-Li Chen (2) and Jiang-Ren Chang (3)
 {empty}(1) Institute of Civil Engineering, National Taiwan University
 (2) Institute of Merchant Marine, National Taiwan Ocean University
 (3) Institute of Systems Engineering and Naval Architecture, National
-Taiwan Ocean University; E-mail: cjr@mail.ntou.edu.tw
+Taiwan Ocean University
 THE JOURNAL OF NAVIGATION (2005), 58, 315–335. The Royal Institute of
 Navigation, doi: 10.1017/S0373463305003188, Printed in the United
 Kingdom
 
 * link:{attachmentsdir}/cel_nav_new_computational_methods_04_2014_01_2_.pdf[New Computational Methods for Solving Problems of the Astronomical Vessel Position 11 pages (pdf 1.7mb)]
-* link:{attachmentsdir}/New_Computational_Methods_for_Solving_Problems_of_Vessel_Position.pdf[New Computational Methods for Solving Problems of Vessel Position.pdf - 22 pages (pdf 305kb)]
+* link:{attachmentsdir}/cel-nav-new_computational_methods_for_solving_problems_of_vessel_position.pdf[New Computational Methods for Solving Problems of Vessel Position.pdf - 22 pages (pdf 305kb)]
 
 ABSTRACT
 In this paper, a simplified and direct computation method formulated by
@@ -515,7 +515,7 @@ programming language
 
 by George H. Kaplan, U.S. Naval Observatory
 
-link:{attachmentsdir}/cel_nav_determining_the_Position_and_Motion_of_a_Vessel_fr.pdf[Determine Position & Motion of a Vessel]
+link:{attachmentsdir}/cel_nav_determining_the_position_and_motion_of_a_vessel_fr.pdf[Determine Position & Motion of a Vessel]
 
 https://gkaplan.us/content/nav_algorithms.html[George Kaplan's Website and other Celestial Navigation Algorithms]
 
@@ -540,7 +540,7 @@ methods.
 === Article: Earth Rotation and Equatorial Coordinates
 
 Rick Fisher August 2010 "www.cv.nrao.edu/~rfisher/Ephemerides/earth_rot.html" dead link
-* https://en.wikipedia.org/wiki/Equatorial_coordinate_system[Wikipedia to replace above dead link]
+* https://en.wikipedia.org/wiki/Equatorial_coordinate_system/[Wikipedia to replace above dead link]
 * https://www.nasa.gov/feature/nasa-study-solves-two-mysteries-about-wobbling-earth[Two mysteries about wobbling earth]
 
 Abstract
@@ -571,7 +571,7 @@ aesthetically and mathematically beautiful, and rich in history…
 Copyright © 1997-2011 Henning Umland; PDF file can be found on this page
 on his web site:
 
-* http://www.celnav.de/page2.htm
+* https://www.celnav.de/page2.htm
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -586,7 +586,7 @@ Copyright © 1986, 1992 Bruce A. Bauer
 International Marine
 ISBN 0-07-005219-0
 
-* http://www.amazon.com/The-Sextant-Handbook-Bruce-Bauer/dp/0070052190[Amazon
+* https://www.amazon.com/The-Sextant-Handbook-Bruce-Bauer/dp/0070052190[Amazon
 web site: The Sextant Handbook, Adjustment, Repair, Use and History -
 2nd Edition]
 
@@ -613,8 +613,8 @@ problem.
 
 === Online: Vanderbuilt AstroNavigation Course - Free
 
-* https://my.vanderbilt.edu/astronav 
-* https://my.vanderbilt.edu/astronav/review
+* https://my.vanderbilt.edu/astronav/ 
+* https://my.vanderbilt.edu/astronav/review/
 
 This free and open to the public, online course is made possible by The
 Blended & Online Learning Design (BOLD) Fellows Program and is hosted by
@@ -663,7 +663,7 @@ In addition to the xref:_videos_methodology_with_celestial_navigation_pi[Celesti
 * https://www.starpath.com/catalog/courses/courses_index.htm[Starpath Navigation: Online Home Study: Celestial Navigation]
 * http://reednavigation.com/[Reed Celestial Navigation Course]
 * http://www.seasources.net/celestial_navigation.htm[Seasource.net Online Celestial Navigation Lessons] Free E-learning  prepare to pass the U.S.Coast Guard examination on Celestial Navigation
-* http://www.navigation-spreadsheets.com[Interactive Spreadsheets for Celestial Navigation] Practical and Convenient
+* https://www.navigation-spreadsheets.com[Interactive Spreadsheets for Celestial Navigation] Practical and Convenient
 
 *Other Resources*
 
@@ -673,7 +673,7 @@ In addition to the xref:_videos_methodology_with_celestial_navigation_pi[Celesti
 * https://thenauticalalmanac.com/2017_Bowditch-_American_Practical_Navigator.html[The Nautical Almanac - 2017 Bowditch American Practical Navigator] Organized for easy Chapter download
 * http://www.fer3.com/arc/navbooks2.html[Bowditch 1995] and other Bowditch, also historical, navigation books online
 * https://friendsofthevigilance.org.uk/Astron/Astron.html[Astron] Find Celestial Bodies: Enter lat,lon,time and date and then go to Planner tab at the bottom you will get a list of the bodies, Hc and Zn.
-* http://www.celnav.de/page4.htm[Good Celestial Navigation Links] Henning Umland's website
+* https://www.celnav.de/page4.htm[Good Celestial Navigation Links] Henning Umland's website
 * http://www.ephemeris.com/ephemeris.php[Ephemerius Calculations]
 * https://clockwk.com/apps/almanac/?OT=N&B=MS-p*&D=24_Aug_2021&Z=UT&hri=3&df=.m&Lat=&NS=N&Lon=&EW=W&sys=...[Reed Nautical Almanac Data]
 * https://astronomy.swin.edu.au/cosmos/e/equatorial+coordinate+system[Equatorial Coordinate System - Cosmos]
@@ -684,7 +684,7 @@ In addition to the xref:_videos_methodology_with_celestial_navigation_pi[Celesti
 *Vulnerability of GPS*
 
 * https://digitalcommons.odu.edu/ots_masters_projects/41/[Future of Celestial Navigation and the Ocean-Going Military Navigator Navigator by Michael Garvin, Old Dominion University 2010 (Pdf 270kb)] *_points out the vulnerability of GPS_*
-* http://www.naval-technology.com/features/featurecelestial-navigation-ancient-craft-reinstated-as-cyber-warfare-looms-large-4809513/[Celestial navigation: navy resurrects ancient craft to thwart hackers 2016] April 2013, Dr Steve Bell, Head of the HM Nautical Almanac Office at the UK Hydrographic Office (UKHO), revealed that, according to a two-year government study, a 1.5 watt transmitter can render GPS unavailable for 30km. 
+* https://www.naval-technology.com/features/featurecelestial-navigation-ancient-craft-reinstated-as-cyber-warfare-looms-large-4809513/[Celestial navigation: navy resurrects ancient craft to thwart hackers 2016] April 2013, Dr Steve Bell, Head of the HM Nautical Almanac Office at the UK Hydrographic Office (UKHO), revealed that, according to a two-year government study, a 1.5 watt transmitter can render GPS unavailable for 30km. 
  
 *GPS Anti Spoof*
 
