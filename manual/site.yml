@@ -1,13 +1,13 @@
 site:
   title: Celestial_Navigation_pi Manual
   url:  https://nowhere.net
-  start_page: celestial_navigation:ROOT:celestial_navigation.adoc
+  start_page: celestial_navigation:ROOT:index.adoc
 content:
   sources:
-    - url: ../
-      start_path: manual/celestial_navigation/
+    - url: ..
+      start_path: manual
       branches: HEAD
-      edit_url: true
+      edit_url: https://github.com/opencpn-manuals/celestial_navigation_pi/edit/master/{path}
 ui:   
   bundle:
     url: https://gitlab.com/leamas/antora-ui-default/-/raw/master/latest/ui-bundle.zip
