@@ -540,7 +540,7 @@ methods.
 === Article: Earth Rotation and Equatorial Coordinates
 
 Rick Fisher August 2010 "www.cv.nrao.edu/~rfisher/Ephemerides/earth_rot.html" dead link
-* https://en.wikipedia.org/wiki/Equatorial_coordinate_system/[Wikipedia to replace above dead link]
+* https://en.wikipedia.org/wiki/Equatorial_coordinate_system[Wikipedia to replace above dead link]
 * https://www.nasa.gov/feature/nasa-study-solves-two-mysteries-about-wobbling-earth[Two mysteries about wobbling earth]
 
 Abstract
@@ -663,7 +663,7 @@ In addition to the xref:_videos_methodology_with_celestial_navigation_pi[Celesti
 * https://www.starpath.com/catalog/courses/courses_index.htm[Starpath Navigation: Online Home Study: Celestial Navigation]
 * http://reednavigation.com/[Reed Celestial Navigation Course]
 * http://www.seasources.net/celestial_navigation.htm[Seasource.net Online Celestial Navigation Lessons] Free E-learning  prepare to pass the U.S.Coast Guard examination on Celestial Navigation
-* https://www.navigation-spreadsheets.com[Interactive Spreadsheets for Celestial Navigation] Practical and Convenient
+* https://navigation-spreadsheets.com[Interactive Spreadsheets for Celestial Navigation] Practical and Convenient
 
 *Other Resources*
 
