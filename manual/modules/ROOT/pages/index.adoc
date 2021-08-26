@@ -191,7 +191,7 @@ the compass check.
 
 https://www.youtube.com/watch?v=H5e95h0FxGI[Video: Basic Opencpn]
 
-https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual:plugins:safety:odraw1.4_pi[Ocpn_Draw_pi]
+https://opencpn-manuals.github.io/plugins/odraw/0.1/odraw.html[Ocpn_Draw_pi]
 
 == Other informative Videos by David Burch
 
