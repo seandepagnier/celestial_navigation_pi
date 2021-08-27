@@ -12,9 +12,12 @@ celestial fix. You find the forum thread here:
 
 * Github Source: https://github.com/seandepagnier/celestial_navigation_pi
 * Github Maintenance Source: https://github.com/rgleason/celestial_navigation_pi
-* Releases:  https://github.com/rgleason/celestial_navigation_pi/releases[Github Windows Releases]
-* Download:  https://opencpn.org/OpenCPN/plugins/celestialnav.html
+* Plugin Download, Install and Enable: xref:opencpn-plugins:misc:plugin-install.adoc[Instructions]
 * Forum: http://www.cruisersforum.com/forums/f134/celestial-navigation-plugin-redux-98748.html[Celestial Navigation Plugin Redux]
+
+* Legacy Package Releases:  https://github.com/rgleason/celestial_navigation_pi/releases[Github Windows Releases]
+* Legacy Downloads:  https://opencpn.org/OpenCPN/plugins/celestialnav.html
+
 
 image::four-circles-of-position.png["4 Circles of Position",width=550,link="_images/four-circles-of-position.png"]
 
@@ -63,7 +66,6 @@ navigator assumes for the observation. A larger value results in a
 larger line width for the Circle of Position on the chart.
 
 image::sight-1-degrees-minutes-uncertainty.png["Sight 1 Degrees Minutes Uncertainty",width=400,link="_images/sight-1-degrees-minutes-uncertainty.png"]
-
 
 === 3. Sight Properties - Date and Time Tab
 
