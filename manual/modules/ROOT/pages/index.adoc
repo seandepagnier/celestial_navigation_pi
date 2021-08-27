@@ -54,7 +54,7 @@ on the sextant):
 . Use the Moon for an observation in above practice when situation permits.
 
 Many books have been written about the art and science of celestial
-positioning (xref:_resources[Resources below]).
+positioning (xref:#_resources[Resources below]).
 
 Document containing the test data used for the example below: link:{attachmentsdir}/textbook_data.pdf[Example Worksheet PDF] (4 star observations).
 
@@ -104,7 +104,7 @@ group.
 waypoint at the selected location and labeling it “Fix” with the date
 and time labeled.
 
-Please see David Burch's xref:_videos_methodology_with_celestial_navigation_pi[Videos: Methodology_with_Celestial_Navigation_pi] below for a much clearer explanation.
+Please see David Burch's xref:#_videos_methodology_with_celestial_navigation_pi[Videos: Methodology_with_Celestial_Navigation_pi] below for a much clearer explanation.
 
 === 5. Sight Properties - Config Tab - Display Characteristics
 
@@ -207,7 +207,7 @@ https://opencpn-manuals.github.io/plugins/odraw/0.1/odraw.html[Ocpn_Draw_pi]
 
 == General Traditional Theory
 
-A general, but very clear text on celestial positioning is available on Henning Umland's celnav.de website:  https://www.celnav.de/page2.htm[Hennig Umland on Celestial Positioning PDF] . Many thanks to Henning Umland for this concise text. Naturally, the  information provided by the Nautical Almanac and Bowditch is of interest, see below xref:_celestial_navigation_links[Celestial Navigation Links].
+A general, but very clear text on celestial positioning is available on Henning Umland's celnav.de website:  https://www.celnav.de/page2.htm[Hennig Umland on Celestial Positioning PDF] . Many thanks to Henning Umland for this concise text. Naturally, the  information provided by the Nautical Almanac and Bowditch is of interest, see below xref:#_celestial_navigation_links[Celestial Navigation Links].
 
 === Plugin Computation Methods
 
@@ -217,7 +217,7 @@ The author, Sean d'Epagnier, uses this innovative method to directly
 calculate a fix position. Only he knows the background and details.
 
 General information on direct computation methods can be found on pages
-277 to 285 of the Nautical Almanac 1994  xref:_celestial_navigation_links[(See Celestial Navigation Links below)] and in the following articles:
+277 to 285 of the Nautical Almanac 1994  xref:#_celestial_navigation_links[(See Celestial Navigation Links below)] and in the following articles:
 
 * link:{attachmentsdir}/cel_nav_new_computational_methods_04_2014_01_2_.pdf[New Computational Methods for Solving Problems of the Astronomical Vessel Position (pdf 1.7mb)]
 * link:{attachmentsdir}/cel_nav_direct_fix_v44n1-2.pdf[The Direct Fix of Latitude and Longitude from two observed Altitudes (pdf 1mb)]
@@ -226,8 +226,8 @@ General information on direct computation methods can be found on pages
 Presently, the plugin is not capable of advancing COP's to a common
 time. When a shift is entered, the calculated numerical position on the
 main window disappears. In this case, the fix can only be established by
-visual examination of the graphics on the screen (also see above) xref:_3_sight_properties_date_and_time_tab[3. Sight
-Properties - Date and Time Tab] and xref:_9_four_circles_of_position_showing_dr_position_as_mob_and_fix_as_waypoint[9. Four Circles of Position].
+visual examination of the graphics on the screen (also see above) xref:#_3_sight_properties_date_and_time_tab[3. Sight
+Properties - Date and Time Tab] and xref:#_9_four_circles_of_position_showing_dr_position_as_mob_and_fix_as_waypoint[9. Four Circles of Position].
 
 == Accuracy of Astronomical Data
 
@@ -311,7 +311,7 @@ it was not treating stars correctly. This update adds corrections for star sight
 
 See:
 
-. https://github.com/seandepagnier/celestial_navigation_pi/pull/9[Githb Pull Request #9]
+. https://github.com/seandepagnier/celestial_navigation_pi/pull/9[Github Pull Request #9]
 . http://www.cruisersforum.com/forums/f134/celestial-navigation-plugin-redux-98748-28.html#post2330218[Cruiser Forum Post #377]
 . http://www.cruisersforum.com/forums/f134/celestial-navigation-plugin-redux-98748-27.html#post2334429[Cruiser Forum Post #383]
 
@@ -322,7 +322,7 @@ New files:
 * epv00.cpp comes from the SOFA library http://www.iausofa.org/, with a wrapper function written by Povl Abrahamsen.
 
 Also we would like to acknowledge the use of the SOFA function and library.
-See xref:_article_earth_rotation_and_equatorial_coordinates[Article: Earth Rotation and Equatorial Coordinates] below for general information about the error.
+See xref:#_article_earth_rotation_and_equatorial_coordinates[Article: Earth Rotation and Equatorial Coordinates] below for general information about the error.
 
 == Summary of Accuracy
 
@@ -543,7 +543,7 @@ methods.
 
 Rick Fisher August 2010 "www.cv.nrao.edu/~rfisher/Ephemerides/earth_rot.html" dead link
 * https://en.wikipedia.org/wiki/Equatorial_coordinate_system[Wikipedia to replace above dead link]
-* https://www.nasa.gov/feature/nasa-study-solves-two-mysteries-about-wobbling-earth[Two mysteries about wobbling earth]
+* https://www.nasa.gov/feature/nasa-study-solves-two-mysteries-about-wobbling-earth/[Two mysteries about wobbling earth]
 
 Abstract
 “By the standards of modern astrometry, the earth is quite a wobbly
@@ -649,7 +649,7 @@ Just set your coordinates and go.
 
 == Celestial Navigation links
 
-In addition to the xref:_videos_methodology_with_celestial_navigation_pi[Celestial Navigation videos by David Burch] listed above, https://www.starpath.com[Starpath Navigation] has a treasure trove for learners:
+In addition to the xref:#_videos_methodology_with_celestial_navigation_pi[Celestial Navigation videos by David Burch] listed above, https://www.starpath.com[Starpath Navigation] has a treasure trove for learners:
 
 * https://www.starpath.com/catalog/books/1887.htm[Starpath Navigation: Book: Celestial Navigation 2nd Edition ..a best seller]
 * https://www.starpilotllc.com[StarPilot Programs: Celestial Navigation and Piloting: PC, Iphone, Ipad, TI89T calculator]
@@ -811,7 +811,7 @@ image::cn-10-sight-arcturus-calc.jpg["cn-10-sight-arcturus-calc",width=500,link=
 
 {empty}15. Arcturus Calculation Page (Printable)
 
-{empty}19. Found _“*Clock Offset*”= -10000 or something_, set it at “0” then screwed around for awhile checking other things. _Sights changed position, better…_ *This was definitely a problem from earlier!*
+{empty}19. Found _Clock Offset= -10000 or something_, set it at _0_ then screwed around for awhile checking other things. _Sights changed position, better…_ *This was definitely a problem from earlier!*
 
 image::cn-11-sight-kochab.jpg["cn-11-sight-kochab",width=500,link="_images/cn-11-sight-kochab.jpg"]
 
