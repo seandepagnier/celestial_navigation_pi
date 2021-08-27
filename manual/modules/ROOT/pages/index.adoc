@@ -658,7 +658,7 @@ In addition to the xref:#_videos_methodology_with_celestial_navigation_pi[Celest
 
 * https://sites.google.com/site/navigationalalgorithms[Navigational Algorithms] Andres Ruiz
 * https://sites.google.com/site/navigationalalgorithms/Home/papersnavigation[Navigational Papers] Andres Ruiz
-* https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:supplementary_software:celestial_navigation[Supplementary Software: Celestial Navigation by Andres Ruiz]
+* xref:opencpn-plugins:misc:celestial-nav.adoc[Supplementary Software: Celestial Navigation]
 
 *Lessons and Courses*
 
