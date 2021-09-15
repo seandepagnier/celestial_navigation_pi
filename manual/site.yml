@@ -1,5 +1,5 @@
 site:
-  title: Celestial_Navigation_pi Manual
+  title: Celestial_Navigation
   url:  https://nowhere.net
   start_page: celestial_navigation:ROOT:index.adoc
 content:
