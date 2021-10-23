@@ -3,7 +3,7 @@
 ## Copyright:   
 ## License:     GPLv3
 ##---------------------------------------------------------------------------
-# Frontend2  v1.0.146.4 Author: Jon Gough  
+# Frontend2  v1.0.147.1 Author: Jon Gough  
 # ---------------------------------------------------------------------------
 ## ----- When changing this file do NOT change the order in which sections occur        ----- ##
 ## ----- Changes should only be made between the section blocks that identify where     ----- ##
@@ -38,8 +38,8 @@ set(LONG_DESCRIPTION "Implements nautical almanac for sun, moon, planets and var
 set(VERSION_MAJOR "2")
 set(VERSION_MINOR "3")
 set(VERSION_PATCH "4")
-set(VERSION_TWEAK "0")
-set(VERSION_DATE "2020-12-28")
+set(VERSION_TWEAK "2")
+set(VERSION_DATE "2021-10-22")
 set(OCPN_MIN_VERSION "ov52")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
@@ -191,33 +191,35 @@ SET(SRC_TINYXML
             src/tinyxml/tinyxmlerror.cpp
 )
 
-set(EXTINCLUDE extinclude/nlohmann/json.hpp extinclude/ODAPI.h)
+# set(EXTINCLUDE extinclude/nlohmann/json.hpp extinclude/ODAPI.h)
 
-set(LIBSSRC libs/wxJSON/src/jsonreader.cpp libs/wxJSON/src/jsonval.cpp libs/wxJSON/src/jsonwriter.cpp)
-if(APPLE)
-    option(PI_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" OFF)
-else(APPLE)
-    option(PI_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" ON)
-endif(APPLE)
+#set(LIBSSRC libs/wxJSON/src/jsonreader.cpp libs/wxJSON/src/jsonval.cpp libs/wxJSON/src/jsonwriter.cpp)
 
-if(PI_JSON_SCHEMA_VALIDATOR)
-    message(STATUS "${CMLOC}Using JSON Schema validation - warning this changes the 'flavour' of the executable and it may not be compatible with OpenCPN")
-    add_definitions(-DPI_JSON_SCHEMA_VALIDATOR)
-    message(STATUS "${CMLOC}Adding JSON Schema validation")
+#Not doing JSON validation
+#if(APPLE)
+#    option(PI_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" OFF)
+#else(APPLE)
+#    option(PI_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" ON)
+#endif(APPLE)
 
-    set(EXTSRC ${EXTSRC} extsrc/json-schema-validator/json-schema-draft7.json.cpp extsrc/json-schema-validator/json-uri.cpp extsrc/json-schema-validator/json-validator.cpp)
-    set(EXTINCLUDE ${EXTINCLUDE} extinclude/nlohmann/json.hpp extinclude/json-schema-validator/json-schema.hpp)
-    include_directories(BEFORE ${PROJECT_SOURCE_DIR}/extinclude/json-schema-validator)
-else(PI_JSON_SCHEMA_VALIDATOR)
-    message(STATUS "${CMLOC}Not using JSON Schema validation - warning invalid JSON 'may' cause unexpected crashes")
-endif(PI_JSON_SCHEMA_VALIDATOR)
+#if(PI_JSON_SCHEMA_VALIDATOR)
+#    message(STATUS "${CMLOC}Using JSON Schema validation - warning this changes the 'flavour' of the executable and it may not be compatible with OpenCPN")
+#    add_definitions(-DPI_JSON_SCHEMA_VALIDATOR)
+#    message(STATUS "${CMLOC}Adding JSON Schema validation")
+
+#    set(EXTSRC ${EXTSRC} extsrc/json-schema-validator/json-schema-draft7.json.cpp extsrc/json-schema-validator/json-uri.cpp extsrc/json-schema-validator/json-validator.cpp)
+#    set(EXTINCLUDE ${EXTINCLUDE} extinclude/nlohmann/json.hpp extinclude/json-schema-validator/json-schema.hpp)
+#    include_directories(BEFORE ${PROJECT_SOURCE_DIR}/extinclude/json-schema-validator)
+#else(PI_JSON_SCHEMA_VALIDATOR)
+#    message(STATUS "${CMLOC}Not using JSON Schema validation - warning invalid JSON 'may' cause unexpected crashes")
+#endif(PI_JSON_SCHEMA_VALIDATOR)
 
 ##
 # Modify/configure 'Include' Directories below for the Plugin
 ##
 
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude)
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/extinclude)
+#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/extinclude)
 #include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/)
 #include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/wx/include)
 #include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude/wxcurl)
@@ -259,26 +261,26 @@ endif(QT_ANDROID)
 
 # Every plugin that uses JSON for passing messages should use a validator. The validator  allows the system to ignore non-conformant messages. 
 
-if(UNIX AND NOT APPLE AND NOT QT_ANDROID)
-    if(PI_JSON_SCHEMA_VALIDATOR)
+#if(UNIX AND NOT APPLE AND NOT QT_ANDROID)
+#    if(PI_JSON_SCHEMA_VALIDATOR)
         # Change OS/ABI to be UNIX - System V to make it run with OCPN
-        set(lib_name lib${PACKAGE_NAME}.so)
-        message(STATUS "${CMLOC}lib-name: ${lib_name}")
-        find_file(elfedit elfedit)
-        if(NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
-            message(STATUS "${CMLOC}Will ensure OS/ABI is set to 0 to match OCPN")
-            add_custom_command(
-                TARGET ${PACKAGE_NAME}
-                POST_BUILD
-                WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-                DEPENDS ${PACKAGE_NAME}
-                COMMENT " Running post build action on ${lib_name}."
-                COMMAND sh -c 'elfedit --input-osabi=Linux --output-osabi=none ${lib_name} || (echo 0) ')
-        else(NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
-            message(STATUS "${CMLOC}Cannot correct OS/ABI to match OCPN if it is generated incorrectly. Package binutils needed")
-        endif(NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
-    endif(PI_JSON_SCHEMA_VALIDATOR)
-endif(UNIX AND NOT APPLE AND NOT QT_ANDROID)
+#        set(lib_name lib${PACKAGE_NAME}.so)
+#        message(STATUS "${CMLOC}lib-name: ${lib_name}")
+#        find_file(elfedit elfedit)
+#        if(NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
+#            message(STATUS "${CMLOC}Will ensure OS/ABI is set to 0 to match OCPN")
+#            add_custom_command(
+#                TARGET ${PACKAGE_NAME}
+#                POST_BUILD
+#                WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+#                DEPENDS ${PACKAGE_NAME}
+#                COMMENT " Running post build action on ${lib_name}."
+#                COMMAND sh -c 'elfedit --input-osabi=Linux --output-osabi=none ${lib_name} || (echo 0) ')
+#        else(NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
+#            message(STATUS "${CMLOC}Cannot correct OS/ABI to match OCPN if it is generated incorrectly. Package binutils needed")
+#        endif(NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
+#    endif(PI_JSON_SCHEMA_VALIDATOR)
+#endif(UNIX AND NOT APPLE AND NOT QT_ANDROID)
 
 ##These are NOT used in Testplugin, used for other plugins
 ##==================================
