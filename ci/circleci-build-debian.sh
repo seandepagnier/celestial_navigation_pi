@@ -24,7 +24,8 @@ if test -f "$EXTRA_LIBS"; then
     done < $EXTRA_LIBS
 fi
 
-mk-build-deps ../ci/control
+pwd
+sudo mk-build-deps --install ../ci/control
 
 sudo apt-get --allow-unauthenticated install ./*all.deb  || :
 sudo apt-get --allow-unauthenticated install -f
@@ -32,17 +33,14 @@ rm -f ./*all.deb
 
 tag=$(git tag --contains HEAD)
 
-CMAKE_GTK3=""
-
-if [ -n "$BUILD_GTK3" ] && [ "$BUILD_GTK3" = "true" ]; then
+if [ -n "$BUILD_GTK3" ] && [ "$BUILD_GTK3" = "TRUE" ]; then
   sudo update-alternatives --set wx-config /usr/lib/*-linux-*/wx/config/gtk3-unicode-3.0
-  CMAKE_GTK3="-DBUILD_GTK3=true"
 fi
 
 if [ -n "$tag" ]; then
-  cmake -DCMAKE_BUILD_TYPE=Release $CMAKE_GTK3 -DCMAKE_INSTALL_PREFIX=/usr/local ..
+  cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local ..
 else
-  cmake -DCMAKE_BUILD_TYPE=Debug $CMAKE_GTK3 -DCMAKE_INSTALL_PREFIX=/usr/local ..
+  cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr/local ..
 fi
 
 make -j2

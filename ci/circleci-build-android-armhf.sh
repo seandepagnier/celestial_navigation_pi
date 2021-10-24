@@ -38,20 +38,28 @@ mkdir -p build
 cd build
 
 rm -f CMakeCache.txt
+COMPDIR=$(find /opt/android -iname "android-ndk*")
 
 cmake  \
   -D_wx_selected_config=androideabi-qt-armhf \
   -DwxQt_Build=build_android_release_19_static_O3 \
   -DQt_Build=build_arm32_19_O3/qtbase \
-  -DCMAKE_AR=/opt/android/android-ndk-r20/toolchains/llvm/prebuilt/linux-x86_64/bin/armv7a-linux-androideabi-ar \
-  -DCMAKE_CXX_COMPILER=/opt/android/android-ndk-r20/toolchains/llvm/prebuilt/linux-x86_64/bin/armv7a-linux-androideabi21-clang++ \
-  -DCMAKE_C_COMPILER=/opt/android/android-ndk-r20/toolchains/llvm/prebuilt/linux-x86_64/bin/armv7a-linux-androideabi21-clang \
+  -DCMAKE_AR=$COMPDIR/toolchains/llvm/prebuilt/linux-x86_64/bin/arm-linux-androideabi-ar \
+  -DCMAKE_CXX_COMPILER=$COMPDIR/toolchains/llvm/prebuilt/linux-x86_64/bin/armv7a-linux-androideabi21-clang++ \
+  -DCMAKE_C_COMPILER=$COMPDIR/toolchains/llvm/prebuilt/linux-x86_64/bin/armv7a-linux-androideabi21-clang \
   -DOCPN_Android_Common=OCPNAndroidCommon-master \
-  -DPREFIX=/ \
+  -DCMAKE_INSTALL_PREFIX=/ \
   ..
 
+# Get number of processors and use this on make to speed up build
+if type nproc &> /dev/null
+then
+    make_cmd="make -j"$(nproc)
+else
+    make_cmd="make"
+fi
+eval $make_cmd
 
-make
 make package
 
 #  All below for local docker build

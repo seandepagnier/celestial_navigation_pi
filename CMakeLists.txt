@@ -38,8 +38,8 @@ set(LONG_DESCRIPTION "Implements nautical almanac for sun, moon, planets and var
 set(VERSION_MAJOR "2")
 set(VERSION_MINOR "3")
 set(VERSION_PATCH "4")
-set(VERSION_TWEAK "2")
-set(VERSION_DATE "2021-10-22")
+set(VERSION_TWEAK "3")
+set(VERSION_DATE "2021-10-23")
 set(OCPN_MIN_VERSION "ov52")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
@@ -85,6 +85,8 @@ set(CMAKE_CXX_STANDARD 11)
 # Prefer libGL.so to libOpenGL.so, see CMP0072
 set(OpenGL_GL_PREFERENCE "LEGACY")
 
+# Use local version of GLU library
+#set(USE_LOCAL_GLU TRUE)
 # Don't use local version of GLU library
 set(USE_LOCAL_GLU FALSE)
 
@@ -102,7 +104,7 @@ message(STATUS "${CMLOC}Build type: ${CMAKE_BUILD_TYPE}")
 ##
 
 project(${PACKAGE})
-set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake;")
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 ##==================================
 include("PluginSetup")
@@ -111,11 +113,9 @@ include("PluginSetup")
 ## ----- Modify section below if there are special requirements for the plugin ----- ##
 ##
 
-set(CMAKE_VERBOSE_MAKEFILE ON)
+set(CMAKE_VERBOSE_MAKEFILE "Activate verbose mode for make files" ON)
 
 option(Plugin_CXX11 "Use c++11" OFF)
-
-#--- For Weatherfax insert Portaudio Section here
 
 ##
 ## ----- Modify section above if there are special requirements for the plugin ----- ##
@@ -127,6 +127,8 @@ include("PluginConfigure")
 ## ----- do not change section above - needed to configure build process ----- ##
 # ----- Change below to match project requirements for source, headers, etc. ----- ##
 # 
+
+add_definitions(-DUSE_S57)
 
 SET(SRCS
           src/astrolabe/astrolabe.hpp
@@ -154,7 +156,7 @@ SET(SRCS
           src/transform_star.cpp
           src/epv00.cpp
           src/celestial_navigation_pi.cpp
-          api-16/ocpn_plugin.h		  
+#         libs/ocpn-api/ocpn_plugin.h		  
 	)
 
 SET(HDRS
@@ -169,8 +171,8 @@ SET(HDRS
 		src/Sight.h
 		src/SightDialog.h
 		
-		api-16/ocpn_plugin.h
-	)	
+        libs/ocpn-api/ocpn_plugin.h
+  	)	
 
 #added for android
 set(LIBHDRS
@@ -184,12 +186,13 @@ set(LIBHDRS
 #    libs/wx/include/wx/jsonwriter.h
 	)
 
+add_definitions(-DPLUGIN_USE_SVG)
 		
-SET(SRC_TINYXML
-            src/tinyxml/tinyxml.cpp
-            src/tinyxml/tinyxmlparser.cpp
-            src/tinyxml/tinyxmlerror.cpp
-)
+#SET(SRC_TINYXML
+#            src/tinyxml/tinyxml.cpp
+#            src/tinyxml/tinyxmlparser.cpp
+#            src/tinyxml/tinyxmlerror.cpp
+#)
 
 # set(EXTINCLUDE extinclude/nlohmann/json.hpp extinclude/ODAPI.h)
 
@@ -218,6 +221,7 @@ SET(SRC_TINYXML
 # Modify/configure 'Include' Directories below for the Plugin
 ##
 
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/include)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude)
 #include_directories(BEFORE ${PROJECT_SOURCE_DIR}/extinclude)
 #include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/)
@@ -233,9 +237,18 @@ include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/glshim)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/geomag)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/astrolabe)
 
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/api-16)
+#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/api-16)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/GL)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/ocpn-api)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/wxJSON/include)
+
+if(QT_ANDROID)
+    include_directories(BEFORE ${qt_android_include})
+    include_directories( ${CMAKE_SOURCE_DIR}/extinclude/GLES2)
+
+    #    #include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/glshim/include/GLES)
+endif(QT_ANDROID)
 
 ##
 ## Statement below is required to collect all the set( headers and SRCS  - Adjust as required
@@ -244,8 +257,9 @@ include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/GL)
 ##    SET(EXTSRC  ${EXTSRC}   etc   Can be in an if statement as below
 ##
 ##==================================
-ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRCS} ${HDRS} ${LIBHDRS} ${SRC_TINYXML})
+target_sources(${PACKAGE_NAME} PUBLIC ${SRCS} ${HDRS} ${LIBHDRS} ${OCPNSRC} ${EXTSRC} ${LIBSSRC})
 ##==================================
+## ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRCS} ${HDRS} ${LIBHDRS} ${SRC_TINYXML})
 
 ADD_DEFINITIONS(-DTIXML_USE_STL)
 
@@ -259,6 +273,18 @@ if(QT_ANDROID)
 endif(QT_ANDROID)  
 
 
+if(NOT OCPN_FLATPAK_CONFIG)
+    # Build environment not available when flatpak is being configured so following statements will not work
+    message(STATUS "${CMLOC}Adding target link libraries to ${PACKAGE_NAME}")
+
+    add_subdirectory(libs/tinyxml)
+
+   target_link_libraries(${PACKAGE_NAME} ocpn::tinyxml)
+endif(NOT OCPN_FLATPAK_CONFIG)
+
+add_definitions(-DTIXML_USE_STL)
+
+# Not doing JSON Validator
 # Every plugin that uses JSON for passing messages should use a validator. The validator  allows the system to ignore non-conformant messages. 
 
 #if(UNIX AND NOT APPLE AND NOT QT_ANDROID)
@@ -282,18 +308,18 @@ endif(QT_ANDROID)
 #    endif(PI_JSON_SCHEMA_VALIDATOR)
 #endif(UNIX AND NOT APPLE AND NOT QT_ANDROID)
 
-##These are NOT used in Testplugin, used for other plugins
-##==================================
-#include("PluginJSON")
-#include("PluginXML")
-#include("PluginGL")
-##==================================
 
 ##
 ## ----- Change above to match project requirements ----- ##
 ## ----- do not change next section - needed to configure build process ----- ##
 ##
 ##==================================
+# Needed for android builds
+if(QT_ANDROID)
+    include_directories(BEFORE ${qt_android_include})
+endif(QT_ANDROID)
+
+# Needed for all builds
 include("PluginInstall")
 include("PluginLocalization")
 include("PluginPackage")

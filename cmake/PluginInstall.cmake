@@ -17,21 +17,20 @@ if(WIN32)
     if(MSVC)
         # TARGET_LINK_LIBRARIES(${PACKAGE_NAME} gdiplus.lib glu32.lib)
         target_link_libraries(${PACKAGE_NAME} ${OPENGL_LIBRARIES})
-
-        set(OPENCPN_IMPORT_LIB "${CMAKE_SOURCE_DIR}/api-16/opencpn.lib")
+        add_subdirectory(libs/ocpn-api)
+        target_link_libraries(${PACKAGE_NAME} ocpn::api)
+        message(STATUS "${CMLOC}Added ocpn-api for MSVC")
     endif(MSVC)
 
     if(MINGW)
         # assuming wxwidgets is compiled with unicode, this is needed for mingw headers
         add_definitions(" -DUNICODE")
         target_link_libraries(${PACKAGE_NAME} ${OPENGL_LIBRARIES})
-        # SET(OPENCPN_IMPORT_LIB "${PARENT}.dll")
         set(CMAKE_SHARED_LINKER_FLAGS "-L../buildwin")
-        # target_link_libraries(${PACKAGE_NAME} ${OPENGL_LIBRARIES})
-        set(OPENCPN_IMPORT_LIB "${CMAKE_SOURCE_DIR}/api-16/libopencpn.dll.a")
+        add_subdirectory(libs/ocpn-api)
+        target_link_libraries(${PACKAGE_NAME} ocpn::api)
+        message(STATUS "${CMLOC}Added ocpn-api for MINGW")
     endif(MINGW)
-
-    target_link_libraries(${PACKAGE_NAME} ${OPENCPN_IMPORT_LIB})
 endif(WIN32)
 
 if(UNIX)
@@ -110,10 +109,9 @@ if(UNIX AND NOT APPLE)
     set(PREFIX_PARENTDATA ${PREFIX_DATA}/${PARENT})
     set(PREFIX_PARENTLIB ${PREFIX_LIB}/${PARENT})
     message(STATUS "${CMLOC}PREFIX_PARENTLIB: ${PREFIX_PARENTLIB}")
-    install(
-        TARGETS ${PACKAGE_NAME}
-        RUNTIME
-        LIBRARY DESTINATION ${PREFIX_PARENTLIB})
+    message(STATUS "${CMLOC}Library")
+    install(TARGETS ${PACKAGE_NAME} LIBRARY DESTINATION ${PREFIX_PARENTLIB})
+
     if(EXISTS ${PROJECT_SOURCE_DIR}/data)
         install(DIRECTORY data DESTINATION ${PREFIX_PARENTDATA}/plugins/${PACKAGE_NAME})
         message(STATUS "${CMLOC}Install data: ${PREFIX_PARENTDATA}/plugins/${PACKAGE_NAME}")
@@ -136,7 +134,7 @@ if(APPLE)
     file(
         GLOB_RECURSE PACKAGE_DATA_FILES
         LIST_DIRECTORIES true
-        ${CMAKE_SOURCE_DIR}/data/*)
+        ${PROJECT_SOURCE_DIR}/data/*)
 
     foreach(_currentDataFile ${PACKAGE_DATA_FILES})
         message(STATUS "${CMLOC}copying: ${_currentDataFile}")
@@ -147,7 +145,7 @@ if(APPLE)
         file(
             GLOB_RECURSE PACKAGE_DATA_FILES
             LIST_DIRECTORIES true
-            ${CMAKE_SOURCE_DIR}/UserIcons/*)
+            ${PROJECT_SOURCE_DIR}/UserIcons/*)
 
         foreach(_currentDataFile ${PACKAGE_DATA_FILES})
             message(STATUS "${CMLOC}copying: ${_currentDataFile}")

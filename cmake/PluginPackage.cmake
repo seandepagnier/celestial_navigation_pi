@@ -48,7 +48,7 @@ if(WIN32)
     set(CPACK_NSIS_PACKAGE_NAME "${PACKAGE_NAME}")
 
     # Let cmake find NSIS.template.in
-    set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/buildwin")
+    list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/buildwin")
 
     # These lines set the name of the Windows Start Menu shortcut and the icon that goes with it
     set(CPACK_NSIS_DISPLAY_NAME "OpenCPN ${PACKAGE_NAME}")
@@ -88,7 +88,8 @@ set(CPACK_SOURCE_IGNORE_FILES "^${CMAKE_CURRENT_SOURCE_DIR}/.git/*" "^${CMAKE_CU
 if(UNIX AND NOT APPLE)
 
     # need apt-get install rpm, for rpmbuild
-    set(PACKAGE_DEPS "opencpn, bzip2, gzip")
+    set(PACKAGE_DEPS "${PACKAGE_DEPS},opencpn, bzip2, gzip")
+    message(STATUS "${CMLOC}PACKAGE_DEPS: ${PACKAGE_DEPS}")
     set(CPACK_GENERATOR "DEB;TGZ")
 
     set(CPACK_DEBIAN_PACKAGE_NAME ${PACKAGING_NAME})
@@ -158,7 +159,7 @@ if(NOT STANDALONE MATCHES "BUNDLED")
 
 
     set(CPACK_PROJECT_CONFIG_FILE "${CMAKE_CURRENT_BINARY_DIR}/PluginCPackOptions.cmake")
-    message(STATUS "${CMLOC}CMAKE_SOURCE_DIR: ${CMAKE_SOURCE_DIR}, CPACK_PROJECT_CONFIG_FILE: ${CPACK_PROJECT_CONFIG_FILE}")
+    message(STATUS "${CMLOC}PROJECT_SOURCE_DIR: ${PROJECT_SOURCE_DIR}, CPACK_PROJECT_CONFIG_FILE: ${CPACK_PROJECT_CONFIG_FILE}")
 
     include(CPack)
 

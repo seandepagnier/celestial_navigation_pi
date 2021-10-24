@@ -17,7 +17,7 @@ parameters:
         default: true
     run_build_trusty:
         type: boolean
-        default: true
+        default: false
     run_build_xenial:
         type: boolean
         default: true
@@ -38,14 +38,26 @@ parameters:
         default: true
     run_build_flatpack:
         type: boolean
+        default: false
+    run_build_flatpak_x86_1808:
+        type: boolean
+        default: true
+    run_build_flatpak_x86_2008:
+        type: boolean
+        default: true
+    run_build_flatpack-arm64:
+        type: boolean
         default: true
     run_build_fedora:
         type: boolean
-        default: true
+        default: false
     run_build_mingw:
         type: boolean
         default: true
     run_build_macos:
+        type: boolean
+        default: true
+    run_build_macos_wx315:
         type: boolean
         default: true
     run_build_android_arm64:
@@ -55,14 +67,19 @@ parameters:
         type: boolean
         default: true
 
+orbs:
+    cloudsmith: cloudsmith/cloudsmith@1.0.4
+
 jobs:
     build-armhf-stretch:
-        machine: true
+        machine:
+            image: ubuntu-2004:202104-01
         environment:
         - OCPN_TARGET=stretch-armhf
-        - DOCKER_IMAGE=jongough/raspbian-stretch:latest
+        - DOCKER_IMAGE=balenalib/raspberry-pi-debian:stretch
         - BUILD_FLAGS=-j3
         - BUILD_ENV=raspbian
+        - DEPLOY_USE_ORB: true
         steps:
         - checkout
         - run: chmod a+x ./ci/*.sh
@@ -72,14 +89,18 @@ jobs:
         - when:
             condition: <<pipeline.parameters.run_workflow_deploy>>
             steps:
+            - cloudsmith/ensure-api-key
+            - cloudsmith/install-cli
             - run: ci/cloudsmith-upload.sh
     build-armhf-buster:
-        machine: true
+        machine:
+            image: ubuntu-2004:202104-01
         environment:
         - OCPN_TARGET=buster-armhf
-        - DOCKER_IMAGE=jongough/raspbian-buster:plugin_build_tooling_current
+        - DOCKER_IMAGE=balenalib/raspberry-pi-debian:buster
         - BUILD_FLAGS=-j3
         - BUILD_ENV=raspbian
+        - DEPLOY_USE_ORB: true
         steps:
         - checkout
         - run: chmod a+x ./ci/*.sh
@@ -89,9 +110,12 @@ jobs:
         - when:
             condition: <<pipeline.parameters.run_workflow_deploy>>
             steps:
+            - cloudsmith/ensure-api-key
+            - cloudsmith/install-cli
             - run: ci/cloudsmith-upload.sh
     build-armhf-bionic-64:
-        machine: true
+        machine:
+            image: ubuntu-2004:202104-01
         environment:
         - OCPN_TARGET=bionic-arm64
         - OCPN_BRANCH=master
@@ -113,6 +137,7 @@ jobs:
         - image: circleci/buildpack-deps:trusty-scm
         environment:
         - OCPN_TARGET:  trusty
+        - DEPLOY_USE_ORB: true
         steps:
         - checkout
         - run: >
@@ -127,12 +152,23 @@ jobs:
         - when:
             condition: <<pipeline.parameters.run_workflow_deploy>>
             steps:
+            - run: sudo apt install software-properties-common
+            - run: sudo add-apt-repository ppa:deadsnakes/ppa -y
+            - run: sudo apt update
+            - run: sudo apt install -y python3.7
+            - run: ls -la /usr/bin/python*
+            - run: sudo rm /usr/bin/python3
+            - run: sudo ln -s /usr/bin/python3.7 /usr/bin/python3
+            - run: ls -la /usr/bin/python*
+            - cloudsmith/ensure-api-key
+            - cloudsmith/install-cli
             - run: ci/cloudsmith-upload.sh
     build-xenial:
         docker:
         - image: circleci/buildpack-deps:xenial-scm
         environment:
         - OCPN_TARGET:  xenial
+        - DEPLOY_USE_ORB: true
         steps:
         - checkout
         - run: >
@@ -147,12 +183,22 @@ jobs:
         - when:
             condition: <<pipeline.parameters.run_workflow_deploy>>
             steps:
+            - run: sudo apt install software-properties-common
+            - run: sudo add-apt-repository ppa:deadsnakes/ppa -y
+            - run: sudo apt update
+            - run: sudo apt install -y python3.7
+            - run: sudo rm /usr/bin/python3
+            - run: sudo ln -s /usr/bin/python3.7 /usr/bin/python3
+            - run: sudo python3 -m pip install --upgrade pip
+            - cloudsmith/ensure-api-key
+            - cloudsmith/install-cli
             - run: ci/cloudsmith-upload.sh
     build-bionic:
         docker:
         - image: circleci/buildpack-deps:bionic-scm
         environment:
         - OCPN_TARGET:  bionic
+        - DEPLOY_USE_ORB: true
         steps:
         - checkout
         - run: >
@@ -167,6 +213,8 @@ jobs:
         - when:
             condition: <<pipeline.parameters.run_workflow_deploy>>
             steps:
+            - cloudsmith/ensure-api-key
+            - cloudsmith/install-cli
             - run: ci/cloudsmith-upload.sh
     build-bionic-gtk3:
         docker:
@@ -174,6 +222,7 @@ jobs:
         environment:
         - BUILD_GTK3: true
         - OCPN_TARGET:  bionic-gtk3
+        - DEPLOY_USE_ORB: true
         steps:
         - checkout
         - run: >
@@ -188,26 +237,29 @@ jobs:
         - when:
             condition: <<pipeline.parameters.run_workflow_deploy>>
             steps:
+            - cloudsmith/ensure-api-key
+            - cloudsmith/install-cli
             - run: ci/cloudsmith-upload.sh
     build-focal:
         docker:
         - image: circleci/buildpack-deps:focal-scm
         environment:
         - OCPN_TARGET:  focal
+        - DEPLOY_USE_ORB: true
         steps:
         - checkout
         - run: >
-            echo "deb-src http://us.archive.ubuntu.com/ubuntu/ focal main"
-            | sudo tee -a /etc/apt/sources.list
+            echo "deb-src http://us.archive.ubuntu.com/ubuntu/ focal main" | sudo tee -a /etc/apt/sources.list
         - run: >
-            echo "deb-src http://us.archive.ubuntu.com/ubuntu/ focal-updates main"
-            | sudo tee -a /etc/apt/sources.list
+            echo "deb-src http://us.archive.ubuntu.com/ubuntu/ focal-updates main" | sudo tee -a /etc/apt/sources.list
         - run: cat /etc/apt/sources.list
         - run: chmod a+x ci/*.sh
         - run: ci/circleci-build-debian.sh
         - when:
             condition: <<pipeline.parameters.run_workflow_deploy>>
             steps:
+            - cloudsmith/ensure-api-key
+            - cloudsmith/install-cli
             - run: ci/cloudsmith-upload.sh
     build-focal-gtk3:
         docker:
@@ -215,6 +267,7 @@ jobs:
         environment:
         - BUILD_GTK3: true
         - OCPN_TARGET: focal-gtk3
+        - DEPLOY_USE_ORB: true
         steps:
         - checkout
         - run: >
@@ -229,12 +282,15 @@ jobs:
         - when:
             condition: <<pipeline.parameters.run_workflow_deploy>>
             steps:
+            - cloudsmith/ensure-api-key
+            - cloudsmith/install-cli
             - run: ci/cloudsmith-upload.sh
     build-buster:
         docker:
         - image: circleci/buildpack-deps:buster-scm
         environment:
         - OCPN_TARGET:  buster
+        - DEPLOY_USE_ORB: true
         steps:
         - checkout
         - run: >
@@ -249,13 +305,17 @@ jobs:
         - when:
             condition: <<pipeline.parameters.run_workflow_deploy>>
             steps:
+            - cloudsmith/ensure-api-key
+            - cloudsmith/install-cli
             - run: ci/cloudsmith-upload.sh
     build-flatpak:
         machine:
-            image: circleci/classic:201808-01
+            image: ubuntu-2004:202010-01
         environment:
         - OCPN_TARGET:  flatpak
+        - FLATPAK_BRANCH: stable
         - CLOUDSMITH_PKG_EXT: gz
+        - SDK_VER: 20.08
         steps:
         - checkout
         - run: chmod a+x ci/*.sh
@@ -264,11 +324,72 @@ jobs:
             condition: <<pipeline.parameters.run_workflow_deploy>>
             steps:
             - run: ci/cloudsmith-upload.sh
+    build-flatpak-x86-1808:
+        machine:
+            image: ubuntu-2004:202010-01
+        environment:
+        - OCPN_TARGET:  flatpak
+        - FLATPAK_BRANCH: stable
+        - CLOUDSMITH_PKG_EXT: gz
+        - SDK_VER: 18.08
+        - DEPLOY_USE_ORB: true
+        steps:
+        - checkout
+        - run: chmod a+x ci/*.sh
+        - run: bash ci/circleci-build-flatpak.sh
+        - when:
+            condition: <<pipeline.parameters.run_workflow_deploy>>
+            steps:
+            - cloudsmith/ensure-api-key
+            - cloudsmith/install-cli
+            - run: ci/cloudsmith-upload.sh
+    build-flatpak-x86-2008:
+        machine:
+            image: ubuntu-2004:202010-01
+        environment:
+        - OCPN_TARGET:  flatpak
+        - FLATPAK_BRANCH: beta
+        - CLOUDSMITH_PKG_EXT: gz
+        - SDK_VER: 20.08
+        - DEPLOY_USE_ORB: true
+        steps:
+        - checkout
+        - run: chmod a+x ci/*.sh
+        - run:
+            command: bash ci/circleci-build-flatpak.sh
+            no_output_timeout: 30m
+        - when:
+            condition: <<pipeline.parameters.run_workflow_deploy>>
+            steps:
+            - cloudsmith/ensure-api-key
+            - cloudsmith/install-cli
+            - run: ci/cloudsmith-upload.sh
+    build-flatpak-arm64:
+        machine:
+            image: ubuntu-2004:202101-01
+        resource_class: arm.medium
+        environment:
+        - OCPN_TARGET:  flatpak-arm64
+        - FLATPAK_BRANCH: beta
+        - CLOUDSMITH_PKG_EXT: gz
+        - SDK_VER: 20.08
+        - DEPLOY_USE_ORB: true
+        steps:
+        - checkout
+        - run: chmod a+x ci/*.sh
+        - run: bash ci/circleci-build-flatpak.sh
+        - when:
+            condition: <<pipeline.parameters.run_workflow_deploy>>
+            steps:
+            - cloudsmith/ensure-api-key
+            - cloudsmith/install-cli
+            - run: ci/cloudsmith-upload.sh
     build-fedora:
         docker:
         - image: fedora:33
         environment:
         - OCPN_TARGET:  fedora
+        - DEPLOY_USE_ORB: true
         steps:
         - run: su -c "dnf install -q -y git openssh-clients openssh-server"
         - checkout
@@ -277,6 +398,8 @@ jobs:
         - when:
             condition: <<pipeline.parameters.run_workflow_deploy>>
             steps:
+            - cloudsmith/ensure-api-key
+            - cloudsmith/install-cli
             - run: ci/cloudsmith-upload.sh
     build-mingw:
         docker:
@@ -285,7 +408,7 @@ jobs:
         - OCPN_TARGET:  mingw
         - CLOUDSMITH_PKG_EXT: exe
         steps:
-        - run: su -c "dnf install -q -y git openssh-clients openssh-server"
+        - run: su -c "dnf install -y git openssh-clients openssh-server"
         - checkout
         - run: chmod a+x ci/*.sh
         - run: bash ci/circleci-build-mingw.sh
@@ -295,10 +418,12 @@ jobs:
             - run: ci/cloudsmith-upload.sh
     build-macos:
         macos:
-            xcode: "11.0.0"
+            xcode: "12.5.1"
         environment:
         - OCPN_TARGET:  macos
         - CLOUDSMITH_PKG_EXT: pkg
+        - DEPLOY_USE_ORB: true
+        - WXVERSION: 312
         steps:
         - checkout
         - run: chmod a+x ci/*.sh
@@ -306,6 +431,26 @@ jobs:
         - when:
             condition: <<pipeline.parameters.run_workflow_deploy>>
             steps:
+            - cloudsmith/ensure-api-key
+            - cloudsmith/install-cli
+            - run: ci/cloudsmith-upload.sh
+    build-macos-wx315:
+        macos:
+            xcode: "12.5.1"
+        environment:
+        - OCPN_TARGET:  macos
+        - CLOUDSMITH_PKG_EXT: pkg
+        - DEPLOY_USE_ORB: true
+        - WXVERSION: 315
+        steps:
+        - checkout
+        - run: chmod a+x ci/*.sh
+        - run: bash ci/circleci-build-macos.sh
+        - when:
+            condition: <<pipeline.parameters.run_workflow_deploy>>
+            steps:
+            - cloudsmith/ensure-api-key
+            - cloudsmith/install-cli
             - run: ci/cloudsmith-upload.sh
     build-android-arm64:
         docker:
@@ -357,8 +502,8 @@ workflows:
                 tags:
                     only: /.*/
 # Currently circleci does not build armf64 correctly due to no suitable docker image
-#        build_3:
-#        when: <<pipeline.parameters.run_build_bionic-64>>
+#    build_3:
+#        when: <<pipeline.parameters.run_build_armhf_bionic_64>>
 #        jobs:
 #        - build-armhf-bionic-64:
 #            filters:
@@ -368,17 +513,18 @@ workflows:
 #                    - tmp
 #                tags:
 #                    only: /.*/
-    build_4:
-        when: <<pipeline.parameters.run_build_trusty>>
-        jobs:
-        - build-trusty:
-            filters:
-                branches:
-                    ignore:
-                    - devel
-                    - tmp
-                tags:
-                    only: /.*/
+# Trusty is depricated so will not be built
+#    build_4:
+#        when: <<pipeline.parameters.run_build_trusty>>
+#        jobs:
+#        - build-trusty:
+#            filters:
+#                branches:
+#                    ignore:
+#                    - devel
+#                    - tmp
+#                tags:
+#                    only: /.*/
     build_5:
         when: <<pipeline.parameters.run_build_xenial>>
         jobs:
@@ -446,10 +592,44 @@ workflows:
                     - tmp
                 tags:
                     only: /.*/
-    build_11:
-        when: <<pipeline.parameters.run_build_flatpack>>
+# Removed as replaced by following flatpack builds
+#    build_11:
+#        when: <<pipeline.parameters.run_build_flatpack>>
+#        jobs:
+#        - build-flatpak:
+#            filters:
+#                branches:
+#                    ignore:
+#                    - devel
+#                    - tmp
+#                tags:
+#                    only: /.*/
+    build_12:
+        when: <<pipeline.parameters.run_build_flatpack-arm64>>
         jobs:
-        - build-flatpak:
+        - build-flatpak-arm64:
+            filters:
+                branches:
+                    ignore:
+                    - devel
+                    - tmp
+                tags:
+                    only: /.*/
+    build_13:
+        when: <<pipeline.parameters.run_build_flatpak_x86_2008>>
+        jobs:
+        - build-flatpak-x86-2008:
+            filters:
+                branches:
+                    ignore:
+                    - devel
+                    - tmp
+                tags:
+                    only: /.*/
+    build_14:
+        when: <<pipeline.parameters.run_build_flatpak_x86_1808>>
+        jobs:
+        - build-flatpak-x86-1808:
             filters:
                 branches:
                     ignore:
@@ -458,7 +638,7 @@ workflows:
                 tags:
                     only: /.*/
 # Fedora is being removed from the supplied list of environments so don't build
-#    build_12:
+#    build_15:
 #        when: <<pipeline.parameters.run_build_fedora>>
 #        jobs:
 #        - build-fedora:
@@ -469,7 +649,7 @@ workflows:
 #                    - tmp
 #                tags:
 #                    only: /.*/
-    build_13:
+    build_16:
         when: <<pipeline.parameters.run_build_mingw>>
         jobs:
         - build-mingw:
@@ -480,7 +660,7 @@ workflows:
                     - tmp
                 tags:
                     only: /.*/
-    build_14:
+    build_17:
         when: <<pipeline.parameters.run_build_macos>>
         jobs:
         - build-macos:
@@ -491,7 +671,18 @@ workflows:
                     - tmp
                 tags:
                     only: /.*/
-    build_15:
+    build_18:
+        when: <<pipeline.parameters.run_build_macos_wx315>>
+        jobs:
+        - build-macos-wx315:
+            filters:
+                branches:
+                    ignore:
+                    - devel
+                    - tmp
+                tags:
+                    only: /.*/
+    build_19:
         when: <<pipeline.parameters.run_build_android_arm64>>
         jobs:
         - build-android-arm64:
@@ -502,7 +693,7 @@ workflows:
                     - tmp
                 tags:
                     only: /.*/
-    build_16:
+    build_20:
         when: <<pipeline.parameters.run_build_android_armhf>>
         jobs:
         - build-android-armhf:
