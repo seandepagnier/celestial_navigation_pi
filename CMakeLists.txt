@@ -38,7 +38,7 @@ set(LONG_DESCRIPTION "Implements nautical almanac for sun, moon, planets and var
 set(VERSION_MAJOR "2")
 set(VERSION_MINOR "3")
 set(VERSION_PATCH "4")
-set(VERSION_TWEAK "3")
+set(VERSION_TWEAK "5")
 set(VERSION_DATE "2021-10-23")
 set(OCPN_MIN_VERSION "ov52")
 set(OCPN_API_VERSION_MAJOR "1")
@@ -120,7 +120,6 @@ option(Plugin_CXX11 "Use c++11" OFF)
 ##
 ## ----- Modify section above if there are special requirements for the plugin ----- ##
 ## ----- do not change next section - needed to configure build process ----- ##
-
 ##==================================
 include("PluginConfigure")
 ##==================================
@@ -156,7 +155,6 @@ SET(SRCS
           src/transform_star.cpp
           src/epv00.cpp
           src/celestial_navigation_pi.cpp
-#         libs/ocpn-api/ocpn_plugin.h		  
 	)
 
 SET(HDRS
@@ -188,34 +186,12 @@ set(LIBHDRS
 
 add_definitions(-DPLUGIN_USE_SVG)
 		
-#SET(SRC_TINYXML
-#            src/tinyxml/tinyxml.cpp
-#            src/tinyxml/tinyxmlparser.cpp
-#            src/tinyxml/tinyxmlerror.cpp
-#)
 
 # set(EXTINCLUDE extinclude/nlohmann/json.hpp extinclude/ODAPI.h)
 
 #set(LIBSSRC libs/wxJSON/src/jsonreader.cpp libs/wxJSON/src/jsonval.cpp libs/wxJSON/src/jsonwriter.cpp)
 
 #Not doing JSON validation
-#if(APPLE)
-#    option(PI_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" OFF)
-#else(APPLE)
-#    option(PI_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" ON)
-#endif(APPLE)
-
-#if(PI_JSON_SCHEMA_VALIDATOR)
-#    message(STATUS "${CMLOC}Using JSON Schema validation - warning this changes the 'flavour' of the executable and it may not be compatible with OpenCPN")
-#    add_definitions(-DPI_JSON_SCHEMA_VALIDATOR)
-#    message(STATUS "${CMLOC}Adding JSON Schema validation")
-
-#    set(EXTSRC ${EXTSRC} extsrc/json-schema-validator/json-schema-draft7.json.cpp extsrc/json-schema-validator/json-uri.cpp extsrc/json-schema-validator/json-validator.cpp)
-#    set(EXTINCLUDE ${EXTINCLUDE} extinclude/nlohmann/json.hpp extinclude/json-schema-validator/json-schema.hpp)
-#    include_directories(BEFORE ${PROJECT_SOURCE_DIR}/extinclude/json-schema-validator)
-#else(PI_JSON_SCHEMA_VALIDATOR)
-#    message(STATUS "${CMLOC}Not using JSON Schema validation - warning invalid JSON 'may' cause unexpected crashes")
-#endif(PI_JSON_SCHEMA_VALIDATOR)
 
 ##
 # Modify/configure 'Include' Directories below for the Plugin
@@ -246,32 +222,19 @@ include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/wxJSON/include)
 if(QT_ANDROID)
     include_directories(BEFORE ${qt_android_include})
     include_directories( ${CMAKE_SOURCE_DIR}/extinclude/GLES2)
-
-    #    #include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/glshim/include/GLES)
 endif(QT_ANDROID)
 
 ##
 ## Statement below is required to collect all the set( headers and SRCS  - Adjust as required
-## This add_library  can be used in conditionals below.
-##
-##    SET(EXTSRC  ${EXTSRC}   etc   Can be in an if statement as below
-##
 ##==================================
 target_sources(${PACKAGE_NAME} PUBLIC ${SRCS} ${HDRS} ${LIBHDRS} ${OCPNSRC} ${EXTSRC} ${LIBSSRC})
 ##==================================
-## ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRCS} ${HDRS} ${LIBHDRS} ${SRC_TINYXML})
 
 ADD_DEFINITIONS(-DTIXML_USE_STL)
 
 IF(PLUGIN_USE_SVG)
   ADD_DEFINITIONS(-DCELESTIAL_NAVIGATION_USE_SVG)
 ENDIF(PLUGIN_USE_SVG)
-
-#needed only if glshim project is included.
-if(QT_ANDROID)
-  target_link_libraries(${PACKAGE_NAME}  GL_static)
-endif(QT_ANDROID)  
-
 
 if(NOT OCPN_FLATPAK_CONFIG)
     # Build environment not available when flatpak is being configured so following statements will not work
@@ -285,29 +248,6 @@ endif(NOT OCPN_FLATPAK_CONFIG)
 add_definitions(-DTIXML_USE_STL)
 
 # Not doing JSON Validator
-# Every plugin that uses JSON for passing messages should use a validator. The validator  allows the system to ignore non-conformant messages. 
-
-#if(UNIX AND NOT APPLE AND NOT QT_ANDROID)
-#    if(PI_JSON_SCHEMA_VALIDATOR)
-        # Change OS/ABI to be UNIX - System V to make it run with OCPN
-#        set(lib_name lib${PACKAGE_NAME}.so)
-#        message(STATUS "${CMLOC}lib-name: ${lib_name}")
-#        find_file(elfedit elfedit)
-#        if(NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
-#            message(STATUS "${CMLOC}Will ensure OS/ABI is set to 0 to match OCPN")
-#            add_custom_command(
-#                TARGET ${PACKAGE_NAME}
-#                POST_BUILD
-#                WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-#                DEPENDS ${PACKAGE_NAME}
-#                COMMENT " Running post build action on ${lib_name}."
-#                COMMAND sh -c 'elfedit --input-osabi=Linux --output-osabi=none ${lib_name} || (echo 0) ')
-#        else(NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
-#            message(STATUS "${CMLOC}Cannot correct OS/ABI to match OCPN if it is generated incorrectly. Package binutils needed")
-#        endif(NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
-#    endif(PI_JSON_SCHEMA_VALIDATOR)
-#endif(UNIX AND NOT APPLE AND NOT QT_ANDROID)
-
 
 ##
 ## ----- Change above to match project requirements ----- ##
