@@ -5,11 +5,11 @@
 ##---------------------------------------------------------------------------
 # Frontend2  v1.0.147.1 Author: Jon Gough  
 # ---------------------------------------------------------------------------
-## ----- When changing this file do NOT change the order in which sections occur        ----- ##
-## ----- Changes should only be made between the section blocks that identify where     ----- ##
-## ----- these changes should be. The whole configuration process relies on this        ----- ##
-## ----- sequence to be successful                                                      ----- ##
-##----- Modify section below to include all the details for your plugin ----- ##
+## ----- When changing this file do NOT change the order in which sections occur    ----- ##
+## ----- Changes should only be made between the section blocks that identify where ----- ##
+## ----- these changes should be. The whole configuration process relies on this    ----- ##
+## ----- sequence to be successful                                                  ----- ##
+##----- Modify section below to include all the details for your plugin             ----- ##
 ##
 
 set(CMLOC "CMakeLists: ")
@@ -37,9 +37,9 @@ set(LONG_DESCRIPTION "Implements nautical almanac for sun, moon, planets and var
 
 set(VERSION_MAJOR "2")
 set(VERSION_MINOR "3")
-set(VERSION_PATCH "4")
-set(VERSION_TWEAK "5")
-set(VERSION_DATE "2021-10-23")
+set(VERSION_PATCH "5")
+set(VERSION_TWEAK "0")
+set(VERSION_DATE "2021-10-25")
 set(OCPN_MIN_VERSION "ov52")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
@@ -172,7 +172,7 @@ SET(HDRS
         libs/ocpn-api/ocpn_plugin.h
   	)	
 
-#added for android
+# Added for android
 set(LIBHDRS
     libs/GL/gl.h
     libs/GL/gl_private.h
@@ -191,7 +191,7 @@ add_definitions(-DPLUGIN_USE_SVG)
 
 #set(LIBSSRC libs/wxJSON/src/jsonreader.cpp libs/wxJSON/src/jsonval.cpp libs/wxJSON/src/jsonwriter.cpp)
 
-#Not doing JSON validation
+# Not doing JSON validation
 
 ##
 # Modify/configure 'Include' Directories below for the Plugin
@@ -208,12 +208,12 @@ include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude)
 #include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/bitmaps)
 
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src)  #nor so sure this is needed, trying to fix cnav.
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/tinyxml)
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/glshim)
+# include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/tinyxml)
+# include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/glshim)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/tinyxml)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/geomag)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/astrolabe)
 
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/api-16)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/GL)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/ocpn-api)

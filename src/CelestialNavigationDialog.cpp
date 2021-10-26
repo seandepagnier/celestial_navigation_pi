@@ -32,7 +32,7 @@
 #include <wx/stdpaths.h>
 #include <wx/imaglist.h>
 
-#include "tinyxml/tinyxml.h"
+#include "tinyxml.h"
 
 #include "ocpn_plugin.h"
 
