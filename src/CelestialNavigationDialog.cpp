@@ -34,12 +34,32 @@
 
 #include "tinyxml.h"
 
+#include <GL/gl.h>
+
 #include "ocpn_plugin.h"
 
 #include "Sight.h"
 #include "SightDialog.h"
 #include "CelestialNavigationDialog.h"
 #include "celestial_navigation_pi.h"
+//HEAD
+// line
+#include "zuFile.h"
+
+#include "astrolabe/astrolabe.hpp"
+static wxString DataDirectory()
+{
+    wxString s = wxFileName::GetPathSeparator();
+    return *GetpSharedDataLocation() + "plugins" + s + "celestial_navigation_pi" + s + "data" + s;
+}
+
+static wxString UserDataDirectory()
+ {
+    wxString s = wxFileName::GetPathSeparator();
+    return *GetpPrivateApplicationDataLocation() + s + "plugins"
+        + s + "celestial_navigation" + s;
+ }
+//  master
 
 /* XPM */
 static const char *eye[]={
@@ -144,6 +164,50 @@ CelestialNavigationDialog::CelestialNavigationDialog(wxWindow *parent)
             fn.Mkdir();
         }
     }
+// HEAD
+// line
+
+// from HEAD    
+#ifdef __OCPN__ANDROID__
+    GetHandle()->setAttribute(Qt::WA_AcceptTouchEvents);
+    GetHandle()->grabGesture(Qt::PanGesture);
+    GetHandle()->setStyleSheet( qtStyleSheet);
+
+    m_lSights->GetHandle()->setAttribute(Qt::WA_AcceptTouchEvents);
+    m_lSights->GetHandle()->grabGesture(Qt::PanGesture);
+    m_lSights->Connect( wxEVT_QT_PANGESTURE,
+                       (wxObjectEventFunction) (wxEventFunction) &CelestialNavigationDialog::OnEvtPanGesture, NULL, this );
+
+    GetHandle()->setStyleSheet( qtStyleSheet);
+    Move(0, 0);
+#endif
+// beginning of parent of parent of ddd0bac... android build
+//
+// end of parent of ddd0bac... android build
+}
+
+#ifdef __OCPN__ANDROID__ 
+void CelestialNavigationDialog::OnEvtPanGesture( wxQT_PanGestureEvent &event)
+{
+    switch(event.GetState()){
+        case GestureStarted:
+            m_startPos = GetPosition();
+            m_startMouse = event.GetCursorPos(); //g_mouse_pos_screen;
+            break;
+        default:
+        {
+            wxPoint pos = event.GetCursorPos();
+            int x = wxMax(0, pos.x + m_startPos.x - m_startMouse.x);
+            int y = wxMax(0, pos.y + m_startPos.y - m_startMouse.y);
+            int xmax = ::wxGetDisplaySize().x - GetSize().x;
+            x = wxMin(x, xmax);
+            int ymax = ::wxGetDisplaySize().y - GetSize().y;          // Some fluff at the bottom
+            y = wxMin(y, ymax);
+            
+            Move(x, y);
+        } break;
+    }
+// master
 }
 
 CelestialNavigationDialog::~CelestialNavigationDialog()
