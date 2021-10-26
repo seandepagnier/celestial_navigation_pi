@@ -3,26 +3,134 @@
 ## Copyright:   
 ## License:     GPLv3
 ##---------------------------------------------------------------------------
- 
+# Frontend2  v1.0.147.1 Author: Jon Gough  
+# ---------------------------------------------------------------------------
+## ----- When changing this file do NOT change the order in which sections occur    ----- ##
+## ----- Changes should only be made between the section blocks that identify where ----- ##
+## ----- these changes should be. The whole configuration process relies on this    ----- ##
+## ----- sequence to be successful                                                  ----- ##
+##----- Modify section below to include all the details for your plugin             ----- ##
+##
+
+set(CMLOC "CMakeLists: ")
 
 # define minimum cmake version
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6.2)
+cmake_minimum_required(VERSION 3.1.1)
+if(COMMAND cmake_policy)
+    if(POLICY CMP0043)
+        cmake_policy(SET CMP0043 NEW)
+    endif(POLICY CMP0043)
+    cmake_policy(SET CMP0048 NEW)
+    if(POLICY CMP0077)
+        cmake_policy(SET CMP0077 NEW)
+    endif(POLICY CMP0077)
+endif(COMMAND cmake_policy)
 
-PROJECT(celestial_navigation_pi)
+# define plugin name, owner and versions
+set(VERBOSE_NAME Celestial_Navigation)
+set(COMMON_NAME "Celestial Navigation")  
+set(TITLE_NAME "CELESTIALNAVIGATION")
+set(PACKAGE_CONTACT  "Sean D'Epagnier ")
+set(PACKAGE "celestial_navigation")
+set(SHORT_DESCRIPTION "Celestial Navigation Plugin for OpenCPN")
+set(LONG_DESCRIPTION "Implements nautical almanac for sun, moon, planets and various navigational stars. Compute position fix from celestial measurements.")
 
-SET(PACKAGE_NAME celestial_navigation_pi)
-SET(VERBOSE_NAME CelestialNavigation)
-SET(TITLE_NAME CELESTIALNAVIGATION)
-SET(CPACK_PACKAGE_CONTACT "Sean D'Epagnier ")
+set(VERSION_MAJOR "2")
+set(VERSION_MINOR "3")
+set(VERSION_PATCH "5")
+set(VERSION_TWEAK "0")
+set(VERSION_DATE "2021-10-25")
+set(OCPN_MIN_VERSION "ov52")
+set(OCPN_API_VERSION_MAJOR "1")
+set(OCPN_API_VERSION_MINOR "16")
+set(TP_COMMENT "  * Release for O5 using CI")
 
-MESSAGE (STATUS "*** Building ${PACKAGE_NAME} ***")
+set(PARENT "opencpn")
 
-INCLUDE( VERSION.cmake )
-SET(PLUGIN_VERSION "${PLUGIN_VERSION_MAJOR}.${PLUGIN_VERSION_MINOR}.${PLUGIN_VERSION_PATCH}" )
+# The next line allows for setting up your own local webserver with git on it for testing purposes, the default is github.com
+# This line is turned on in pluginconfigure.cmake because the flatpak build and building locally depends on it.
+# set(GIT_REPOSITORY_SERVER "github.com")
 
-INCLUDE("cmake/PluginConfigure.cmake")
+#No longer needed, queried.
+#set(GIT_USER "rgleason")
+#set(GIT_REPOSITORY_NAME "celestial_navigation_pi")
 
-SET(SRC_CELESTIAL_NAVIGATION
+# Specifies Cloudsmith upload repository suffix
+set(PROD "prod") # Standard Repos
+set(BETA "beta") # Standard Repos
+set(ALPHA "alpha") # Standard Repos
+
+# Set if yourCloudsmith Base Repository name does not match your Git Repository name.
+#set(CLOUDSMITH_BASE_REPOSITORY "${GIT_REPOSITORY_NAME}")
+set (CLOUDSMITH_BASE_REPOSITORY "celestial-navigation")  #without the pi 
+
+# Set the following to use OpenCPN cloudsmith repositories instead of own repositories
+set(CLOUDSMITH_USER "opencpn")
+#set(CLOUDSMITH_USER "rick-gleason")
+
+# Set Plugin info-url, summary and description
+set(XML_INFO_URL "https://opencpn.org/OpenCPN/plugins/celestialnav.html")
+set(XML_SUMMARY ${SHORT_DESCRIPTION})
+set(XML_DESCRIPTION ${LONG_DESCRIPTION})
+
+##
+## ----- Modify section above to include all the details for your plugin ----- ##
+## ----- Modify section below if there are special requirements for the plugin ----- ##
+##
+
+option(PLUGIN_USE_SVG "Use SVG graphics" ON)
+
+set(CMAKE_CXX_STANDARD 11)
+
+# Prefer libGL.so to libOpenGL.so, see CMP0072
+set(OpenGL_GL_PREFERENCE "LEGACY")
+
+# Use local version of GLU library
+#set(USE_LOCAL_GLU TRUE)
+# Don't use local version of GLU library
+set(USE_LOCAL_GLU FALSE)
+
+option(USE_GL "Enable OpenGL support" ON)
+message(STATUS "${CMLOC}USE_GL: ${USE_GL}")
+
+if("${CMAKE_BUILD_TYPE}" STREQUAL "")
+    set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build" FORCE)
+endif("${CMAKE_BUILD_TYPE}" STREQUAL "")
+set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "" "Debug" "Release" "RelWithDebInfo" "MinSizeRel")
+message(STATUS "${CMLOC}Build type: ${CMAKE_BUILD_TYPE}")
+
+##
+## ----- The statements below are used to setup standard variables that are required by the CMAKE process - do not remove ----- ##
+##
+
+project(${PACKAGE})
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
+##==================================
+include("PluginSetup")
+##==================================
+## ----- The above is used to setup standard variables that are required by the CMAKE process - do not remove ----- ##
+## ----- Modify section below if there are special requirements for the plugin ----- ##
+##
+
+set(CMAKE_VERBOSE_MAKEFILE "Activate verbose mode for make files" ON)
+
+option(Plugin_CXX11 "Use c++11" OFF)
+
+##
+## ----- Modify section above if there are special requirements for the plugin ----- ##
+## ----- do not change next section - needed to configure build process ----- ##
+##==================================
+include("PluginConfigure")
+##==================================
+## ----- do not change section above - needed to configure build process ----- ##
+# ----- Change below to match project requirements for source, headers, etc. ----- ##
+# 
+
+add_definitions(-DUSE_S57)
+
+SET(SRCS
+          src/astrolabe/astrolabe.hpp
           src/astrolabe/calendar.cpp
           src/astrolabe/dicts.cpp
           src/astrolabe/dynamical.cpp
@@ -49,7 +157,23 @@ SET(SRC_CELESTIAL_NAVIGATION
           src/celestial_navigation_pi.cpp
 	)
 
-#added for android
+
+SET(HDRS
+        src/celestial_navigation_pi.h
+        src/CelestialNavigationDialog.h
+        src/CelestialNavigationUI.h
+        src/ClockCorrectionDialog.h
+        src/FindBodyDialog.h
+		src/FixDialog.h
+		src/geodesic.h
+		src/icons.h
+		src/Sight.h
+		src/SightDialog.h
+		
+        libs/ocpn-api/ocpn_plugin.h
+  	)	
+
+# Added for android
 set(LIBHDRS
     libs/GL/gl.h
     libs/GL/gl_private.h
@@ -61,13 +185,50 @@ set(LIBHDRS
 #    libs/wx/include/wx/jsonwriter.h
 	)
 
-IF(WIN32)
-SET(SRC_TINYXML
-            src/tinyxml/tinyxml.cpp
-            src/tinyxml/tinyxmlparser.cpp
-            src/tinyxml/tinyxmlerror.cpp
-)
-ENDIF(WIN32)
+add_definitions(-DPLUGIN_USE_SVG)
+		
+# set(EXTINCLUDE extinclude/nlohmann/json.hpp extinclude/ODAPI.h)
+
+#set(LIBSSRC libs/wxJSON/src/jsonreader.cpp libs/wxJSON/src/jsonval.cpp libs/wxJSON/src/jsonwriter.cpp)
+
+# Not doing JSON validation
+
+##
+# Modify/configure 'Include' Directories below for the Plugin
+##
+
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/include)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude)
+#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/extinclude)
+#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/)
+#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/wx/include)
+#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude/wxcurl)
+#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude/wxcurl/include)
+#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/lz4)
+#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/bitmaps)
+
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src)  #nor so sure this is needed, trying to fix cnav.
+# include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/tinyxml)
+# include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/glshim)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/tinyxml)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/geomag)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/astrolabe)
+
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/GL)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/ocpn-api)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/wxJSON/include)
+
+if(QT_ANDROID)
+    include_directories(BEFORE ${qt_android_include})
+    include_directories( ${CMAKE_SOURCE_DIR}/extinclude/GLES2)
+endif(QT_ANDROID)
+
+##
+## Statement below is required to collect all the set( headers and SRCS  - Adjust as required
+##==================================
+target_sources(${PACKAGE_NAME} PUBLIC ${SRCS} ${HDRS} ${LIBHDRS} ${OCPNSRC} ${EXTSRC} ${LIBSSRC})
+##==================================
 
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src)  #nor so sure this is needed, trying to fix cnav.
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/astrolabe)
@@ -79,8 +240,38 @@ include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/GL)
 
 
 ADD_DEFINITIONS(-DTIXML_USE_STL)
-ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRC_CELESTIAL_NAVIGATION} ${SRC_TINYXML})
 
-INCLUDE("cmake/PluginInstall.cmake")
-INCLUDE("cmake/PluginLocalization.cmake")
-INCLUDE("cmake/PluginPackage.cmake")
+IF(PLUGIN_USE_SVG)
+  ADD_DEFINITIONS(-DCELESTIAL_NAVIGATION_USE_SVG)
+ENDIF(PLUGIN_USE_SVG)
+
+if(NOT OCPN_FLATPAK_CONFIG)
+    # Build environment not available when flatpak is being configured so following statements will not work
+    message(STATUS "${CMLOC}Adding target link libraries to ${PACKAGE_NAME}")
+
+    add_subdirectory(libs/tinyxml)
+
+   target_link_libraries(${PACKAGE_NAME} ocpn::tinyxml)
+endif(NOT OCPN_FLATPAK_CONFIG)
+
+add_definitions(-DTIXML_USE_STL)
+
+# Not doing JSON Validator
+
+##
+## ----- Change above to match project requirements ----- ##
+## ----- do not change next section - needed to configure build process ----- ##
+
+# Needed for android builds
+if(QT_ANDROID)
+    include_directories(BEFORE ${qt_android_include})
+endif(QT_ANDROID)
+
+# Needed for all builds
+##==================================
+include("PluginInstall")
+include("PluginLocalization")
+include("PluginPackage")
+##==================================
+## ----- do not change section above - needed to configure build process ----- ##
+##

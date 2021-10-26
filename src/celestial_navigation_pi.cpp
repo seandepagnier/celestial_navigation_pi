@@ -24,16 +24,22 @@
  ***************************************************************************
  */
 
-#include <wx/wx.h>
+#include "wx/wxprec.h"
+
+#ifndef WX_PRECOMP
+#include "wx/wx.h"
+#endif //precompiled headers
+
+//#include <wx/wx.h>
 #include <wx/stdpaths.h>
+#include <GL/gl.h>
 
 #include "ocpn_plugin.h"
-
-#include <GL/gl.h>
 
 #include "Sight.h"
 #include "celestial_navigation_pi.h"
 #include "icons.h"
+
 using namespace std;
 
 // the class factories, used to create and destroy instances of the PlugIn
@@ -55,7 +61,7 @@ extern "C" DECL_EXP void destroy_pi(opencpn_plugin* p)
 //---------------------------------------------------------------------------------------------------------
 
 celestial_navigation_pi::celestial_navigation_pi(void *ppimgr)
-    :opencpn_plugin_18 (ppimgr)
+    :opencpn_plugin_116 (ppimgr)
 {
     // Create the PlugIn icons
     initialize_images();
@@ -76,16 +82,24 @@ int celestial_navigation_pi::Init(void)
 {
     AddLocaleCatalog( _T("opencpn-celestial_navigation_pi") );
 
+
+
+
     // Get a pointer to the opencpn display canvas, to use as a parent for windows created
     m_parent_window = GetOCPNCanvasWindow();
 
     //    This PlugIn needs a toolbar icon, so request its insertion
-    m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_celestial_navigation,
-                                            _img_celestial_navigation, wxITEM_NORMAL,
-                                            _("Celestial Navigation"), _T(""), NULL,
-                                            CELESTIAL_NAVIGATION_TOOL_POSITION, 0, this);
+ 
+#ifdef PLUGIN_USE_SVG
+    m_leftclick_tool_id = InsertPlugInToolSVG( "Celestial Navigation" , _svg_celestial_navigation, _svg_celestial_navigation_rollover,
+        _svg_celestial_navigation_toggled, wxITEM_CHECK, _( "Celestial Navigation" ),  "" , NULL, CELESTIAL_NAVIGATION_TOOL_POSITION, 0, this);
+#else
+    m_leftclick_tool_id  = InsertPlugInTool
+        ("", _img_celestial_navigation, _img_celestial_navigation, wxITEM_NORMAL,
+         _("Celestial Navigation"), "", NULL, CELESTIAL_NAVIGATION_TOOL_POSITION, 0, this);
+#endif
 
-    m_pCelestialNavigationDialog = NULL;
+    m_pCelestialNavigationDialog = NULL;	 
 
     return (WANTS_OVERLAY_CALLBACK |
             WANTS_OPENGL_OVERLAY_CALLBACK |
@@ -111,12 +125,12 @@ bool celestial_navigation_pi::DeInit(void)
 
 int celestial_navigation_pi::GetAPIVersionMajor()
 {
-    return MY_API_VERSION_MAJOR;
+    return OCPN_API_VERSION_MAJOR;
 }
 
 int celestial_navigation_pi::GetAPIVersionMinor()
 {
-    return MY_API_VERSION_MINOR;
+    return OCPN_API_VERSION_MINOR;
 }
 
 int celestial_navigation_pi::GetPlugInVersionMajor()
@@ -136,20 +150,19 @@ wxBitmap *celestial_navigation_pi::GetPlugInBitmap()
 
 wxString celestial_navigation_pi::GetCommonName()
 {
-    return _("Celestial Navigation");
+ //   return _("Celestial Navigation");
+	return _T(PLUGIN_COMMON_NAME);	
 }
 
 wxString celestial_navigation_pi::GetShortDescription()
 {
-    return _("Celestial Navigation PlugIn for OpenCPN");
+	   return _(PLUGIN_SHORT_DESCRIPTION);
 }
 
 wxString celestial_navigation_pi::GetLongDescription()
 {
-    return _("Celestial Navigation PlugIn for OpenCPN.\n\
-Implements nautical almanac for sun, moon, planets,\n\
-and various navigational stars.\n\
-Compute position fix from celestial measurements.");
+       return _(PLUGIN_LONG_DESCRIPTION);
+
 }
 
 void celestial_navigation_pi::OnToolbarToolCallback(int id)
@@ -157,8 +170,9 @@ void celestial_navigation_pi::OnToolbarToolCallback(int id)
     int ret;
     if(!m_pCelestialNavigationDialog) {
         /* load the geographical magnetic table */
-        wxString geomag_text_path = *GetpSharedDataLocation();
-        geomag_text_path.Append(_T("plugins/celestial_navigation_pi/data/IGRF11.COF"));
+        wxString geomag_text_path = GetPluginDataDir("celestial_navigation_pi");   
+//        geomag_text_path.Append(_T("plugins/celestial_navigation_pi/data/IGRF11.COF"));
+        geomag_text_path.Append(_T("/data/IGRF11.COF"));		
         if((ret = geomag_load(geomag_text_path.mb_str())) < 0) {
 	    wxString message = _("Failed to load file: ") + geomag_text_path + "\n";
 	    switch (ret) {
@@ -243,19 +257,11 @@ bool celestial_navigation_pi::RenderOverlayAll(wxDC *dc, PlugIn_ViewPort *vp)
 
 wxString celestial_navigation_pi::StandardPath()
 {
-    wxStandardPathsBase& std_path = wxStandardPathsBase::Get();
-    wxString s = wxFileName::GetPathSeparator();
-#if defined(__WXMSW__)
-    wxString stdPath  = std_path.GetConfigDir();
-#elif defined(__WXGTK__) || defined(__WXQT__)
-    wxString stdPath  = std_path.GetUserDataDir();
-#elif defined(__WXOSX__)
-    wxString stdPath  = (std_path.GetUserConfigDir() + s + _T("opencpn"));   // should be ~/Library/Preferences/opencpn
-#endif
-
-    return stdPath + wxFileName::GetPathSeparator() +
-        _T("plugins") + wxFileName::GetPathSeparator() +
-        _T("celestial_navigation") +  wxFileName::GetPathSeparator();
+    wxString stdPath(*GetpPrivateApplicationDataLocation());
+    stdPath = stdPath + wxFileName::GetPathSeparator() + "plugins"
+        + wxFileName::GetPathSeparator() + "celestial_navigation"
+        + wxFileName::GetPathSeparator();
+    return stdPath;
 }
 
 static double s_boat_lat, s_boat_lon;

@@ -32,17 +32,18 @@
 #include <wx/stdpaths.h>
 #include <wx/imaglist.h>
 
-#include "tinyxml/tinyxml.h"
+#include "tinyxml.h"
 
 #include <GL/gl.h>
 
 #include "ocpn_plugin.h"
 
-#include "icons.h"
 #include "Sight.h"
 #include "SightDialog.h"
 #include "CelestialNavigationDialog.h"
 #include "celestial_navigation_pi.h"
+//HEAD
+// line
 #include "zuFile.h"
 
 #include "astrolabe/astrolabe.hpp"
@@ -58,6 +59,7 @@ static wxString UserDataDirectory()
     return *GetpPrivateApplicationDataLocation() + s + "plugins"
         + s + "celestial_navigation" + s;
  }
+//  master
 
 /* XPM */
 static const char *eye[]={
@@ -136,51 +138,6 @@ CelestialNavigationDialog::CelestialNavigationDialog(wxWindow *parent)
     pConf->Read ( _T ( "DialogWidth" ), &s.x, s.x);
     pConf->Read ( _T ( "DialogHeight" ), &s.y, s.y);
     SetSize(s);
-    
-    wxString filename = DataDirectory() + "vsop87d.txt";
-    wxFileName fn(filename);
-    if(!fn.Exists())
-        filename = UserDataDirectory() + "vsop87d.txt";
-    
-    wxFileName fn2(filename);
-#ifndef WIN32 // never hit because data is distribued easier to not compile compression support
-    if(!fn2.Exists()) {
-        wxMessageDialog mdlg(this, _("Astrolab data unavailable.\n")
-                             + filename + "\n"
-                             + _("\nWould you like to download?"),
-                             _("Failure Alert"), wxYES | wxNO | wxICON_ERROR);
-        if(mdlg.ShowModal() == wxID_YES) {
-            wxString url = "https://cfhcable.dl.sourceforge.net/project/opencpnplugins/celestial_navigation_pi/";
-            wxString path = UserDataDirectory();
-            wxString fn = "vsop87d.txt.gz";
-        
-            _OCPN_DLStatus status = OCPN_downloadFile(
-                url+fn, path+fn, _("downloading celestial navigation data file"),
-                "downloading...",
-                *_img_celestial_navigation, this,
-                OCPN_DLDS_CAN_ABORT|OCPN_DLDS_ELAPSED_TIME|OCPN_DLDS_ESTIMATED_TIME|OCPN_DLDS_REMAINING_TIME|OCPN_DLDS_SPEED|OCPN_DLDS_SIZE|OCPN_DLDS_URL|OCPN_DLDS_AUTO_CLOSE, 20);
-            if(status == OCPN_DL_NO_ERROR) {            
-                // now decompress downloaded file
-                ZUFILE *f = zu_open(path+fn.mb_str(), "rb", ZU_COMPRESS_AUTO);
-                if(f) {
-                    FILE *out = fopen(path+"vsop87d.txt", "w");
-                    if(out) {
-                        char buf[1024];
-                        for(;;) {
-                            size_t size = zu_read(f, buf, sizeof buf);
-                            fwrite(buf, size, 1, out);
-                            if(size != sizeof buf)
-                                break;
-                        }
-                        fclose(out);
-                    }
-                    zu_close(f);
-                }
-            }
-        }
-    }
-#endif
-    astrolabe::globals::vsop87d_text_path = (const char *)filename.mb_str();
 
 // create a image list for the list with just the eye icon
     wxImageList *imglist = new wxImageList(20, 20, true, 1);
@@ -196,7 +153,7 @@ CelestialNavigationDialog::CelestialNavigationDialog(wxWindow *parent)
     m_lSights->InsertColumn(rmMEASUREMENT, _("Measurement"));
     m_lSights->InsertColumn(rmCOLOR, _("Color"));
 
-    m_sights_path = UserDataDirectory() + "Sights.xml";
+    m_sights_path = celestial_navigation_pi::StandardPath() + _T("Sights.xml");
 
     if(!OpenXML(m_sights_path, false)) {
         /* create directory for plugin files if it doesn't already exist */
@@ -207,6 +164,8 @@ CelestialNavigationDialog::CelestialNavigationDialog(wxWindow *parent)
             fn.Mkdir();
         }
     }
+// HEAD
+// line
 
 // from HEAD    
 #ifdef __OCPN__ANDROID__
@@ -248,8 +207,8 @@ void CelestialNavigationDialog::OnEvtPanGesture( wxQT_PanGestureEvent &event)
             Move(x, y);
         } break;
     }
+// master
 }
-#endif
 
 CelestialNavigationDialog::~CelestialNavigationDialog()
 {
@@ -609,13 +568,22 @@ void CelestialNavigationDialog::OnClockOffset( wxCommandEvent& event )
     m_ClockCorrectionDialog.Show();
 }
 
-void CelestialNavigationDialog::OnInformation( wxCommandEvent& event )
+//void CelestialNavigationDialog::OnInformation( wxCommandEvent& event )
+//{
+//    wxString infolocation = *GetpSharedDataLocation()
+//        + _T("plugins/celestial_navigation_pi/data/")
+//        + _("Celestial_Navigation_Information.html");
+//    wxLaunchDefaultBrowser(_T("file://") + infolocation);
+//}
+
+    void CelestialNavigationDialog::OnInformation( wxCommandEvent& event )
 {
-    wxString infolocation = *GetpSharedDataLocation()
-        + _T("plugins/celestial_navigation_pi/data/")
-        + _("Celestial_Navigation_Information.html");
+    wxString infolocation =GetPluginDataDir("celestial_navigation_pi")
+       + _T("/data/")
+       + _("Celestial_Navigation_Information.html");
     wxLaunchDefaultBrowser(_T("file://") + infolocation);
 }
+
 
 void CelestialNavigationDialog::OnHide( wxCommandEvent& event )
 {

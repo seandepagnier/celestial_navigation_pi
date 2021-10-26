@@ -31,9 +31,6 @@
 
 #include "version.h"
 
-#define     MY_API_VERSION_MAJOR    1
-#define     MY_API_VERSION_MINOR    8
-
 #define ABOUT_AUTHOR_URL "http://seandepagnier.users.sourceforge.net"
 
 #include "ocpn_plugin.h"
@@ -46,7 +43,7 @@
 
 #define CELESTIAL_NAVIGATION_TOOL_POSITION    -1  // Request default positioning of toolbar tool
 
-class celestial_navigation_pi : public wxEvtHandler, opencpn_plugin_18
+class celestial_navigation_pi : public wxEvtHandler, opencpn_plugin_116
 {
 public:
       celestial_navigation_pi(void *ppimgr);

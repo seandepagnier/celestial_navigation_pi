@@ -1,0 +1,474 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: opencpn\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-06-12 21:57+0800\n"
+"PO-Revision-Date: 2015-04-07 11:22-0400\n"
+"Last-Translator: nohal <pavel@kalian.cz>\n"
+"Language-Team: Greek\n"
+"Language: el_GR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: opencpn\n"
+"X-Crowdin-Language: el\n"
+"X-Crowdin-File: /plugins/celestial_navigation_pi/po/celestial_navigation_pi.pot\n"
+
+#: src/CelestialNavigationDialog.cpp:112 src/CelestialNavigationUI.cpp:194
+msgid "Type"
+msgstr "Τύπος"
+
+#: src/CelestialNavigationDialog.cpp:113
+msgid "Body"
+msgstr "Ουράνιο σώμα"
+
+#: src/CelestialNavigationDialog.cpp:114
+msgid "Time (UTC)"
+msgstr "Ώρα (UTC)"
+
+#: src/CelestialNavigationDialog.cpp:115 src/CelestialNavigationUI.cpp:236
+msgid "Measurement"
+msgstr "Μέτρηση"
+
+#: src/CelestialNavigationDialog.cpp:116 src/CelestialNavigationUI.cpp:410
+msgid "Color"
+msgstr "Χρώμα"
+
+#: src/CelestialNavigationDialog.cpp:174
+msgid "Failed to load file."
+msgstr "Απέτυχε η φόρτωση του αρχείου."
+
+#: src/CelestialNavigationDialog.cpp:179
+msgid "Invalid xml file"
+msgstr "Μη έγκυρο αρχείο xml"
+
+#: src/CelestialNavigationDialog.cpp:229
+msgid "Unrecognized xml node"
+msgstr "Άγνωστος κόμβος xml"
+
+#: src/CelestialNavigationDialog.cpp:239
+msgid "Weather Routing"
+msgstr "Δρομολόγιο βάσει του καιρού"
+
+#: src/CelestialNavigationDialog.cpp:295
+msgid "Failed to save xml file: "
+msgstr "Απέτυχε η αποθήκευση του αρχείου xml: "
+
+#: src/CelestialNavigationDialog.cpp:296 src/CelestialNavigationDialog.cpp:730
+#: src/Sight.cpp:876 src/celestial_navigation_pi.cpp:99
+#: src/celestial_navigation_pi.cpp:152
+msgid "Celestial Navigation"
+msgstr "Αστρονομική ναυσιπλοΐα"
+
+#: src/CelestialNavigationDialog.cpp:324 src/CelestialNavigationUI.cpp:198
+#: src/CelestialNavigationUI.cpp:634
+msgid "Azimuth"
+msgstr "Αζιμούθιο"
+
+#: src/CelestialNavigationDialog.cpp:324 src/CelestialNavigationUI.cpp:198
+#: src/CelestialNavigationUI.cpp:624
+msgid "Altitude"
+msgstr "Υψόμετρο"
+
+#: src/CelestialNavigationDialog.cpp:514
+msgid "Shifted sights are not used to compute a fix, determine fix visually instead.\n"
+msgstr "Δεν χρησιμοποιούνται  μετατοπισμένες θεάσεις για τον προσδιορισμό. Προσδιορισμός θέσης οπτικά.\n"
+
+#: src/CelestialNavigationDialog.cpp:515
+msgid "Fix Position"
+msgstr "Καθορισμός θέσης"
+
+#: src/CelestialNavigationDialog.cpp:660 src/CelestialNavigationDialog.cpp:661
+#: src/CelestialNavigationDialog.cpp:662
+msgid "   N/A   "
+msgstr "   Δ/Υ   "
+
+#: src/CelestialNavigationDialog.cpp:673
+msgid "Sun"
+msgstr "Ήλιος"
+
+#: src/CelestialNavigationDialog.cpp:729
+msgid "Are you sure you want to delete all sights?"
+msgstr "Σίγουρα θέλετε να διαγράψετε όλες τις θεάσεις;"
+
+#: src/CelestialNavigationDialog.cpp:743
+msgid "Celestial_Navigation_Information.html"
+msgstr "Celestial_Navigation_Information.html"
+
+#: src/CelestialNavigationUI.cpp:31
+msgid "Fix From Visible Sights"
+msgstr "Καθορισμός από ορατά σημάδια"
+
+#: src/CelestialNavigationUI.cpp:38 src/CelestialNavigationUI.cpp:606
+msgid "Latitude"
+msgstr "Γεωγραφικό πλάτος"
+
+#: src/CelestialNavigationUI.cpp:42
+msgid "       N/A       "
+msgstr "       Δ/Υ       "
+
+#: src/CelestialNavigationUI.cpp:46 src/CelestialNavigationUI.cpp:615
+msgid "Longitude"
+msgstr "Γεωγραφικό μήκος"
+
+#: src/CelestialNavigationUI.cpp:50
+msgid "          N/A          "
+msgstr "          Δ/Υ          "
+
+#: src/CelestialNavigationUI.cpp:54
+msgid "Error"
+msgstr "Σφάλμα"
+
+#: src/CelestialNavigationUI.cpp:58
+msgid "     N/A     "
+msgstr "     Δ/Υ     "
+
+#: src/CelestialNavigationUI.cpp:65 src/CelestialNavigationUI.cpp:72
+msgid "Initial"
+msgstr "Αρχική"
+
+#: src/CelestialNavigationUI.cpp:79
+msgid "Alg"
+msgstr ""
+
+#: src/CelestialNavigationUI.cpp:84
+msgid "Plane"
+msgstr "Επίπεδο"
+
+#: src/CelestialNavigationUI.cpp:85
+msgid "Sphere"
+msgstr "Σφαίρα"
+
+#: src/CelestialNavigationUI.cpp:86
+msgid "Cone"
+msgstr "Κώνος"
+
+#: src/CelestialNavigationUI.cpp:87
+msgid "Cone 2"
+msgstr "Κώνος 2"
+
+#: src/CelestialNavigationUI.cpp:91
+msgid "Go"
+msgstr "Πήγαινε"
+
+#: src/CelestialNavigationUI.cpp:111
+msgid "New"
+msgstr "Νέο"
+
+#: src/CelestialNavigationUI.cpp:114
+msgid "Edit"
+msgstr "Επεξεργασία"
+
+#: src/CelestialNavigationUI.cpp:117
+msgid "Delete"
+msgstr "Διαγραφή"
+
+#: src/CelestialNavigationUI.cpp:120
+msgid "Delete All"
+msgstr "Διαγραφή όλων"
+
+#: src/CelestialNavigationUI.cpp:123
+msgid "Information"
+msgstr "Πληροφοριες"
+
+#: src/CelestialNavigationUI.cpp:204
+msgid "Magnetic Azimuth"
+msgstr "Μαγνητικό αζιμούθιο"
+
+#: src/CelestialNavigationUI.cpp:207
+msgid "Celestial Body"
+msgstr "Ουράνιο σώμα"
+
+#: src/CelestialNavigationUI.cpp:216
+msgid "Find"
+msgstr "Αναζήτηση"
+
+#: src/CelestialNavigationUI.cpp:219
+msgid "Limb"
+msgstr "Άκρο"
+
+#: src/CelestialNavigationUI.cpp:223
+msgid "Lower"
+msgstr "Κατώτερο"
+
+#: src/CelestialNavigationUI.cpp:223
+msgid "Center"
+msgstr "Κέντρο"
+
+#: src/CelestialNavigationUI.cpp:223
+msgid "Upper"
+msgstr "Ανώτερο"
+
+#: src/CelestialNavigationUI.cpp:243 src/CelestialNavigationUI.cpp:250
+msgid "0"
+msgstr ""
+
+#: src/CelestialNavigationUI.cpp:246 src/CelestialNavigationUI.cpp:376
+msgid "Degrees"
+msgstr "Μοίρες"
+
+#: src/CelestialNavigationUI.cpp:253 src/CelestialNavigationUI.cpp:309
+#: src/CelestialNavigationUI.cpp:473
+msgid "Minutes"
+msgstr "Λεπτά"
+
+#: src/CelestialNavigationUI.cpp:257
+msgid ".25"
+msgstr ""
+
+#: src/CelestialNavigationUI.cpp:260
+msgid "Degrees Certainty"
+msgstr "Βεβαιότητα °"
+
+#: src/CelestialNavigationUI.cpp:274
+msgid "Sight"
+msgstr "Θέαση"
+
+#: src/CelestialNavigationUI.cpp:302
+msgid "Hours"
+msgstr "Ώρες"
+
+#: src/CelestialNavigationUI.cpp:316 src/CelestialNavigationUI.cpp:334
+msgid "Seconds"
+msgstr "Δευτερόλεπτα"
+
+#: src/CelestialNavigationUI.cpp:324
+msgid "Certainty"
+msgstr "Βεβαιότητα"
+
+#: src/CelestialNavigationUI.cpp:351
+msgid "Shift"
+msgstr "Μετατόπιση"
+
+#: src/CelestialNavigationUI.cpp:358
+msgid "Distance"
+msgstr "Απόσταση"
+
+#: src/CelestialNavigationUI.cpp:365
+msgid "Nm"
+msgstr "ν.μ."
+
+#: src/CelestialNavigationUI.cpp:369
+msgid "Bearing"
+msgstr "Κατεύθυνση πυξίδας"
+
+#: src/CelestialNavigationUI.cpp:380
+msgid "Magnetic Bearing"
+msgstr "Μαγνητική κατεύθυνση"
+
+#: src/CelestialNavigationUI.cpp:393
+msgid "Date and Time"
+msgstr "Ημερομηνία και ώρα"
+
+#: src/CelestialNavigationUI.cpp:400
+msgid "Transparency"
+msgstr "Διαφάνεια"
+
+#: src/CelestialNavigationUI.cpp:421
+msgid "Config"
+msgstr "Διαμόρφωση"
+
+#: src/CelestialNavigationUI.cpp:433
+msgid "Eye Height"
+msgstr "Ύψος ματιού"
+
+#: src/CelestialNavigationUI.cpp:437
+msgid "2"
+msgstr ""
+
+#: src/CelestialNavigationUI.cpp:440
+msgid "Meters"
+msgstr "μέτρα"
+
+#: src/CelestialNavigationUI.cpp:444
+msgid "Temperature"
+msgstr "Θερμοκρασία"
+
+#: src/CelestialNavigationUI.cpp:451
+msgid "Celcius"
+msgstr "Κελσίου"
+
+#: src/CelestialNavigationUI.cpp:455
+msgid "Pressure"
+msgstr "Πίεση"
+
+#: src/CelestialNavigationUI.cpp:462
+msgid "MilliBars"
+msgstr "μιλιμπαρ"
+
+#: src/CelestialNavigationUI.cpp:466
+msgid "Index Error"
+msgstr "Λάθος δεικτών"
+
+#: src/CelestialNavigationUI.cpp:480
+msgid "Set As Defaults"
+msgstr "Ορισμός ως προεπιλογή"
+
+#: src/CelestialNavigationUI.cpp:487
+msgid "Parameters"
+msgstr "Παράμετροι"
+
+#: src/CelestialNavigationUI.cpp:503
+msgid "Calculations"
+msgstr "Υπολογισμοί"
+
+#: src/CelestialNavigationUI.cpp:626 src/CelestialNavigationUI.cpp:636
+msgid "MyLabel"
+msgstr "MyLabel"
+
+#: src/CelestialNavigationUI.cpp:643
+msgid "Done"
+msgstr "Έγινε"
+
+#: src/CelestialNavigationUI.cpp:646
+msgid "Magnetic"
+msgstr "Μαγνητική"
+
+#: src/CelestialNavigationUI.h:87
+msgid "Celestial Navigation Sights"
+msgstr "Θεάσεις για την ουράνια ναυσιπλοΐα"
+
+#: src/CelestialNavigationUI.h:171
+msgid "Sight Properties"
+msgstr "Ιδιότητες θέασης"
+
+#: src/CelestialNavigationUI.h:198
+msgid "Find Celestial Body"
+msgstr "Βρες το ουράνιο σώμα"
+
+#: src/Sight.cpp:159
+msgid "Astrolab failed, data unavailable:\n"
+msgstr "Ο αστρολάβος απέτυψε, δεν υπάρχουν δεδομένα:\n"
+
+#: src/Sight.cpp:160
+msgid "\nDid you forget to install vsop87d.txt?\n"
+msgstr "\nΜήπως ξεχάσετε να εγκαταστήσετε το vsop87d.txt;\n"
+
+#: src/Sight.cpp:161
+msgid "The plugin will not work correctly"
+msgstr "Το πρόσθετο δεν θα λειτουργήσει σωστά"
+
+#: src/Sight.cpp:162
+msgid "Failure Alert"
+msgstr "Συναγερμός αποτυχίας"
+
+#: src/Sight.cpp:508
+msgid "Formulas used to calculate sight\n\n"
+msgstr "Οι τύποι που χρησιμοποιούνται για τον υπολογισμό της θέασης\n\n"
+
+#: src/Sight.cpp:512
+#, c-format
+msgid "Index Error is %.4f degrees\n\n"
+msgstr "Το σφάλαμ του δείκτη είναι %.4f °\n\n"
+
+#: src/Sight.cpp:517
+#, c-format
+msgid "Eye Height is %.4f meters\nHeight Correction Degrees = 1.758*sqrt(%.4f) / 60.0\nHeight Correction Degrees = %.4f\n"
+msgstr "Το υψόμετρο ματιού είναι %.4f m\nΗ διόρθωση του ύψους = 1.758*sqrt(%.4f) / 60.0 °\nΔιόρθωση ύψους = %.4f °\n"
+
+#: src/Sight.cpp:524
+#, c-format
+msgid "\nApparent Altitude (Ha)\nApparentAltitude = Measurement - IndexCorrection - EyeHeightCorrection\nApparentAltitude = %.4f - %.4f - %.4f\nApparentAltitude = %.4f\n"
+msgstr "\nΦαινόμενο υψόμετρο (Ha)\nΦαινΥψόμετρο = μέτρηση -ΔιόρθωσηΔείκτη - ΔιόρθωσηΥψΜατιού\nΦαινΥψόμετρο = %.4f - %.4f - %.4f\nΦαινΥψόμετρο = %.4f\n"
+
+#: src/Sight.cpp:542
+#, c-format
+msgid "\nRefraction Correction\nx = tan(Pi/180*ApparentAltitude + 4.848e-2*(Pi/180) / (tan(Pi/180*ApparentAltitude) + .028))\nx = tan(Pi/180*%.4f + 4.848e-2*(Pi/180) / (tan(Pi/180*%.4f) + .028))\nx = %.4f\n"
+msgstr "\nΔιόρθωση διάθλασης\nx = tan(π/180*ΦαινΥψόμετρο + 0.04848*(π/180) / (tan(π/180*ΦαινΥψόμετρο) + .028))\nx = tan(Pi/180*%.4f + 0.04848*(π/180) / (tan(π/180*%.4f) + .028))\nx = %.4f\n"
+
+#: src/Sight.cpp:547
+#, c-format
+msgid "RefractionCorrection = .267 * Pressure / (x*(Temperature + 273.15)) / 60.0\nRefractionCorrection = .267 * %.4f / (x*(%.4f + 273.15)) / 60.0\nRefractionCorrection = %.4f\n"
+msgstr "Διόρθωση διάθλασης = 0.267 * Πίεση / (x*(Θερμοκρασία + 273.15)) / 60.0\nΔιόρθωση διάθλασης = 0.267 * %.4f / (x*(%.4f + 273.15)) / 60.0\nΔιόρθωση διάθλασης = %.4f\n"
+
+#: src/Sight.cpp:562
+#, c-format
+msgid "\nSun selected, Limb Correction\nra = %.4f, lc = 0.266564/ra = %.4f\n"
+msgstr "\nΕπιλογή του ήλιου, Διόρθωση άκρου\nra = %.4f, lc = 0.266564/ra = %.4f\n"
+
+#: src/Sight.cpp:572
+#, c-format
+msgid "\nMoon selected, Limb Correction\nSD = %.4f\nlc = 180/Pi * asin(Pi/180*SD)\nlc = %.4f\n"
+msgstr "\nΕπιλογή σελήνης, Διόρθωση άκρου\nSD = %.4f\nlc = 180/π * asin(π/180*SD)\nlc = %.4f\n"
+
+#: src/Sight.cpp:582
+msgid "Upper Limb"
+msgstr "Άνω άκρο"
+
+#: src/Sight.cpp:585
+msgid "Lower Limb"
+msgstr "Κάτω άκρο"
+
+#: src/Sight.cpp:588
+#, c-format
+msgid "\nLimbCorrection = %.4f\n"
+msgstr "\nΔιόρθωση άκρου = %.4f\n"
+
+#: src/Sight.cpp:593
+#, c-format
+msgid "\nCorrected Altitude\nCorrectedAltitude = ApparentAltitude - RefractionCorrection - LimbCorrection\nCorrectedAltitude = %.4f - %.4f - %.4f\nCorrectedAltitude = %.4f\n"
+msgstr "\nΔιορθωμένο υψόμετρο\nΔιορθΥψόμετρο = ΦαινΥψόμετρο - ΔιόρθωσηΔιάθλασης - ΔιορθωσηΆκρου\nΔιορθΥψόμετρο = %.4f - %.4f - %.4f\nΔιορθΥψόμετρο = %.4f\n"
+
+#: src/Sight.cpp:607
+#, c-format
+msgid "\nSun selected, parallax correction\nrad = %.4f, HP = 0.002442/rad = %.4f\n"
+msgstr "\nSΕπιλογή ηλίου, διόρθωση παράλλαξης\nrad = %.4f, HP = 0.002442/rad = %.4f\n"
+
+#: src/Sight.cpp:616
+#, c-format
+msgid "\nMoon selected, parallax correction\nHP = %.4f\n"
+msgstr "\nΕπιλογή σελήνης, διόρθωση παράλλαξης\nHP = %.4f\n"
+
+#: src/Sight.cpp:622
+#, c-format
+msgid "ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * CorrectedAltitude))\nParallaxCorrection = -180/Pi * asin( sin(Pi/180 * %.4f ) * cos(Pi/180 * %.4f))\nParallaxCorrection = %.4f\n"
+msgstr "ΔιόρθωσηΠαράλλαξης = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * ΔιορθωμένοΥψόμετρο))\nΔιόρθωσηΠαράλλαξης = -180/Pi * asin( sin(Pi/180 * %.4f ) * cos(Pi/180 * %.4f))\nΔιόρθωσηΠαράλλαξης = %.4f\n"
+
+#: src/Sight.cpp:629
+#, c-format
+msgid "\nObserved Altitude (Ho)\nObservedAltitude = CorrectedAltitude - ParallaxCorrection\nObservedAltitude = %.4f - %.4f\nObservedAltitude = %.4f\n"
+msgstr "\nΠαρατήρηση Υψομέτρου (Ho)\nΠαρατήρησηΥψομέτρου = ΔιορθωμένοΥψόμετρο - ΔιόρθωσηΠαράλλαξης\nΠαρατήρησηΥψομέτρου = %.4f - %.4f\nΠαρατήρησηΥψομέτρου = %.4f\n"
+
+#: src/Sight.cpp:656
+msgid "Almanac Data For "
+msgstr "Δεδομένα αλμανάκ για "
+
+#: src/Sight.cpp:657
+#, c-format
+msgid "\nGeographical Position (lat, lon) = %.4f %.4f\nGHAAST = %.0f %.1f'\nSHA = %.0f %.1f'\nGHA = %.0f %.1f'\nDec = %c %.0f %.1f'\nSD = %.1f'\nHP = %.1f'\n\n"
+msgstr "\nΓεωγραφική θέση (πλάτος, μήκος) = %.4f %.4f\nGHAAST = %.0f %.1f'\nSHA = %.0f %.1f'\nGHA = %.0f %.1f'\nDec = %c %.0f %.1f'\nSD = %.1f'\nHP = %.1f'\n\n"
+
+#: src/Sight.cpp:876
+msgid "Building bearing Sight Positions"
+msgstr "Υπολογισμός κατεύθυνσης θέσεων θέασης"
+
+#: src/SightDialog.cpp:168
+msgid "Measurement certainty likely set to small, sight may not appear "
+msgstr "Η βεβαιότητα της μέτρησης είναι μικρή, η θέαση μπορεί να μην εμφανιστεί "
+
+#: src/SightDialog.cpp:169
+msgid "Warning"
+msgstr "Προσοχή"
+
+#: src/celestial_navigation_pi.cpp:90
+msgid "Failed to load file:\n"
+msgstr "Απέτυχε η φόρτωση του αρχείου:\n"
+
+#: src/celestial_navigation_pi.cpp:91
+msgid "\nMagnetic data will not be available for the celestial navigation plugin."
+msgstr "\nΜαγνητικά δεδομένα δεν θα είναι διαθέσιμα για το πρόσθετο της ουράνιας ναυσιπλοΐας."
+
+#: src/celestial_navigation_pi.cpp:92
+msgid "OpenCPN Alert"
+msgstr "Συναγερμός OpenCPN"
+
+#: src/celestial_navigation_pi.cpp:157
+msgid "Celestial Navigation PlugIn for OpenCPN"
+msgstr "Πρόσθετο αστρονομικής ναυσιπλοΐας για το OpenCPN"
+
+#: src/celestial_navigation_pi.cpp:162
+msgid "Celestial Navigation PlugIn for OpenCPN.\nImplements nautical almanac for sun, moon, planets, and various navigational stars.  Compute position fix from celestial measurements."
+msgstr "Πρόσθετο του OpenCPN για αστρονομική ναυσιπλοΐα .\nΕφαρμόζει τα ναυτικά αλμανάκ για τον ήλιο, τη σελήνη, πλανήτες, και διάφορα άστρα πλοήγησης.  Υπολογίζει τη θέση από ουράνιες μετρήσεις."
+
