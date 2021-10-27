@@ -3,127 +3,127 @@ msgstr ""
 "Project-Id-Version: opencpn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-28 14:10-0300\n"
-"PO-Revision-Date: 2021-04-14 21:42\n"
+"PO-Revision-Date: 2020-07-02 21:52\n"
 "Last-Translator: \n"
-"Language-Team: Portuguese\n"
-"Language: pt_PT\n"
+"Language-Team: Indonesian\n"
+"Language: id_ID\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Crowdin-Project: opencpn\n"
 "X-Crowdin-Project-ID: 49843\n"
-"X-Crowdin-Language: pt-PT\n"
+"X-Crowdin-Language: id\n"
 "X-Crowdin-File: /plugins/celestial_navigation_pi/po/celestial_navigation_pi.pot\n"
 "X-Crowdin-File-ID: 108\n"
 
 #: src/CelestialNavigationDialog.cpp:123 src/CelestialNavigationUI.cpp:132
 msgid "Type"
-msgstr "Tipo"
+msgstr "Jenis"
 
 #: src/CelestialNavigationDialog.cpp:124
 msgid "Body"
-msgstr "Astro"
+msgstr "Badan"
 
 #: src/CelestialNavigationDialog.cpp:125
 msgid "Time (UTC)"
-msgstr "Hora (UTC)"
+msgstr "Waktu (UTC)"
 
 #: src/CelestialNavigationDialog.cpp:126 src/CelestialNavigationUI.cpp:179
 msgid "Measurement"
-msgstr "Medição"
+msgstr "Pengukuran"
 
 #: src/CelestialNavigationDialog.cpp:127 src/CelestialNavigationUI.cpp:376
 msgid "Color"
-msgstr "Cor"
+msgstr "Warna"
 
 #: src/CelestialNavigationDialog.cpp:193
 msgid "Failed to load file."
-msgstr "Falha no carregamento do ficheiro."
+msgstr "Memuat berkas gagal."
 
 #: src/CelestialNavigationDialog.cpp:198
 msgid "Invalid xml file"
-msgstr "Ficheiro xml inválido"
+msgstr "File xml tidak sesuai"
 
 #: src/CelestialNavigationDialog.cpp:250
 msgid "Unrecognized xml node"
-msgstr "Nó xml desconhecido"
+msgstr "Simpul xml yang tidak dikenal"
 
 #: src/CelestialNavigationDialog.cpp:260
 msgid "Weather Routing"
-msgstr "Weather Routing"
+msgstr "Pengaturan Cuaca"
 
 #: src/CelestialNavigationDialog.cpp:320
 msgid "Failed to save xml file: "
-msgstr "Falha na gravação do ficheiro xml: "
+msgstr "Menyimpan berkas xml gagal: "
 
 #: src/CelestialNavigationDialog.cpp:321 src/CelestialNavigationDialog.cpp:466
 #: src/Sight.cpp:1099 src/celestial_navigation_pi.cpp:99
 #: src/celestial_navigation_pi.cpp:152
 msgid "Celestial Navigation"
-msgstr "Navegação astronomica"
+msgstr "Navigasi Angkasa"
 
 #: src/CelestialNavigationDialog.cpp:351
 msgid "Time Correction"
-msgstr "Correcção da hora"
+msgstr "Koreksi Waktu"
 
 #: src/CelestialNavigationDialog.cpp:409
 msgid "Sun"
-msgstr "Sol"
+msgstr "Minggu"
 
 #: src/CelestialNavigationDialog.cpp:465
 msgid "Are you sure you want to delete all sights?"
-msgstr "Tem certeza que pretende apagar todas as posições?"
+msgstr "Apakah anda yakin ingin menghapus semua pemandangan?"
 
 #: src/CelestialNavigationDialog.cpp:510
 msgid "Celestial_Navigation_Information.html"
-msgstr "Celestial_Navigation_Information.html"
+msgstr "Informasi_Navigasi_Angkasa.html"
 
 #: src/CelestialNavigationDialog.cpp:516
 msgid "Show"
-msgstr "Mostrar"
+msgstr "Tampilkan"
 
 #: src/CelestialNavigationDialog.cpp:516 src/CelestialNavigationUI.cpp:58
 msgid "Hide"
-msgstr "Ocultar"
+msgstr "Sembunyikan"
 
 #: src/CelestialNavigationUI.cpp:40
 msgid "New"
-msgstr "Novo"
+msgstr "Baru"
 
 #: src/CelestialNavigationUI.cpp:43
 msgid "Edit"
-msgstr "Editar"
+msgstr "Ubah"
 
 #: src/CelestialNavigationUI.cpp:46
 msgid "Delete"
-msgstr "Apagar"
+msgstr "Hapus"
 
 #: src/CelestialNavigationUI.cpp:49
 msgid "Delete All"
-msgstr "Apagar tudo"
+msgstr "Menghapus semua"
 
 #: src/CelestialNavigationUI.cpp:52 src/CelestialNavigationUI.h:281
 msgid "Fix"
-msgstr "Fix"
+msgstr "Memperbaiki"
 
 #: src/CelestialNavigationUI.cpp:55
 msgid "Clock Offset"
-msgstr "Diferença horária"
+msgstr "Jam offset"
 
 #: src/CelestialNavigationUI.cpp:61
 msgid "Information"
-msgstr "Informação"
+msgstr "Informasi"
 
 #: src/CelestialNavigationUI.cpp:136 src/CelestialNavigationUI.cpp:667
 #: src/Sight.h:49
 msgid "Altitude"
-msgstr "Altitude"
+msgstr "Ketinggian"
 
 #: src/CelestialNavigationUI.cpp:136 src/CelestialNavigationUI.cpp:677
 #: src/Sight.h:49
 msgid "Azimuth"
-msgstr "Azimute"
+msgstr "Azimut"
 
 #: src/CelestialNavigationUI.cpp:136 src/Sight.h:49
 msgid "Lunar"
@@ -131,31 +131,31 @@ msgstr "Lunar"
 
 #: src/CelestialNavigationUI.cpp:142
 msgid "Magnetic Azimuth"
-msgstr "Azimute magnético"
+msgstr "Azimut Magnetik"
 
 #: src/CelestialNavigationUI.cpp:145
 msgid "Celestial Body"
-msgstr "Corpo celeste"
+msgstr "Tubuh angkasa"
 
 #: src/CelestialNavigationUI.cpp:154
 msgid "Find"
-msgstr "Encontrar"
+msgstr "Cari"
 
 #: src/CelestialNavigationUI.cpp:157
 msgid "Limb"
-msgstr "Limbo"
+msgstr "Dahan"
 
 #: src/CelestialNavigationUI.cpp:161
 msgid "Lower"
-msgstr "Inferior"
+msgstr "Lebih rendah"
 
 #: src/CelestialNavigationUI.cpp:161
 msgid "Center"
-msgstr "Central"
+msgstr "Tengah"
 
 #: src/CelestialNavigationUI.cpp:161
 msgid "Upper"
-msgstr "Superior"
+msgstr "Atas"
 
 #: src/CelestialNavigationUI.cpp:186 src/CelestialNavigationUI.cpp:193
 #: src/CelestialNavigationUI.cpp:223 src/CelestialNavigationUI.cpp:230
@@ -165,12 +165,12 @@ msgstr "0"
 #: src/CelestialNavigationUI.cpp:189 src/CelestialNavigationUI.cpp:348
 #: src/CelestialNavigationUI.cpp:598
 msgid "Degrees"
-msgstr "Graus"
+msgstr "Derajat"
 
 #: src/CelestialNavigationUI.cpp:196 src/CelestialNavigationUI.cpp:278
 #: src/CelestialNavigationUI.cpp:439
 msgid "Minutes"
-msgstr "Minutos"
+msgstr "Menit"
 
 #: src/CelestialNavigationUI.cpp:200
 msgid "10"
@@ -178,40 +178,40 @@ msgstr "10"
 
 #: src/CelestialNavigationUI.cpp:203
 msgid "Minutes Certainty"
-msgstr "Minutos de certeza"
+msgstr "Kepastian Menit"
 
 #: src/CelestialNavigationUI.cpp:217
 msgid "Lunar Altitude"
-msgstr "Altitude Lunar"
+msgstr "Ketinggian Lunar"
 
 #: src/CelestialNavigationUI.cpp:226
 msgid "Body Altitude"
-msgstr "Altitude do corpo"
+msgstr "Ketinggian Tubuh"
 
 #: src/CelestialNavigationUI.cpp:243
 msgid "Sight"
-msgstr "Observação"
+msgstr "Melihat"
 
 #: src/CelestialNavigationUI.cpp:271
 msgid "Hours"
-msgstr "Horas"
+msgstr "Jam"
 
 #: src/CelestialNavigationUI.cpp:285 src/CelestialNavigationUI.cpp:303
 #: src/CelestialNavigationUI.cpp:860
 msgid "Seconds"
-msgstr "Segundos"
+msgstr "Detik"
 
 #: src/CelestialNavigationUI.cpp:293
 msgid "Certainty"
-msgstr "Certeza"
+msgstr "Kepastian"
 
 #: src/CelestialNavigationUI.cpp:323
 msgid "Time"
-msgstr "Hora"
+msgstr "Waktu"
 
 #: src/CelestialNavigationUI.cpp:330 src/CelestialNavigationUI.cpp:580
 msgid "Distance"
-msgstr "Distância"
+msgstr "Jarak"
 
 #: src/CelestialNavigationUI.cpp:337 src/CelestialNavigationUI.cpp:587
 msgid "Nm"
@@ -219,27 +219,27 @@ msgstr "Nm"
 
 #: src/CelestialNavigationUI.cpp:341 src/CelestialNavigationUI.cpp:591
 msgid "Bearing"
-msgstr "Rumo"
+msgstr "Bantalan"
 
 #: src/CelestialNavigationUI.cpp:352 src/CelestialNavigationUI.cpp:602
 msgid "Magnetic Bearing"
-msgstr "Rumo magnético"
+msgstr "Bantalan magnetik"
 
 #: src/CelestialNavigationUI.cpp:359
 msgid "DR Shift"
-msgstr "Desvio DR"
+msgstr "DR Bergeser"
 
 #: src/CelestialNavigationUI.cpp:366
 msgid "Transparency"
-msgstr "Transparência"
+msgstr "Transparansi"
 
 #: src/CelestialNavigationUI.cpp:387
 msgid "Config"
-msgstr "Configuração"
+msgstr "Konfigurasi"
 
 #: src/CelestialNavigationUI.cpp:399
 msgid "Eye Height"
-msgstr "Altura dos olhos"
+msgstr "Tinggi mata"
 
 #: src/CelestialNavigationUI.cpp:403
 msgid "2"
@@ -247,11 +247,11 @@ msgstr "2"
 
 #: src/CelestialNavigationUI.cpp:406
 msgid "Meters"
-msgstr "Metros"
+msgstr "Meter"
 
 #: src/CelestialNavigationUI.cpp:410
 msgid "Temperature"
-msgstr "Temperatura"
+msgstr "Temperatur"
 
 #: src/CelestialNavigationUI.cpp:417
 msgid "Celcius"
@@ -259,55 +259,55 @@ msgstr "Celcius"
 
 #: src/CelestialNavigationUI.cpp:421
 msgid "Pressure"
-msgstr "Pressão"
+msgstr "Tekanan"
 
 #: src/CelestialNavigationUI.cpp:428
 msgid "MilliBars"
-msgstr "Milibares"
+msgstr "MilliBars"
 
 #: src/CelestialNavigationUI.cpp:432
 msgid "Index Error"
-msgstr "Erro de índice"
+msgstr "Kesalahan indeks"
 
 #: src/CelestialNavigationUI.cpp:446
 msgid "Set As Defaults"
-msgstr "Definir como padrões"
+msgstr "Ditetapkan Sebagai Default"
 
 #: src/CelestialNavigationUI.cpp:453
 msgid "Parameters"
-msgstr "Parâmetros"
+msgstr "Parameter"
 
 #: src/CelestialNavigationUI.cpp:469
 msgid "Calculations"
-msgstr "Cálculos"
+msgstr "Perhitungan"
 
 #: src/CelestialNavigationUI.cpp:571
 msgid "Shift all visible Sights"
-msgstr "Desvio todas as vistas visíveis"
+msgstr "Pergeseran semua Pemandangan yang terlihat"
 
 #: src/CelestialNavigationUI.cpp:649 src/CelestialNavigationUI.cpp:760
 msgid "Latitude"
-msgstr "Latitude"
+msgstr "Garis Lintang"
 
 #: src/CelestialNavigationUI.cpp:658 src/CelestialNavigationUI.cpp:768
 msgid "Longitude"
-msgstr "Longitude"
+msgstr "Garis Bujur"
 
 #: src/CelestialNavigationUI.cpp:669 src/CelestialNavigationUI.cpp:679
 msgid "MyLabel"
-msgstr "MyLabel"
+msgstr "Label saya"
 
 #: src/CelestialNavigationUI.cpp:686
 msgid "Done"
-msgstr "Feito"
+msgstr "Selesai"
 
 #: src/CelestialNavigationUI.cpp:689
 msgid "Magnetic"
-msgstr "Magnético"
+msgstr "Magnetik"
 
 #: src/CelestialNavigationUI.cpp:753
 msgid "Fix From Visible Sights"
-msgstr "Solução de Avistamentos visíveis"
+msgstr "Perbaiki Dari Pemandangan Terlihat"
 
 #: src/CelestialNavigationUI.cpp:764
 msgid "       N/A       "
@@ -319,7 +319,7 @@ msgstr "          N/A          "
 
 #: src/CelestialNavigationUI.cpp:776
 msgid "Error"
-msgstr "Erro"
+msgstr "Kesalahan"
 
 #: src/CelestialNavigationUI.cpp:780
 msgid "     N/A     "
@@ -327,7 +327,7 @@ msgstr "     N/A     "
 
 #: src/CelestialNavigationUI.cpp:787 src/CelestialNavigationUI.cpp:794
 msgid "Initial"
-msgstr "Inicial"
+msgstr "Awal"
 
 #: src/CelestialNavigationUI.cpp:801
 msgid "Alg"
@@ -335,70 +335,70 @@ msgstr "Alg"
 
 #: src/CelestialNavigationUI.cpp:806
 msgid "Plane"
-msgstr "Plano"
+msgstr "Pesawat"
 
 #: src/CelestialNavigationUI.cpp:807
 msgid "Sphere"
-msgstr "Esfera"
+msgstr "Lingkup"
 
 #: src/CelestialNavigationUI.cpp:808
 msgid "Cone"
-msgstr "Cone"
+msgstr "Kerucut"
 
 #: src/CelestialNavigationUI.cpp:809
 msgid "Cone 2"
-msgstr "Cone 2"
+msgstr "Kerucut 2"
 
 #: src/CelestialNavigationUI.cpp:813
 msgid "Go"
-msgstr "Calcular"
+msgstr "Pergi"
 
 #: src/CelestialNavigationUI.cpp:850 src/CelestialNavigationUI.h:303
 msgid "Clock Correction"
-msgstr "Correcção do relógio"
+msgstr "Koreksi jam"
 
 #: src/CelestialNavigationUI.h:78
 msgid "Celestial Navigation Sights"
-msgstr "Observações de Navegação Astronómica"
+msgstr "Pemandangan navigasi langit"
 
 #: src/CelestialNavigationUI.h:169
 msgid "Sight Properties"
-msgstr "Propriedades Observação"
+msgstr "Properti Tautan"
 
 #: src/CelestialNavigationUI.h:200
 msgid "Dead Reckoning shift"
-msgstr "Desvio da Posição estimada"
+msgstr "Mati pergeseran Reckoning"
 
 #: src/CelestialNavigationUI.h:227
 msgid "Find Celestial Body"
-msgstr "Procurar corpo celeste"
+msgstr "Menemukan Benda Angkasa"
 
 #: src/Sight.cpp:160
 msgid "Astrolab failed, data unavailable:\n"
-msgstr "Astrolabio falhou, dados indisponíveis: \n"
+msgstr "Astrolab gagal, data tidak tersedia:\n"
 
 #: src/Sight.cpp:161
 msgid "\n"
 "Did you forget to install vsop87d.txt?\n"
 msgstr "\n"
-"Esqueceu-s de instalar vsop87d.txt?\n"
+"Apakah kamu lupa untuk menginstal vsop87d.txt?\n"
 
 #: src/Sight.cpp:162
 msgid "The plugin will not work correctly"
-msgstr "A extensão não funcionará corretamente"
+msgstr "Plugin tidak akan bekerja dengan benar"
 
 #: src/Sight.cpp:163
 msgid "Failure Alert"
-msgstr "Alerta de falha"
+msgstr "Kegagalan peringatan"
 
 #: src/Sight.cpp:474
 #, c-format
 msgid "Applying clock correction of %d seconds\n\n"
-msgstr "Aplicar correcção do relógio de %d segundos\n\n"
+msgstr "Menerapkan koreksi jam dari %d detik\n\n"
 
 #: src/Sight.cpp:536
 msgid "Almanac Data For "
-msgstr "Dados do almanaque para "
+msgstr "Data Almanak Untuk "
 
 #: src/Sight.cpp:537
 #, c-format
@@ -411,31 +411,31 @@ msgid "\n"
 "SD = %.1f'\n"
 "HP = %.1f'\n\n"
 msgstr "\n"
-"Posição Geografica (lat, lon) = %.4f %.4f\n"
+"Posisi geografis (lat, lon) = %.4f %.4f\n"
 "GHAAST = %.0f %.1f'\n"
 "SHA = %.0f %.1f'\n"
-"GHA = %.0f %.1f'\n"
+"GHA = %.0f %.1f '\n"
 "Dec = %c %.0f %.1f'\n"
 "SD = %.1f'\n"
 "HP = %.1f'\n\n"
 
 #: src/Sight.cpp:552 src/Sight.cpp:690
 msgid "Formulas used to calculate sight\n\n"
-msgstr "Fórmulas utilizadas para calcular observação\n\n"
+msgstr "Rumus yang digunakan untuk menghitung sight\n\n"
 
 #: src/Sight.cpp:556 src/Sight.cpp:694
 #, c-format
 msgid "Index Error is %.4f degrees\n\n"
-msgstr "Erro de índice é %.4f graus\n\n"
+msgstr "Kesalahan indeks adalah %.4f derajat\n\n"
 
 #: src/Sight.cpp:561 src/Sight.cpp:699
 #, c-format
 msgid "Eye Height is %.4f meters\n"
 "Height Correction Degrees = 1.758*sqrt(%.4f) / 60.0\n"
 "Height Correction Degrees = %.4f\n"
-msgstr "Altura dos olhos é %.4f metros\n"
-"Graus de correção da altura = 1.758*sqrt(%.4f) / 60.0\n"
-"Graus de correção da altura = %.4f\n"
+msgstr "Tinggi mata adalah %.4f meter\n"
+"Tinggi Koreksi derajat  = 1.758*sqrt(%.4f) / 60,0\n"
+"Tinggi Koreksi derajat = %.4f\n"
 
 #: src/Sight.cpp:568
 #, c-format
@@ -445,10 +445,11 @@ msgid "\n"
 "ApparentAltitude = %.4f - %.4f - %.4f\n"
 "ApparentAltitude = %.4f\n"
 msgstr "\n"
-"Altitude Aparente (Ha) \n"
-"AltitudeAparente = Medição - Indice de correção - Correção da altura dos olhos\n"
-"Altitude Aparente = %.4f - %.4f - %.4f\n"
-"Altitude Aparente = %.4f\n"
+"Ketinggian Nampak (HA) \n"
+"KetinggianNampak = Pengukuran - KoreksiIndeks -\n"
+" KoreksiTinggiMata\n"
+"KetinggianNampak = %.4f - %.4f - %.4f\n"
+"KetinggianNampak = %.4f\n"
 
 #: src/Sight.cpp:586 src/Sight.cpp:789
 #, c-format
@@ -458,9 +459,9 @@ msgid "\n"
 "x = tan(Pi/180*%.4f + 4.848e-2*(Pi/180) / (tan(Pi/180*%.4f) + .028))\n"
 "x = %.4f\n"
 msgstr "\n"
-"Correção da Refração\n"
-"x = tan (Pi/180 * Altitude Aparente + 4.848e-2*(Pi/180) / (tan(Pi/180*Altitude Aparente) +.028)) \n"
-"x = tan (Pi/180*%.4f + 4.848e-2*(Pi/180) / (tan(Pi/180*%.4f) +.028)) \n"
+"Koreksi Refraksi\n"
+"x = tan(Pi/180*KetinggianNampak + 4.848e-2*(Pi/180) / (tan(Pi/180*KetinggianNampak) + .028))\n"
+"x = tan(Pi/180*%.4f + 4.848e-2*(Pi/180) / (tan(Pi/180*%.4f) + .028))\n"
 "x = %.4f\n"
 
 #: src/Sight.cpp:591 src/Sight.cpp:794
@@ -468,9 +469,9 @@ msgstr "\n"
 msgid "RefractionCorrection = .267 * Pressure / (x*(Temperature + 273.15)) / 60.0\n"
 "RefractionCorrection = .267 * %.4f / (x*(%.4f + 273.15)) / 60.0\n"
 "RefractionCorrection = %.4f\n"
-msgstr "Correção da Refracão =.267 * pressão / (x * (temperatura + 273.15)) / 60.0\n"
-"Correção da Refração =.267 * %.4f / (x * (%.4f + 273.15)) / 60.0\n"
-"Correção da Refração = %.4f\n"
+msgstr "KoreksiRefraksi = .267 * Tekanan / (x*(Suhu + 273.15)) / 60.0\n"
+"KoreksiRefraksi = .267 * %.4f / (x*(%.4f + 273.15)) / 60.0\n"
+"KoreksiRefraksi = %.4f\n"
 
 #: src/Sight.cpp:606 src/Sight.cpp:808
 #, c-format
@@ -478,7 +479,7 @@ msgid "\n"
 "Sun selected, Limb Correction\n"
 "ra = %.4f, lc = 0.266564/ra = %.4f\n"
 msgstr "\n"
-"Selecionado Sol, Correção Limbo\n"
+"Matahari dipilih, Koreksi Dahan\n"
 "ra = %.4f, lc = 0.266564/ra = %.4f\n"
 
 #: src/Sight.cpp:616 src/Sight.cpp:732
@@ -489,25 +490,25 @@ msgid "\n"
 "lc = 180/Pi * asin(Pi/180*SD)\n"
 "lc = %.4f\n"
 msgstr "\n"
-"Selecionada Lua, Correção Limbon\n"
+"Bulan dipilih, Koreksi Dahan\n"
 "SD = %.4f\n"
-"lc = 180/Pi * asin (Pi/180 * SD) \n"
+"lc = 180/Pi * asin(Pi/180*SD)\n"
 "lc = %.4f\n"
 
 #: src/Sight.cpp:626 src/Sight.cpp:741 src/Sight.cpp:816
 msgid "Upper Limb"
-msgstr "Limbo superior"
+msgstr "Tungkai Atas"
 
 #: src/Sight.cpp:629 src/Sight.cpp:744 src/Sight.cpp:819
 msgid "Lower Limb"
-msgstr "Limbo inferior"
+msgstr "Tungkai Bawah"
 
 #: src/Sight.cpp:632 src/Sight.cpp:822
 #, c-format
 msgid "\n"
 "LimbCorrection = %.4f\n"
 msgstr "\n"
-"LimbCorrection = %.4f\n"
+"KoreksiDahan = %.4f\n"
 
 #: src/Sight.cpp:636 src/Sight.cpp:826
 #, c-format
@@ -517,10 +518,10 @@ msgid "\n"
 "CorrectedAltitude = %.4f - %.4f - %.4f\n"
 "CorrectedAltitude = %.4f\n"
 msgstr "\n"
-"Altitude Corrigida\n"
-"Altitude Corrigida = Altitude Aparente - Correção da Refração - CorrecaoLimbo\n"
-"Altitude Corrigida = %.4f - %.4f - %.4f\n"
-"Altitude Corrigida = %.4f\n"
+"Ketinggian Dikoreksi\n"
+"KetinggianDikoreksi = KetinggianNampak- KoreksiRefraksi - KoreksiDahan\n"
+"KetinggianDikoreksi = %.4f - %.4f - %.4f\n"
+"KetinggianDikoreksi= %.4f\n"
 
 #: src/Sight.cpp:650 src/Sight.cpp:840
 #, c-format
@@ -528,7 +529,7 @@ msgid "\n"
 "Sun selected, parallax correction\n"
 "rad = %.4f, HP = 0.002442/rad = %.4f\n"
 msgstr "\n"
-"Selecionado Sol, correção paralaxe\n"
+"Matahari dipilih, koreksi parallaxs\n"
 "rad = %.4f, HP = 0.002442/rad = %.4f\n"
 
 #: src/Sight.cpp:659 src/Sight.cpp:764
@@ -537,7 +538,7 @@ msgid "\n"
 "Moon selected, parallax correction\n"
 "HP = %.4f\n"
 msgstr "\n"
-"Lua seleccionada, correção de parallaxe\n"
+"Bulan dipilih, koreksi parallaxs\n"
 "HP = %.4f\n"
 
 #: src/Sight.cpp:665 src/Sight.cpp:846
@@ -545,9 +546,9 @@ msgstr "\n"
 msgid "ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * CorrectedAltitude))\n"
 "ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * %.4f ) * cos(Pi/180 * %.4f))\n"
 "ParallaxCorrection = %.4f\n"
-msgstr "ParallaxCorrection = -180/Pi * asin (sin (Pi/180 * HP) * cos (Pi/180 * CorrectedAltitude)) \n"
-"ParallaxCorrection = -180/Pi * asin (sin (Pi/180 * %.4f) * cos (Pi/180 * %.4f))\n"
-"ParallaxCorrection = %.4f\n"
+msgstr "KoreksiParallaxs = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * KetinggianDikoreksi))\n"
+"KoreksiParallaxs = -180/Pi * asin( sin(Pi/180 * %.4f ) * cos(Pi/180 * %.4f))\n"
+"KoreksiParallaxs = %.4f\n"
 
 #: src/Sight.cpp:672
 #, c-format
@@ -557,10 +558,10 @@ msgid "\n"
 "ObservedAltitude = %.4f - %.4f\n"
 "ObservedAltitude = %.4f\n"
 msgstr "\n"
-"Altitude observada (Ho) \n"
-"AltitudeObservada = AltitudeCorreta - CorreçãoParallax\n"
-"AltitudeObservada = %.4f - %.4f\n"
-"AltitudeObservada = %.4f\n"
+"Ketinggian Diamati (Ho)\n"
+"KetinggianDiamati = KetinggianDikoreksi - KoreksiParallaxs\n"
+"KetinggianDiamati = %.4f - %.4f\n"
+"KetinggianDiamati = %.4f\n"
 
 #: src/Sight.cpp:706
 #, c-format
@@ -570,10 +571,10 @@ msgid "\n"
 " ApparentAltitudeMoon = %.4f - %.4f - %.4f\n"
 "ApparentAltitudeMoon = %.4f\n"
 msgstr "\n"
-"Altitude aparente da Lua (Ha)\n"
-"ApparentAltitudeMoon = MeasurementMoon - IndexCorrection - EyeHeightCorrection\n"
-" ApparentAltitudeMoon = %.4f - %.4f - %.4f\n"
-"ApparentAltitudeMoon = %.4f\n"
+"Ketinggian Bulan Yang Terlihat (Ha)\n"
+"Ketinggian Bulan = PengukuranBulan - KoreksiIndeks - KoreksiTinggiMata\n"
+" KetinggianBulan = %.4f - %.4f - %.4f\n"
+"KetinggianBulan = %.4f\n"
 
 #: src/Sight.cpp:717
 #, c-format
@@ -583,8 +584,8 @@ msgid "\n"
 "x = tan(Pi/180*%.4f + 4.848e-2*(Pi/180) / (tan(Pi/180*%.4f) + .028))\n"
 "x = %.4f\n"
 msgstr "\n"
-"Correção da Refração\n"
-"x = tan(Pi/180*ApparentAltitudeMoon + 4.848e-2*(Pi/180) / (tan(Pi/180*ApparentAltitudeMoon) + .028))\n"
+"Koreksi Pembiasan\n"
+"x = tan(Pi/180*KetinggianBUlan + 4.848e-2*(Pi/180) / (tan(Pi/180*KetinggianBulan) + .028))\n"
 "x = tan(Pi/180*%.4f + 4.848e-2*(Pi/180) / (tan(Pi/180*%.4f) + .028))\n"
 "x = %.4f\n"
 
@@ -593,16 +594,16 @@ msgstr "\n"
 msgid "RefractionCorrectionMoon = .267 * Pressure / (x*(Temperature + 273.15)) / 60.0\n"
 "RefractionCorrectionMoon = .267 * %.4f / (x*(%.4f + 273.15)) / 60.0\n"
 "RefractionCorrectionMoon = %.4f\n"
-msgstr "RefractionCorrectionMoon = .267 * Pressure / (x*(Temperature + 273.15)) / 60.0\n"
-"RefractionCorrectionMoon = .267 * %.4f / (x*(%.4f + 273.15)) / 60.0\n"
-"RefractionCorrectionMoon = %.4f\n"
+msgstr "KoreksiPembiasanBulan = .267 * Tekanan / (x*(Suhu + 273.15)) / 60.0\n"
+"KoreksiPembiasanBulan = .267 * %.4f / (x*(%.4f + 273.15)) / 60.0\n"
+"KoreksiPembiasanBulan = %.4f\n"
 
 #: src/Sight.cpp:747 src/Sight.cpp:750
 #, c-format
 msgid "\n"
 "LimbCorrectionMoon = %.4f\n"
 msgstr "\n"
-"LimbCorrectionMoon = %.4f\n"
+"LimbKoreksiBulan = %.4f\n"
 
 #: src/Sight.cpp:753
 #, c-format
@@ -612,19 +613,19 @@ msgid "\n"
 "CorrectedAltitudeMoon = %.4f - %.4f - %.4f\n"
 "CorrectedAltitudeMoon = %.4f\n"
 msgstr "\n"
-"Altitude Corrigida\n"
-"CorrectedAltitudeMoon = ApparentAltitudeMoon - RefractionCorrectionMoon - LimbCorrectionMoon\n"
-"CorrectedAltitudeMoon = %.4f - %.4f - %.4f\n"
-"CorrectedAltitudeMoon = %.4f\n"
+"KetinggianYangDikoreksi\n"
+"KoreksiKetinggianBulan = KetinggianBulan - KoreksiPembiasanBulan - LimbKoreksiBulan\n"
+"KoreksiKetinggianBulan = %.4f - %.4f - %.4f\n"
+"KoreksiKetinggianBulan = %.4f\n"
 
 #: src/Sight.cpp:768
 #, c-format
 msgid "ParallaxCorrectionMoon = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * CorrectedAltitude))\n"
 " ParallaxCorrectionMoon = -180/Pi * asin( sin(Pi/180 * %.4f ) * cos(Pi/180 * %.4f))\n"
 "ParallaxCorrectionMoon = %.4f\n"
-msgstr "ParallaxCorrectionMoon = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * CorrectedAltitude))\n"
-" ParallaxCorrectionMoon = -180/Pi * asin( sin(Pi/180 * %.4f ) * cos(Pi/180 * %.4f))\n"
-"ParallaxCorrectionMoon = %.4f\n"
+msgstr "KoreksiParalaksBulan = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * KoreksiKetinggian))\n"
+" KoreksiParalaksBulan = -180/Pi * asin( sin(Pi/180 * %.4f ) * cos(Pi/180 * %.4f))\n"
+"KoreksiParalaksBulan = %.4f\n"
 
 #: src/Sight.cpp:778
 #, c-format
@@ -634,108 +635,108 @@ msgid "\n"
 " ApparentAltitude = %.4f - %.4f - %.4f\n"
 "ApparentAltitude = %.4f\n"
 msgstr "\n"
-"Altitude Aparente (Ha)\n"
-"ApparentAltitude = Measurement - IndexCorrection - EyeHeightCorrection\n"
-" ApparentAltitude = %.4f - %.4f - %.4f\n"
-"ApparentAltitude = %.4f\n"
+"Tampak Ketinggian (Ha)\n"
+"TampakKetinggian = Pengukuran - KoreksiIndeks - KoreksiKetinggianMata\n"
+" TampakKetinggian = %.4f - %.4f - %.4f\n"
+"TampakKetinggian = %.4f\n"
 
 #: src/Sight.cpp:857
 #, c-format
 msgid "CorrectionsMoon = %.4f\n"
 "CorrectionsBody = %.4f\n"
 "Corrections = abs(CorrectionsMoon - CorrectionsBody) = %.4f\n"
-msgstr "CorrectionsMoon = %.4f\n"
-"CorrectionsBody = %.4f\n"
-"Corrections = abs(CorrectionsMoon - CorrectionsBody) = %.4f\n"
+msgstr "KoreksiBulan = %.4f\n"
+"KoreksiBadan = %.4f\n"
+"Koreksi = abs(KoreksiBulan - KoreksiBadan) = %.4f\n"
 
 #: src/Sight.cpp:863
 #, c-format
 msgid "CorrectedMeasurement = Measurement - Corrections - IndexCorrection\n"
 "CorrectedMeasurement = %.4f - %.4f - %.4f\n"
 "CorrectedMeasurement = %.4f\n"
-msgstr "CorrectedMeasurement = Measurement - Corrections - IndexCorrection\n"
-"CorrectedMeasurement = %.4f - %.4f - %.4f\n"
-"CorrectedMeasurement = %.4f\n"
+msgstr "KoreksiPengukuran = Pengukuran - Koreksi - IndeksKoreksi\n"
+"KoreksiPengukuran = %.4f - %.4f - %.4f\n"
+"KoreksiPengukuran = %.4f\n"
 
 #: src/Sight.cpp:888
 msgid "\n"
 "Calculated angle between Moon and "
 msgstr "\n"
-"Angulo calculado entre a Lua e "
+"Hitung sudut antara Bulan dan "
 
 #: src/Sight.cpp:890
 #, c-format
 msgid "\n"
 "Error from measurement: %.4f"
 msgstr "\n"
-"Erro de medida: %.4f"
+"Kesalahan dari pengukuran: %.4f"
 
 #: src/Sight.cpp:894
 msgid "\n"
 "Moon takes 28 days to orbit, one degree of error takes 6720 seconds"
 msgstr "\n"
-"A Lua demora 28 dias a completar a orbita, um erro de um grau representa 6720 segundos"
+"Bulan memakan waktu 28 hari untuk mengorbit, satu tingkat kesalahan mengambil 6720 detik"
 
 #: src/Sight.cpp:895
 #, c-format
 msgid "\n"
 "Time correction %.4f seconds"
 msgstr "\n"
-"Correção de tempo %.4f segundos"
+"Koreksi waktu %.4f detik"
 
 #: src/Sight.cpp:1099
 msgid "Building bearing Sight Positions"
-msgstr "Construindo posições de marcação"
+msgstr "Bangunan bantalan Posisi Penglihatan"
 
 #: src/SightDialog.cpp:172
 msgid "Measurement certainty likely set to small, sight may not appear "
-msgstr "Provavelmente pequena a certeza de medição, posição pode não aparecer "
+msgstr "Kepastian pengukuran kemungkinan kecil, penglihatan mungkin tidak muncul "
 
 #: src/SightDialog.cpp:173 src/SightDialog.cpp:256
 msgid "Warning"
-msgstr "Aviso"
+msgstr "Peringatan"
 
 #: src/SightDialog.cpp:255
 msgid "Lunar shot will be invalid taking distance from moon to itself"
-msgstr "Observação Lunar será inválida considerandoa distancia da Lua a ela própria"
+msgstr "Tembakan Lunar tidak akan mungkin mengambil jarak dari bulan ke dirinya sendiri"
 
 #: src/celestial_navigation_pi.cpp:90
 msgid "Failed to load file:\n"
-msgstr "Falha a carregar ficheiro:\n"
+msgstr "Gagal Memuat File:\n"
 
 #: src/celestial_navigation_pi.cpp:91
 msgid "\n"
 "Magnetic data will not be available for the celestial navigation plugin."
 msgstr "\n"
-"Dados Magnéticos não estarão disponíveis para a extensão de navegação astronómica."
+"Data magnetik tidak akan tersedia untuk plugin navigasi angkasa."
 
 #: src/celestial_navigation_pi.cpp:92
 msgid "OpenCPN Alert"
-msgstr "Alerta OpenCPN"
+msgstr "Peringatan OpenCPN"
 
 #: src/celestial_navigation_pi.cpp:157
 msgid "Celestial Navigation PlugIn for OpenCPN"
-msgstr "Extensão de Navegação Astronomica para OpenCPN"
+msgstr "Plugin Navigasi langit untuk OpenCPN"
 
 #: src/celestial_navigation_pi.cpp:162
 msgid "Celestial Navigation PlugIn for OpenCPN.\n"
 "Implements nautical almanac for sun, moon, planets,\n"
 "and various navigational stars.\n"
 "Compute position fix from celestial measurements."
-msgstr "Extensão de Navegação Celeste para OpenCPN.\n"
-"Implementa um almanaque nautico do Sol, Lua, planetas,\n"
-"e várias estrelas para navegação.\n"
-"Calcula a posição a partir de medições astronómicas."
+msgstr "Navigasi Langit Plugin untuk OpenCPN.\n"
+"implementasi almanak bahari untuk matahari, bulan, planet,\n"
+"dan berbagai bintang navigasi.\n"
+"Hitung posisi fix dari pengukuran selestial."
 
 #: src/FixDialog.cpp:189
 msgid "Shifted sights are not used to compute a fix, determine fix visually instead.\n"
-msgstr "Posições deslocados não são usadas para calcular uma solução, determinar solução visualmente em vez disso. \n"
+msgstr "Pemandangan yang digeser tidak digunakan untuk menghitung fix, tentukan perbaikan secara visual.\n"
 
 #: src/FixDialog.cpp:190
 msgid "Fix Position"
-msgstr "Posicão calculada"
+msgstr "Memperbaiki posisi"
 
 #: src/FixDialog.cpp:335 src/FixDialog.cpp:336 src/FixDialog.cpp:337
 msgid "   N/A   "
-msgstr "   N/A   "
+msgstr "   N / A   "
 
