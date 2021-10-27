@@ -44,20 +44,20 @@
 #include "celestial_navigation_pi.h"
 //HEAD
 // line
-//#include "zuFile.h"
+#include "zuFile.h"
 
-//#include "astrolabe/astrolabe.hpp"
-//static wxString DataDirectory()//{
-//    wxString s = wxFileName::GetPathSeparator();
-//   return *GetpSharedDataLocation() + "plugins" + s + "celestial_navigation_pi" + s + "data" + s;
-//}
+#include "astrolabe/astrolabe.hpp"
+static wxString DataDirectory()//{
+    wxString s = wxFileName::GetPathSeparator();
+    return *GetpSharedDataLocation() + "plugins" + s + "celestial_navigation_pi" + s + "data" + s;
+}
 
-//static wxString UserDataDirectory()
-// {
-//    wxString s = wxFileName::GetPathSeparator();
-//    return *GetpPrivateApplicationDataLocation() + s + "plugins"
-//        + s + "celestial_navigation" + s;
-// }
+static wxString UserDataDirectory()
+ {
+    wxString s = wxFileName::GetPathSeparator();
+    return *GetpPrivateApplicationDataLocation() + s + "plugins"
+        + s + "celestial_navigation" + s;
+ }
 //  master
 
 /* XPM */
@@ -167,19 +167,19 @@ CelestialNavigationDialog::CelestialNavigationDialog(wxWindow *parent)
 // line
 
 // from HEAD    
-//#ifdef __OCPN__ANDROID__
-//    GetHandle()->setAttribute(Qt::WA_AcceptTouchEvents);
-//    GetHandle()->grabGesture(Qt::PanGesture);
-//    GetHandle()->setStyleSheet( qtStyleSheet);
-//
-//    m_lSights->GetHandle()->setAttribute(Qt::WA_AcceptTouchEvents);
-//    m_lSights->GetHandle()->grabGesture(Qt::PanGesture);
-//    m_lSights->Connect( wxEVT_QT_PANGESTURE,
-//                       (wxObjectEventFunction) (wxEventFunction) &CelestialNavigationDialog::OnEvtPanGesture, NULL, this );
+#ifdef __OCPN__ANDROID__
+    GetHandle()->setAttribute(Qt::WA_AcceptTouchEvents);
+    GetHandle()->grabGesture(Qt::PanGesture);
+    GetHandle()->setStyleSheet( qtStyleSheet);
 
-//    GetHandle()->setStyleSheet( qtStyleSheet);
-//    Move(0, 0);
-// #endif
+    m_lSights->GetHandle()->setAttribute(Qt::WA_AcceptTouchEvents);
+    m_lSights->GetHandle()->grabGesture(Qt::PanGesture);
+    m_lSights->Connect( wxEVT_QT_PANGESTURE,
+                       (wxObjectEventFunction) (wxEventFunction) &CelestialNavigationDialog::OnEvtPanGesture, NULL, this );
+
+    GetHandle()->setStyleSheet( qtStyleSheet);
+    Move(0, 0);
+ #endif
 // beginning of parent of parent of ddd0bac... android build
 //
 // end of parent of ddd0bac... android build

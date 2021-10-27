@@ -14,4 +14,3 @@
 #define OCPN_API_VERSION_MINOR ${OCPN_API_VERSION_MINOR}
 // Include extra version settings if required
 ${EXTRA_VERSION_INFO}
-

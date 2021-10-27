@@ -38,7 +38,7 @@ set(LONG_DESCRIPTION "Implements nautical almanac for sun, moon, planets and var
 set(VERSION_MAJOR "2")
 set(VERSION_MINOR "3")
 set(VERSION_PATCH "5")
-set(VERSION_TWEAK "0")
+set(VERSION_TWEAK "1")
 set(VERSION_DATE "2021-10-25")
 set(OCPN_MIN_VERSION "ov52")
 set(OCPN_API_VERSION_MAJOR "1")
@@ -157,7 +157,6 @@ SET(SRCS
           src/celestial_navigation_pi.cpp
 	)
 
-
 SET(HDRS
         src/celestial_navigation_pi.h
         src/CelestialNavigationDialog.h
@@ -187,6 +186,7 @@ set(LIBHDRS
 
 add_definitions(-DPLUGIN_USE_SVG)
 		
+
 # set(EXTINCLUDE extinclude/nlohmann/json.hpp extinclude/ODAPI.h)
 
 #set(LIBSSRC libs/wxJSON/src/jsonreader.cpp libs/wxJSON/src/jsonval.cpp libs/wxJSON/src/jsonwriter.cpp)
@@ -230,15 +230,6 @@ endif(QT_ANDROID)
 target_sources(${PACKAGE_NAME} PUBLIC ${SRCS} ${HDRS} ${LIBHDRS} ${OCPNSRC} ${EXTSRC} ${LIBSSRC})
 ##==================================
 
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src)  #nor so sure this is needed, trying to fix cnav.
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/astrolabe)
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/geomag)
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/tinyxml)
-# include_directories(BEFORE ${PROJECT_SOURCE_DIR}/api-16)
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs)
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/GL)
-
-
 ADD_DEFINITIONS(-DTIXML_USE_STL)
 
 IF(PLUGIN_USE_SVG)
@@ -261,17 +252,19 @@ add_definitions(-DTIXML_USE_STL)
 ##
 ## ----- Change above to match project requirements ----- ##
 ## ----- do not change next section - needed to configure build process ----- ##
-
+##
+##==================================
 # Needed for android builds
 if(QT_ANDROID)
     include_directories(BEFORE ${qt_android_include})
 endif(QT_ANDROID)
 
 # Needed for all builds
-##==================================
 include("PluginInstall")
 include("PluginLocalization")
 include("PluginPackage")
 ##==================================
+
+##
 ## ----- do not change section above - needed to configure build process ----- ##
 ##
