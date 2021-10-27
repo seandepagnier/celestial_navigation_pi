@@ -1,0 +1,741 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: opencpn\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-02-28 14:10-0300\n"
+"PO-Revision-Date: 2021-04-14 21:42\n"
+"Last-Translator: \n"
+"Language-Team: Turkish\n"
+"Language: tr_TR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Crowdin-Project: opencpn\n"
+"X-Crowdin-Project-ID: 49843\n"
+"X-Crowdin-Language: tr\n"
+"X-Crowdin-File: /plugins/celestial_navigation_pi/po/celestial_navigation_pi.pot\n"
+"X-Crowdin-File-ID: 108\n"
+
+#: src/CelestialNavigationDialog.cpp:123 src/CelestialNavigationUI.cpp:132
+msgid "Type"
+msgstr "Tip"
+
+#: src/CelestialNavigationDialog.cpp:124
+msgid "Body"
+msgstr "Gövde"
+
+#: src/CelestialNavigationDialog.cpp:125
+msgid "Time (UTC)"
+msgstr "Zaman (UTC)"
+
+#: src/CelestialNavigationDialog.cpp:126 src/CelestialNavigationUI.cpp:179
+msgid "Measurement"
+msgstr "Ölçüm"
+
+#: src/CelestialNavigationDialog.cpp:127 src/CelestialNavigationUI.cpp:376
+msgid "Color"
+msgstr "Renk"
+
+#: src/CelestialNavigationDialog.cpp:193
+msgid "Failed to load file."
+msgstr "Dosya yüklerken hata oluştu."
+
+#: src/CelestialNavigationDialog.cpp:198
+msgid "Invalid xml file"
+msgstr "Geçersiz xml dosyası"
+
+#: src/CelestialNavigationDialog.cpp:250
+msgid "Unrecognized xml node"
+msgstr "Tanınmayan xml düğümü"
+
+#: src/CelestialNavigationDialog.cpp:260
+msgid "Weather Routing"
+msgstr "Hava Durumu Yönlendirme"
+
+#: src/CelestialNavigationDialog.cpp:320
+msgid "Failed to save xml file: "
+msgstr "Xml dosyası kaydedilemedi: "
+
+#: src/CelestialNavigationDialog.cpp:321 src/CelestialNavigationDialog.cpp:466
+#: src/Sight.cpp:1099 src/celestial_navigation_pi.cpp:99
+#: src/celestial_navigation_pi.cpp:152
+msgid "Celestial Navigation"
+msgstr "Astronomik Seyir"
+
+#: src/CelestialNavigationDialog.cpp:351
+msgid "Time Correction"
+msgstr "Zaman Düzeltmesi"
+
+#: src/CelestialNavigationDialog.cpp:409
+msgid "Sun"
+msgstr "Güneş"
+
+#: src/CelestialNavigationDialog.cpp:465
+msgid "Are you sure you want to delete all sights?"
+msgstr "Tüm gözlemleri silmek istediğinizden emin misiniz?"
+
+#: src/CelestialNavigationDialog.cpp:510
+msgid "Celestial_Navigation_Information.html"
+msgstr "Astronomik_Seyir_Bilgisi.html"
+
+#: src/CelestialNavigationDialog.cpp:516
+msgid "Show"
+msgstr "Göster"
+
+#: src/CelestialNavigationDialog.cpp:516 src/CelestialNavigationUI.cpp:58
+msgid "Hide"
+msgstr "Gizle"
+
+#: src/CelestialNavigationUI.cpp:40
+msgid "New"
+msgstr "Yeni"
+
+#: src/CelestialNavigationUI.cpp:43
+msgid "Edit"
+msgstr "Düzenle"
+
+#: src/CelestialNavigationUI.cpp:46
+msgid "Delete"
+msgstr "Sil"
+
+#: src/CelestialNavigationUI.cpp:49
+msgid "Delete All"
+msgstr "Tümünü Sil"
+
+#: src/CelestialNavigationUI.cpp:52 src/CelestialNavigationUI.h:281
+msgid "Fix"
+msgstr "Düzelt"
+
+#: src/CelestialNavigationUI.cpp:55
+msgid "Clock Offset"
+msgstr "Saat düzeltmesi"
+
+#: src/CelestialNavigationUI.cpp:61
+msgid "Information"
+msgstr "Bilgilendirme"
+
+#: src/CelestialNavigationUI.cpp:136 src/CelestialNavigationUI.cpp:667
+#: src/Sight.h:49
+msgid "Altitude"
+msgstr "Rakım"
+
+#: src/CelestialNavigationUI.cpp:136 src/CelestialNavigationUI.cpp:677
+#: src/Sight.h:49
+msgid "Azimuth"
+msgstr "Azimut"
+
+#: src/CelestialNavigationUI.cpp:136 src/Sight.h:49
+msgid "Lunar"
+msgstr "Ay"
+
+#: src/CelestialNavigationUI.cpp:142
+msgid "Magnetic Azimuth"
+msgstr "Manyetik Azimut"
+
+#: src/CelestialNavigationUI.cpp:145
+msgid "Celestial Body"
+msgstr "Gökcismi"
+
+#: src/CelestialNavigationUI.cpp:154
+msgid "Find"
+msgstr "Bulmak"
+
+#: src/CelestialNavigationUI.cpp:157
+msgid "Limb"
+msgstr "Bacak"
+
+#: src/CelestialNavigationUI.cpp:161
+msgid "Lower"
+msgstr "Alçak"
+
+#: src/CelestialNavigationUI.cpp:161
+msgid "Center"
+msgstr "Ortada"
+
+#: src/CelestialNavigationUI.cpp:161
+msgid "Upper"
+msgstr "Üst"
+
+#: src/CelestialNavigationUI.cpp:186 src/CelestialNavigationUI.cpp:193
+#: src/CelestialNavigationUI.cpp:223 src/CelestialNavigationUI.cpp:230
+msgid "0"
+msgstr "0"
+
+#: src/CelestialNavigationUI.cpp:189 src/CelestialNavigationUI.cpp:348
+#: src/CelestialNavigationUI.cpp:598
+msgid "Degrees"
+msgstr "Derece"
+
+#: src/CelestialNavigationUI.cpp:196 src/CelestialNavigationUI.cpp:278
+#: src/CelestialNavigationUI.cpp:439
+msgid "Minutes"
+msgstr "Dakika"
+
+#: src/CelestialNavigationUI.cpp:200
+msgid "10"
+msgstr "10"
+
+#: src/CelestialNavigationUI.cpp:203
+msgid "Minutes Certainty"
+msgstr "Dakika kesinliği"
+
+#: src/CelestialNavigationUI.cpp:217
+msgid "Lunar Altitude"
+msgstr "Ay irtifası"
+
+#: src/CelestialNavigationUI.cpp:226
+msgid "Body Altitude"
+msgstr "Gövde yüksekliği"
+
+#: src/CelestialNavigationUI.cpp:243
+msgid "Sight"
+msgstr "Gözlem"
+
+#: src/CelestialNavigationUI.cpp:271
+msgid "Hours"
+msgstr "Saatler"
+
+#: src/CelestialNavigationUI.cpp:285 src/CelestialNavigationUI.cpp:303
+#: src/CelestialNavigationUI.cpp:860
+msgid "Seconds"
+msgstr "Saniyeler"
+
+#: src/CelestialNavigationUI.cpp:293
+msgid "Certainty"
+msgstr "Kesinlik"
+
+#: src/CelestialNavigationUI.cpp:323
+msgid "Time"
+msgstr "Zaman"
+
+#: src/CelestialNavigationUI.cpp:330 src/CelestialNavigationUI.cpp:580
+msgid "Distance"
+msgstr "Mesafe"
+
+#: src/CelestialNavigationUI.cpp:337 src/CelestialNavigationUI.cpp:587
+msgid "Nm"
+msgstr "Nm"
+
+#: src/CelestialNavigationUI.cpp:341 src/CelestialNavigationUI.cpp:591
+msgid "Bearing"
+msgstr "Kerteriz"
+
+#: src/CelestialNavigationUI.cpp:352 src/CelestialNavigationUI.cpp:602
+msgid "Magnetic Bearing"
+msgstr "Manyetik kerteriz"
+
+#: src/CelestialNavigationUI.cpp:359
+msgid "DR Shift"
+msgstr "DR Değiştirme"
+
+#: src/CelestialNavigationUI.cpp:366
+msgid "Transparency"
+msgstr "Saydamlık"
+
+#: src/CelestialNavigationUI.cpp:387
+msgid "Config"
+msgstr "Yapılandır"
+
+#: src/CelestialNavigationUI.cpp:399
+msgid "Eye Height"
+msgstr "Göz yüksekliği"
+
+#: src/CelestialNavigationUI.cpp:403
+msgid "2"
+msgstr "2"
+
+#: src/CelestialNavigationUI.cpp:406
+msgid "Meters"
+msgstr "Metre"
+
+#: src/CelestialNavigationUI.cpp:410
+msgid "Temperature"
+msgstr "Sıcaklık"
+
+#: src/CelestialNavigationUI.cpp:417
+msgid "Celcius"
+msgstr "Celcius"
+
+#: src/CelestialNavigationUI.cpp:421
+msgid "Pressure"
+msgstr "Basınç"
+
+#: src/CelestialNavigationUI.cpp:428
+msgid "MilliBars"
+msgstr "MiliBar"
+
+#: src/CelestialNavigationUI.cpp:432
+msgid "Index Error"
+msgstr "Ayna hatası"
+
+#: src/CelestialNavigationUI.cpp:446
+msgid "Set As Defaults"
+msgstr "Varsayılan olarak ata"
+
+#: src/CelestialNavigationUI.cpp:453
+msgid "Parameters"
+msgstr "Değişkenler"
+
+#: src/CelestialNavigationUI.cpp:469
+msgid "Calculations"
+msgstr "Hesaplamalar"
+
+#: src/CelestialNavigationUI.cpp:571
+msgid "Shift all visible Sights"
+msgstr "Görünürdeki tüm yerleri kaydır"
+
+#: src/CelestialNavigationUI.cpp:649 src/CelestialNavigationUI.cpp:760
+msgid "Latitude"
+msgstr "Enlem"
+
+#: src/CelestialNavigationUI.cpp:658 src/CelestialNavigationUI.cpp:768
+msgid "Longitude"
+msgstr "Boylam"
+
+#: src/CelestialNavigationUI.cpp:669 src/CelestialNavigationUI.cpp:679
+msgid "MyLabel"
+msgstr "Etiketim"
+
+#: src/CelestialNavigationUI.cpp:686
+msgid "Done"
+msgstr "Tamam"
+
+#: src/CelestialNavigationUI.cpp:689
+msgid "Magnetic"
+msgstr "Manyetik"
+
+#: src/CelestialNavigationUI.cpp:753
+msgid "Fix From Visible Sights"
+msgstr "Görünür görüntüleri düzeltmek"
+
+#: src/CelestialNavigationUI.cpp:764
+msgid "       N/A       "
+msgstr "       Bulunamadı       "
+
+#: src/CelestialNavigationUI.cpp:772
+msgid "          N/A          "
+msgstr "          N/A          "
+
+#: src/CelestialNavigationUI.cpp:776
+msgid "Error"
+msgstr "Hata"
+
+#: src/CelestialNavigationUI.cpp:780
+msgid "     N/A     "
+msgstr "     N/A     "
+
+#: src/CelestialNavigationUI.cpp:787 src/CelestialNavigationUI.cpp:794
+msgid "Initial"
+msgstr "İlk"
+
+#: src/CelestialNavigationUI.cpp:801
+msgid "Alg"
+msgstr "Alg"
+
+#: src/CelestialNavigationUI.cpp:806
+msgid "Plane"
+msgstr "Düzlem"
+
+#: src/CelestialNavigationUI.cpp:807
+msgid "Sphere"
+msgstr "Küre"
+
+#: src/CelestialNavigationUI.cpp:808
+msgid "Cone"
+msgstr "Koni"
+
+#: src/CelestialNavigationUI.cpp:809
+msgid "Cone 2"
+msgstr "Koni 2"
+
+#: src/CelestialNavigationUI.cpp:813
+msgid "Go"
+msgstr "Git"
+
+#: src/CelestialNavigationUI.cpp:850 src/CelestialNavigationUI.h:303
+msgid "Clock Correction"
+msgstr "Saat düzeltmesi"
+
+#: src/CelestialNavigationUI.h:78
+msgid "Celestial Navigation Sights"
+msgstr "Astronomik Seyir Gözlemleri"
+
+#: src/CelestialNavigationUI.h:169
+msgid "Sight Properties"
+msgstr "Gözlem özellikleri"
+
+#: src/CelestialNavigationUI.h:200
+msgid "Dead Reckoning shift"
+msgstr "DR mevki değişimi"
+
+#: src/CelestialNavigationUI.h:227
+msgid "Find Celestial Body"
+msgstr "Gökcismi bulmak"
+
+#: src/Sight.cpp:160
+msgid "Astrolab failed, data unavailable:\n"
+msgstr "Astrolab başarısız oldu, veri kullanılamaz: \n"
+
+#: src/Sight.cpp:161
+msgid "\n"
+"Did you forget to install vsop87d.txt?\n"
+msgstr "\n"
+"Vsop87d.txt dosyasını yüklemeyi mi unuttunuz?\n"
+
+#: src/Sight.cpp:162
+msgid "The plugin will not work correctly"
+msgstr "Eklenti düzgün çalışmayacak"
+
+#: src/Sight.cpp:163
+msgid "Failure Alert"
+msgstr "Arıza Uyarısı"
+
+#: src/Sight.cpp:474
+#, c-format
+msgid "Applying clock correction of %d seconds\n\n"
+msgstr "Saate %d saniye düzeltmesi uygulanıyor\n\n"
+
+#: src/Sight.cpp:536
+msgid "Almanac Data For "
+msgstr "Almanak Verileri için "
+
+#: src/Sight.cpp:537
+#, c-format
+msgid "\n"
+"Geographical Position (lat, lon) = %.4f %.4f\n"
+"GHAAST = %.0f %.1f'\n"
+"SHA = %.0f %.1f'\n"
+"GHA = %.0f %.1f'\n"
+"Dec = %c %.0f %.1f'\n"
+"SD = %.1f'\n"
+"HP = %.1f'\n\n"
+msgstr "\n"
+"Coğrafi Pozisyon(enlem, boylam) = %.4f%.4f'\n"
+"Greenwich Saat Açısı AST(Ghaast) = %.0f%.1f'\n"
+"Yıldızsal Saat Açısı(Sha) = %.0f%.1f'\n"
+"Greenwich Saat Açısı(Gha)=%.0f%.1f'\n"
+"Deklinasyon =%c%.0f%.1f\n"
+"Yarıçap = %.1f'\n"
+"Yatay Paralaks =%.1f'\n\n"
+
+#: src/Sight.cpp:552 src/Sight.cpp:690
+msgid "Formulas used to calculate sight\n\n"
+msgstr "Gözlemi hesaplamak için kullanılan formüller\n\n"
+
+#: src/Sight.cpp:556 src/Sight.cpp:694
+#, c-format
+msgid "Index Error is %.4f degrees\n\n"
+msgstr "İndeks Hatası %.4f derece\n\n"
+
+#: src/Sight.cpp:561 src/Sight.cpp:699
+#, c-format
+msgid "Eye Height is %.4f meters\n"
+"Height Correction Degrees = 1.758*sqrt(%.4f) / 60.0\n"
+"Height Correction Degrees = %.4f\n"
+msgstr "Göz Yüksekliği %.4f metre\n"
+"Yükseklik Düzeltme Derecesi = 1.758*sqrt(%.4f)/60.0\n"
+"Yükseklik Düzeltme Derecesi= %.4f\n"
+
+#: src/Sight.cpp:568
+#, c-format
+msgid "\n"
+"Apparent Altitude (Ha)\n"
+"ApparentAltitude = Measurement - IndexCorrection - EyeHeightCorrection\n"
+"ApparentAltitude = %.4f - %.4f - %.4f\n"
+"ApparentAltitude = %.4f\n"
+msgstr "\n"
+"Gözüken Yükseklik(Ha)\n"
+"GözükenYükseklik = Ölçüm - İndeksDüzeltme-GözselYükseklikDüzeltme\n"
+"GözükenYükseklik = %.4f - %.4f - %.4f\n"
+"GözükenYükseklik = %.4f\n"
+
+#: src/Sight.cpp:586 src/Sight.cpp:789
+#, c-format
+msgid "\n"
+"Refraction Correction\n"
+"x = tan(Pi/180*ApparentAltitude + 4.848e-2*(Pi/180) / (tan(Pi/180*ApparentAltitude) + .028))\n"
+"x = tan(Pi/180*%.4f + 4.848e-2*(Pi/180) / (tan(Pi/180*%.4f) + .028))\n"
+"x = %.4f\n"
+msgstr "\n"
+"Yeniden Kırılma Düzeltimi\n"
+"x = tan(Pi/180*GözükenYükseklik + 4.848e-2*(Pi/180) / (tan(Pi/180*GözükenYükseklik) + .028))\n"
+"x = tan(Pi/180*%.4f + 4.848e-2*(Pi/180) / (tan(Pi/180*%.4f) + .028))\n"
+"x = %.4f\n"
+
+#: src/Sight.cpp:591 src/Sight.cpp:794
+#, c-format
+msgid "RefractionCorrection = .267 * Pressure / (x*(Temperature + 273.15)) / 60.0\n"
+"RefractionCorrection = .267 * %.4f / (x*(%.4f + 273.15)) / 60.0\n"
+"RefractionCorrection = %.4f\n"
+msgstr "Yeniden Kırılma Düzeltimi = .267 * Basınç / (x*(Sıcaklık + 273.15)) / 60.0\n"
+"Yeniden Kırılım Düzeltimi = .267 * %.4f / (x*(%.4f + 273.15)) / 60.0\n"
+"RefractionCorrection = %.4f\n"
+
+#: src/Sight.cpp:606 src/Sight.cpp:808
+#, c-format
+msgid "\n"
+"Sun selected, Limb Correction\n"
+"ra = %.4f, lc = 0.266564/ra = %.4f\n"
+msgstr "\n"
+"Güneş seçili,Uzuvsal Düzeltme\n"
+"ra=%.4f,Ic = 0.266564/ra = %.4f\n"
+
+#: src/Sight.cpp:616 src/Sight.cpp:732
+#, c-format
+msgid "\n"
+"Moon selected, Limb Correction\n"
+"SD = %.4f\n"
+"lc = 180/Pi * asin(Pi/180*SD)\n"
+"lc = %.4f\n"
+msgstr "\n"
+"Ay seçili, Uzuvsal Düzeltme\n"
+"SD = %.4f\n"
+"lc = 180/Pi * asin(Pi/180*SD)\n"
+"lc = %.4f\n"
+
+#: src/Sight.cpp:626 src/Sight.cpp:741 src/Sight.cpp:816
+msgid "Upper Limb"
+msgstr "Üst uzuv, Göksel cismin ya da bedenin ufuktan en uzak kenarı"
+
+#: src/Sight.cpp:629 src/Sight.cpp:744 src/Sight.cpp:819
+msgid "Lower Limb"
+msgstr "Alt kenar, Göksel cismin ya da bedenin ufka en yakın kenarı"
+
+#: src/Sight.cpp:632 src/Sight.cpp:822
+#, c-format
+msgid "\n"
+"LimbCorrection = %.4f\n"
+msgstr "\n"
+"UzuvsalDüzeltme = %.4f\n"
+
+#: src/Sight.cpp:636 src/Sight.cpp:826
+#, c-format
+msgid "\n"
+"Corrected Altitude\n"
+"CorrectedAltitude = ApparentAltitude - RefractionCorrection - LimbCorrection\n"
+"CorrectedAltitude = %.4f - %.4f - %.4f\n"
+"CorrectedAltitude = %.4f\n"
+msgstr "\n"
+"Düzeltilmiş Yüseklik\n"
+"DüzeltilmişYükseklik = GözükenYükseklik - KırılımsalDüzeltme - UzuvsalDüzeltme\n"
+"DüzeltilmişYükseklik = %.4f - %.4f - %.4f\n"
+"DüzeltilmişYükseklik = %.4f\n"
+
+#: src/Sight.cpp:650 src/Sight.cpp:840
+#, c-format
+msgid "\n"
+"Sun selected, parallax correction\n"
+"rad = %.4f, HP = 0.002442/rad = %.4f\n"
+msgstr "\n"
+"Güneş seçili, paralaks düzeltimi\n"
+"rad=%.4f, HP = 0.002442/rad = %.4f\n"
+
+#: src/Sight.cpp:659 src/Sight.cpp:764
+#, c-format
+msgid "\n"
+"Moon selected, parallax correction\n"
+"HP = %.4f\n"
+msgstr "\n"
+"Ay seçili, paralaks düzeltimi\n"
+"HP = %.4f\n"
+
+#: src/Sight.cpp:665 src/Sight.cpp:846
+#, c-format
+msgid "ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * CorrectedAltitude))\n"
+"ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * %.4f ) * cos(Pi/180 * %.4f))\n"
+"ParallaxCorrection = %.4f\n"
+msgstr "ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * CorrectedAltitude))\n"
+"ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * %.4f ) * cos(Pi/180 * %.4f))\n"
+"ParallaxCorrection = %.4f\n"
+
+#: src/Sight.cpp:672
+#, c-format
+msgid "\n"
+"Observed Altitude (Ho)\n"
+"ObservedAltitude = CorrectedAltitude - ParallaxCorrection\n"
+"ObservedAltitude = %.4f - %.4f\n"
+"ObservedAltitude = %.4f\n"
+msgstr "\n"
+"Observed irtifa (Ho) \n"
+"ObservedAltitude CorrectedAltitude - ParallaxCorrection\n"
+"ObservedAltitude = %.4f - %.4f\n"
+"ObservedAltitude = %.4f\n"
+" ="
+
+#: src/Sight.cpp:706
+#, c-format
+msgid "\n"
+"Apparent Moon Altitude (Ha)\n"
+"ApparentAltitudeMoon = MeasurementMoon - IndexCorrection - EyeHeightCorrection\n"
+" ApparentAltitudeMoon = %.4f - %.4f - %.4f\n"
+"ApparentAltitudeMoon = %.4f\n"
+msgstr "\n"
+"Gözüken Yükseklik(Ha)\n"
+"GözükenYükseklik = Ölçüm - İndeksDüzeltme-GözselYükseklikDüzeltme\n"
+"GözükenYükseklik = %.4f - %.4f - %.4f\n"
+"GözükenYükseklik = %.4f\n"
+
+#: src/Sight.cpp:717
+#, c-format
+msgid "\n"
+"Refraction Correction\n"
+"x = tan(Pi/180*ApparentAltitudeMoon + 4.848e-2*(Pi/180) / (tan(Pi/180*ApparentAltitudeMoon) + .028))\n"
+"x = tan(Pi/180*%.4f + 4.848e-2*(Pi/180) / (tan(Pi/180*%.4f) + .028))\n"
+"x = %.4f\n"
+msgstr "\n"
+"Yeniden Kırılma Düzeltimi\n"
+"x = tan(Pi/180*GözükenYükseklik + 4.848e-2*(Pi/180) / (tan(Pi/180*GözükenYükseklik) + .028))\n"
+"x = tan(Pi/180*%.4f + 4.848e-2*(Pi/180) / (tan(Pi/180*%.4f) + .028))\n"
+"x = %.4f\n"
+
+#: src/Sight.cpp:722
+#, c-format
+msgid "RefractionCorrectionMoon = .267 * Pressure / (x*(Temperature + 273.15)) / 60.0\n"
+"RefractionCorrectionMoon = .267 * %.4f / (x*(%.4f + 273.15)) / 60.0\n"
+"RefractionCorrectionMoon = %.4f\n"
+msgstr "Yeniden Kırılma Düzeltimi = .267 * Basınç / (x*(Sıcaklık + 273.15)) / 60.0\n"
+"Yeniden Kırılım Düzeltimi = .267 * %.4f / (x*(%.4f + 273.15)) / 60.0\n"
+"RefractionCorrection = %.4f\n"
+
+#: src/Sight.cpp:747 src/Sight.cpp:750
+#, c-format
+msgid "\n"
+"LimbCorrectionMoon = %.4f\n"
+msgstr "\n"
+"UzuvsalDüzeltme = %.4f\n"
+
+#: src/Sight.cpp:753
+#, c-format
+msgid "\n"
+"Corrected Altitude\n"
+"CorrectedAltitudeMoon = ApparentAltitudeMoon - RefractionCorrectionMoon - LimbCorrectionMoon\n"
+"CorrectedAltitudeMoon = %.4f - %.4f - %.4f\n"
+"CorrectedAltitudeMoon = %.4f\n"
+msgstr "\n"
+"Düzeltilmiş Yüseklik\n"
+"DüzeltilmişYükseklik = GözükenYükseklik - KırılımsalDüzeltme - UzuvsalDüzeltme\n"
+"DüzeltilmişYükseklik = %.4f - %.4f - %.4f\n"
+"DüzeltilmişYükseklik = %.4f\n"
+
+#: src/Sight.cpp:768
+#, c-format
+msgid "ParallaxCorrectionMoon = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * CorrectedAltitude))\n"
+" ParallaxCorrectionMoon = -180/Pi * asin( sin(Pi/180 * %.4f ) * cos(Pi/180 * %.4f))\n"
+"ParallaxCorrectionMoon = %.4f\n"
+msgstr "ParallaxCorrectionMoon = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * CorrectedAltitude))\n"
+" ParallaxCorrectionMoon = -180/Pi * asin( sin(Pi/180 * %.4f ) * cos(Pi/180 * %.4f))\n"
+"ParallaxCorrectionMoon = %.4f\n"
+
+#: src/Sight.cpp:778
+#, c-format
+msgid "\n"
+"Apparent  Altitude (Ha)\n"
+"ApparentAltitude = Measurement - IndexCorrection - EyeHeightCorrection\n"
+" ApparentAltitude = %.4f - %.4f - %.4f\n"
+"ApparentAltitude = %.4f\n"
+msgstr "\n"
+"Gözüken Yükseklik(Ha)\n"
+"GözükenYükseklik = Ölçüm - İndeksDüzeltme-GözselYükseklikDüzeltme\n"
+"GözükenYükseklik = %.4f - %.4f - %.4f\n"
+"GözükenYükseklik = %.4f\n"
+
+#: src/Sight.cpp:857
+#, c-format
+msgid "CorrectionsMoon = %.4f\n"
+"CorrectionsBody = %.4f\n"
+"Corrections = abs(CorrectionsMoon - CorrectionsBody) = %.4f\n"
+msgstr "CorrectionsMoon = %.4f\n"
+"CorrectionsBody = %.4f\n"
+"Corrections = abs(CorrectionsMoon - CorrectionsBody) = %.4f\n"
+
+#: src/Sight.cpp:863
+#, c-format
+msgid "CorrectedMeasurement = Measurement - Corrections - IndexCorrection\n"
+"CorrectedMeasurement = %.4f - %.4f - %.4f\n"
+"CorrectedMeasurement = %.4f\n"
+msgstr "CorrectedMeasurement = Measurement - Corrections - IndexCorrection\n"
+"CorrectedMeasurement = %.4f - %.4f - %.4f\n"
+"CorrectedMeasurement = %.4f\n"
+
+#: src/Sight.cpp:888
+msgid "\n"
+"Calculated angle between Moon and "
+msgstr "\n"
+"Ay ile arasındaki hesaplanmış açı "
+
+#: src/Sight.cpp:890
+#, c-format
+msgid "\n"
+"Error from measurement: %.4f"
+msgstr "\n"
+"Ölçüm hatası:%.4f"
+
+#: src/Sight.cpp:894
+msgid "\n"
+"Moon takes 28 days to orbit, one degree of error takes 6720 seconds"
+msgstr "\n"
+"Ayın yörüngesini tamamlayışı 28 gün sürer, 1 derecelik hata 6720 saniye demektir"
+
+#: src/Sight.cpp:895
+#, c-format
+msgid "\n"
+"Time correction %.4f seconds"
+msgstr "\n"
+"Zamansal Düzeltim %.4f saniye"
+
+#: src/Sight.cpp:1099
+msgid "Building bearing Sight Positions"
+msgstr "Bina taşıyan Görüş Pozisyonları"
+
+#: src/SightDialog.cpp:172
+msgid "Measurement certainty likely set to small, sight may not appear "
+msgstr "Ölçüm kesinliği büyük olasılıkla küçük ayarlanmış, görme görünmeyebilir "
+
+#: src/SightDialog.cpp:173 src/SightDialog.cpp:256
+msgid "Warning"
+msgstr "Uyarı"
+
+#: src/SightDialog.cpp:255
+msgid "Lunar shot will be invalid taking distance from moon to itself"
+msgstr "Ay atışı Ay'ı kendisini geçersiz alarak hesaplar"
+
+#: src/celestial_navigation_pi.cpp:90
+msgid "Failed to load file:\n"
+msgstr "Dosya yüklerken Hata oluştu:\n"
+
+#: src/celestial_navigation_pi.cpp:91
+msgid "\n"
+"Magnetic data will not be available for the celestial navigation plugin."
+msgstr "\n"
+"Manyetik veri, göksel gezinme eklentisi için mevcut olmayacaktır."
+
+#: src/celestial_navigation_pi.cpp:92
+msgid "OpenCPN Alert"
+msgstr "OpenCPN Alarmı"
+
+#: src/celestial_navigation_pi.cpp:157
+msgid "Celestial Navigation PlugIn for OpenCPN"
+msgstr "OpenCPN için Göksel Gezinme Eklentisi"
+
+#: src/celestial_navigation_pi.cpp:162
+msgid "Celestial Navigation PlugIn for OpenCPN.\n"
+"Implements nautical almanac for sun, moon, planets,\n"
+"and various navigational stars.\n"
+"Compute position fix from celestial measurements."
+msgstr "OpenCPN için Göksel Gezinme Eklentisi.\n"
+"Güneş, ay, gezegenler ve çeşitli gezinme yıldızları için deniz alamacını uygular.\n"
+"Makaranın konumu göksel ölçümlerden düzeltilir."
+
+#: src/FixDialog.cpp:189
+msgid "Shifted sights are not used to compute a fix, determine fix visually instead.\n"
+msgstr "Yer değiştirmiş yerler, bir düzeltmeyi hesaplamak için yerine düzeltmeyi belirlemek için kullanılmaz.\n"
+
+#: src/FixDialog.cpp:190
+msgid "Fix Position"
+msgstr "Pozisyon düzeltmek"
+
+#: src/FixDialog.cpp:335 src/FixDialog.cpp:336 src/FixDialog.cpp:337
+msgid "   N/A   "
+msgstr "   N/A   "
+
