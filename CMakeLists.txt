@@ -38,8 +38,8 @@ set(LONG_DESCRIPTION "Implements nautical almanac for sun, moon, planets and var
 set(VERSION_MAJOR "2")
 set(VERSION_MINOR "3")
 set(VERSION_PATCH "5")
-set(VERSION_TWEAK "2")
-set(VERSION_DATE "2021-10-26")
+set(VERSION_TWEAK "3")
+set(VERSION_DATE "2021-10-29")
 set(OCPN_MIN_VERSION "ov52")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
@@ -155,6 +155,7 @@ SET(SRCS
           src/transform_star.cpp
           src/epv00.cpp
           src/celestial_navigation_pi.cpp
+		  src/zufile.cpp
 	)
 
 SET(HDRS
@@ -168,8 +169,13 @@ SET(HDRS
 		src/icons.h
 		src/Sight.h
 		src/SightDialog.h
-		
+        src/zufile.h
+#        libs/zlib-1.2.3/include/zlib.h
+#        libs/zlib-1.2.3/include/zconf.h
+#        src/zlib.h
+#        src/zconf.h
         libs/ocpn-api/ocpn_plugin.h
+		
   	)	
 
 # Added for android
@@ -207,16 +213,17 @@ include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude)
 #include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/lz4)
 #include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/bitmaps)
 
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src)  #nor so sure this is needed, trying to fix cnav.
-# include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/tinyxml)
+# include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src)  #nor so sure this is needed, trying to fix cnav.
 # include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/glshim)
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/tinyxml)
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/geomag)
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/astrolabe)
 
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/astrolabe)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/geomag)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/tinyxml)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/bzip2)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/GL)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/ocpn-api)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/zlib-1.2.3/include)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/wxJSON/include)
 
 if(QT_ANDROID)
@@ -238,11 +245,13 @@ ENDIF(PLUGIN_USE_SVG)
 
 if(NOT OCPN_FLATPAK_CONFIG)
     # Build environment not available when flatpak is being configured so following statements will not work
-    message(STATUS "${CMLOC}Adding target link libraries to ${PACKAGE_NAME}")
-
-    add_subdirectory(libs/tinyxml)
-
+   message(STATUS "${CMLOC}Adding target link libraries to ${PACKAGE_NAME}")
+   add_subdirectory(libs/tinyxml)
    target_link_libraries(${PACKAGE_NAME} ocpn::tinyxml)
+   
+   add_subdirectory(libs/bzip2)
+   target_link_libraries(${PACKAGE_NAME} ocpn::bzip2)   
+      
 endif(NOT OCPN_FLATPAK_CONFIG)
 
 add_definitions(-DTIXML_USE_STL)

@@ -99,20 +99,20 @@ enum { rmVISIBLE = 0, rmTYPE, rmBODY, rmTIME, rmMEASUREMENT, rmCOLOR };// RMColu
 int wxCALLBACK SortSights(long item1, long item2, wxIntPtr list)
 #else
 int wxCALLBACK SortSights(long item1, long item2, long list)
-#endif            
+#endif
 {
     wxListCtrl *lc = (wxListCtrl*)list;
 
     wxListItem it1, it2;
     it1.SetId(lc->FindItem(-1, item1));
     it1.SetColumn(1);
-    
+
     it2.SetId(lc->FindItem(-1, item2));
     it2.SetColumn(1);
-    
+
     lc->GetItem(it1);
     lc->GetItem(it2);
-    
+
     return it1.GetText().Cmp(it2.GetText());
 }
 
@@ -167,16 +167,16 @@ CelestialNavigationDialog::CelestialNavigationDialog(wxWindow *parent)
 // HEAD
 // line
 
-// from HEAD    
+// from HEAD
 #ifdef __OCPN__ANDROID__
     GetHandle()->setAttribute(Qt::WA_AcceptTouchEvents);
     GetHandle()->grabGesture(Qt::PanGesture);
     GetHandle()->setStyleSheet( qtStyleSheet);
-  
-																	 
-														  
-											  
-																																									  
+
+
+
+
+
 
     m_lSights->GetHandle()->setAttribute(Qt::WA_AcceptTouchEvents);
     m_lSights->GetHandle()->grabGesture(Qt::PanGesture);
@@ -191,7 +191,7 @@ CelestialNavigationDialog::CelestialNavigationDialog(wxWindow *parent)
 // end of parent of ddd0bac... android build
 }
 
-#ifdef __OCPN__ANDROID__ 
+#ifdef __OCPN__ANDROID__
 void CelestialNavigationDialog::OnEvtPanGesture( wxQT_PanGestureEvent &event)
 {
     switch(event.GetState()){
@@ -208,7 +208,7 @@ void CelestialNavigationDialog::OnEvtPanGesture( wxQT_PanGestureEvent &event)
             x = wxMin(x, xmax);
             int ymax = ::wxGetDisplaySize().y - GetSize().y;          // Some fluff at the bottom
             y = wxMin(y, ymax);
-            
+
             Move(x, y);
         } break;
     }
@@ -300,7 +300,7 @@ bool CelestialNavigationDialog::OpenXML(wxString filename, bool reportfailure)
                     s.m_DateTime.SetSecond(time.GetSecond());
                 } else
                     continue; /* skip if invalid */
-            
+
                 s.m_TimeCertainty = AttributeDouble(e, "TimeCertainty", 0);
 
                 s.m_Measurement = AttributeDouble(e, "Measurement", 0);
@@ -381,7 +381,7 @@ void CelestialNavigationDialog::SaveXML(wxString filename)
         c->SetDoubleAttribute("Temperature", s->m_Temperature);
         c->SetDoubleAttribute("Pressure", s->m_Pressure);
         c->SetDoubleAttribute("IndexError", s->m_IndexError);
-                        
+
         c->SetDoubleAttribute("ShiftNm", s->m_ShiftNm);
         c->SetDoubleAttribute("ShiftBearing", s->m_ShiftBearing);
         c->SetDoubleAttribute("MagneticShiftBearing", s->m_bMagneticShiftBearing);
@@ -412,7 +412,7 @@ void CelestialNavigationDialog::InsertSight(Sight *s, bool warnings)
     m_lSights->SetItemImage(idx, s->IsVisible() ? 0 : -1);
 #else
     idx = m_lSights->InsertItem(idx+1, (*it)->IsVisible() ? 0 : -1);
-#endif    
+#endif
     UpdateSight(idx, warnings);
 }
 
@@ -431,20 +431,20 @@ void CelestialNavigationDialog::UpdateSight(int idx, bool warnings)
                            wxString::Format(_T(": %.4f"), s->m_TimeCorrection));
     else
         m_lSights->SetItem(idx, rmCOLOR, s->m_ColourName);
-    
+
     m_lSights->SetColumnWidth(rmTYPE, wxLIST_AUTOSIZE);
     m_lSights->SetColumnWidth(rmBODY, wxLIST_AUTOSIZE);
     m_lSights->SetColumnWidth(rmTIME, wxLIST_AUTOSIZE);
     m_lSights->SetColumnWidth(rmCOLOR, wxLIST_AUTOSIZE);
-    
+
     if(m_lSights->GetColumnWidth(1) < 20)
         m_lSights->SetColumnWidth(1, 50);
 
     if(m_lSights->GetColumnWidth(2) < 20)
         m_lSights->SetColumnWidth(2, 50);
-    
+
     m_lSights->SortItems(SortSights, (long)m_lSights);
-    
+
     UpdateButtons();
     UpdateFix(warnings);
 }
@@ -460,7 +460,7 @@ void CelestialNavigationDialog::UpdateButtons()
     // enable/disable buttons
     long selected_index_index = m_lSights->GetNextItem(-1, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
     bool enable = !(selected_index_index < 0);
-    
+
     m_bEditSight->Enable(enable);
     m_bDeleteSight->Enable(enable);
     m_bDeleteAllSights->Enable(m_lSights->GetItemCount() > 0);
@@ -478,7 +478,7 @@ void CelestialNavigationDialog::OnNew(wxCommandEvent &event)
 
     Sight s(Sight::ALTITUDE, _("Sun"), Sight::LOWER, now, 0, 0, 10);
     SightDialog dialog(GetParent(), s, m_ClockCorrectionDialog.m_sClockCorrection->GetValue());
-      
+
     if( dialog.ShowModal() == wxID_OK ) {
         Sight *ns = new Sight(s);
 
@@ -509,9 +509,9 @@ void CelestialNavigationDialog::OnEdit( )
 
     Sight *psight = (Sight*)wxUIntToPtr(m_lSights->GetItemData(selected_index));
     Sight originalsight = *psight; /* in case of cancel */
-    
+
     SightDialog dialog(GetParent(), *psight, m_ClockCorrectionDialog.m_sClockCorrection->GetValue());
-    
+
     if( dialog.ShowModal() == wxID_OK ) {
         dialog.Recompute();
         psight->RebuildPolygons();
@@ -527,7 +527,7 @@ void CelestialNavigationDialog::OnDelete(wxCommandEvent &event)
     // Delete selected_index sight/track
     long selected_index = m_lSights->GetNextItem(-1, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
     if (selected_index < 0) return;
-    
+
     m_lSights->DeleteItem(selected_index);
     RequestRefresh( GetParent() );
 }
@@ -601,7 +601,7 @@ void CelestialNavigationDialog::OnSightListLeftDown(wxMouseEvent &event)
     wxPoint pos = event.GetPosition();
     int flags = 0;
     long clicked_index = m_lSights->HitTest(pos, flags);
-    
+
     //    Clicking Visibility column?
     if (clicked_index > -1 && event.GetX() < m_lSights->GetColumnWidth(0))
     {

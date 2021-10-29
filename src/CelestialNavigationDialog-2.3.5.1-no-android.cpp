@@ -98,7 +98,7 @@ enum { rmVISIBLE = 0, rmTYPE, rmBODY, rmTIME, rmMEASUREMENT, rmCOLOR };// RMColu
 int wxCALLBACK SortSights(long item1, long item2, wxIntPtr list)
 #else
 int wxCALLBACK SortSights(long item1, long item2, long list)
-#endif            
+#endif
 {
     wxListCtrl *lc = (wxListCtrl*)list;
 
