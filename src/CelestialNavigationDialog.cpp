@@ -42,9 +42,7 @@
 #include "SightDialog.h"
 #include "CelestialNavigationDialog.h"
 #include "celestial_navigation_pi.h"
-//HEAD
-// line
-#include "zuFile.h"
+
 
 #include "astrolabe/astrolabe.hpp"
 static wxString DataDirectory()
@@ -59,7 +57,7 @@ static wxString UserDataDirectory()
     return *GetpPrivateApplicationDataLocation() + s + "plugins"
         + s + "celestial_navigation" + s;
  }
-//  master
+
 
 /* XPM */
 static const char *eye[]={
@@ -164,31 +162,22 @@ CelestialNavigationDialog::CelestialNavigationDialog(wxWindow *parent)
             fn.Mkdir();
         }
     }
-// HEAD
-// line
 
-// from HEAD
+//
 #ifdef __OCPN__ANDROID__
     GetHandle()->setAttribute(Qt::WA_AcceptTouchEvents);
     GetHandle()->grabGesture(Qt::PanGesture);
     GetHandle()->setStyleSheet( qtStyleSheet);
-
-
-
-
-
-
-    m_lSights->GetHandle()->setAttribute(Qt::WA_AcceptTouchEvents);
+    m_lSights->GetHandle()->setAttribute(Qt::WA_AcceptTouchEvents);//
     m_lSights->GetHandle()->grabGesture(Qt::PanGesture);
     m_lSights->Connect( wxEVT_QT_PANGESTURE,
                        (wxObjectEventFunction) (wxEventFunction) &CelestialNavigationDialog::OnEvtPanGesture, NULL, this );
-
-    GetHandle()->setStyleSheet( qtStyleSheet);
-    Move(0, 0);
+    GetHandle()->setStyleSheet( qtStyleSheet);//
+   Move(0, 0);
 #endif
-// beginning of parent of parent of ddd0bac... android build
+
 //
-// end of parent of ddd0bac... android build
+
 }
 
 #ifdef __OCPN__ANDROID__
@@ -214,6 +203,7 @@ void CelestialNavigationDialog::OnEvtPanGesture( wxQT_PanGestureEvent &event)
     }
 // master
 }
+#endif
 
 CelestialNavigationDialog::~CelestialNavigationDialog()
 {

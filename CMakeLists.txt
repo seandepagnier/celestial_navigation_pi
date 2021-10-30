@@ -37,9 +37,9 @@ set(LONG_DESCRIPTION "Implements nautical almanac for sun, moon, planets and var
 
 set(VERSION_MAJOR "2")
 set(VERSION_MINOR "3")
-set(VERSION_PATCH "5")
-set(VERSION_TWEAK "3")
-set(VERSION_DATE "2021-10-29")
+set(VERSION_PATCH "6")
+set(VERSION_TWEAK "0")
+set(VERSION_DATE "2021-10-30")
 set(OCPN_MIN_VERSION "ov52")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
@@ -155,7 +155,6 @@ SET(SRCS
           src/transform_star.cpp
           src/epv00.cpp
           src/celestial_navigation_pi.cpp
-		  src/zufile.cpp
 	)
 
 SET(HDRS
@@ -169,11 +168,6 @@ SET(HDRS
 		src/icons.h
 		src/Sight.h
 		src/SightDialog.h
-        src/zufile.h
-#        libs/zlib-1.2.3/include/zlib.h
-#        libs/zlib-1.2.3/include/zconf.h
-#        src/zlib.h
-#        src/zconf.h
         libs/ocpn-api/ocpn_plugin.h
 		
   	)	
@@ -205,17 +199,6 @@ add_definitions(-DPLUGIN_USE_SVG)
 
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/include)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude)
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/extinclude)
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/)
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/wx/include)
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude/wxcurl)
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude/wxcurl/include)
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/lz4)
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/bitmaps)
-
-# include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src)  #nor so sure this is needed, trying to fix cnav.
-# include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/glshim)
-
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/astrolabe)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/geomag)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs)
@@ -223,7 +206,6 @@ include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/tinyxml)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/bzip2)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/GL)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/ocpn-api)
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/zlib-1.2.3/include)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/wxJSON/include)
 
 if(QT_ANDROID)
