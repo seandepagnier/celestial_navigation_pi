@@ -3,7 +3,7 @@
 ## Copyright:   
 ## License:     GPLv3
 ##---------------------------------------------------------------------------
-# Frontend2  v1.0.147.1 Author: Jon Gough  
+# Frontend2  v1.0.179.0 Author: Jon Gough  
 # ---------------------------------------------------------------------------
 ## ----- When changing this file do NOT change the order in which sections occur    ----- ##
 ## ----- Changes should only be made between the section blocks that identify where ----- ##
@@ -37,7 +37,7 @@ set(LONG_DESCRIPTION "Implements nautical almanac for sun, moon, planets and var
 
 set(VERSION_MAJOR "2")
 set(VERSION_MINOR "3")
-set(VERSION_PATCH "6")
+set(VERSION_PATCH "7")
 set(VERSION_TWEAK "0")
 set(VERSION_DATE "2021-10-30")
 set(OCPN_MIN_VERSION "ov52")
@@ -259,3 +259,8 @@ include("PluginPackage")
 ##
 ## ----- do not change section above - needed to configure build process ----- ##
 ##
+message(STATUS "${CMLOC}include directories: ")
+get_property(dirs DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY INCLUDE_DIRECTORIES)
+foreach(dir ${dirs})
+    message(STATUS "${CMLOC}dir='${dir}'")
+endforeach()

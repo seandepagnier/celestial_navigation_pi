@@ -557,11 +557,10 @@ msgid "\n"
 "ObservedAltitude = %.4f - %.4f\n"
 "ObservedAltitude = %.4f\n"
 msgstr "\n"
-"Observed irtifa (Ho) \n"
-"ObservedAltitude CorrectedAltitude - ParallaxCorrection\n"
+"Observed Altitude (Ho)\n"
+"ObservedAltitude = CorrectedAltitude - ParallaxCorrection\n"
 "ObservedAltitude = %.4f - %.4f\n"
 "ObservedAltitude = %.4f\n"
-" ="
 
 #: src/Sight.cpp:706
 #, c-format
