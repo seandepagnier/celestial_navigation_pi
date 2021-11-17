@@ -61,6 +61,8 @@ public:
       wxString GetCommonName();
       wxString GetShortDescription();
       wxString GetLongDescription();
+	  //Shipdriver Panel Icon definition
+	  wxBitmap m_panelBitmap; 
 
       void OnToolbarToolCallback(int id);
 
@@ -74,6 +76,7 @@ public:
       static wxString StandardPath();
       void SetPositionFixEx(PlugIn_Position_Fix_Ex &pfix);
       void SetCursorLatLon(double lat, double lon);
+	  
 
 private:
       wxWindow         *m_parent_window;

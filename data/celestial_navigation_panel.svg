@@ -27,7 +27,7 @@
      inkscape:current-layer="layer2"
      inkscape:document-units="mm"
      inkscape:cy="9.1964286"
-     inkscape:cx="9.5424107"
+     inkscape:cx="7.734375"
      inkscape:zoom="44.8"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
@@ -55,15 +55,15 @@
      sodipodi:insensitive="true"
      transform="translate(0.01175205,-0.00150003)">
     <rect
-       style="display:inline;fill:#f6f6f6;fill-rule:evenodd;stroke-width:0.0891763;fill-opacity:1"
+       style="display:inline;fill:#e6e6e6;fill-opacity:1;fill-rule:evenodd;stroke-width:0.0891763"
        id="rect38"
        width="3.2060444"
        height="3.14592"
        x="-0.011752053"
        y="0.0015000339"
        inkscape:export-filename="C:\Users\fcgle\source\celestial_navigation_pi\data\rect107.png"
-       inkscape:export-xdpi="288.24698"
-       inkscape:export-ydpi="288.24698" />
+       inkscape:export-xdpi="258.36639"
+       inkscape:export-ydpi="258.36639" />
     <path
        d="M 0.82754478,0.90324687 A 0.29016128,0.27258757 0 0 1 0.54390931,0.63060752 0.29016128,0.27258757 0 0 1 0.82780175,0.3582043 0.29016128,0.27258757 0 0 1 1.1239554,0.61883209 0.29016128,0.27258757 0 0 1 0.85312179,0.90272763"
        sodipodi:arc-type="arc"
@@ -76,7 +76,7 @@
        sodipodi:cx="0.83407056"
        sodipodi:type="arc"
        id="path2404"
-       style="display:inline;opacity:0.997;fill:#7d7d7d;stroke-width:0.264999;fill-opacity:1"
+       style="display:inline;opacity:0.997;fill:#7d7d7d;fill-opacity:1;stroke-width:0.264999"
        inkscape:export-filename="C:\Users\fcgle\source\celestial_navigation_pi\data\rect107.png"
        inkscape:export-xdpi="288.24698"
        inkscape:export-ydpi="288.24698" />

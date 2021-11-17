@@ -37,13 +37,13 @@ void initialize_images(void)
     wxFileName fn;
     fn.SetPath(GetPluginDataDir("celestial_navigation_pi"));
     fn.AppendDir(_T("data"));
-    fn.SetFullName(_T("celestial_navigation_pi.svg"));
+    fn.SetFullName(_T("celestial_navigation.svg"));
     _svg_celestial_navigation = fn.GetFullPath();
     wxLogMessage(_T("Loading toolbar icon: ") + _svg_celestial_navigation); 
-    fn.SetFullName(_T("celestial_navigation_pi_rollover.svg"));
+    fn.SetFullName(_T("celestial_navigation_rollover.svg"));
     _svg_celestial_navigation_rollover = fn.GetFullPath();
     wxLogMessage(_T("Loading toolbar icon: ") + _svg_celestial_navigation_rollover);
-	fn.SetFullName(_T("celestial_navigation_pi_toggled.svg"));
+	fn.SetFullName(_T("celestial_navigation_toggled.svg"));
     _svg_celestial_navigation_toggled = fn.GetFullPath();
     wxLogMessage(_T("Loading toolbar icon: ") + _svg_celestial_navigation_toggled);
 #endif

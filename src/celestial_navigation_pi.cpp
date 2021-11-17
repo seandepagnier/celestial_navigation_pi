@@ -65,6 +65,31 @@ celestial_navigation_pi::celestial_navigation_pi(void *ppimgr)
 {
     // Create the PlugIn icons
     initialize_images();
+
+// Create the PlugIn icons  -from shipdriver
+// loads png file for the listing panel icon
+    wxFileName fn;
+    auto path = GetPluginDataDir("celestial_navigation_pi");
+    fn.SetPath(path);
+    fn.AppendDir("data");
+    fn.SetFullName("celestial_navigation_panel.png");
+
+    path = fn.GetFullPath();
+
+    wxInitAllImageHandlers();
+
+    wxLogDebug(wxString("Using icon path: ") + path);
+    if (!wxImage::CanRead(path)) {
+        wxLogDebug("Initiating image handlers.");
+        wxInitAllImageHandlers();
+    }
+    wxImage panelIcon(path);
+    if (panelIcon.IsOk())
+        m_panelBitmap = wxBitmap(panelIcon);
+    else
+        wxLogWarning("Celestial Navigation Panel icon has NOT been loaded");
+// End of from Shipdriver	
+	
 }
 
 celestial_navigation_pi::~celestial_navigation_pi(void){}
@@ -143,10 +168,14 @@ int celestial_navigation_pi::GetPlugInVersionMinor()
     return PLUGIN_VERSION_MINOR;
 }
 
-wxBitmap *celestial_navigation_pi::GetPlugInBitmap()
-{
-    return new wxBitmap(_img_celestial_navigation->ConvertToImage().Copy());
-}
+//wxBitmap *celestial_navigation_pi::GetPlugInBitmap()
+//{
+//    return new wxBitmap(_img_celestial_navigation->ConvertToImage().Copy());
+//}
+
+// Shipdriver uses the climatology_panel.png file to make the bitmap.
+wxBitmap *celestial_navigation_pi::GetPlugInBitmap()  { return &m_panelBitmap; }
+// End of shipdriver process
 
 wxString celestial_navigation_pi::GetCommonName()
 {

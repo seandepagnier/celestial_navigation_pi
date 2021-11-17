@@ -37,9 +37,9 @@ set(LONG_DESCRIPTION "Implements nautical almanac for sun, moon, planets and var
 
 set(VERSION_MAJOR "2")
 set(VERSION_MINOR "3")
-set(VERSION_PATCH "8")
+set(VERSION_PATCH "9")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE "2021-11-16")
+set(VERSION_DATE "2021-11-17")
 set(OCPN_MIN_VERSION "ov52")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
