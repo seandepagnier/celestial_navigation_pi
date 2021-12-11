@@ -1,6 +1,4 @@
 cd build
 cmake -T v141_xp ..
-cmake --build . --target package --config release  >output.txt
-bash cloudsmith-upload.sh
-dir
-cd ..
+cmake --build . --target package --config release >output.txt
+bash ./cloudsmith-upload.sh

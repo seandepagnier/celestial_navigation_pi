@@ -7,15 +7,95 @@
    viewBox="0 0 3.2060445 3.1459199"
    height="3.14592mm"
    width="3.2060444mm"
+   inkscape:export-filename="C:\Users\fcgle\source\celestial_navigation_pi\data\celestial_navigation.png"
+   inkscape:export-xdpi="258.36639"
+   inkscape:export-ydpi="258.36639"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:dc="http://purl.org/dc/elements/1.1/">
   <defs
-     id="defs2" />
+     id="defs2">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient3250">
+      <stop
+         style="stop-color:#ececec;stop-opacity:1;"
+         offset="0"
+         id="stop3246" />
+      <stop
+         style="stop-color:#ececec;stop-opacity:0;"
+         offset="1"
+         id="stop3248" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3116"
+       inkscape:swatch="solid">
+      <stop
+         style="stop-color:#f2f2f2;stop-opacity:1;"
+         offset="0"
+         id="stop3114" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient1130">
+      <stop
+         style="stop-color:#797979;stop-opacity:1;"
+         offset="0"
+         id="stop1126" />
+      <stop
+         style="stop-color:#797979;stop-opacity:0;"
+         offset="1"
+         id="stop1128" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient912">
+      <stop
+         style="stop-color:#f2f2f2;stop-opacity:1;"
+         offset="0"
+         id="stop908" />
+      <stop
+         style="stop-color:#f2f2f2;stop-opacity:0;"
+         offset="1"
+         id="stop910" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient912"
+       id="linearGradient914"
+       x1="0.11694455"
+       y1="3.1856818"
+       x2="2.8922048"
+       y2="3.1856818"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(0,-0.1)" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient1130"
+       id="radialGradient1136"
+       cx="2.1684721"
+       cy="2.019464"
+       fx="2.1684721"
+       fy="2.019464"
+       r="0.1290956"
+       gradientTransform="matrix(1,0,0,0.75263209,0,0.39955062)"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3250"
+       id="linearGradient3252"
+       x1="0.54390925"
+       y1="0.63069379"
+       x2="1.1242318"
+       y2="0.63069379"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(0,-0.1)" />
+  </defs>
   <sodipodi:namedview
      inkscape:window-maximized="0"
      inkscape:window-y="0"
@@ -26,8 +106,8 @@
      inkscape:document-rotation="0"
      inkscape:current-layer="layer2"
      inkscape:document-units="mm"
-     inkscape:cy="9.1964286"
-     inkscape:cx="10.725446"
+     inkscape:cy="9.5758929"
+     inkscape:cx="8.984375"
      inkscape:zoom="44.8"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
@@ -53,72 +133,84 @@
      inkscape:groupmode="layer"
      style="display:inline"
      sodipodi:insensitive="true"
-     transform="translate(0.01175205,-0.00150003)">
+     transform="translate(0.01175205,0.09849997)">
     <rect
        style="display:inline;fill:#333333;fill-rule:evenodd;stroke-width:0.0891763"
        id="rect38"
        width="3.2060444"
        height="3.14592"
        x="-0.011752053"
-       y="0.0015000339" />
+       y="-0.098499969"
+       inkscape:export-filename="C:\Users\fcgle\source\celestial_navigation_pi\data\celestial_navigation.png"
+       inkscape:export-xdpi="258.36639"
+       inkscape:export-ydpi="258.36639" />
     <path
-       d="M 0.82754478,0.90324687 A 0.29016128,0.27258757 0 0 1 0.54390931,0.63060752 0.29016128,0.27258757 0 0 1 0.82780175,0.3582043 0.29016128,0.27258757 0 0 1 1.1239554,0.61883209 0.29016128,0.27258757 0 0 1 0.85312179,0.90272763"
+       d="M 0.82754478,0.80324684 A 0.29016128,0.27258757 0 0 1 0.54390931,0.53060749 0.29016128,0.27258757 0 0 1 0.82780175,0.25820428 0.29016128,0.27258757 0 0 1 1.1239554,0.51883207 0.29016128,0.27258757 0 0 1 0.85312179,0.80272761"
        sodipodi:arc-type="arc"
        sodipodi:open="true"
        sodipodi:end="1.5050917"
        sodipodi:start="1.5932884"
        sodipodi:ry="0.27258757"
        sodipodi:rx="0.29016128"
-       sodipodi:cy="0.63072824"
+       sodipodi:cy="0.53072822"
        sodipodi:cx="0.83407056"
        sodipodi:type="arc"
        id="path2404"
-       style="display:inline;opacity:0.997;fill:#b3b3b3;stroke-width:0.264999" />
+       style="display:inline;opacity:0.997;fill:url(#linearGradient3252);fill-opacity:1;stroke-width:0.264999"
+       inkscape:export-filename="C:\Users\fcgle\source\celestial_navigation_pi\data\celestial_navigation.png"
+       inkscape:export-xdpi="258.36639"
+       inkscape:export-ydpi="258.36639" />
     <path
-       d="M 1.4733666,4.5485841 A 1.3876301,1.3630747 0 0 1 0.11694469,3.1852505 1.3876301,1.3630747 0 0 1 1.4745955,1.8230977 1.3876301,1.3630747 0 0 1 2.8908827,3.1263675 1.3876301,1.3630747 0 0 1 1.5956828,4.5459877"
+       d="M 1.4733666,4.4485842 A 1.3876301,1.3630747 0 0 1 0.11694469,3.0852506 1.3876301,1.3630747 0 0 1 1.4745955,1.7230978 1.3876301,1.3630747 0 0 1 2.8908827,3.0263676 1.3876301,1.3630747 0 0 1 1.5956828,4.4459877"
        sodipodi:arc-type="arc"
        sodipodi:open="true"
        sodipodi:end="1.5050917"
        sodipodi:start="1.5932884"
        sodipodi:ry="1.3630747"
        sodipodi:rx="1.3876301"
-       sodipodi:cy="3.1858542"
+       sodipodi:cy="3.0858543"
        sodipodi:cx="1.5045747"
        sodipodi:type="arc"
        id="path2408"
-       style="display:inline;opacity:0.997;fill:#818181;stroke-width:0.264999;fill-opacity:1" />
+       style="display:inline;opacity:0.997;fill:url(#linearGradient914);fill-opacity:1;stroke-width:0.264999" />
     <path
-       d="M 2.1817282,2.1593641 A 0.272728,0.26124516 0 0 1 1.915134,1.8980693 0.272728,0.26124516 0 0 1 2.1819697,1.6370008 0.272728,0.26124516 0 0 1 2.4603301,1.8867839 0.272728,0.26124516 0 0 1 2.2057685,2.1588665"
+       d="M 2.1817282,2.0593641 A 0.272728,0.26124516 0 0 1 1.915134,1.7980693 0.272728,0.26124516 0 0 1 2.1819697,1.5370008 0.272728,0.26124516 0 0 1 2.4603301,1.7867838 0.272728,0.26124516 0 0 1 2.2057685,2.0588664"
        sodipodi:arc-type="arc"
        sodipodi:open="true"
        sodipodi:end="1.5050917"
        sodipodi:start="1.5932884"
        sodipodi:ry="0.26124516"
        sodipodi:rx="0.272728"
-       sodipodi:cy="1.898185"
+       sodipodi:cy="1.798185"
        sodipodi:cx="2.1878619"
        sodipodi:type="arc"
        id="path2413"
-       style="display:inline;opacity:0.997;fill:#b2b2b2;fill-opacity:1;stroke-width:0.264999" />
+       style="display:inline;opacity:0.997;fill:#cccccc;fill-opacity:1;stroke-width:0.264999"
+       inkscape:export-filename="C:\Users\fcgle\source\celestial_navigation_pi\data\celestial_navigation.png"
+       inkscape:export-xdpi="258.36639"
+       inkscape:export-ydpi="258.36639" />
     <path
-       d="M 2.1655687,2.1166256 A 0.1290956,0.09717378 0 0 1 2.0393765,2.0194334 0.1290956,0.09717378 0 0 1 2.165683,1.9223253 0.1290956,0.09717378 0 0 1 2.2974447,2.0152356 0.1290956,0.09717378 0 0 1 2.1769481,2.1164405"
+       d="M 2.1655687,2.0166256 A 0.1290956,0.09717378 0 0 1 2.0393765,1.9194334 0.1290956,0.09717378 0 0 1 2.165683,1.8223253 0.1290956,0.09717378 0 0 1 2.2974447,1.9152356 0.1290956,0.09717378 0 0 1 2.1769481,2.0164405"
        sodipodi:arc-type="arc"
        sodipodi:open="true"
        sodipodi:end="1.5050917"
        sodipodi:start="1.5932884"
        sodipodi:ry="0.09717378"
        sodipodi:rx="0.1290956"
-       sodipodi:cy="2.0194764"
+       sodipodi:cy="1.9194764"
        sodipodi:cx="2.1684721"
        sodipodi:type="arc"
        id="path2419"
-       style="display:inline;opacity:0.997;fill:#797979;fill-opacity:1;stroke-width:0.264999" />
+       style="display:inline;opacity:0.997;fill:url(#radialGradient1136);fill-opacity:1;stroke-width:0.264999"
+       inkscape:export-filename="C:\Users\fcgle\source\celestial_navigation_pi\data\celestial_navigation.png"
+       inkscape:export-xdpi="258.36639"
+       inkscape:export-ydpi="258.36639" />
     <rect
        style="display:inline;fill:#ffffff;stroke-width:0.0891763"
        id="rect107"
        width="3.1880403"
        height="1.4362597"
        x="-0.011752053"
-       y="3.1474216" />
+       y="3.0474217" />
   </g>
 </svg>
