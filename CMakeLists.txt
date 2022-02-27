@@ -3,7 +3,7 @@
 ## Copyright:   
 ## License:     GPLv3
 ##---------------------------------------------------------------------------
-# Frontend2  TP 1.0.185.0  08/12/2021  Author: Jon Gough  
+# Frontend2  TP 1.0.193.0  02/17/2022  Author: Jon Gough  
 # ---------------------------------------------------------------------------
 
 ## ----- When changing this file do NOT change the order in which sections occur        ----- ##
@@ -44,8 +44,8 @@ set(LONG_DESCRIPTION "Nautical almanac: sun, moon, planets and navigational star
 set(VERSION_MAJOR "2")
 set(VERSION_MINOR "3")
 set(VERSION_PATCH "11")
-set(VERSION_TWEAK "0")
-set(VERSION_DATE "10/12/2021")  # DD/MM/YYYY format
+set(VERSION_TWEAK "1")
+set(VERSION_DATE "2/27/2022")  # DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov52")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
