@@ -313,6 +313,7 @@ jobs:
         - BUILD_GTK3: true
         - OCPN_TARGET:  bionic-gtk3
         - DEPLOY_USE_ORB: true
+        - BUILD_ENV=ubuntu
         steps:
         - checkout
         - run: >
@@ -332,6 +333,7 @@ jobs:
         - BUILD_GTK3: true
         - OCPN_TARGET: focal-gtk3
         - DEPLOY_USE_ORB: true
+        - BUILD_ENV=ubuntu
         steps:
         - checkout
         - run: >
