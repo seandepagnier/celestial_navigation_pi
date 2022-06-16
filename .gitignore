@@ -1,4 +1,7 @@
-build/
+build*
+po/POTFILES.in.test
+temp
+tmp
+master.zip
 buildwin/
 .directory
-po/POTFILES.in.test
