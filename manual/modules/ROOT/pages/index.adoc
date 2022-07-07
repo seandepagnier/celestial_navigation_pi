@@ -647,6 +647,25 @@ a realistic sky in 3D, just like what you see with the naked eye,
 binoculars or a telescope. It is being used in planetarium projectors.
 Just set your coordinates and go.
 
+=== Online: Cook Navigation Spreadsheet Software
+
+* https://www.cooknavigation.com/
+
+Shawn Cook has provided a comprehensive Spreadsheet for Calculations:
+
+* Perpetual almanac displays basic data necessary for celestial navigation
+* Sky chart showing traditional navigation bodies above the horizon
+* Option to show all 1,535 stars in the basic FK5 catalogue
+* Printable list of celestial bodies above the horizon
+* Data series calculator for comparison/analysis
+* Rise, set, transit and nautical twilight calculator
+* DR and sight reduction calculator
+* Position log
+* Great circle route calculator including internal database of 26,571 cities worldwide
+* Internal delta-T values for dates between 500 BC and AD 2030
+* Custom delta-T value fields for dates outside the above range
+* Only 3.7MB
+
 == Celestial Navigation links
 
 In addition to the xref:#_videos_methodology_with_celestial_navigation_pi[Celestial Navigation videos by David Burch] listed above, https://www.starpath.com[Starpath Navigation] has a treasure trove for learners:
