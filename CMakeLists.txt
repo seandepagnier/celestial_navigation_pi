@@ -3,7 +3,7 @@
 ## Copyright:   
 ## License:     GPLv3
 ##---------------------------------------------------------------------------
-# Frontend2  TP 1.0.213.0 17/06/2022  Author: Jon Gough  
+# Frontend2  TP 1.0.222.0 25/12/2022  Author: Jon Gough  
 # ---------------------------------------------------------------------------
 
 ## ----- When changing this file do NOT change the order in which sections occur        ----- ##
@@ -42,10 +42,10 @@ set(SHORT_DESCRIPTION "Celestial Navigation Plugin for OpenCPN")
 set(LONG_DESCRIPTION "Nautical almanac: sun, moon, planets and navigational stars. Compute position fix from celestial measurements.")
 
 set(VERSION_MAJOR "2")
-set(VERSION_MINOR "3")
-set(VERSION_PATCH "15")
+set(VERSION_MINOR "4")
+set(VERSION_PATCH "0")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE "17/06/2022")  # DD/MM/YYYY format
+set(VERSION_DATE "25/12/2022")  # DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov52")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
