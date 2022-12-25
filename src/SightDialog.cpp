@@ -166,7 +166,7 @@ SightDialog::SightDialog( wxWindow* parent, Sight &s, int clock_offset)
     m_ColourPicker->SetColour(m_Sight.m_Colour);
 
     // calculate approximate lunar altitude
-    if(wxIsNaN(m_Sight.m_LunarMoonAltitude))
+    if(isnan(m_Sight.m_LunarMoonAltitude))
         m_Sight.m_LunarMoonAltitude = BodyAltitude(_T("moon"));
     m_tLunarMoonAltitude->SetValue(wxString::Format(_T("%.2f"), m_Sight.m_LunarMoonAltitude));
     m_tLunarBodyAltitude->SetValue(wxString::Format(_T("%.2f"), m_Sight.m_LunarBodyAltitude));
