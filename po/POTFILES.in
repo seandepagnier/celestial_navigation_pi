@@ -33,4 +33,3 @@ src/geodesic.h
 src/icons.h
 src/Sight.h
 src/SightDialog.h
-libs/ocpn-api/ocpn_plugin.h
