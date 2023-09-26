@@ -55,7 +55,7 @@ set(LONG_DESCRIPTION "Nautical almanac: sun, moon, planets and navigational star
 
 set(VERSION_MAJOR "2")
 set(VERSION_MINOR "4")
-set(VERSION_PATCH "8")
+set(VERSION_PATCH "9")
 set(VERSION_TWEAK "0")
 set(VERSION_DATE  "25/09/2023")#DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov58")
@@ -251,6 +251,9 @@ if(NOT OCPN_FLATPAK_CONFIG)
 
 #    add_subdirectory(opencpn-libs/jsonlib)
 #    target_link_libraries(${PACKAGE_NAME} ocpn::jsonlib)
+
+    add_subdirectory(opencpn-libs/jsoncpp)
+    target_link_libraries(${PACKAGE_NAME} ocpn::jsoncpp)
 
     add_subdirectory(opencpn-libs/wxJSON)
     target_link_libraries(${PACKAGE_NAME} ocpn::wxjson)
