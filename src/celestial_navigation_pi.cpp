@@ -30,9 +30,8 @@
 #include "wx/wx.h"
 #endif //precompiled headers
 
-//#include <wx/wx.h>
 #include <wx/stdpaths.h>
-#include <GL/gl.h>
+//#include <GL/gl.h>
 
 #include "ocpn_plugin.h"
 

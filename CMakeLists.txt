@@ -55,9 +55,9 @@ set(LONG_DESCRIPTION "Nautical almanac: sun, moon, planets and navigational star
 
 set(VERSION_MAJOR "2")
 set(VERSION_MINOR "4")
-set(VERSION_PATCH "9")
+set(VERSION_PATCH "10")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE  "25/09/2023")#DD/MM/YYYY format
+set(VERSION_DATE  "26/09/2023")#DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov58")
 
 set(OCPN_API_VERSION_MAJOR "1")
@@ -207,15 +207,21 @@ SET(SRC ${SRCS} ${HDRS} )
 
 #include_directories(BEFORE ${PROJECT_SOURCE_DIR}/include)
 
+#private includes
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/astrolabe)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/geomag)
+
+#need glu-static?  error is cant find GL/gl.h
+#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/opencpn-libs/wxJSON/include)
+#this path is already in wxJSON cmakelists.txt also include/wx
+#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/wxJSON/include)
 
 #include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs)
 #include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/tinyxml)
 #include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/bzip2)
 #include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/GL)
 #include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/ocpn-api)
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/wxJSON/include)
+
 #include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/pluginDC/include)
 
 ## Change target_sources to match your project needs.
