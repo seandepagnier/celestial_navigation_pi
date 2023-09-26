@@ -31,7 +31,7 @@
 #endif //precompiled headers
 
 #include <wx/stdpaths.h>
-//#include <GL/gl.h>
+#include <gl.h>
 
 #include "ocpn_plugin.h"
 
