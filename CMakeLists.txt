@@ -55,9 +55,9 @@ set(LONG_DESCRIPTION "Nautical almanac: sun, moon, planets and navigational star
 
 set(VERSION_MAJOR "2")
 set(VERSION_MINOR "4")
-set(VERSION_PATCH "12")
+set(VERSION_PATCH "14")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE  "26/09/2023")#DD/MM/YYYY format
+set(VERSION_DATE  "28/09/2023")#DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov58")
 
 set(OCPN_API_VERSION_MAJOR "1")
