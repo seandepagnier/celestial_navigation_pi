@@ -164,6 +164,7 @@ CelestialNavigationDialog::CelestialNavigationDialog(wxWindow *parent)
     }
 
 //
+#if 0       // TODO  (DSR) This Android GUI interface needs work
 #ifdef __OCPN__ANDROID__
     GetHandle()->setAttribute(Qt::WA_AcceptTouchEvents);
     GetHandle()->grabGesture(Qt::PanGesture);
@@ -204,6 +205,7 @@ void CelestialNavigationDialog::OnEvtPanGesture( wxQT_PanGestureEvent &event)
 // master
 }
 #endif
+#endif      //if 0
 
 CelestialNavigationDialog::~CelestialNavigationDialog()
 {
