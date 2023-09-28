@@ -206,8 +206,8 @@ SET(SRC ${SRCS} ${HDRS} )
 
 
 #private includes
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/astrolabe)
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/geomag)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/astrolabe)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/geomag)
 
 
 ## Change target_sources to match your project needs.
