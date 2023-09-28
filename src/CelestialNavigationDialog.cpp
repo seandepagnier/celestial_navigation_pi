@@ -176,10 +176,13 @@ CelestialNavigationDialog::CelestialNavigationDialog(wxWindow *parent)
     GetHandle()->setStyleSheet( qtStyleSheet);//
    Move(0, 0);
 #endif
+#endif      //if 0
 
 //
 
 }
+
+#if 0       // TODO  (DSR) This Android GUI interface needs work
 
 #ifdef __OCPN__ANDROID__
 void CelestialNavigationDialog::OnEvtPanGesture( wxQT_PanGestureEvent &event)
