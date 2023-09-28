@@ -181,8 +181,7 @@ SET(HDRS
 		src/icons.h
 		src/Sight.h
 		src/SightDialog.h
-#        libs/ocpn-api/ocpn_plugin.h
-  	)	
+  	)
 
 add_definitions(-DPLUGIN_USE_SVG)
 
@@ -216,13 +215,6 @@ include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/geomag)
 #this path is already in wxJSON cmakelists.txt also include/wx
 #include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/wxJSON/include)
 
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs)
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/tinyxml)
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/bzip2)
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/GL)
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/ocpn-api)
-
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/pluginDC/include)
 
 ## Change target_sources to match your project needs.
 ##==============================================================
