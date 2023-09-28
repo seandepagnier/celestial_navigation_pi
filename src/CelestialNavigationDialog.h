@@ -78,6 +78,7 @@ private:
     int clock_correction;
 
     ClockCorrectionDialog m_ClockCorrectionDialog;
+    wxPoint m_startPos;
 };
 
 #endif // _CelestialNavigationDialog_h_
