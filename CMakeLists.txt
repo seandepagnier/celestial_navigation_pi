@@ -181,8 +181,7 @@ SET(HDRS
 		src/icons.h
 		src/Sight.h
 		src/SightDialog.h
-#        libs/ocpn-api/ocpn_plugin.h
-  	)	
+  	)
 
 add_definitions(-DPLUGIN_USE_SVG)
 
@@ -205,24 +204,11 @@ SET(SRC ${SRCS} ${HDRS} )
 ## Modify/configure 'Include' Directories below for the Plugin
 ##=============================================================
 
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/include)
 
 #private includes
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/astrolabe)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/src/geomag)
 
-#need glu-static?  error is cant find GL/gl.h
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/opencpn-libs/wxJSON/include)
-#this path is already in wxJSON cmakelists.txt also include/wx
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/wxJSON/include)
-
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs)
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/tinyxml)
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/bzip2)
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/GL)
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/ocpn-api)
-
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/pluginDC/include)
 
 ## Change target_sources to match your project needs.
 ##==============================================================
@@ -236,12 +222,6 @@ if(NOT OCPN_FLATPAK_CONFIG)
 	# so following statements will not work
     message(STATUS "${CMLOC}Adding target link libraries to ${PACKAGE_NAME}")
 
-#   add_subdirectory(libs/tinyxml)
-#   add_subdirectory(libs/pluginDC)
-#   target_link_libraries(${PACKAGE_NAME} ocpn::tinyxml)
-#   target_link_libraries(${PACKAGE_NAME} ocpn::pluginDC)
-#   add_subdirectory(libs/bzip2)
-#   target_link_libraries(${PACKAGE_NAME} ocpn::bzip2)   
 
     add_subdirectory(opencpn-libs/WindowsHeaders)
     target_link_libraries(${PACKAGE_NAME} windows::headers)
@@ -251,12 +231,6 @@ if(NOT OCPN_FLATPAK_CONFIG)
 
     add_subdirectory(opencpn-libs/tinyxml)
     target_link_libraries(${PACKAGE_NAME} ocpn::tinyxml)
-
-#    add_subdirectory(opencpn-libs/ODAPI)
-#    target_link_libraries(${PACKAGE_NAME} ocpn::odapi)
-
-#    add_subdirectory(opencpn-libs/jsonlib)
-#    target_link_libraries(${PACKAGE_NAME} ocpn::jsonlib)
 
     add_subdirectory(opencpn-libs/jsoncpp)
     target_link_libraries(${PACKAGE_NAME} ocpn::jsoncpp)
@@ -269,6 +243,9 @@ if(NOT OCPN_FLATPAK_CONFIG)
 
     add_subdirectory(opencpn-libs/bzip2)
     target_link_libraries(${PACKAGE_NAME} ocpn::bzip2)
+
+    add_subdirectory(opencpn-libs/glu)
+    target_link_libraries(${PACKAGE_NAME} ocpn::glu_static)
 
 endif(NOT OCPN_FLATPAK_CONFIG)
 
