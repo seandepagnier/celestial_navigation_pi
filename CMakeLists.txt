@@ -244,10 +244,8 @@ if(NOT OCPN_FLATPAK_CONFIG)
     add_subdirectory(opencpn-libs/bzip2)
     target_link_libraries(${PACKAGE_NAME} ocpn::bzip2)
 
-    if(QT_ANDROID)
-        add_subdirectory(opencpn-libs/glu)
-        target_link_libraries(${PACKAGE_NAME} ocpn::glu_static)
-    endif()
+    add_subdirectory(opencpn-libs/glu)
+    target_link_libraries(${PACKAGE_NAME} ocpn::glu_static)
 
 endif(NOT OCPN_FLATPAK_CONFIG)
 
