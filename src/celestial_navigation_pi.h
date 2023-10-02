@@ -43,7 +43,7 @@
 
 #define CELESTIAL_NAVIGATION_TOOL_POSITION    -1  // Request default positioning of toolbar tool
 
-class celestial_navigation_pi : public wxEvtHandler, opencpn_plugin_116
+class celestial_navigation_pi : public wxEvtHandler, opencpn_plugin_117
 {
 public:
       celestial_navigation_pi(void *ppimgr);
@@ -57,6 +57,9 @@ public:
       int GetAPIVersionMinor();
       int GetPlugInVersionMajor();
       int GetPlugInVersionMinor();
+      int GetPlugInVersionPatch();
+      int GetPlugInVersionPost();
+	  
       wxBitmap *GetPlugInBitmap();
       wxString GetCommonName();
       wxString GetShortDescription();

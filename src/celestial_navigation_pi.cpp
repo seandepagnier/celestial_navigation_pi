@@ -60,7 +60,7 @@ extern "C" DECL_EXP void destroy_pi(opencpn_plugin* p)
 //---------------------------------------------------------------------------------------------------------
 
 celestial_navigation_pi::celestial_navigation_pi(void *ppimgr)
-    :opencpn_plugin_116 (ppimgr)
+    :opencpn_plugin_117 (ppimgr)
 {
     // Create the PlugIn icons
     initialize_images();
@@ -166,6 +166,17 @@ int celestial_navigation_pi::GetPlugInVersionMinor()
 {
     return PLUGIN_VERSION_MINOR;
 }
+
+int celestial_navigation_pi::GetPlugInVersionPatch()
+{
+    return PLUGIN_VERSION_PATCH;
+}
+
+int celestial_navigation_pi::GetPlugInVersionPost()
+{
+    return PLUGIN_VERSION_TWEAK;
+}
+
 
 //wxBitmap *celestial_navigation_pi::GetPlugInBitmap()
 //{
