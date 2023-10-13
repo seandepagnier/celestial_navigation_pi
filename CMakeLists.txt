@@ -55,9 +55,9 @@ set(LONG_DESCRIPTION "Nautical almanac: sun, moon, planets and navigational star
 
 set(VERSION_MAJOR "2")
 set(VERSION_MINOR "4")
-set(VERSION_PATCH "30")
+set(VERSION_PATCH "40")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE  "10/10/2023")#DD/MM/YYYY format
+set(VERSION_DATE  "12/10/2023")#DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov58")
 
 set(OCPN_API_VERSION_MAJOR "1")
@@ -219,9 +219,6 @@ if(NOT OCPN_FLATPAK_CONFIG)
 	# so following statements will not work
     message(STATUS "${CMLOC}Adding target link libraries to ${PACKAGE_NAME}")
 
-#    add_subdirectory(opencpn-libs/WindowsHeaders)
-#    target_link_libraries(${PACKAGE_NAME} windows::headers)
-
     add_subdirectory(opencpn-libs/api-17)
     target_link_libraries(${PACKAGE_NAME} ocpn::api)
 
@@ -240,8 +237,8 @@ if(NOT OCPN_FLATPAK_CONFIG)
     add_subdirectory(opencpn-libs/bzip2)
     target_link_libraries(${PACKAGE_NAME} ocpn::bzip2)
 
-    add_subdirectory(opencpn-libs/glu)
-    target_link_libraries(${PACKAGE_NAME} ocpn::glu_static)
+#    add_subdirectory(opencpn-libs/glu)
+#    target_link_libraries(${PACKAGE_NAME} ocpn::glu_static)
 
 endif(NOT OCPN_FLATPAK_CONFIG)
 
