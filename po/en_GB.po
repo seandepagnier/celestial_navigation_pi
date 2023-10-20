@@ -3,17 +3,17 @@ msgstr ""
 "Project-Id-Version: opencpn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-27 22:15+0200\n"
-"PO-Revision-Date: 2023-10-04 18:33\n"
+"PO-Revision-Date: 2023-10-04 18:32\n"
 "Last-Translator: \n"
-"Language-Team: Greek\n"
-"Language: el_GR\n"
+"Language-Team: English, United Kingdom\n"
+"Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Crowdin-Project: opencpn\n"
 "X-Crowdin-Project-ID: 49843\n"
-"X-Crowdin-Language: el\n"
+"X-Crowdin-Language: en-GB\n"
 "X-Crowdin-File: /plugins/celestial_navigation_pi/po/celestial_navigation_pi.pot\n"
 "X-Crowdin-File-ID: 108\n"
 
@@ -22,56 +22,56 @@ msgstr ""
 #: src\CelestialNavigationDialog-partial-android.cpp:149
 #: src\CelestialNavigationDialog.cpp:150 src\CelestialNavigationUI.cpp:137
 msgid "Type"
-msgstr "Τύπος"
+msgstr ""
 
 #: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:150
 #: src\CelestialNavigationDialog-2.3.5.2-android.cpp:151
 #: src\CelestialNavigationDialog-partial-android.cpp:150
 #: src\CelestialNavigationDialog.cpp:151
 msgid "Body"
-msgstr "Ουράνιο σώμα"
+msgstr ""
 
 #: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:151
 #: src\CelestialNavigationDialog-2.3.5.2-android.cpp:152
 #: src\CelestialNavigationDialog-partial-android.cpp:151
 #: src\CelestialNavigationDialog.cpp:152 src\CelestialNavigationUI.cpp:328
 msgid "Time (UT)"
-msgstr "Ώρα (UTC)"
+msgstr ""
 
 #: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:152
 #: src\CelestialNavigationDialog-2.3.5.2-android.cpp:153
 #: src\CelestialNavigationDialog-partial-android.cpp:152
 #: src\CelestialNavigationDialog.cpp:153 src\CelestialNavigationUI.cpp:184
 msgid "Measurement"
-msgstr "Μέτρηση"
+msgstr ""
 
 #: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:153
 #: src\CelestialNavigationDialog-2.3.5.2-android.cpp:154
 #: src\CelestialNavigationDialog-partial-android.cpp:153
 #: src\CelestialNavigationDialog.cpp:154 src\CelestialNavigationUI.cpp:381
 msgid "Color"
-msgstr "Χρώμα"
+msgstr ""
 
 #: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:266
 #: src\CelestialNavigationDialog-2.3.5.2-android.cpp:272
 #: src\CelestialNavigationDialog-partial-android.cpp:266
 #: src\CelestialNavigationDialog.cpp:272 src\celestial_navigation_pi.cpp:177
 msgid "Failed to load file: "
-msgstr "Απέτυχε η φόρτωση του αρχείου: "
+msgstr ""
 
 #: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:271
 #: src\CelestialNavigationDialog-2.3.5.2-android.cpp:277
 #: src\CelestialNavigationDialog-partial-android.cpp:271
 #: src\CelestialNavigationDialog.cpp:277
 msgid "Invalid xml file"
-msgstr "Μη έγκυρο αρχείο xml"
+msgstr ""
 
 #: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:323
 #: src\CelestialNavigationDialog-2.3.5.2-android.cpp:329
 #: src\CelestialNavigationDialog-partial-android.cpp:323
 #: src\CelestialNavigationDialog.cpp:329
 msgid "Unrecognized xml node"
-msgstr "Άγνωστος κόμβος xml"
+msgstr ""
 
 #: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:332
 #: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:392
@@ -87,381 +87,380 @@ msgstr "Άγνωστος κόμβος xml"
 #: src\Sight.cpp.bak:1121 src\celestial_navigation_pi.cpp:95
 #: src\celestial_navigation_pi.cpp:99
 msgid "Celestial Navigation"
-msgstr "Αστρονομική ναυσιπλοΐα"
+msgstr ""
 
 #: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:391
 #: src\CelestialNavigationDialog-2.3.5.2-android.cpp:397
 #: src\CelestialNavigationDialog-partial-android.cpp:391
 #: src\CelestialNavigationDialog.cpp:397
 msgid "Failed to save xml file: "
-msgstr "Απέτυχε η αποθήκευση του αρχείου xml: "
+msgstr ""
 
 #: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:424
 #: src\CelestialNavigationDialog-2.3.5.2-android.cpp:430
 #: src\CelestialNavigationDialog-partial-android.cpp:424
 #: src\CelestialNavigationDialog.cpp:430
 msgid "Time Correction"
-msgstr "Διόρθωση ώρας"
+msgstr ""
 
 #: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:473
 #: src\CelestialNavigationDialog-2.3.5.2-android.cpp:479
 #: src\CelestialNavigationDialog-partial-android.cpp:473
 #: src\CelestialNavigationDialog.cpp:479
 msgid "Sun"
-msgstr "Ήλιος"
+msgstr ""
 
 #: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:531
 #: src\CelestialNavigationDialog-2.3.5.2-android.cpp:537
 #: src\CelestialNavigationDialog-partial-android.cpp:531
 #: src\CelestialNavigationDialog.cpp:537
 msgid "Are you sure you want to delete all sights?"
-msgstr "Σίγουρα θέλετε να διαγράψετε όλες τις θεάσεις;"
+msgstr ""
 
 #: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:582
 #: src\CelestialNavigationDialog-2.3.5.2-android.cpp:588
 #: src\CelestialNavigationDialog-partial-android.cpp:582
 #: src\CelestialNavigationDialog.cpp:588
 msgid "Celestial_Navigation_Information.html"
-msgstr "Celestial_Navigation_Information.html"
+msgstr ""
 
 #: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:589
 #: src\CelestialNavigationDialog-2.3.5.2-android.cpp:595
 #: src\CelestialNavigationDialog-partial-android.cpp:589
 #: src\CelestialNavigationDialog.cpp:595 src\CelestialNavigationUI.cpp:55
 msgid "Hide"
-msgstr "Απόκρυψη"
+msgstr ""
 
 #: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:589
 #: src\CelestialNavigationDialog-2.3.5.2-android.cpp:595
 #: src\CelestialNavigationDialog-partial-android.cpp:589
 #: src\CelestialNavigationDialog.cpp:595
 msgid "Show"
-msgstr "Εμφάνιση"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:40
 msgid "New"
-msgstr "Νέο"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:43 src\CelestialNavigationUI.h:286
 msgid "Fix"
-msgstr "Θέση"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:46
 msgid "Duplicate"
-msgstr "Αντιγραφή"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:49
 msgid "Clock Offset"
-msgstr "Όφσετ ώρας"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:52
 msgid "Edit"
-msgstr "Επεξεργασία"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:58
 msgid "Delete"
-msgstr "Διαγραφή"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:61
 msgid "Information"
-msgstr "Πληροφορίες"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:64
 msgid "Delete All"
-msgstr "Διαγραφή όλων"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:141 src\CelestialNavigationUI.cpp:674
 #: src\Sight.h:49
 msgid "Altitude"
-msgstr "Υψόμετρο"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:141 src\CelestialNavigationUI.cpp:683
 #: src\Sight.h:49
 msgid "Azimuth"
-msgstr "Αζιμούθιο"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:141 src\Sight.h:49
 msgid "Lunar"
-msgstr "Σεληνιακή"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:147
 msgid "Magnetic Azimuth"
-msgstr "Μαγνητικό αζιμούθιο"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:150
 msgid "Celestial Body"
-msgstr "Ουράνιο σώμα"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:159
 msgid "Find"
-msgstr "Αναζήτηση"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:162
 msgid "Limb"
-msgstr "Μέλος"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:166
 msgid "Center"
-msgstr "Κέντρο"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:166
 msgid "Lower"
-msgstr "Κατώτερο"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:166
 msgid "Upper"
-msgstr "Ανώτερο"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:191 src\CelestialNavigationUI.cpp:198
 #: src\CelestialNavigationUI.cpp:228 src\CelestialNavigationUI.cpp:235
 msgid "0"
-msgstr "0"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:194 src\CelestialNavigationUI.cpp:353
 #: src\CelestialNavigationUI.cpp:605
 msgid "Degrees"
-msgstr "Μοίρες"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:201 src\CelestialNavigationUI.cpp:283
 #: src\CelestialNavigationUI.cpp:444
 msgid "Minutes"
-msgstr "Λεπτά"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:205
 msgid "10"
-msgstr "10"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:208
 msgid "Minutes Certainty"
-msgstr "Ακρίβεια (±λεπτά)"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:222
 msgid "Lunar Altitude"
-msgstr "Ύψος σελήνης"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:231
 msgid "Body Altitude"
-msgstr "Ύψος σώματος"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:248
 msgid "Sight"
-msgstr "Θέαση"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:276
 msgid "Hours"
-msgstr "Ώρες"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:290 src\CelestialNavigationUI.cpp:308
 #: src\CelestialNavigationUI.cpp:869
 msgid "Seconds"
-msgstr "Δευτερόλεπτα"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:298
 msgid "Certainty"
-msgstr "Ακρίβεια"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:335 src\CelestialNavigationUI.cpp:587
 msgid "Distance"
-msgstr "Απόσταση"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:342 src\CelestialNavigationUI.cpp:594
 msgid "Nm"
-msgstr "ν.μ."
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:346 src\CelestialNavigationUI.cpp:598
 msgid "Bearing"
-msgstr "Κατεύθυνση"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:357 src\CelestialNavigationUI.cpp:609
 msgid "Magnetic Bearing"
-msgstr "Μαγνητική κατεύθυνση"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:364
 msgid "DR Shift"
-msgstr "Μετατόπιση DR"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:371
 msgid "Transparency"
-msgstr "Διαφάνεια"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:392
 msgid "Config"
-msgstr "Διαμόρφωση"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:404
 msgid "Eye Height"
-msgstr "Ύψος ματιού"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:408
 msgid "2"
-msgstr "2"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:411
 msgid "Meters"
-msgstr "μέτρα"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:415
 msgid "Temperature"
-msgstr "Θερμοκρασία"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:422
 msgid "Celcius"
-msgstr "Κελσίου"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:426
 msgid "Pressure"
-msgstr "Πίεση"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:433
 msgid "MilliBars"
-msgstr "μιλιμπαρ"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:437
 msgid "Index Error"
-msgstr "Λάθος δείκτη εξάντα"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:451
 msgid "Set As Defaults"
-msgstr "Ορισμός ως προεπιλογή"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:458
 msgid "Parameters"
-msgstr "Παράμετροι"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:474
 msgid "Calculations"
-msgstr "Υπολογισμοί"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:578
 msgid "Shift all visible Sights"
-msgstr "Μετατόπιση όλων των ορατών θεάσεων"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:656 src\CelestialNavigationUI.cpp:769
 msgid "Latitude"
-msgstr "Γεωγραφικό πλάτος"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:665 src\CelestialNavigationUI.cpp:777
 msgid "Longitude"
-msgstr "Γεωγραφικό μήκος"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:691
 msgid "Boat Position"
-msgstr "Θέση πλοίου"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:695
 msgid "Magnetic"
-msgstr "Μαγνητική"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:698
 msgid "Done"
-msgstr "Έγινε"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:762
 msgid "Fix From Visible Sights"
-msgstr "Καθορισμός από θεάσεις"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:773
 msgid "       N/A       "
-msgstr "       Δ/Υ       "
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:781
 msgid "          N/A          "
-msgstr "          Δ/Υ          "
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:785
 msgid "Error"
-msgstr "Σφάλμα"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:789
 msgid "     N/A     "
-msgstr "     Δ/Υ     "
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:796 src\CelestialNavigationUI.cpp:803
 msgid "Initial"
-msgstr "Αρχική"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:810
 msgid "Alg"
-msgstr "Αλγ."
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:815
 msgid "Plane"
-msgstr "Επίπεδο"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:816
 msgid "Sphere"
-msgstr "Σφαίρα"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:817
 msgid "Cone"
-msgstr "Κώνος"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:818
 msgid "Cone 2"
-msgstr "Κώνος 2"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:822
 msgid "Go"
-msgstr "Εμπρός"
+msgstr ""
 
 #: src\CelestialNavigationUI.cpp:859 src\CelestialNavigationUI.h:308
 msgid "Clock Correction"
-msgstr "Διόρθωση ώρας"
+msgstr ""
 
 #: src\CelestialNavigationUI.h:82
 msgid "Celestial Navigation Sights"
-msgstr "Θεάσεις για την αστρονομική ναυσιπλοΐα"
+msgstr ""
 
 #: src\CelestialNavigationUI.h:173
 msgid "Sight Properties"
-msgstr "Ιδιότητες θέασης"
+msgstr ""
 
 #: src\CelestialNavigationUI.h:204
 msgid "Dead Reckoning shift"
-msgstr "Μετατόπιση εκτίμησης θέσης"
+msgstr ""
 
 #: src\CelestialNavigationUI.h:232
 msgid "Find Celestial Body"
-msgstr "Βρες ουράνιο σώμα"
+msgstr ""
 
 #: src\FixDialog.cpp:192
 msgid "Shifted sights are not used to compute a fix, determine fix visually instead.\n"
-msgstr "Δεν χρησιμοποιούνται μετατοπισμένες θεάσεις για τον προσδιορισμό. Προσδιόρισε τη θέση οπτικά.\n"
+msgstr ""
 
 #: src\FixDialog.cpp:193
 msgid "Fix Position"
-msgstr "Καθορισμός θέσης"
+msgstr ""
 
 #: src\FixDialog.cpp:338 src\FixDialog.cpp:339 src\FixDialog.cpp:340
 msgid "   N/A   "
-msgstr "   Δ/Υ   "
+msgstr ""
 
 #: src\Sight.cpp:172 src\Sight.cpp.bak:173
 msgid "Astrolab failed, data unavailable:\n"
-msgstr "Ο αστρολάβος απέτυχε, δεν υπάρχουν δεδομένα:\n"
+msgstr ""
 
 #: src\Sight.cpp:173 src\Sight.cpp.bak:174
 msgid "\n"
 "Did you forget to install vsop87d.txt?\n"
-msgstr "\n"
-"Μήπως ξεχάσατε να εγκαταστήσετε το vsop87d.txt;\n"
+msgstr ""
 
 #: src\Sight.cpp:174 src\Sight.cpp.bak:175
 msgid "The plugin will not work correctly"
-msgstr "Το πρόσθετο δεν θα λειτουργήσει σωστά"
+msgstr ""
 
 #: src\Sight.cpp:175 src\Sight.cpp.bak:176
 msgid "Failure Alert"
-msgstr "Ειδοποίηση αποτυχίας"
+msgstr ""
 
 #: src\Sight.cpp:495 src\Sight.cpp.bak:496
 #, c-format
 msgid "Applying clock correction of %d seconds\n\n"
-msgstr "Εφαρμογή διόρθωσης ώρας %d δευτερολέπτων\n\n"
+msgstr ""
 
 #: src\Sight.cpp:557 src\Sight.cpp.bak:558
 msgid "Almanac Data For "
-msgstr "Δεδομένα αλμανάκ για "
+msgstr ""
 
 #: src\Sight.cpp:558 src\Sight.cpp.bak:559
 #, c-format
@@ -473,25 +472,18 @@ msgid "\n"
 "Dec = %c %.0f %.1f'\n"
 "SD = %.1f'\n"
 "HP = %.1f'\n\n"
-msgstr "\n"
-"Γεωγραφική θέση (πλάτος, μήκος) = %.4f %.4f\n"
-"GHAAST = %.0f %.1f'\n"
-"SHA = %.0f %.1f'\n"
-"GHA = %.0f %.1f'\n"
-"Dec = %c %.0f %.1f'\n"
-"SD = %.1f'\n"
-"HP = %.1f'\n\n"
+msgstr ""
 
 #: src\Sight.cpp:573 src\Sight.cpp:711 src\Sight.cpp.bak:574
 #: src\Sight.cpp.bak:712
 msgid "Formulas used to calculate sight\n\n"
-msgstr "Οι τύποι που χρησιμοποιούνται για τον υπολογισμό της θέασης\n\n"
+msgstr ""
 
 #: src\Sight.cpp:577 src\Sight.cpp:715 src\Sight.cpp.bak:578
 #: src\Sight.cpp.bak:716
 #, c-format
 msgid "Index Error is %.4f degrees\n\n"
-msgstr "Το Σφάλμα Δείκτη του εξάντα είναι %.4f °\n\n"
+msgstr ""
 
 #: src\Sight.cpp:582 src\Sight.cpp:720 src\Sight.cpp.bak:583
 #: src\Sight.cpp.bak:721
@@ -499,8 +491,7 @@ msgstr "Το Σφάλμα Δείκτη του εξάντα είναι %.4f °\n\
 msgid "Eye Height is %.4f meters\n"
 "Height Correction Degrees = 1.758*sqrt(%.4f) / 60.0\n"
 "Height Correction Degrees = %.4f\n"
-msgstr "Το ύψος ματιού είναι %.4f m\n"
-"Διόρθωση του ύψους = 1.758*sqrt(%.4f) / 60.0 °= %.4f °\n"
+msgstr ""
 
 #: src\Sight.cpp:589 src\Sight.cpp:799 src\Sight.cpp.bak:590
 #: src\Sight.cpp.bak:800
@@ -510,10 +501,7 @@ msgid "\n"
 "ApparentAltitude = Measurement - IndexCorrection - EyeHeightCorrection\n"
 "ApparentAltitude = %.4f - %.4f - %.4f\n"
 "ApparentAltitude = %.4f\n"
-msgstr "\n"
-"Φαινόμενο υψόμετρο (Ha)\n"
-"ΦαινΥψόμετρο = μέτρηση - ΔιόρθωσηΔείκτη - ΔιόρθωσηΥψουςΜατιού\n"
-"ΦαινΥψόμετρο = %.4f - %.4f - %.4f = %.4f\n"
+msgstr ""
 
 #: src\Sight.cpp:607 src\Sight.cpp:810 src\Sight.cpp.bak:608
 #: src\Sight.cpp.bak:811
@@ -523,11 +511,7 @@ msgid "\n"
 "x = tan(Pi/180*ApparentAltitude + 4.848e-2*(Pi/180) / (tan(Pi/180*ApparentAltitude) + .028))\n"
 "x = tan(Pi/180*%.4f + 4.848e-2*(Pi/180) / (tan(Pi/180*%.4f) + .028))\n"
 "x = %.4f\n"
-msgstr "\n"
-"Διόρθωση διάθλασης\n"
-"x = tan(π/180*ΦαινΥψόμετρο + 0.04848*(π/180) / (tan(π/180*ΦαινΥψόμετρο) + .028))\n"
-"x = tan(π/180*%.4f + 0.04848*(π/180) / (tan(π/180*%.4f) + .028))\n"
-"x = %.4f\n"
+msgstr ""
 
 #: src\Sight.cpp:612 src\Sight.cpp:815 src\Sight.cpp.bak:613
 #: src\Sight.cpp.bak:816
@@ -535,8 +519,7 @@ msgstr "\n"
 msgid "RefractionCorrection = .267 * Pressure / (x*(Temperature + 273.15)) / 60.0\n"
 "RefractionCorrection = .267 * %.4f / (x*(%.4f + 273.15)) / 60.0\n"
 "RefractionCorrection = %.4f\n"
-msgstr "Διόρθωση διάθλασης = 0.267 * Πίεση / (x*(Θερμοκρασία + 273.15)) / 60.0\n"
-"Διόρθωση διάθλασης = 0.267 * %.4f / (x*(%.4f + 273.15)) / 60.0 = %.4f\n"
+msgstr ""
 
 #: src\Sight.cpp:627 src\Sight.cpp:829 src\Sight.cpp.bak:628
 #: src\Sight.cpp.bak:830
@@ -544,9 +527,7 @@ msgstr "Διόρθωση διάθλασης = 0.267 * Πίεση / (x*(Θερμ�
 msgid "\n"
 "Sun selected, Limb Correction\n"
 "ra = %.4f, lc = 0.266564/ra = %.4f\n"
-msgstr "\n"
-"Επιλογή του ήλιου, Διόρθωση μέλους\n"
-"ra = %.4f, lc = 0.266564/ra = %.4f\n"
+msgstr ""
 
 #: src\Sight.cpp:637 src\Sight.cpp:753 src\Sight.cpp.bak:638
 #: src\Sight.cpp.bak:754
@@ -556,29 +537,24 @@ msgid "\n"
 "SD = %.4f\n"
 "lc = 180/Pi * asin(Pi/180*SD)\n"
 "lc = %.4f\n"
-msgstr "\n"
-"Επιλογή σελήνης, Διόρθωση μέλους\n"
-"SD = %.4f\n"
-"lc = 180/π * asin(π/180*SD)\n"
-"lc = %.4f\n"
+msgstr ""
 
 #: src\Sight.cpp:647 src\Sight.cpp:762 src\Sight.cpp:837 src\Sight.cpp.bak:648
 #: src\Sight.cpp.bak:763 src\Sight.cpp.bak:838
 msgid "Upper Limb"
-msgstr "Άνω μέλος"
+msgstr ""
 
 #: src\Sight.cpp:650 src\Sight.cpp:765 src\Sight.cpp:840 src\Sight.cpp.bak:651
 #: src\Sight.cpp.bak:766 src\Sight.cpp.bak:841
 msgid "Lower Limb"
-msgstr "Κάτω μέλος"
+msgstr ""
 
 #: src\Sight.cpp:653 src\Sight.cpp:843 src\Sight.cpp.bak:654
 #: src\Sight.cpp.bak:844
 #, c-format
 msgid "\n"
 "LimbCorrection = %.4f\n"
-msgstr "\n"
-"Διόρθωση μέλους = %.4f\n"
+msgstr ""
 
 #: src\Sight.cpp:657 src\Sight.cpp:847 src\Sight.cpp.bak:658
 #: src\Sight.cpp.bak:848
@@ -588,11 +564,7 @@ msgid "\n"
 "CorrectedAltitude = ApparentAltitude - RefractionCorrection - LimbCorrection\n"
 "CorrectedAltitude = %.4f - %.4f - %.4f\n"
 "CorrectedAltitude = %.4f\n"
-msgstr "\n"
-"Διορθωμένο υψόμετρο\n"
-"ΔιορθΥψόμετρο = ΦαινΥψόμετρο - ΔιόρθωσηΔιάθλασης - ΔιορθωσηΆκρου\n"
-"ΔιορθΥψόμετρο = %.4f - %.4f - %.4f\n"
-"ΔιορθΥψόμετρο = %.4f\n"
+msgstr ""
 
 #: src\Sight.cpp:671 src\Sight.cpp:861 src\Sight.cpp.bak:672
 #: src\Sight.cpp.bak:862
@@ -600,9 +572,7 @@ msgstr "\n"
 msgid "\n"
 "Sun selected, parallax correction\n"
 "rad = %.4f, HP = 0.002442/rad = %.4f\n"
-msgstr "\n"
-"SΕπιλογή ηλίου, διόρθωση παράλλαξης\n"
-"rad = %.4f, HP = 0.002442/rad = %.4f\n"
+msgstr ""
 
 #: src\Sight.cpp:680 src\Sight.cpp:785 src\Sight.cpp.bak:681
 #: src\Sight.cpp.bak:786
@@ -610,9 +580,7 @@ msgstr "\n"
 msgid "\n"
 "Moon selected, parallax correction\n"
 "HP = %.4f\n"
-msgstr "\n"
-"Επιλογή σελήνης, διόρθωση παράλλαξης\n"
-"HP = %.4f\n"
+msgstr ""
 
 #: src\Sight.cpp:686 src\Sight.cpp:867 src\Sight.cpp.bak:687
 #: src\Sight.cpp.bak:868
@@ -620,8 +588,7 @@ msgstr "\n"
 msgid "ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * CorrectedAltitude))\n"
 "ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * %.4f ) * cos(Pi/180 * %.4f))\n"
 "ParallaxCorrection = %.4f\n"
-msgstr "ΔιόρθωσηΠαράλλαξης = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * ΔιορθωμένοΥψόμετρο))\n"
-"ΔιόρθωσηΠαράλλαξης = -180/Pi * asin( sin(Pi/180 * %.4f ) * cos(Pi/180 * %.4f)) = %.4f\n"
+msgstr ""
 
 #: src\Sight.cpp:693 src\Sight.cpp.bak:694
 #, c-format
@@ -630,11 +597,7 @@ msgid "\n"
 "ObservedAltitude = CorrectedAltitude - ParallaxCorrection\n"
 "ObservedAltitude = %.4f - %.4f\n"
 "ObservedAltitude = %.4f\n"
-msgstr "\n"
-"Παρατήρηση Υψομέτρου (Ho)\n"
-"ΠαρατήρησηΥψομέτρου = ΔιορθωμένοΥψόμετρο - ΔιόρθωσηΠαράλλαξης\n"
-"ΠαρατήρησηΥψομέτρου = %.4f - %.4f\n"
-"ΠαρατήρησηΥψομέτρου = %.4f\n"
+msgstr ""
 
 #: src\Sight.cpp:727 src\Sight.cpp.bak:728
 #, c-format
@@ -643,11 +606,7 @@ msgid "\n"
 "ApparentAltitudeMoon = MeasurementMoon - IndexCorrection - EyeHeightCorrection\n"
 "ApparentAltitudeMoon = %.4f - %.4f - %.4f\n"
 "ApparentAltitudeMoon = %.4f\n"
-msgstr "\n"
-"Φαινόμενο ύψος σελήνης (Ha)\n"
-"ΦαινΥψοςΣελήνης = ΜετρΣελήνης - ΔιορθΔείκτη - ΔιορθΥψουςΜατιού\n"
-" ΦαινΥψοςΣελήνης = %.4f - %.4f - %.4f\n"
-"ΦαινΥψοςΣελήνης = %.4f\n"
+msgstr ""
 
 #: src\Sight.cpp:738 src\Sight.cpp.bak:739
 #, c-format
@@ -656,28 +615,21 @@ msgid "\n"
 "x = tan(Pi/180*ApparentAltitudeMoon + 4.848e-2*(Pi/180) / (tan(Pi/180*ApparentAltitudeMoon) + .028))\n"
 "x = tan(Pi/180*%.4f + 4.848e-2*(Pi/180) / (tan(Pi/180*%.4f) + .028))\n"
 "x = %.4f\n"
-msgstr "\n"
-"Διόρθωση διάθλασης\n"
-"x = tan(π/180*ΦαινΥψοςΣελήνης + 0.04848*(π/180) / (tan(π/180*ΦαινΥψοςΣελήνης) + .028))\n"
-"x = tan(Pi/180*%.4f + 0.04848*(π/180) / (tan(π/180*%.4f) + .028))\n"
-"x = %.4f\n"
+msgstr ""
 
 #: src\Sight.cpp:743 src\Sight.cpp.bak:744
 #, c-format
 msgid "RefractionCorrectionMoon = .267 * Pressure / (x*(Temperature + 273.15)) / 60.0\n"
 "RefractionCorrectionMoon = .267 * %.4f / (x*(%.4f + 273.15)) / 60.0\n"
 "RefractionCorrectionMoon = %.4f\n"
-msgstr "ΔιόρθΔιαθλΣελήνης = 0.267 * Πίεση / (x*(Θερμοκρασία + 273.15)) / 60.0\n"
-"ΔιόρθΔιαθλΣελήνης = 0.267 * %.4f / (x*(%.4f + 273.15)) / 60.0\n"
-"ΔιόρθΔιαθλΣελήνης=%.4f\n"
+msgstr ""
 
 #: src\Sight.cpp:768 src\Sight.cpp:771 src\Sight.cpp.bak:769
 #: src\Sight.cpp.bak:772
 #, c-format
 msgid "\n"
 "LimbCorrectionMoon = %.4f\n"
-msgstr "\n"
-"LimbCorrectionMoon = %.4f\n"
+msgstr ""
 
 #: src\Sight.cpp:774 src\Sight.cpp.bak:775
 #, c-format
@@ -686,97 +638,84 @@ msgid "\n"
 "CorrectedAltitudeMoon = ApparentAltitudeMoon - RefractionCorrectionMoon - LimbCorrectionMoon\n"
 "CorrectedAltitudeMoon = %.4f - %.4f - %.4f\n"
 "CorrectedAltitudeMoon = %.4f\n"
-msgstr "\n"
-"Διορθωμένο υψόμετρο\n"
-"Διορθωμένο Υψόμετρο Σελήνης = Φαινόμενο Υψόμετρο - Διόρθωση Διάθλασης - Διόρθωση ακτίνας\n"
-"Διορθωμένο Υψόμετρο Σελήνης = %.4f - %.4f - %.4f\n"
-"Διορθωμένο Υψόμετρο Σελήνης = %.4f\n"
+msgstr ""
 
 #: src\Sight.cpp:789 src\Sight.cpp.bak:790
 #, c-format
 msgid "ParallaxCorrectionMoon = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * CorrectedAltitude))\n"
 "ParallaxCorrectionMoon = -180/Pi * asin( sin(Pi/180 * %.4f ) * cos(Pi/180 * %.4f))\n"
 "ParallaxCorrectionMoon = %.4f\n"
-msgstr "Διόρθωση Παράλλαξης Σελήνης = -180/π * asin( sin(π/180 * HP ) * cos(π/180 * ΔιορθωμένοΥψόμετρο))\n"
-"ΔιόρθωσηΠαράλλαξης Σελήνης = -180/π * asin( sin(π/180 * %.4f ) * cos(π/180 * %.4f)) = %.4f\n"
+msgstr ""
 
 #: src\Sight.cpp:878 src\Sight.cpp.bak:879
 #, c-format
 msgid "CorrectionsMoon = %.4f\n"
 "CorrectionsBody = %.4f\n"
 "Corrections = abs(CorrectionsMoon - CorrectionsBody) = %.4f\n"
-msgstr "Διορθώσεις Σελήνης = %.4f\n"
-"Σώμα Διορθώσεων = %.4f\n"
-"Corrections = abs(Διορθώσεις Σελήνης - Σώμα Διορθώσεων) = %.4f\n"
+msgstr ""
 
 #: src\Sight.cpp:884 src\Sight.cpp.bak:885
 #, c-format
 msgid "CorrectedMeasurement = Measurement - Corrections - IndexCorrection\n"
 "CorrectedMeasurement = %.4f - %.4f - %.4f\n"
 "CorrectedMeasurement = %.4f\n"
-msgstr "Διορθωμένη μέτρηση = μέτρηση - διορθώσεις - ΔιόρθωσηΔείκτη\n"
-"Διορθωμένη μέτρηση = %.4f - %.4f - %.4f\n"
-"Διορθωμένη μέτρηση = %.4f\n"
+msgstr ""
 
 #: src\Sight.cpp:909 src\Sight.cpp.bak:910
 msgid "\n"
 "Calculated angle between Moon and "
-msgstr "\n"
-"Υπολογισμένη γωνία μεταξύ Σελήνης και "
+msgstr ""
 
 #: src\Sight.cpp:911 src\Sight.cpp.bak:912
 #, c-format
 msgid "\n"
 "Error from measurement: %.4f"
-msgstr "\n"
-"Σφάλμα μέτρησης: %.4f"
+msgstr ""
 
 #: src\Sight.cpp:915 src\Sight.cpp.bak:916
 msgid "\n"
 "Moon takes 28 days to orbit, one degree of error takes 6720 seconds"
-msgstr "\n"
-"Ο κύκλος της σελήνη διαρκεί 28 ημέρες, σφάλμα μίας μοίρας διαρκεί 6720 δευτερόλεπτα"
+msgstr ""
 
 #: src\Sight.cpp:916 src\Sight.cpp.bak:917
 #, c-format
 msgid "\n"
 "Time correction %.4f seconds"
-msgstr "\n"
-"Διόρθωση χρόνου %.4f δευτερόλεπτα"
+msgstr ""
 
 #: src\Sight.cpp:1120 src\Sight.cpp.bak:1121
 msgid "Building bearing Sight Positions"
-msgstr "Υπολογισμός κατεύθυνσης θέσεων θέασης"
+msgstr ""
 
 #: src\SightDialog.cpp:184
 msgid "Measurement certainty likely set to small, sight may not appear "
-msgstr "Η βεβαιότητα της μέτρησης είναι μικρή, η θέαση μπορεί να μην εμφανιστεί "
+msgstr ""
 
 #: src\SightDialog.cpp:185 src\SightDialog.cpp:279
 msgid "Warning"
-msgstr "Προσοχή"
+msgstr ""
 
 #: src\SightDialog.cpp:278
 msgid "Lunar shot will be invalid taking distance from moon to itself"
-msgstr "Η Λήψη της σελήνης θα είναι μη έγκυρη αν ληφθεί η απόσταση από το φεγγάρι στον εαυτό του"
+msgstr ""
 
 #: src\celestial_navigation_pi.cpp:179
 msgid "open error"
-msgstr "σφάλμα ανοίγματος"
+msgstr ""
 
 #: src\celestial_navigation_pi.cpp:180
 msgid "corrupt record"
-msgstr "κατεστραμμένο στοιχείο"
+msgstr ""
 
 #: src\celestial_navigation_pi.cpp:181
 msgid "too many models"
-msgstr "πάρα πολλά μοντέλα"
+msgstr ""
 
 #: src\celestial_navigation_pi.cpp:184
 msgid "Magnetic data will not be available for the celestial navigation plugin."
-msgstr "Μαγνητικά δεδομένα δεν θα είναι διαθέσιμα για το πρόσθετο της αστρονομικής ναυσιπλοΐας."
+msgstr ""
 
 #: src\celestial_navigation_pi.cpp:185
 msgid "OpenCPN Alert"
-msgstr "Συναγερμός OpenCPN"
+msgstr ""
 
