@@ -40,7 +40,11 @@
 #include <wx/listimpl.cpp>
 #include <wx/fileconf.h>
 
+#ifdef __WXOSX__
+#include <OpenGL/gl.h>
+#else
 #include <GL/gl.h>
+#endif
 
 #include "ocpn_plugin.h"
 
