@@ -34,8 +34,6 @@
 
 #include "tinyxml.h"
 
-#include <GL/gl.h>
-
 #include "ocpn_plugin.h"
 
 #include "Sight.h"

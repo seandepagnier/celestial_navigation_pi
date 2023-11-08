@@ -56,7 +56,7 @@ set(LONG_DESCRIPTION "Nautical almanac: sun, moon, planets and navigational star
 set(VERSION_MAJOR "2")
 set(VERSION_MINOR "4")
 set(VERSION_PATCH "40")
-set(VERSION_TWEAK "0")
+set(VERSION_TWEAK "3")
 set(VERSION_DATE  "12/10/2023")#DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov58")
 
@@ -95,8 +95,6 @@ option(PLUGIN_USE_SVG "Use SVG graphics" ON)
 
 set(CMAKE_CXX_STANDARD 11)
 
-
-set(USE_LOCAL_GLU TRUE) # Use local opencpn-libs/glu
 set(OpenGL_GL_PREFERENCE "LEGACY")   #not operational
 option(USE_GL "Enable OpenGL support" ON)
 message(STATUS "${CMLOC}USE_GL: ${USE_GL}")
@@ -219,6 +217,11 @@ if(NOT OCPN_FLATPAK_CONFIG)
 	# so following statements will not work
     message(STATUS "${CMLOC}Adding target link libraries to ${PACKAGE_NAME}")
 
+    if(WIN32)
+        add_subdirectory(opencpn-libs/WindowsHeaders)
+        target_link_libraries(${PACKAGE_NAME} windows::headers)
+    endif()
+
     add_subdirectory(opencpn-libs/api-17)
     target_link_libraries(${PACKAGE_NAME} ocpn::api)
 
@@ -231,14 +234,11 @@ if(NOT OCPN_FLATPAK_CONFIG)
     add_subdirectory(opencpn-libs/wxJSON)
     target_link_libraries(${PACKAGE_NAME} ocpn::wxjson)
 
-    add_subdirectory(opencpn-libs/plugingl)
-    target_link_libraries(${PACKAGE_NAME} ocpn::plugingl)
+    add_subdirectory(opencpn-libs/plugin_dc)
+    target_link_libraries(${PACKAGE_NAME} ocpn::plugin-dc)
 
     add_subdirectory(opencpn-libs/bzip2)
     target_link_libraries(${PACKAGE_NAME} ocpn::bzip2)
-
-#    add_subdirectory(opencpn-libs/glu)
-#    target_link_libraries(${PACKAGE_NAME} ocpn::glu_static)
 
 endif(NOT OCPN_FLATPAK_CONFIG)
 
