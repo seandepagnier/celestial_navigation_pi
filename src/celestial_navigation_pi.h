@@ -31,16 +31,11 @@
 
 #include "version.h"
 
-#define     MY_API_VERSION_MAJOR    1
-#define     MY_API_VERSION_MINOR    11
-
 #define ABOUT_AUTHOR_URL "http://seandepagnier.users.sourceforge.net"
 
 #include "ocpn_plugin.h"
-#include "plugingl/qtstylesheet.h"
-#include "CelestialNavigationDialog.h"
 
-class piDC;
+#include "CelestialNavigationDialog.h"
 
 //----------------------------------------------------------------------------------------------------------
 //    The PlugIn Class Definition
@@ -48,7 +43,7 @@ class piDC;
 
 #define CELESTIAL_NAVIGATION_TOOL_POSITION    -1  // Request default positioning of toolbar tool
 
-class celestial_navigation_pi : public wxEvtHandler, opencpn_plugin_111
+class celestial_navigation_pi : public wxEvtHandler, opencpn_plugin_117
 {
 public:
       celestial_navigation_pi(void *ppimgr);
@@ -62,10 +57,15 @@ public:
       int GetAPIVersionMinor();
       int GetPlugInVersionMajor();
       int GetPlugInVersionMinor();
+      int GetPlugInVersionPatch();
+      int GetPlugInVersionPost();
+	  
       wxBitmap *GetPlugInBitmap();
       wxString GetCommonName();
       wxString GetShortDescription();
       wxString GetLongDescription();
+	  //Shipdriver Panel Icon definition
+	  wxBitmap m_panelBitmap; 
 
       void OnToolbarToolCallback(int id);
 
@@ -74,11 +74,12 @@ public:
 
       bool RenderOverlay( wxDC &dc, PlugIn_ViewPort *vp );
       bool RenderGLOverlay( wxGLContext *pcontext, PlugIn_ViewPort *vp );
-      void Render(piDC &dc, PlugIn_ViewPort *vp);
+      bool RenderOverlayAll(wxDC *dc, PlugIn_ViewPort *vp);
 
       static wxString StandardPath();
       void SetPositionFixEx(PlugIn_Position_Fix_Ex &pfix);
       void SetCursorLatLon(double lat, double lon);
+	  
 
 private:
       wxWindow         *m_parent_window;

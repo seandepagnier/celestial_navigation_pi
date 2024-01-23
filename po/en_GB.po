@@ -1,0 +1,721 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: opencpn\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-27 22:15+0200\n"
+"PO-Revision-Date: 2023-10-04 18:32\n"
+"Last-Translator: \n"
+"Language-Team: English, United Kingdom\n"
+"Language: en_GB\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Crowdin-Project: opencpn\n"
+"X-Crowdin-Project-ID: 49843\n"
+"X-Crowdin-Language: en-GB\n"
+"X-Crowdin-File: /plugins/celestial_navigation_pi/po/celestial_navigation_pi.pot\n"
+"X-Crowdin-File-ID: 108\n"
+
+#: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:149
+#: src\CelestialNavigationDialog-2.3.5.2-android.cpp:150
+#: src\CelestialNavigationDialog-partial-android.cpp:149
+#: src\CelestialNavigationDialog.cpp:150 src\CelestialNavigationUI.cpp:137
+msgid "Type"
+msgstr ""
+
+#: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:150
+#: src\CelestialNavigationDialog-2.3.5.2-android.cpp:151
+#: src\CelestialNavigationDialog-partial-android.cpp:150
+#: src\CelestialNavigationDialog.cpp:151
+msgid "Body"
+msgstr ""
+
+#: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:151
+#: src\CelestialNavigationDialog-2.3.5.2-android.cpp:152
+#: src\CelestialNavigationDialog-partial-android.cpp:151
+#: src\CelestialNavigationDialog.cpp:152 src\CelestialNavigationUI.cpp:328
+msgid "Time (UT)"
+msgstr ""
+
+#: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:152
+#: src\CelestialNavigationDialog-2.3.5.2-android.cpp:153
+#: src\CelestialNavigationDialog-partial-android.cpp:152
+#: src\CelestialNavigationDialog.cpp:153 src\CelestialNavigationUI.cpp:184
+msgid "Measurement"
+msgstr ""
+
+#: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:153
+#: src\CelestialNavigationDialog-2.3.5.2-android.cpp:154
+#: src\CelestialNavigationDialog-partial-android.cpp:153
+#: src\CelestialNavigationDialog.cpp:154 src\CelestialNavigationUI.cpp:381
+msgid "Color"
+msgstr ""
+
+#: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:266
+#: src\CelestialNavigationDialog-2.3.5.2-android.cpp:272
+#: src\CelestialNavigationDialog-partial-android.cpp:266
+#: src\CelestialNavigationDialog.cpp:272 src\celestial_navigation_pi.cpp:177
+msgid "Failed to load file: "
+msgstr ""
+
+#: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:271
+#: src\CelestialNavigationDialog-2.3.5.2-android.cpp:277
+#: src\CelestialNavigationDialog-partial-android.cpp:271
+#: src\CelestialNavigationDialog.cpp:277
+msgid "Invalid xml file"
+msgstr ""
+
+#: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:323
+#: src\CelestialNavigationDialog-2.3.5.2-android.cpp:329
+#: src\CelestialNavigationDialog-partial-android.cpp:323
+#: src\CelestialNavigationDialog.cpp:329
+msgid "Unrecognized xml node"
+msgstr ""
+
+#: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:332
+#: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:392
+#: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:532
+#: src\CelestialNavigationDialog-2.3.5.2-android.cpp:338
+#: src\CelestialNavigationDialog-2.3.5.2-android.cpp:398
+#: src\CelestialNavigationDialog-2.3.5.2-android.cpp:538
+#: src\CelestialNavigationDialog-partial-android.cpp:332
+#: src\CelestialNavigationDialog-partial-android.cpp:392
+#: src\CelestialNavigationDialog-partial-android.cpp:532
+#: src\CelestialNavigationDialog.cpp:338 src\CelestialNavigationDialog.cpp:398
+#: src\CelestialNavigationDialog.cpp:538 src\Sight.cpp:1120
+#: src\Sight.cpp.bak:1121 src\celestial_navigation_pi.cpp:95
+#: src\celestial_navigation_pi.cpp:99
+msgid "Celestial Navigation"
+msgstr ""
+
+#: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:391
+#: src\CelestialNavigationDialog-2.3.5.2-android.cpp:397
+#: src\CelestialNavigationDialog-partial-android.cpp:391
+#: src\CelestialNavigationDialog.cpp:397
+msgid "Failed to save xml file: "
+msgstr ""
+
+#: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:424
+#: src\CelestialNavigationDialog-2.3.5.2-android.cpp:430
+#: src\CelestialNavigationDialog-partial-android.cpp:424
+#: src\CelestialNavigationDialog.cpp:430
+msgid "Time Correction"
+msgstr ""
+
+#: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:473
+#: src\CelestialNavigationDialog-2.3.5.2-android.cpp:479
+#: src\CelestialNavigationDialog-partial-android.cpp:473
+#: src\CelestialNavigationDialog.cpp:479
+msgid "Sun"
+msgstr ""
+
+#: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:531
+#: src\CelestialNavigationDialog-2.3.5.2-android.cpp:537
+#: src\CelestialNavigationDialog-partial-android.cpp:531
+#: src\CelestialNavigationDialog.cpp:537
+msgid "Are you sure you want to delete all sights?"
+msgstr ""
+
+#: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:582
+#: src\CelestialNavigationDialog-2.3.5.2-android.cpp:588
+#: src\CelestialNavigationDialog-partial-android.cpp:582
+#: src\CelestialNavigationDialog.cpp:588
+msgid "Celestial_Navigation_Information.html"
+msgstr ""
+
+#: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:589
+#: src\CelestialNavigationDialog-2.3.5.2-android.cpp:595
+#: src\CelestialNavigationDialog-partial-android.cpp:589
+#: src\CelestialNavigationDialog.cpp:595 src\CelestialNavigationUI.cpp:55
+msgid "Hide"
+msgstr ""
+
+#: src\CelestialNavigationDialog-2.3.5.1-no-android.cpp:589
+#: src\CelestialNavigationDialog-2.3.5.2-android.cpp:595
+#: src\CelestialNavigationDialog-partial-android.cpp:589
+#: src\CelestialNavigationDialog.cpp:595
+msgid "Show"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:40
+msgid "New"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:43 src\CelestialNavigationUI.h:286
+msgid "Fix"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:46
+msgid "Duplicate"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:49
+msgid "Clock Offset"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:52
+msgid "Edit"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:58
+msgid "Delete"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:61
+msgid "Information"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:64
+msgid "Delete All"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:141 src\CelestialNavigationUI.cpp:674
+#: src\Sight.h:49
+msgid "Altitude"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:141 src\CelestialNavigationUI.cpp:683
+#: src\Sight.h:49
+msgid "Azimuth"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:141 src\Sight.h:49
+msgid "Lunar"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:147
+msgid "Magnetic Azimuth"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:150
+msgid "Celestial Body"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:159
+msgid "Find"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:162
+msgid "Limb"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:166
+msgid "Center"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:166
+msgid "Lower"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:166
+msgid "Upper"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:191 src\CelestialNavigationUI.cpp:198
+#: src\CelestialNavigationUI.cpp:228 src\CelestialNavigationUI.cpp:235
+msgid "0"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:194 src\CelestialNavigationUI.cpp:353
+#: src\CelestialNavigationUI.cpp:605
+msgid "Degrees"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:201 src\CelestialNavigationUI.cpp:283
+#: src\CelestialNavigationUI.cpp:444
+msgid "Minutes"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:205
+msgid "10"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:208
+msgid "Minutes Certainty"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:222
+msgid "Lunar Altitude"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:231
+msgid "Body Altitude"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:248
+msgid "Sight"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:276
+msgid "Hours"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:290 src\CelestialNavigationUI.cpp:308
+#: src\CelestialNavigationUI.cpp:869
+msgid "Seconds"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:298
+msgid "Certainty"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:335 src\CelestialNavigationUI.cpp:587
+msgid "Distance"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:342 src\CelestialNavigationUI.cpp:594
+msgid "Nm"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:346 src\CelestialNavigationUI.cpp:598
+msgid "Bearing"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:357 src\CelestialNavigationUI.cpp:609
+msgid "Magnetic Bearing"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:364
+msgid "DR Shift"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:371
+msgid "Transparency"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:392
+msgid "Config"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:404
+msgid "Eye Height"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:408
+msgid "2"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:411
+msgid "Meters"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:415
+msgid "Temperature"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:422
+msgid "Celcius"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:426
+msgid "Pressure"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:433
+msgid "MilliBars"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:437
+msgid "Index Error"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:451
+msgid "Set As Defaults"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:458
+msgid "Parameters"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:474
+msgid "Calculations"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:578
+msgid "Shift all visible Sights"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:656 src\CelestialNavigationUI.cpp:769
+msgid "Latitude"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:665 src\CelestialNavigationUI.cpp:777
+msgid "Longitude"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:691
+msgid "Boat Position"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:695
+msgid "Magnetic"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:698
+msgid "Done"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:762
+msgid "Fix From Visible Sights"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:773
+msgid "       N/A       "
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:781
+msgid "          N/A          "
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:785
+msgid "Error"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:789
+msgid "     N/A     "
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:796 src\CelestialNavigationUI.cpp:803
+msgid "Initial"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:810
+msgid "Alg"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:815
+msgid "Plane"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:816
+msgid "Sphere"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:817
+msgid "Cone"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:818
+msgid "Cone 2"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:822
+msgid "Go"
+msgstr ""
+
+#: src\CelestialNavigationUI.cpp:859 src\CelestialNavigationUI.h:308
+msgid "Clock Correction"
+msgstr ""
+
+#: src\CelestialNavigationUI.h:82
+msgid "Celestial Navigation Sights"
+msgstr ""
+
+#: src\CelestialNavigationUI.h:173
+msgid "Sight Properties"
+msgstr ""
+
+#: src\CelestialNavigationUI.h:204
+msgid "Dead Reckoning shift"
+msgstr ""
+
+#: src\CelestialNavigationUI.h:232
+msgid "Find Celestial Body"
+msgstr ""
+
+#: src\FixDialog.cpp:192
+msgid "Shifted sights are not used to compute a fix, determine fix visually instead.\n"
+msgstr ""
+
+#: src\FixDialog.cpp:193
+msgid "Fix Position"
+msgstr ""
+
+#: src\FixDialog.cpp:338 src\FixDialog.cpp:339 src\FixDialog.cpp:340
+msgid "   N/A   "
+msgstr ""
+
+#: src\Sight.cpp:172 src\Sight.cpp.bak:173
+msgid "Astrolab failed, data unavailable:\n"
+msgstr ""
+
+#: src\Sight.cpp:173 src\Sight.cpp.bak:174
+msgid "\n"
+"Did you forget to install vsop87d.txt?\n"
+msgstr ""
+
+#: src\Sight.cpp:174 src\Sight.cpp.bak:175
+msgid "The plugin will not work correctly"
+msgstr ""
+
+#: src\Sight.cpp:175 src\Sight.cpp.bak:176
+msgid "Failure Alert"
+msgstr ""
+
+#: src\Sight.cpp:495 src\Sight.cpp.bak:496
+#, c-format
+msgid "Applying clock correction of %d seconds\n\n"
+msgstr ""
+
+#: src\Sight.cpp:557 src\Sight.cpp.bak:558
+msgid "Almanac Data For "
+msgstr ""
+
+#: src\Sight.cpp:558 src\Sight.cpp.bak:559
+#, c-format
+msgid "\n"
+"Geographical Position (lat, lon) = %.4f %.4f\n"
+"GHAAST = %.0f %.1f'\n"
+"SHA = %.0f %.1f'\n"
+"GHA = %.0f %.1f'\n"
+"Dec = %c %.0f %.1f'\n"
+"SD = %.1f'\n"
+"HP = %.1f'\n\n"
+msgstr ""
+
+#: src\Sight.cpp:573 src\Sight.cpp:711 src\Sight.cpp.bak:574
+#: src\Sight.cpp.bak:712
+msgid "Formulas used to calculate sight\n\n"
+msgstr ""
+
+#: src\Sight.cpp:577 src\Sight.cpp:715 src\Sight.cpp.bak:578
+#: src\Sight.cpp.bak:716
+#, c-format
+msgid "Index Error is %.4f degrees\n\n"
+msgstr ""
+
+#: src\Sight.cpp:582 src\Sight.cpp:720 src\Sight.cpp.bak:583
+#: src\Sight.cpp.bak:721
+#, c-format
+msgid "Eye Height is %.4f meters\n"
+"Height Correction Degrees = 1.758*sqrt(%.4f) / 60.0\n"
+"Height Correction Degrees = %.4f\n"
+msgstr ""
+
+#: src\Sight.cpp:589 src\Sight.cpp:799 src\Sight.cpp.bak:590
+#: src\Sight.cpp.bak:800
+#, c-format
+msgid "\n"
+"Apparent Altitude (Ha)\n"
+"ApparentAltitude = Measurement - IndexCorrection - EyeHeightCorrection\n"
+"ApparentAltitude = %.4f - %.4f - %.4f\n"
+"ApparentAltitude = %.4f\n"
+msgstr ""
+
+#: src\Sight.cpp:607 src\Sight.cpp:810 src\Sight.cpp.bak:608
+#: src\Sight.cpp.bak:811
+#, c-format
+msgid "\n"
+"Refraction Correction\n"
+"x = tan(Pi/180*ApparentAltitude + 4.848e-2*(Pi/180) / (tan(Pi/180*ApparentAltitude) + .028))\n"
+"x = tan(Pi/180*%.4f + 4.848e-2*(Pi/180) / (tan(Pi/180*%.4f) + .028))\n"
+"x = %.4f\n"
+msgstr ""
+
+#: src\Sight.cpp:612 src\Sight.cpp:815 src\Sight.cpp.bak:613
+#: src\Sight.cpp.bak:816
+#, c-format
+msgid "RefractionCorrection = .267 * Pressure / (x*(Temperature + 273.15)) / 60.0\n"
+"RefractionCorrection = .267 * %.4f / (x*(%.4f + 273.15)) / 60.0\n"
+"RefractionCorrection = %.4f\n"
+msgstr ""
+
+#: src\Sight.cpp:627 src\Sight.cpp:829 src\Sight.cpp.bak:628
+#: src\Sight.cpp.bak:830
+#, c-format
+msgid "\n"
+"Sun selected, Limb Correction\n"
+"ra = %.4f, lc = 0.266564/ra = %.4f\n"
+msgstr ""
+
+#: src\Sight.cpp:637 src\Sight.cpp:753 src\Sight.cpp.bak:638
+#: src\Sight.cpp.bak:754
+#, c-format
+msgid "\n"
+"Moon selected, Limb Correction\n"
+"SD = %.4f\n"
+"lc = 180/Pi * asin(Pi/180*SD)\n"
+"lc = %.4f\n"
+msgstr ""
+
+#: src\Sight.cpp:647 src\Sight.cpp:762 src\Sight.cpp:837 src\Sight.cpp.bak:648
+#: src\Sight.cpp.bak:763 src\Sight.cpp.bak:838
+msgid "Upper Limb"
+msgstr ""
+
+#: src\Sight.cpp:650 src\Sight.cpp:765 src\Sight.cpp:840 src\Sight.cpp.bak:651
+#: src\Sight.cpp.bak:766 src\Sight.cpp.bak:841
+msgid "Lower Limb"
+msgstr ""
+
+#: src\Sight.cpp:653 src\Sight.cpp:843 src\Sight.cpp.bak:654
+#: src\Sight.cpp.bak:844
+#, c-format
+msgid "\n"
+"LimbCorrection = %.4f\n"
+msgstr ""
+
+#: src\Sight.cpp:657 src\Sight.cpp:847 src\Sight.cpp.bak:658
+#: src\Sight.cpp.bak:848
+#, c-format
+msgid "\n"
+"Corrected Altitude\n"
+"CorrectedAltitude = ApparentAltitude - RefractionCorrection - LimbCorrection\n"
+"CorrectedAltitude = %.4f - %.4f - %.4f\n"
+"CorrectedAltitude = %.4f\n"
+msgstr ""
+
+#: src\Sight.cpp:671 src\Sight.cpp:861 src\Sight.cpp.bak:672
+#: src\Sight.cpp.bak:862
+#, c-format
+msgid "\n"
+"Sun selected, parallax correction\n"
+"rad = %.4f, HP = 0.002442/rad = %.4f\n"
+msgstr ""
+
+#: src\Sight.cpp:680 src\Sight.cpp:785 src\Sight.cpp.bak:681
+#: src\Sight.cpp.bak:786
+#, c-format
+msgid "\n"
+"Moon selected, parallax correction\n"
+"HP = %.4f\n"
+msgstr ""
+
+#: src\Sight.cpp:686 src\Sight.cpp:867 src\Sight.cpp.bak:687
+#: src\Sight.cpp.bak:868
+#, c-format
+msgid "ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * CorrectedAltitude))\n"
+"ParallaxCorrection = -180/Pi * asin( sin(Pi/180 * %.4f ) * cos(Pi/180 * %.4f))\n"
+"ParallaxCorrection = %.4f\n"
+msgstr ""
+
+#: src\Sight.cpp:693 src\Sight.cpp.bak:694
+#, c-format
+msgid "\n"
+"Observed Altitude (Ho)\n"
+"ObservedAltitude = CorrectedAltitude - ParallaxCorrection\n"
+"ObservedAltitude = %.4f - %.4f\n"
+"ObservedAltitude = %.4f\n"
+msgstr ""
+
+#: src\Sight.cpp:727 src\Sight.cpp.bak:728
+#, c-format
+msgid "\n"
+"Apparent Moon Altitude (Ha)\n"
+"ApparentAltitudeMoon = MeasurementMoon - IndexCorrection - EyeHeightCorrection\n"
+"ApparentAltitudeMoon = %.4f - %.4f - %.4f\n"
+"ApparentAltitudeMoon = %.4f\n"
+msgstr ""
+
+#: src\Sight.cpp:738 src\Sight.cpp.bak:739
+#, c-format
+msgid "\n"
+"Refraction Correction\n"
+"x = tan(Pi/180*ApparentAltitudeMoon + 4.848e-2*(Pi/180) / (tan(Pi/180*ApparentAltitudeMoon) + .028))\n"
+"x = tan(Pi/180*%.4f + 4.848e-2*(Pi/180) / (tan(Pi/180*%.4f) + .028))\n"
+"x = %.4f\n"
+msgstr ""
+
+#: src\Sight.cpp:743 src\Sight.cpp.bak:744
+#, c-format
+msgid "RefractionCorrectionMoon = .267 * Pressure / (x*(Temperature + 273.15)) / 60.0\n"
+"RefractionCorrectionMoon = .267 * %.4f / (x*(%.4f + 273.15)) / 60.0\n"
+"RefractionCorrectionMoon = %.4f\n"
+msgstr ""
+
+#: src\Sight.cpp:768 src\Sight.cpp:771 src\Sight.cpp.bak:769
+#: src\Sight.cpp.bak:772
+#, c-format
+msgid "\n"
+"LimbCorrectionMoon = %.4f\n"
+msgstr ""
+
+#: src\Sight.cpp:774 src\Sight.cpp.bak:775
+#, c-format
+msgid "\n"
+"Corrected Altitude\n"
+"CorrectedAltitudeMoon = ApparentAltitudeMoon - RefractionCorrectionMoon - LimbCorrectionMoon\n"
+"CorrectedAltitudeMoon = %.4f - %.4f - %.4f\n"
+"CorrectedAltitudeMoon = %.4f\n"
+msgstr ""
+
+#: src\Sight.cpp:789 src\Sight.cpp.bak:790
+#, c-format
+msgid "ParallaxCorrectionMoon = -180/Pi * asin( sin(Pi/180 * HP ) * cos(Pi/180 * CorrectedAltitude))\n"
+"ParallaxCorrectionMoon = -180/Pi * asin( sin(Pi/180 * %.4f ) * cos(Pi/180 * %.4f))\n"
+"ParallaxCorrectionMoon = %.4f\n"
+msgstr ""
+
+#: src\Sight.cpp:878 src\Sight.cpp.bak:879
+#, c-format
+msgid "CorrectionsMoon = %.4f\n"
+"CorrectionsBody = %.4f\n"
+"Corrections = abs(CorrectionsMoon - CorrectionsBody) = %.4f\n"
+msgstr ""
+
+#: src\Sight.cpp:884 src\Sight.cpp.bak:885
+#, c-format
+msgid "CorrectedMeasurement = Measurement - Corrections - IndexCorrection\n"
+"CorrectedMeasurement = %.4f - %.4f - %.4f\n"
+"CorrectedMeasurement = %.4f\n"
+msgstr ""
+
+#: src\Sight.cpp:909 src\Sight.cpp.bak:910
+msgid "\n"
+"Calculated angle between Moon and "
+msgstr ""
+
+#: src\Sight.cpp:911 src\Sight.cpp.bak:912
+#, c-format
+msgid "\n"
+"Error from measurement: %.4f"
+msgstr ""
+
+#: src\Sight.cpp:915 src\Sight.cpp.bak:916
+msgid "\n"
+"Moon takes 28 days to orbit, one degree of error takes 6720 seconds"
+msgstr ""
+
+#: src\Sight.cpp:916 src\Sight.cpp.bak:917
+#, c-format
+msgid "\n"
+"Time correction %.4f seconds"
+msgstr ""
+
+#: src\Sight.cpp:1120 src\Sight.cpp.bak:1121
+msgid "Building bearing Sight Positions"
+msgstr ""
+
+#: src\SightDialog.cpp:184
+msgid "Measurement certainty likely set to small, sight may not appear "
+msgstr ""
+
+#: src\SightDialog.cpp:185 src\SightDialog.cpp:279
+msgid "Warning"
+msgstr ""
+
+#: src\SightDialog.cpp:278
+msgid "Lunar shot will be invalid taking distance from moon to itself"
+msgstr ""
+
+#: src\celestial_navigation_pi.cpp:179
+msgid "open error"
+msgstr ""
+
+#: src\celestial_navigation_pi.cpp:180
+msgid "corrupt record"
+msgstr ""
+
+#: src\celestial_navigation_pi.cpp:181
+msgid "too many models"
+msgstr ""
+
+#: src\celestial_navigation_pi.cpp:184
+msgid "Magnetic data will not be available for the celestial navigation plugin."
+msgstr ""
+
+#: src\celestial_navigation_pi.cpp:185
+msgid "OpenCPN Alert"
+msgstr ""
+

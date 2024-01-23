@@ -32,16 +32,15 @@
 #include <wx/stdpaths.h>
 #include <wx/imaglist.h>
 
-#include "tinyxml/tinyxml.h"
+#include "tinyxml.h"
 
 #include "ocpn_plugin.h"
 
-#include "icons.h"
 #include "Sight.h"
 #include "SightDialog.h"
 #include "CelestialNavigationDialog.h"
 #include "celestial_navigation_pi.h"
-#include "zuFile.h"
+
 
 #include "astrolabe/astrolabe.hpp"
 static wxString DataDirectory()
@@ -51,11 +50,12 @@ static wxString DataDirectory()
 }
 
 static wxString UserDataDirectory()
-{
+ {
     wxString s = wxFileName::GetPathSeparator();
     return *GetpPrivateApplicationDataLocation() + s + "plugins"
         + s + "celestial_navigation" + s;
-}
+ }
+
 
 /* XPM */
 static const char *eye[]={
@@ -95,20 +95,20 @@ enum { rmVISIBLE = 0, rmTYPE, rmBODY, rmTIME, rmMEASUREMENT, rmCOLOR };// RMColu
 int wxCALLBACK SortSights(long item1, long item2, wxIntPtr list)
 #else
 int wxCALLBACK SortSights(long item1, long item2, long list)
-#endif            
+#endif
 {
     wxListCtrl *lc = (wxListCtrl*)list;
 
     wxListItem it1, it2;
     it1.SetId(lc->FindItem(-1, item1));
     it1.SetColumn(1);
-    
+
     it2.SetId(lc->FindItem(-1, item2));
     it2.SetColumn(1);
-    
+
     lc->GetItem(it1);
     lc->GetItem(it2);
-    
+
     return it1.GetText().Cmp(it2.GetText());
 }
 
@@ -134,51 +134,6 @@ CelestialNavigationDialog::CelestialNavigationDialog(wxWindow *parent)
     pConf->Read ( _T ( "DialogWidth" ), &s.x, s.x);
     pConf->Read ( _T ( "DialogHeight" ), &s.y, s.y);
     SetSize(s);
-    
-    wxString filename = DataDirectory() + "vsop87d.txt";
-    wxFileName fn(filename);
-    if(!fn.Exists())
-        filename = UserDataDirectory() + "vsop87d.txt";
-    
-    wxFileName fn2(filename);
-#ifndef WIN32 // never hit because data is distribued easier to not compile compression support
-    if(!fn2.Exists()) {
-        wxMessageDialog mdlg(this, _("Astrolab data unavailable.\n")
-                             + filename + "\n"
-                             + _("\nWould you like to download?"),
-                             _("Failure Alert"), wxYES | wxNO | wxICON_ERROR);
-        if(mdlg.ShowModal() == wxID_YES) {
-            wxString url = "https://cfhcable.dl.sourceforge.net/project/opencpnplugins/celestial_navigation_pi/";
-            wxString path = UserDataDirectory();
-            wxString fn = "vsop87d.txt.gz";
-        
-            _OCPN_DLStatus status = OCPN_downloadFile(
-                url+fn, path+fn, _("downloading celestial navigation data file"),
-                "downloading...",
-                *_img_celestial_navigation, this,
-                OCPN_DLDS_CAN_ABORT|OCPN_DLDS_ELAPSED_TIME|OCPN_DLDS_ESTIMATED_TIME|OCPN_DLDS_REMAINING_TIME|OCPN_DLDS_SPEED|OCPN_DLDS_SIZE|OCPN_DLDS_URL|OCPN_DLDS_AUTO_CLOSE, 20);
-            if(status == OCPN_DL_NO_ERROR) {            
-                // now decompress downloaded file
-                ZUFILE *f = zu_open(path+fn.mb_str(), "rb", ZU_COMPRESS_AUTO);
-                if(f) {
-                    FILE *out = fopen(path+"vsop87d.txt", "w");
-                    if(out) {
-                        char buf[1024];
-                        for(;;) {
-                            size_t size = zu_read(f, buf, sizeof buf);
-                            fwrite(buf, size, 1, out);
-                            if(size != sizeof buf)
-                                break;
-                        }
-                        fclose(out);
-                    }
-                    zu_close(f);
-                }
-            }
-        }
-    }
-#endif
-    astrolabe::globals::vsop87d_text_path = (const char *)filename.mb_str();
 
 // create a image list for the list with just the eye icon
     wxImageList *imglist = new wxImageList(20, 20, true, 1);
@@ -194,7 +149,7 @@ CelestialNavigationDialog::CelestialNavigationDialog(wxWindow *parent)
     m_lSights->InsertColumn(rmMEASUREMENT, _("Measurement"));
     m_lSights->InsertColumn(rmCOLOR, _("Color"));
 
-    m_sights_path = UserDataDirectory() + "Sights.xml";
+    m_sights_path = celestial_navigation_pi::StandardPath() + _T("Sights.xml");
 
     if(!OpenXML(m_sights_path, false)) {
         /* create directory for plugin files if it doesn't already exist */
@@ -206,23 +161,28 @@ CelestialNavigationDialog::CelestialNavigationDialog(wxWindow *parent)
         }
     }
 
-    
+//
+#if 0       // TODO  (DSR) This Android GUI interface needs work
 #ifdef __OCPN__ANDROID__
     GetHandle()->setAttribute(Qt::WA_AcceptTouchEvents);
     GetHandle()->grabGesture(Qt::PanGesture);
     GetHandle()->setStyleSheet( qtStyleSheet);
-
-    m_lSights->GetHandle()->setAttribute(Qt::WA_AcceptTouchEvents);
+    m_lSights->GetHandle()->setAttribute(Qt::WA_AcceptTouchEvents);//
     m_lSights->GetHandle()->grabGesture(Qt::PanGesture);
     m_lSights->Connect( wxEVT_QT_PANGESTURE,
                        (wxObjectEventFunction) (wxEventFunction) &CelestialNavigationDialog::OnEvtPanGesture, NULL, this );
-
-    GetHandle()->setStyleSheet( qtStyleSheet);
-    Move(0, 0);
+    GetHandle()->setStyleSheet( qtStyleSheet);//
+   Move(0, 0);
 #endif
+#endif      //if 0
+
+//
+
 }
 
-#ifdef __OCPN__ANDROID__ 
+#if 0       // TODO  (DSR) This Android GUI interface needs work
+
+#ifdef __OCPN__ANDROID__
 void CelestialNavigationDialog::OnEvtPanGesture( wxQT_PanGestureEvent &event)
 {
     switch(event.GetState()){
@@ -239,12 +199,14 @@ void CelestialNavigationDialog::OnEvtPanGesture( wxQT_PanGestureEvent &event)
             x = wxMin(x, xmax);
             int ymax = ::wxGetDisplaySize().y - GetSize().y;          // Some fluff at the bottom
             y = wxMin(y, ymax);
-            
+
             Move(x, y);
         } break;
     }
+// master
 }
 #endif
+#endif      //if 0
 
 CelestialNavigationDialog::~CelestialNavigationDialog()
 {
@@ -331,7 +293,7 @@ bool CelestialNavigationDialog::OpenXML(wxString filename, bool reportfailure)
                     s.m_DateTime.SetSecond(time.GetSecond());
                 } else
                     continue; /* skip if invalid */
-            
+
                 s.m_TimeCertainty = AttributeDouble(e, "TimeCertainty", 0);
 
                 s.m_Measurement = AttributeDouble(e, "Measurement", 0);
@@ -412,7 +374,7 @@ void CelestialNavigationDialog::SaveXML(wxString filename)
         c->SetDoubleAttribute("Temperature", s->m_Temperature);
         c->SetDoubleAttribute("Pressure", s->m_Pressure);
         c->SetDoubleAttribute("IndexError", s->m_IndexError);
-                        
+
         c->SetDoubleAttribute("ShiftNm", s->m_ShiftNm);
         c->SetDoubleAttribute("ShiftBearing", s->m_ShiftBearing);
         c->SetDoubleAttribute("MagneticShiftBearing", s->m_bMagneticShiftBearing);
@@ -443,7 +405,7 @@ void CelestialNavigationDialog::InsertSight(Sight *s, bool warnings)
     m_lSights->SetItemImage(idx, s->IsVisible() ? 0 : -1);
 #else
     idx = m_lSights->InsertItem(idx+1, (*it)->IsVisible() ? 0 : -1);
-#endif    
+#endif
     UpdateSight(idx, warnings);
 }
 
@@ -462,20 +424,20 @@ void CelestialNavigationDialog::UpdateSight(int idx, bool warnings)
                            wxString::Format(_T(": %.4f"), s->m_TimeCorrection));
     else
         m_lSights->SetItem(idx, rmCOLOR, s->m_ColourName);
-    
+
     m_lSights->SetColumnWidth(rmTYPE, wxLIST_AUTOSIZE);
     m_lSights->SetColumnWidth(rmBODY, wxLIST_AUTOSIZE);
     m_lSights->SetColumnWidth(rmTIME, wxLIST_AUTOSIZE);
     m_lSights->SetColumnWidth(rmCOLOR, wxLIST_AUTOSIZE);
-    
+
     if(m_lSights->GetColumnWidth(1) < 20)
         m_lSights->SetColumnWidth(1, 50);
 
     if(m_lSights->GetColumnWidth(2) < 20)
         m_lSights->SetColumnWidth(2, 50);
-    
+
     m_lSights->SortItems(SortSights, (long)m_lSights);
-    
+
     UpdateButtons();
     UpdateFix(warnings);
 }
@@ -491,7 +453,7 @@ void CelestialNavigationDialog::UpdateButtons()
     // enable/disable buttons
     long selected_index_index = m_lSights->GetNextItem(-1, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
     bool enable = !(selected_index_index < 0);
-    
+
     m_bEditSight->Enable(enable);
     m_bDeleteSight->Enable(enable);
     m_bDeleteAllSights->Enable(m_lSights->GetItemCount() > 0);
@@ -509,7 +471,7 @@ void CelestialNavigationDialog::OnNew(wxCommandEvent &event)
 
     Sight s(Sight::ALTITUDE, _("Sun"), Sight::LOWER, now, 0, 0, 10);
     SightDialog dialog(GetParent(), s, m_ClockCorrectionDialog.m_sClockCorrection->GetValue());
-      
+
     if( dialog.ShowModal() == wxID_OK ) {
         Sight *ns = new Sight(s);
 
@@ -540,9 +502,9 @@ void CelestialNavigationDialog::OnEdit( )
 
     Sight *psight = (Sight*)wxUIntToPtr(m_lSights->GetItemData(selected_index));
     Sight originalsight = *psight; /* in case of cancel */
-    
+
     SightDialog dialog(GetParent(), *psight, m_ClockCorrectionDialog.m_sClockCorrection->GetValue());
-    
+
     if( dialog.ShowModal() == wxID_OK ) {
         dialog.Recompute();
         psight->RebuildPolygons();
@@ -558,7 +520,7 @@ void CelestialNavigationDialog::OnDelete(wxCommandEvent &event)
     // Delete selected_index sight/track
     long selected_index = m_lSights->GetNextItem(-1, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
     if (selected_index < 0) return;
-    
+
     m_lSights->DeleteItem(selected_index);
     RequestRefresh( GetParent() );
 }
@@ -604,13 +566,22 @@ void CelestialNavigationDialog::OnClockOffset( wxCommandEvent& event )
     m_ClockCorrectionDialog.Show();
 }
 
-void CelestialNavigationDialog::OnInformation( wxCommandEvent& event )
+//void CelestialNavigationDialog::OnInformation( wxCommandEvent& event )
+//{
+//    wxString infolocation = *GetpSharedDataLocation()
+//        + _T("plugins/celestial_navigation_pi/data/")
+//        + _("Celestial_Navigation_Information.html");
+//    wxLaunchDefaultBrowser(_T("file://") + infolocation);
+//}
+
+    void CelestialNavigationDialog::OnInformation( wxCommandEvent& event )
 {
-    wxString infolocation = *GetpSharedDataLocation()
-        + _T("plugins/celestial_navigation_pi/data/")
-        + _("Celestial_Navigation_Information.html");
+    wxString infolocation =GetPluginDataDir("celestial_navigation_pi")
+       + _T("/data/")
+       + _("Celestial_Navigation_Information.html");
     wxLaunchDefaultBrowser(_T("file://") + infolocation);
 }
+
 
 void CelestialNavigationDialog::OnHide( wxCommandEvent& event )
 {
@@ -623,7 +594,7 @@ void CelestialNavigationDialog::OnSightListLeftDown(wxMouseEvent &event)
     wxPoint pos = event.GetPosition();
     int flags = 0;
     long clicked_index = m_lSights->HitTest(pos, flags);
-    
+
     //    Clicking Visibility column?
     if (clicked_index > -1 && event.GetX() < m_lSights->GetColumnWidth(0))
     {

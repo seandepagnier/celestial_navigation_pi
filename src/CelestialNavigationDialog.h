@@ -29,9 +29,6 @@
 #define _CelestialNavigationDialog_h_
 
 #include <list>
-#ifdef __OCPN__ANDROID__
-#include <wx/qt/private/wxQtGesture.h>
-#endif
 
 #include "geodesic.h"
 #include "CelestialNavigationUI.h"
@@ -43,9 +40,6 @@ class CelestialNavigationDialog : public CelestialNavigationDialogBase
 public:
     CelestialNavigationDialog(wxWindow *parent);
     ~CelestialNavigationDialog();
-#ifdef __OCPN__ANDROID__
-    void OnEvtPanGesture( wxQT_PanGestureEvent &event);
-#endif    
     void UpdateSights();
 
     FixDialog m_FixDialog;
@@ -71,7 +65,6 @@ private:
     void OnClockOffset( wxCommandEvent& event );
     void OnInformation( wxCommandEvent& event );
     void OnHide( wxCommandEvent& event );
-    void OnClose( wxCommandEvent& event ) { Hide(); }
 
     void OnClockCorrection( wxSpinEvent& event );
     void OnSightListLeftDown(wxMouseEvent &event);
@@ -85,9 +78,8 @@ private:
     int clock_correction;
 
     ClockCorrectionDialog m_ClockCorrectionDialog;
-#ifdef __OCPN__ANDROID__
-    wxPoint m_downPos, m_startPos, m_startMouse;
-#endif    
+    wxPoint m_startPos;
+    wxPoint m_startMouse;
 };
 
 #endif // _CelestialNavigationDialog_h_
